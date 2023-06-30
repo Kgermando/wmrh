@@ -1,0 +1,57 @@
+<div
+    class="h-100vh pt-50 pb-50"
+    [class.component-dark-theme]="themeService.isDark()"
+    [class.card-borderd-theme]="themeService.isCardBorder()"
+    [class.card-border-radius]="themeService.isCardBorderRadius()" 
+>
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="tagus-form ms-auto me-auto">
+                <div class="title">
+                    <div class="d-flex mb-10 align-items-center">
+                        <h2 class="mb-0 me-30">Ressource humaines</h2>
+                        <img src="assets/img/logo-icon.png" alt="logo-icon">
+                    </div>
+                    <!-- <p>Don’t have an account? <a routerLink="/authentication/register" class="main-color fw-medium">Register now!</a></p> -->
+                </div>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="bg-white border-radius pt-20 ps-20 pe-20">
+                        <div class="tagus-form-group without-icon">
+                            <label class="d-block mb-12 fw-semibold gray-color">Matricule <span>*</span></label>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Entrer votre matricule</mat-label>
+                                <input matInput formControlName="matricule" ng-required="true">
+                            </mat-form-field> 
+                        </div>
+                        <div class="tagus-form-group without-icon">
+                            <label class="d-block mb-12 fw-semibold gray-color">Password <span>*</span></label>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Entrer votre mot de passe</mat-label>
+                                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" ng-required="true">
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="d-flex info align-items-center justify-content-space-between">
+                        <!-- <mat-checkbox class="gray-color">Remember me</mat-checkbox> -->
+                        <a routerLink="/authentication/forgot-password" class="d-inline-block main-color fw-medium">Mot de passe oublié ?</a>
+                    </div>
+                    <div class="d-flex justify-content-center" *ngIf="isLoading">
+                        <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+                    </div> 
+                    <div class="alert alert-danger d-flex justify-content-space-between align-items-center" role="alert" *ngIf="isLoggIn">
+                        Votre matricule ou le mot de passe n'est pas correct!
+                        <button type="button" class="close bg-transparent p-0 border-none" data-dismiss="alert" aria-label="Close" (click)="dismissAlert()">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    </div> 
+                    <div *ngIf="!isLoading">
+                        <button mat-flat-button class="tagus d-block fw-semibold" [disabled]="!form.valid">Se connecter</button>  
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

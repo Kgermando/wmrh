@@ -1,18 +1,84 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { ChangePasswordDialogBox, ProfileComponent } from './auth/profile/profile.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LayoutsComponent } from './layouts/layouts.component';
+import { PersonnelListComponent } from './personnels/personnel-list/personnel-list.component';
+import { PersonnelAddComponent } from './personnels/personnel-add/personnel-add.component';
+import { PersonnelEditComponent } from './personnels/personnel-edit/personnel-edit.component';
+import { PersonnelViewComponent } from './personnels/personnel-view/personnel-view.component'; 
+import { FooterComponent } from './common/footer/footer.component';
+import { HeaderComponent } from './common/header/header.component';
+import { InternalErrorComponent } from './common/internal-error/internal-error.component';
+import { NotFoundComponent } from './common/not-found/not-found.component';
+import { SidebarComponent } from './common/sidebar/sidebar.component';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { DatePipe } from '@angular/common';
+import { QuillModule } from 'ngx-quill';
+import { SharedModule } from './shared/shared.module';
+import { CustomizerSettingsComponent } from './customizer-settings/customizer-settings.component';
+import { InfoProfileComponent } from './auth/profile/info-profile/info-profile.component'; 
+import { ProfilePaieComponent } from './auth/profile/profile-paie/profile-paie.component';
+import { ProfileEditComponent } from './auth/profile/profile-edit/profile-edit.component';
+import { TotalStatsComponent } from './dashboard/total-stats/total-stats.component';
+import { PresenceStatusComponent } from './dashboard/presence-status/presence-status.component';
+import { ProgressionPaieComponent } from './dashboard/progression-paie/progression-paie.component';
+import { PrimeStatsComponent } from './dashboard/prime-stats/prime-stats.component';
+import { PenaliteStatsComponent } from './dashboard/penalite-stats/penalite-stats.component';
+import { ImpotStatsComponent } from './dashboard/impot-stats/impot-stats.component';
+import { SyndicatStatsComponent } from './dashboard/syndicat-stats/syndicat-stats.component';
+import { PresenceStatsComponent } from './dashboard/presence-stats/presence-stats.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent,
+    HeaderComponent,
+    InternalErrorComponent,
+    NotFoundComponent,
+    SidebarComponent,
+    CustomizerSettingsComponent,
+
+    AuthComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    ProfileComponent,
+    DashboardComponent,
+    LayoutsComponent,
+    PersonnelListComponent,
+    PersonnelAddComponent,
+    PersonnelEditComponent,
+    PersonnelViewComponent,
+    InfoProfileComponent, 
+    ProfilePaieComponent, 
+    ProfileEditComponent, 
+    ChangePasswordDialogBox, TotalStatsComponent, PresenceStatusComponent, ProgressionPaieComponent, PrimeStatsComponent, PenaliteStatsComponent, ImpotStatsComponent, SyndicatStatsComponent, PresenceStatsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    SharedModule,
+    NgxEchartsModule.forRoot({
+        echarts: () => import('echarts')
+    }),
+    QuillModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    DatePipe
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

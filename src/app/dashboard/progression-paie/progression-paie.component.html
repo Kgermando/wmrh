@@ -1,0 +1,24 @@
+<mat-card class="mb-25 tagus-card customer-satisfaction-box">
+    <mat-card-header class="border-bottom">
+        <h5 class="mb-0">Progression de paiement</h5> 
+    </mat-card-header>
+    <mat-card-content>
+        <div class="position-relative chart">
+            <apx-chart
+                [series]="chartOptions.series!"
+                [chart]="chartOptions.chart!"
+                [labels]="chartOptions.labels!"
+                [tooltip]="chartOptions.tooltip!"
+                [colors]="chartOptions.colors!"
+                [legend]="chartOptions.legend!"
+                [plotOptions]="chartOptions.plotOptions!"
+                [stroke]="chartOptions.stroke!"
+                [dataLabels]="chartOptions.dataLabels!"
+            ></apx-chart>
+            <div class="content text-center">
+                <h5>96.8%</h5>
+                <span class="d-block gray-color">Happiness</span>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
