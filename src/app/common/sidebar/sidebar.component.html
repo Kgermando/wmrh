@@ -24,6 +24,10 @@
                         <i class="flaticon-menu-1"></i>
                         <span class="title">Dashboard</span>
                     </a>
+                    <a routerLink="/layouts/personnels/personnel-list" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="flaticon-user-1"></i>
+                        <span class="title">Personnels</span>
+                    </a>
 
                     <span class="sub-title gray-color">APPS</span>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
