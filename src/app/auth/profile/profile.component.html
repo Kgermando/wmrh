@@ -23,12 +23,17 @@
                     [class.component-dark-theme]="themeService.isDark()"
                     [class.card-borderd-theme]="themeService.isCardBorder()"
                     [class.card-border-radius]="themeService.isCardBorderRadius()"
-                    [class.component-rtl-enabled]="themeService.isRTLEnabled()"
                 > 
                     <div class="bottom">
                         <div class="d-md-flex align-items-end justify-content-space-between">
                             <div class="profile-box position-relative">
-                                <img src="assets/img/user/user15.jpg" class="rounded-circle" alt="user">
+                                <div>
+                                    <img [src]="currentUser.photo"class="rounded-circle" alt="user" *ngIf="currentUser.photo">
+                                    <img src="assets/img/user/user15.jpg" class="rounded-circle" alt="user" *ngIf="!currentUser.photo">
+                                    <button mat-icon-button color="warn" (click)="openChangePhotoDialog('300ms', '100ms')">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </div>
                                 <h5 class="fw-semibold">{{currentUser.prenom}} {{currentUser.nom}}</h5>
                                 <span class="d-block gray-color">{{currentUser.titre}}</span>
                             </div>
@@ -52,15 +57,19 @@
         
                 <app-info-profile [currentUser]="currentUser"></app-info-profile> 
                 <p> </p> 
-                <button mat-flat-button class="d-block" color="primary" routerLink="/layouts/profile/edit">Modifier vos informations</button>
+                <!-- <button mat-flat-button class="d-block" color="primary" routerLink="/layouts/profile/edit">Modifier vos informations</button> -->
                 <p> </p> 
-                <button mat-flat-button class="d-block" color="warn" (click)="openAddTaskDialog('300ms', '100ms')" >Modifier le mot de passe</button>
+               
+               
+                <button mat-flat-button class="d-block" color="warn" (click)="openPasswordDialog('300ms', '100ms')" >Modifier le mot de passe</button>
+                <p> </p> 
+                <p> </p> 
             </div>
             <div fxFlex="67%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.lg="67%" fxFlex.md="100%" class="col">
         
                 <app-profile-paie [currentUser]="currentUser"></app-profile-paie>
                 
             </div> 
-           
+        
     </div>
 </ng-container>

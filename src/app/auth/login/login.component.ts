@@ -21,8 +21,8 @@ export class LoginComponent {
   form : FormGroup | any
 
   constructor(
-      public themeService: CustomizerSettingsService,
-      private formBuilder: FormBuilder,
+    public themeService: CustomizerSettingsService,
+    private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService, 
   ) {}
@@ -40,14 +40,14 @@ export class LoginComponent {
     this.isLoading = true; 
     this.authService.login(this.form.getRawValue()).subscribe({
         next: (res) => {
-          console.log(res); 
+          // console.log(res); 
          
           this.isLoading = false;
           this.router.navigate(['/layouts/dashboard']);
         },
         error: (e) => {
           this.isLoading = false;
-          console.error(e);
+          // console.error(e);
           this.isLoggIn = true; 
           this.router.navigate(['/auth/login']);
         },

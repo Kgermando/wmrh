@@ -6,8 +6,7 @@
     [class.hide-sidebar]="themeService.isHideSidebar()"
     [class.dark-header]="themeService.isHeaderDark()"
     [class.card-borderd-theme]="themeService.isCardBorder()"
-    [class.card-border-radius]="themeService.isCardBorderRadius()"
-    [class.rtl-enabled]="themeService.isRTLEnabled()"
+    [class.card-border-radius]="themeService.isCardBorderRadius()" 
 >
     <div class="d-md-flex align-items-center justify-content-space-between">
         <div class="header-left-side d-flex align-items-center">
@@ -143,7 +142,8 @@
             <li *ngIf="!loading">
                 <div *ngIf="currentUser">
                     <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-btn main-color border-none bg-transparent position-relative">
-                        <img src="assets/img/admin.jpg" class="rounded-circle" alt="admin">
+                        <img [src]="currentUser.photo" class="rounded-circle" alt="admin" *ngIf="currentUser.photo">
+                        <img src="assets/img/admin.jpg" class="rounded-circle" alt="admin" *ngIf="!currentUser.photo">
                         {{currentUser.title}}
                         <span class="fw-semibold">{{currentUser.prenom}} {{currentUser.nom}}</span>
                     </button>
@@ -154,14 +154,14 @@
                                     <i class="ri-user-3-line"></i> Profile
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a routerLink="/account">
-                                    <i class="ri-settings-3-line"></i> Settings
+                                    <i class="ri-settings-3-line"></i> Parametre
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a routerLink="/auth/login" (click)="logOut()">
-                                    <i class="ri-shut-down-line"></i> Logout
+                                    <i class="ri-shut-down-line"></i> Déconnexion
                                 </a>
                             </li>
                         </ul>

@@ -4,6 +4,8 @@ import { DatePipe } from '@angular/common';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
+import { Auth } from 'src/app/classes/auth';
 
 @Component({
     selector: 'app-header',
@@ -41,26 +43,19 @@ export class HeaderComponent {
 
     ngOnInit(): void {
         this.loading = true; 
-        this.authService.user().subscribe(
-            res => {
-              this.currentUser = res;
+        Auth.userEmitter.subscribe(
+            user => {
+              this.currentUser = user; 
               console.log(this.currentUser);
-              this.loading = false;
             }
           );
         this.loading = false;
     }
   
     logOut() {
-        try {
-            this.loading = true; 
-            this.authService.logout().subscribe(res => {
-            this.loading = false; 
-            });
-            
-        } catch (error) {
-            alert("Quelque chose c'est mal passé! Reessayer.")
-        } 
+        this.authService.logout().subscribe(res => {
+           console.log(res);
+        }); 
     }
 
 

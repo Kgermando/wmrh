@@ -6,8 +6,12 @@ export interface PersonnelModel {
     prenom: string;
     email: string;
     telephone: string;
-    adresse: string;
     sexe: string;
+    adresse: string;
+    matricule: string; 
+    role: number;
+
+    numero_cnss: string;
     date_naissance: Date;
     lieu_naissance: string;
     nationalite: string;
@@ -15,9 +19,7 @@ export interface PersonnelModel {
     nbr_enfant: string;
     nbr_dependants: string;
     nbr_dependants_max: string;
-    matricule: string;
-    numero_cnss: string;
-    role: number;
+    
     departement: string;
     title: string;
     fonction: string;
@@ -26,20 +28,23 @@ export interface PersonnelModel {
     type_contrat: string;
     date_debut_contrat: Date;
     date_fin_contrat: Date;
+    
     salaire: string;
     compte_bancaire: string;
     nom_banque: string;
     frais_bancaire: string;
     statut_personnel: boolean; 
     cv_url: string; 
+    syndicat: boolean; 
+    entreprise: string;
+    
     signature: string; 
     created: Date; 
     update_created : Date; 
     password: string; 
     statut_presence: boolean; 
-    syndicat: boolean; 
-    entreprise: string; 
+     
     code_entreprise: string; 
-    responsable: string;
+    responsable: string; // Ignorer ceci
     
 }

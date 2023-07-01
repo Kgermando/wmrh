@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { HttpClientModule } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MatCardModule } from '@angular/material/card';
@@ -47,21 +46,27 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { NgChartsModule } from 'ng2-charts';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-import { QuillModule } from 'ngx-quill';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UploadComponent } from './components/upload/upload.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PaginatorComponent,
+    UploadComponent,
+  ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     MatMenuModule,
     MatCardModule,
     MatTableModule,
@@ -99,15 +104,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    NgScrollbarModule,
-    FormsModule,
+    NgScrollbarModule, 
     FullCalendarModule,
-    MatNativeDateModule ,
-    ReactiveFormsModule,
+    MatNativeDateModule , 
     CarouselModule,
     NgxEditorModule,
-    DragDropModule,
-    HttpClientModule,
+    DragDropModule, 
     CdkAccordionModule, 
     NgxGaugeModule,
     NgChartsModule,
@@ -167,7 +169,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgChartsModule,
     NgxMatTimepickerModule, 
     NgxDropzoneModule,
-    ColorPickerModule
+    ColorPickerModule,
+
+
+    PaginatorComponent,
+    UploadComponent,
   ]
 })
 export class SharedModule { }

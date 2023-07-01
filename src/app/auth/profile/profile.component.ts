@@ -11,6 +11,8 @@ import { AuthService } from '../auth.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Auth } from 'src/app/classes/auth';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -42,6 +44,7 @@ export class ProfileComponent implements OnInit {
 
   constructor( 
     public themeService: CustomizerSettingsService,
+    private router: Router,
     private authService: AuthService,
     public dialog: MatDialog
    ) {
@@ -78,53 +81,38 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.authService.user().subscribe(
-      res => {
-        this.currentUser = res;
+    this.authService.user().subscribe({
+      next: (user) => this.currentUser = user,
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
+    });
+    Auth.userEmitter.subscribe(
+      user => {
+        this.currentUser = user; 
         console.log(this.currentUser);
-        this.isLoading = false;
       }
     );
-    this.isLoading = false;
-    // this.infoForm = this.formBuilder.group({
-    //   first_name: '',
-    //   last_name: '',
-    //   email: ''
-    // })
-    // const user = Auth.user;
-    // this.infoForm = this.formBuilder.group({
-    //   first_name: user.first_name,
-    //   last_name: user.last_name,
-    //   email: user.email
-    // });
-
-    
-
-    // Auth.userEmitter.subscribe(
-    //   user => {
-    //     this.infoForm.patchValue(user); // set default value (fetched)
-    //   }
-    // );
-  }
-
-  // infoSubmit(): void {
-  //   // console.log(this.infoForm.getRawValue());
-  //   this.authService.updateInfo(this.infoForm.getRawValue()).subscribe(
-  //     user => {
-  //       // console.log(user);
-  //       Auth.userEmitter.emit(user); // update the state of User Emitter
-  //     }
-  //   );
-  // }
+    this.isLoading = false;  
+  } 
 
 
-  openAddTaskDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openPasswordDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(ChangePasswordDialogBox, {
         width: '600px',
         enterAnimationDuration,
         exitAnimationDuration
-    });
-}
+    }); 
+  }
+
+  openChangePhotoDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(ChangePhotoDialogBox, {
+        width: '600px',
+        enterAnimationDuration,
+        exitAnimationDuration
+    }); 
+  } 
 
 
   toggleTheme() {
@@ -153,26 +141,79 @@ export class ChangePasswordDialogBox implements OnInit{
   constructor(
       public dialogRef: MatDialogRef<ChangePasswordDialogBox>,
       private formBuilder: FormBuilder,
+      private router: Router,
       private authService: AuthService,
   ) {}
 
 
-  ngOnInit(): void {
-    this.authService.user().subscribe(
-      res => {
-        this.currentUser = res; 
-      }
-    );
+  ngOnInit(): void { 
     this.passwordForm = this.formBuilder.group({ 
       password: ["", Validators.compose([Validators.required])],
       password_confirm: ''
     });
+    Auth.userEmitter.subscribe(
+      user => { 
+        this.passwordForm.patchValue(user);
+      }
+    );
   } 
 
 
   passwordSubmit(): void {  
     this.authService.updatePassword(this.passwordForm.getRawValue()).subscribe(
-      res => console.log(res)
+      res => {
+        console.log(res);
+        this.authService.logout().subscribe(
+          user => this.router.navigate(['/layouts/profile'])
+        )
+      }
+    );
+  }
+
+  close(){
+      this.dialogRef.close(true);
+  } 
+
+}
+
+
+@Component({
+  selector: 'add-task-dialog',
+  templateUrl: './change-photo.html', 
+})
+export class ChangePhotoDialogBox implements OnInit{
+  photoForm: FormGroup;
+
+  currentUser: PersonnelModel | any;
+
+  constructor(
+      public dialogRef: MatDialogRef<ChangePasswordDialogBox>,
+      private formBuilder: FormBuilder,
+      private router: Router,
+      private authService: AuthService,
+  ) {}
+
+
+  ngOnInit(): void {
+    this.photoForm = this.formBuilder.group({  
+      photo: ''
+    }); 
+
+    Auth.userEmitter.subscribe(
+      user => { 
+        this.currentUser = user;
+        this.photoForm.patchValue(user);
+      }
+    );  
+  }
+
+
+  photoSubmit(): void {  
+    this.authService.updateInfo(this.photoForm.getRawValue()).subscribe(
+      res => {
+        console.log(res);
+        this.router.navigate(['/layouts/profile']);
+      }
     );
   }
 

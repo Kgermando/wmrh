@@ -9,7 +9,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { ChangePasswordDialogBox, ProfileComponent } from './auth/profile/profile.component';
+import { ChangePasswordDialogBox, ChangePhotoDialogBox, ProfileComponent } from './auth/profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutsComponent } from './layouts/layouts.component';
 import { PersonnelListComponent } from './personnels/personnel-list/personnel-list.component';
@@ -37,6 +37,8 @@ import { PenaliteStatsComponent } from './dashboard/penalite-stats/penalite-stat
 import { ImpotStatsComponent } from './dashboard/impot-stats/impot-stats.component';
 import { SyndicatStatsComponent } from './dashboard/syndicat-stats/syndicat-stats.component';
 import { PresenceStatsComponent } from './dashboard/presence-stats/presence-stats.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CredentialInterceptor } from './interceptors/credential.interceptor'; 
 
 
 @NgModule({
@@ -48,7 +50,6 @@ import { PresenceStatsComponent } from './dashboard/presence-stats/presence-stat
     NotFoundComponent,
     SidebarComponent,
     CustomizerSettingsComponent,
-
     AuthComponent,
     LoginComponent,
     RegisterComponent,
@@ -64,7 +65,16 @@ import { PresenceStatsComponent } from './dashboard/presence-stats/presence-stat
     InfoProfileComponent, 
     ProfilePaieComponent, 
     ProfileEditComponent, 
-    ChangePasswordDialogBox, TotalStatsComponent, PresenceStatusComponent, ProgressionPaieComponent, PrimeStatsComponent, PenaliteStatsComponent, ImpotStatsComponent, SyndicatStatsComponent, PresenceStatsComponent
+    ChangePasswordDialogBox, 
+    TotalStatsComponent, 
+    PresenceStatusComponent, 
+    ProgressionPaieComponent, 
+    PrimeStatsComponent, 
+    PenaliteStatsComponent, 
+    ImpotStatsComponent, 
+    SyndicatStatsComponent, 
+    PresenceStatsComponent,
+    ChangePhotoDialogBox, 
   ],
   imports: [
     BrowserModule,
@@ -77,7 +87,12 @@ import { PresenceStatsComponent } from './dashboard/presence-stats/presence-stat
     QuillModule.forRoot(),
   ],
   providers: [
-    DatePipe
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CredentialInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
 })

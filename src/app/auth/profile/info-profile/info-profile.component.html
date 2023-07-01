@@ -1,100 +1,166 @@
 <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header class="border-bottom">
-        <h5 class="mb-0">Information Personel</h5> 
+        <h5 class="mb-0">Informations Personnelles</h5>  
     </mat-card-header>
     <mat-card-content>
-       <ul class="list ps-0 mb-0">
-            <li>
-                <span class="fw-semibold d-inline-block">Nom:</span>
-                <span class="gray-color">{{ currentUser.nom }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Postnom:</span>
-                <span class="gray-color">{{ currentUser.postnom }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Prenom:</span>
-                <span class="gray-color">{{ currentUser.prenom }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Sexe:</span>
-                <span class="gray-color">{{ currentUser.sexe }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Adresse:</span>
-                <span class="gray-color">{{ currentUser.sexe }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Email:</span>
-                <span class="gray-color">{{ currentUser.email }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Telephone:</span>
-                <span class="gray-color">{{ currentUser.telephone }}</span>
-            </li>
-            <!-- <li>
-                <span class="fw-semibold d-inline-block">Date de naissance:</span>
-                <span class="gray-color">{{ currentUser.date_naissance | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
-            </li> 
-            <li>
-                <span class="fw-semibold d-inline-block">Lieu de naissance:</span>
-                <span class="gray-color">{{ currentUser.lieu_naissance }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Nationalite:</span>
-                <span class="gray-color">{{ currentUser.nationalite }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Etat civile:</span>
-                <span class="gray-color">{{ currentUser.etat_civile }}</span>
-            </li> -->
-            <li>
-                <span class="fw-semibold d-inline-block">Adresse:</span>
-                <span class="gray-color">{{ currentUser.adresse }}</span>
-            </li>
-
-<!--             
-            <li>
-                <span class="fw-semibold d-inline-block">Titre:</span>
-                <span class="gray-color">{{ currentUser.title }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Pays:</span>
-                <span class="gray-color">{{ currentUser.pays }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Province:</span>
-                <span class="gray-color">{{ currentUser.province }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Zone sante:</span>
-                <span class="gray-color">{{ currentUser.zone_sante }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Email:</span>
-                <span class="gray-color">{{ currentUser.email }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Telephone:</span>
-                <span class="gray-color">{{ currentUser.telephone }}</span>
-            </li> -->
-            <li>
-                <span class="fw-semibold d-inline-block">Matricule:</span>
-                <span class="gray-color">{{ currentUser.matricule }}</span>
-            </li>
-
-            <li>
-                <span class="fw-semibold d-inline-block">Signature:</span>
-                <span class="gray-color">{{ currentUser.signature }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Créé le:</span>
-                <span class="gray-color">{{ currentUser.created | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
-            </li>
-            <li>
-                <span class="fw-semibold d-inline-block">Mis à jour le:</span>
-                <span class="gray-color">{{ currentUser.update_created | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
-            </li>
-        </ul>
+        <owl-carousel-o [options]="imageSlides2">
+            <ng-template carouselSlide>
+                <ul class="list ps-0 mb-0">
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nom:</span>
+                        <span class="gray-color">{{ currentUser.nom }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Postnom:</span>
+                        <span class="gray-color">{{ currentUser.postnom }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Prenom:</span>
+                        <span class="gray-color">{{ currentUser.prenom }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Sexe:</span>
+                        <span class="gray-color">{{ currentUser.sexe }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Adresse:</span>
+                        <span class="gray-color">{{ currentUser.adresse }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Email:</span>
+                        <span class="gray-color">{{ currentUser.email }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Telephone:</span>
+                        <span class="gray-color">{{ currentUser.telephone }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Matricule:</span>
+                        <span class="gray-color">{{ currentUser.matricule }}</span>
+                    </li>  
+                    <li>
+                        <span class="fw-semibold d-inline-block">Accreditation:</span>
+                        <span class="gray-color">Niveau {{ currentUser.role }}</span>
+                    </li> 
+                    <li>
+                        <span class="fw-semibold d-inline-block">Signature:</span>
+                        <span class="gray-color">{{ currentUser.signature }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Créé le:</span>
+                        <span class="gray-color">{{ currentUser.created | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Mis à jour le:</span>
+                        <span class="gray-color">{{ currentUser.update_created | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                    </li>
+                </ul>
+            </ng-template>
+            <ng-template carouselSlide>
+                <ul class="list ps-0 mb-0">
+                    <li>
+                        <span class="fw-semibold d-inline-block">Numero CNSS:</span>
+                        <span class="gray-color">{{ currentUser.numero_cnss }}</span>
+                    </li> 
+                    <li>
+                        <span class="fw-semibold d-inline-block">Date de naissance:</span>
+                        <span class="gray-color">{{ currentUser.date_naissance | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Lieu de naissance:</span>
+                        <span class="gray-color">{{ currentUser.lieu_naissance }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nationalité:</span>
+                        <span class="gray-color">{{ currentUser.nationalite }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Etat civile:</span>
+                        <span class="gray-color">{{ currentUser.etat_civile }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nombre d'enfants:</span>
+                        <span class="gray-color">{{ currentUser.nbr_enfant }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nombre de dependants:</span>
+                        <span class="gray-color">{{ currentUser.nbr_dependants }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nombre de dependants max:</span>
+                        <span class="gray-color">{{ currentUser.nbr_dependants_max }}</span>
+                    </li>  
+                </ul>
+            </ng-template>
+            <ng-template carouselSlide>
+                <ul class="list ps-0 mb-0">
+                    <li>
+                        <span class="fw-semibold d-inline-block">Département: </span>
+                        <span class="gray-color">{{ currentUser.departement }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Titre: </span>
+                        <span class="gray-color">{{ currentUser.title }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Fonction: </span>
+                        <span class="gray-color">{{ currentUser.fonction }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Services: </span>
+                        <span class="gray-color">{{ currentUser.services }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Site location: </span>
+                        <span class="gray-color">{{ currentUser.site_location }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Type de contrat:</span>
+                        <span class="gray-color">{{ currentUser.type_contrat }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Date de debut decontrat:</span>
+                        <span class="gray-color">{{ currentUser.date_debut_contrat | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Date de fin de contrat:</span>
+                        <span class="gray-color">{{ currentUser.date_fin_contrat | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                    </li> 
+                </ul>
+            </ng-template>
+            <ng-template carouselSlide>
+                <ul class="list ps-0 mb-0">
+                    <li>
+                        <span class="fw-semibold d-inline-block">Salaire: </span>
+                        <span class="gray-color">{{ currentUser.salaire }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Compte bancaire: </span>
+                        <span class="gray-color">{{ currentUser.compte_bancaire }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nom de la banque: </span>
+                        <span class="gray-color">{{ currentUser.nom_banque }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Frais bancaire: </span>
+                        <span class="gray-color">{{ currentUser.frais_bancaire }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Statut du personnel: </span>
+                        <span class="gray-color">{{ currentUser.statut_personnel }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Syndicat: </span>
+                        <span class="gray-color" *ngIf="currentUser.syndicat">OUI</span>
+                        <span class="gray-color" *ngIf="!currentUser.syndicat">NON</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Entreprise: </span>
+                        <span class="gray-color">{{ currentUser.entreprise }}</span>
+                    </li>
+                </ul>
+            </ng-template>
+        </owl-carousel-o> 
     </mat-card-content>
 </mat-card>

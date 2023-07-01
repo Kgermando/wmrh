@@ -22,24 +22,20 @@ export class AuthService {
 
 
   register(data: any): Observable<any> {
-    return this.http.post(`${environment.apiURL}/auth/register`, data);
+    return this.http.post<PersonnelModel>(`${environment.apiURL}/auth/register`, data);
   }
 
 
   user(): Observable<PersonnelModel> {
-    return this.http.get<PersonnelModel>(`${environment.apiURL}/auth/user`, {
-        withCredentials: true
-    });
+    return this.http.get<PersonnelModel>(`${environment.apiURL}/auth/user`);
   }
 
-  isLoggIn() {
-    this.router.navigate(['auth/login'])
+  isLoggedIn() {
+    return localStorage.getItem('jwt') != null;
   }
 
-  logout(): Observable<any> {
-    return this.http.get(`${environment.apiURL}/auth/logout`, {
-        withCredentials: true
-    });
+  logout(): Observable<void> {
+    return this.http.post<void>(`${environment.apiURL}/auth/logout`, {});
   } 
 
 
@@ -47,7 +43,7 @@ export class AuthService {
     return this.http.put<PersonnelModel>(`${environment.apiURL}/users/info`, data);
   }
 
-  updatePassword(data: any): Observable<any> {
-    return this.http.put<any>(`${environment.apiURL}/users/password`, data);
+  updatePassword(data: any): Observable<PersonnelModel> {
+    return this.http.put<PersonnelModel>(`${environment.apiURL}/users/password`, data);
   }
 }
