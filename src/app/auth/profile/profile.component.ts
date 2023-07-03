@@ -130,7 +130,7 @@ export class ProfileComponent implements OnInit {
 
 
 @Component({
-  selector: 'add-task-dialog',
+  selector: 'add-change-password',
   templateUrl: './change-password.html',
 })
 export class ChangePasswordDialogBox implements OnInit{
@@ -178,7 +178,7 @@ export class ChangePasswordDialogBox implements OnInit{
 
 
 @Component({
-  selector: 'add-task-dialog',
+  selector: 'add-change-photo',
   templateUrl: './change-photo.html', 
 })
 export class ChangePhotoDialogBox implements OnInit{

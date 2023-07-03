@@ -24,7 +24,7 @@ export abstract class ApiService {
   }
 
   get(id: number): Observable<any> {
-    return this.http.get(`${this.endpoint}/${id}`);
+    return this.http.get(`${this.endpoint}/get/${id}`);
   }
 
   create(data: any): Observable<any> {

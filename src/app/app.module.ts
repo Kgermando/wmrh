@@ -2,6 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+import { provideToastr } from 'ngx-toastr';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
@@ -39,6 +44,18 @@ import { SyndicatStatsComponent } from './dashboard/syndicat-stats/syndicat-stat
 import { PresenceStatsComponent } from './dashboard/presence-stats/presence-stats.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CredentialInterceptor } from './interceptors/credential.interceptor'; 
+import { InboxComponent } from './mail/inbox/inbox.component';
+import { ComposeComponent } from './mail/compose/compose.component';
+import { ReadComponent } from './mail/read/read.component';
+import { BrouillonComponent } from './mail/brouillon/brouillon.component';
+import { EmailSidebarComponent } from './mail/email-sidebar/email-sidebar.component'; 
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { DepartementsComponent, EditDepartementDialogBox } from './preferences/departements/departements.component';
+import { ReglagesComponent } from './preferences/reglages/reglages.component';
+import { EditTitleDialogBox, TitlesComponent } from './preferences/titles/titles.component';
+import { EditFonctionDialogBox, FonctionComponent } from './preferences/fonction/fonction.component';
+import { EditServiceDialogBox, ServicesComponent } from './preferences/services/services.component';
+import { EditSiteLocationDialogBox, SiteLocationComponent } from './preferences/site-location/site-location.component';
 
 
 @NgModule({
@@ -75,6 +92,22 @@ import { CredentialInterceptor } from './interceptors/credential.interceptor';
     SyndicatStatsComponent, 
     PresenceStatsComponent,
     ChangePhotoDialogBox, 
+    InboxComponent,
+    ComposeComponent,
+    ReadComponent,
+    BrouillonComponent,
+    EmailSidebarComponent,
+    DepartementsComponent,
+    ReglagesComponent,
+    TitlesComponent,
+    FonctionComponent,
+    ServicesComponent,
+    SiteLocationComponent,
+    EditDepartementDialogBox,
+    EditFonctionDialogBox,
+    EditServiceDialogBox,
+    EditTitleDialogBox,
+    EditSiteLocationDialogBox,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +118,7 @@ import { CredentialInterceptor } from './interceptors/credential.interceptor';
         echarts: () => import('echarts')
     }),
     QuillModule.forRoot(),
+    ToastrModule.forRoot(),
   ],
   providers: [
     DatePipe,
@@ -92,7 +126,10 @@ import { CredentialInterceptor } from './interceptors/credential.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: CredentialInterceptor,
       multi: true
-    }
+    },
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    provideAnimations(), // required animations providers
+    provideToastr(),
   ],
   bootstrap: [AppComponent],
 })

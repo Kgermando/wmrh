@@ -8,7 +8,8 @@ export interface PersonnelModel {
     telephone: string;
     sexe: string;
     adresse: string;
-    matricule: string; 
+    matricule: string;
+    category: string; 
     role: number;
 
     numero_cnss: string;
@@ -34,17 +35,15 @@ export interface PersonnelModel {
     nom_banque: string;
     frais_bancaire: string;
     statut_personnel: boolean; 
-    cv_url: string; 
     syndicat: boolean; 
-    entreprise: string;
+    cv_url: string;   
     
     signature: string; 
     created: Date; 
     update_created : Date; 
     password: string; 
     statut_presence: boolean; 
-     
-    code_entreprise: string; 
-    responsable: string; // Ignorer ceci
+    entreprise: string; 
+    code_entreprise: string;  
     
 }

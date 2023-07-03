@@ -28,6 +28,76 @@
                         <i class="flaticon-user-1"></i>
                         <span class="title">Personnels</span>
                     </a>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="flaticon-setting"></i>
+                                <span class="title">Preferences</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/preferences/reglages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Reglages
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/preferences/departement" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Département
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/preferences/site-location" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Site location
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/preferences/fonction" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Fonctions
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/preferences/services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Services
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/preferences/titles" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Titre
+                                </a>
+                            </li>
+                        </ul>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="flaticon-envelope"></i>
+                                <span class="title">Email</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/mail/inbox" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Reception
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/mail/compose" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Nouveau mail
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/mail/read-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Read Email
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/mail/brouillon" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Brouillon
+                                </a>
+                            </li>
+                        </ul>
+                    </mat-expansion-panel>
 
                     <span class="sub-title gray-color">APPS</span>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
@@ -93,31 +163,7 @@
                         <i class="flaticon-user-1"></i>
                         <span class="title">Contacts</span>
                     </a>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <i class="flaticon-envelope"></i>
-                                <span class="title">Email</span>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <ul class="sidebar-sub-menu">
-                            <li class="sidemenu-item">
-                                <a routerLink="email" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Inbox
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/email/compose" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Compose
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/email/read" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Read Email
-                                </a>
-                            </li>
-                        </ul>
-                    </mat-expansion-panel>
+                    
                     <a routerLink="/chat" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="flaticon-comment"></i>
                         <span class="title">Chat</span>
