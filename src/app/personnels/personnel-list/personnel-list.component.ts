@@ -49,8 +49,7 @@ export class PersonnelListComponent implements  AfterViewInit {
                 this.currentUser = user;
                 this.personnelService.getAll(this.currentUser.code_entreprise).subscribe({
                     next: res => {
-                        this.ELEMENT_DATA = res;
-        
+                        this.ELEMENT_DATA = res; 
                         this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
                         this.dataSource.sort = this.sort;
                         this.dataSource.paginator = this.paginator;
@@ -78,11 +77,7 @@ export class PersonnelListComponent implements  AfterViewInit {
   }
 
   /** Announce the change in sort state for assistive technology. */
-    announceSortChange(sortState: Sort) {
-      // This example uses English messages. If your application supports
-      // multiple language, you would internationalize these strings.
-      // Furthermore, you can customize the message to add additional
-      // details about the values being sorted.
+    announceSortChange(sortState: Sort) { 
       if (sortState.direction) {
           this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
       } else {

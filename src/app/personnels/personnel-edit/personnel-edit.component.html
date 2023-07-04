@@ -414,9 +414,12 @@
                                 <mat-checkbox class="example-margin" id="syndicat" formControlName="syndicat" >Syndicat </mat-checkbox>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-12">
                             <label class="d-block mb-12 fw-semibold gray-color">Attacher le CV scanner</label>
-                            <input type="file" formControlName="cv_url">
+                            <div class="input-group">
+                              <input formControlName="cv_url" class="form-control" name="cv_url">
+                              <app-upload (uploadedUrl)="formGroup.patchValue({'cv_url': $event})"></app-upload> 
+                            </div>
                         </div>
                     </div>
                     <div class="mt-5">

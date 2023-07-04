@@ -1,1 +1,201 @@
-<p>personnel-view works!</p>
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
+    <h5 class="mb-0">Informations du personnel</h5>
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item gray-color">Personnels</li>
+        <li class="breadcrumb-item fw-semibold">View</li>
+    </ol>
+</div>
+
+<div class="row" *ngIf="personne">
+    <div class="col-lg-4 col-md-12">
+        <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Identité</h5>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-card-header class="border-bottom">
+                    <div class="d-flex align-items-center">
+                        <img [src]="personne.photo" width="57" class="rounded-circle" alt="user" *ngIf="personne.photo">
+                        <img src="assets/img/user/user22.jpg" width="57" class="rounded-circle" alt="user"  *ngIf="!personne.photo">
+                        <div class="ms-15">
+                            <h5 class="mb-5">{{ personne.matricule }}</h5>
+                            <span class="d-block gray-color text-success" *ngIf="personne.statut_personnel">Actif</span>
+                            <span class="d-block gray-color" *ngIf="!personne.statut_personnel">Inactif</span>
+                        </div>
+                    </div>
+                </mat-card-header>
+                <ul class="list ps-0 mb-0">
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nom: </span>
+                        <span class="gray-color">{{ personne.nom }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Postnom: </span>
+                        <span class="gray-color">{{ personne.postnom }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Prenom: </span>
+                        <span class="gray-color">{{ personne.prenom }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Email: </span>
+                        <span class="gray-color">{{ personne.email }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Telephone: </span>
+                        <span class="gray-color">{{ personne.telephone }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Sexe: </span>
+                        <span class="gray-color">{{ personne.sexe }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Adresse: </span>
+                        <span class="gray-color">{{ personne.adresse }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Matricule: </span>
+                        <span class="gray-color">{{ personne.matricule }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Categorie: </span>
+                        <span class="gray-color">{{ personne.category }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Accreditation: </span>
+                        <span class="gray-color">{{ personne.role }}</span>
+                    </li> 
+                </ul>  
+            </mat-card-content>
+        </mat-card> 
+    </div>
+    <div class="col-lg-4 col-md-12"> 
+        <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Infos</h5>
+            </mat-card-header>
+            <mat-card-content>
+                <ul class="list ps-0 mb-0">
+                    <li>
+                        <span class="fw-semibold d-inline-block">N° CNSS: </span>
+                        <span class="gray-color">{{ personne.numero_cnss }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Date de naissance: </span>
+                        <span class="gray-color">{{ personne.date_naissance | date: 'dd/MM/yyyy' }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Lieu de naissance: </span>
+                        <span class="gray-color">{{ personne.lieu_naissance }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nationalité: </span>
+                        <span class="gray-color">{{ personne.nationalite }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Etat civile: </span>
+                        <span class="gray-color">{{ personne.etat_civile }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Sexe: </span>
+                        <span class="gray-color">{{ personne.sexe }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nombre d'enfants: </span>
+                        <span class="gray-color">{{ personne.nbr_enfant }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nombre de dependants: </span>
+                        <span class="gray-color">{{ personne.nbr_dependants }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nombre de dependants max: </span>
+                        <span class="gray-color">{{ personne.nbr_dependants_max }}</span>
+                    </li> 
+                </ul>   
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col-lg-4 col-md-12"> 
+        <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Fonction</h5>
+            </mat-card-header>
+            <mat-card-content>
+                <ul class="list ps-0 mb-0">
+                    <li>
+                        <span class="fw-semibold d-inline-block">Departement: </span>
+                        <span class="gray-color">{{ personne.departement }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Titre: </span>
+                        <span class="gray-color">{{ personne.title }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Fonction: </span>
+                        <span class="gray-color">{{ personne.fonction }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Services: </span>
+                        <span class="gray-color">{{ personne.services }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Site de location: </span>
+                        <span class="gray-color">{{ personne.site_location }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Type de contrat: </span>
+                        <span class="gray-color">{{ personne.type_contrat }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Date de debut du contrat: </span>
+                        <span class="gray-color">{{ personne.date_debut_contrat | date: 'dd/MM/yyyy' }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Date de fin du contrat: </span>
+                        <span class="gray-color">{{ personne.date_fin_contrat | date: 'dd/MM/yyyy' }}</span>
+                    </li> 
+                </ul>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Salaire</h5>
+            </mat-card-header>
+            <mat-card-content>
+                <ul class="list ps-0 mb-0">
+                    <li>
+                        <span class="fw-semibold d-inline-block">Salaire: </span>
+                        <span class="gray-color">{{ personne.salaire }} </span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Compte bancaire: </span>
+                        <span class="gray-color">{{ personne.compte_bancaire }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Nom de la banque: </span>
+                        <span class="gray-color">{{ personne.nom_banque }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Statut du personnel: </span>
+                        <span class="gray-color">{{ personne.statut_personnel }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">Syndicat: </span>
+                        <span class="gray-color">{{ personne.syndicat }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold d-inline-block">CV SCAN: </span>
+                        <span class="gray-color">{{ personne.cv_url }}</span>
+                    </li> 
+                </ul>   
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
