@@ -152,12 +152,16 @@ export class EditSiteLocationDialogBox implements OnInit{
     });
     console.log(this.data['id']);
     this.formGroup = this.formBuilder.group({  
-      title: ''
+      name: '',
+      manager: '',
+      adresse: '',
     });
 
     this.siteLocationService.get(parseInt(this.data['id'])).subscribe(item => {
       this.formGroup.patchValue({
-        title: item.title, 
+        name: item.name,
+        manager: item.manager,
+        adresse: item.adresse,
         signature: this.currentUser.matricule, 
         update_created: new Date(),
       });

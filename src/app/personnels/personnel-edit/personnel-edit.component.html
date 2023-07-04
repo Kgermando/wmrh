@@ -248,8 +248,8 @@
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select departement</mat-label>
                                     <mat-select formControlName="departement">
-                                        <mat-option *ngFor="let departement of etatCivileList" [value]="departement">
-                                            {{departement}}
+                                        <mat-option *ngFor="let departement of departementList" [value]="departement.departement">
+                                            {{departement.departement}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -262,8 +262,8 @@
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select titre</mat-label>
                                     <mat-select formControlName="title">
-                                        <mat-option *ngFor="let title of etatCivileList" [value]="title">
-                                            {{title}}
+                                        <mat-option *ngFor="let title of titleList" [value]="title.title">
+                                            {{title.title}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -276,8 +276,8 @@
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select fonction</mat-label>
                                     <mat-select formControlName="fonction">
-                                        <mat-option *ngFor="let fonction of etatCivileList" [value]="fonction">
-                                            {{fonction}}
+                                        <mat-option *ngFor="let fonction of fonctionList" [value]="fonction.fonction">
+                                            {{fonction.fonction}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -290,8 +290,8 @@
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select service</mat-label>
                                     <mat-select formControlName="services">
-                                        <mat-option *ngFor="let services of etatCivileList" [value]="services">
-                                            {{services}}
+                                        <mat-option *ngFor="let services of serviceList" [value]="services.services">
+                                            {{services.services}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -304,8 +304,8 @@
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select de site location</mat-label>
                                     <mat-select formControlName="site_location">
-                                        <mat-option *ngFor="let site_location of etatCivileList" [value]="site_location">
-                                            {{site_location}}
+                                        <mat-option *ngFor="let site_location of siteLocationList" [value]="site_location.name">
+                                            {{site_location.name}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -366,7 +366,7 @@
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Entrer le salaire de base</mat-label>
-                                    <input matInput type="text" id="salaire" formControlName="salaire" required>
+                                    <input matInput type="number" id="salaire" formControlName="salaire" required>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -421,7 +421,7 @@
                     </div>
                     <div class="mt-5">
                         <button mat-flat-button matStepperPrevious class="gray me-15">Retour</button>
-                        <button mat-flat-button matStepperNext class="tagus">Terminer</button>
+                        <button mat-flat-button matStepperNext class="tagus" (click)="navigate()">Terminer</button>
                     </div>
                 </form> 
             </mat-step>

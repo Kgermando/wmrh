@@ -6,6 +6,16 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { PersonnelService } from '../personnel.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatSelectChange } from '@angular/material/select';
+import { DepartementService } from 'src/app/preferences/departements/departement.service';
+import { FonctionService } from 'src/app/preferences/fonction/fonction.service';
+import { TitleService } from 'src/app/preferences/titles/title.service';
+import { ServiceService } from 'src/app/preferences/services/service.service';
+import { SiteLocationService } from 'src/app/preferences/site-location/site-location.service';
+import { DepartementModel } from 'src/app/preferences/departements/model/departement-model';
+import { FonctionModel } from 'src/app/preferences/fonction/models/fonction-model';
+import { TitleModel } from 'src/app/preferences/titles/models/title-model';
+import { ServicePrefModel } from 'src/app/preferences/services/models/service-models';
+import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
 
 @Component({
   selector: 'app-personnel-edit',
@@ -52,12 +62,23 @@ export class PersonnelEditComponent implements OnInit {
 
   id: number;
 
+  departementList: DepartementModel[] = [];
+  fonctionList: FonctionModel[] = [];
+  titleList: TitleModel[] = [];
+  serviceList: ServicePrefModel[] = [];
+  siteLocationList: SiteLocationModel[] = [];
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private authService: AuthService, 
     private personnelService: PersonnelService,
+    private departementService: DepartementService,
+    private fonctionService: FonctionService,
+    private titleService: TitleService,
+    private serviceService: ServiceService,
+    private siteLocation: SiteLocationService,
     private toastr: ToastrService) {}
 
 
@@ -74,6 +95,21 @@ export class PersonnelEditComponent implements OnInit {
         this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.userList = res;
           this.userID = this.userList.map(e => e.id);
+        });
+        this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.departementList = res; 
+        });
+        this.fonctionService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.fonctionList = res; 
+        });
+        this.titleService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.titleList = res; 
+        });
+        this.serviceService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.serviceList = res;
+        });
+        this.siteLocation.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.siteLocationList = res;
         });
       },
       error: (error) => {
@@ -277,5 +313,10 @@ export class PersonnelEditComponent implements OnInit {
       this.isLoading = false;
       console.log(error);
     }
+  }
+
+
+  navigate() {
+    this.router.navigate(['/layouts/personnels/personnel-list']);
   }
 }
