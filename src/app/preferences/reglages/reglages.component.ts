@@ -525,8 +525,8 @@ export class EditReglageDialogBox implements OnInit{
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.toastr.success('Success!', 'Modification enregistré!');
           window.location.reload(); 
+          this.toastr.success('Success!', 'Modification enregistré!'); 
         },
         error: err => {
           console.log(err);
