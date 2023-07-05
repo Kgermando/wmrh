@@ -10,6 +10,10 @@ export abstract class ApiService {
 
   constructor(protected http: HttpClient) { }
 
+  preference(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/preference/${code_entreprise}`);
+  }
+
   getAll(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-all/${code_entreprise}`);
   }

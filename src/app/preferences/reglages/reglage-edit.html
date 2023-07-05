@@ -1,0 +1,478 @@
+<div class="create-dialog-box scrollable-dialog">
+    <div class="title d-flex align-items-center justify-content-space-between">
+        <h4 class="mb-0">{{data['reglage']}}</h4>
+        <button class="close-btn bg-transparent p-0 border-none" (click)="close()"><i class="flaticon-close"></i></button>
+    </div>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Nom de l\'entreprise'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="company_name" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['company_name'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Nombre d\'employés'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="nbr_employe" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['nbr_employe'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Numéro CNSS'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="cnss" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['cnss'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Numéro de Taxe'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="numero_taxe" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['numero_taxe'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'RCCM'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="rccm" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['rccm'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'ID Nat'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="id_nat" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['id_nat'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Numero impôt'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="numero_impot" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['numero_impot'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Email'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="email" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['email'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Telephone'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="telephone" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['telephone'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Adresse'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Modifier {{data['reglage']}}</mat-label>
+                        <input matInput type="text" formControlName="adresse" name="{{data['reglage']}}">
+                        <mat-error *ngIf="formGroup.controls['adresse'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Date de paie'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <mat-form-field appearance="fill" class="date-input">
+                        <mat-label>MM/DD/YYYY</mat-label>
+                        <input matInput [matDatepicker]="picker11"
+                                formControlName="date_paie" required>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker11"></mat-datepicker-toggle>
+                        <mat-datepicker #picker11></mat-datepicker> 
+                        <mat-error *ngIf="formGroup.controls['date_paie'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div>
+            </div> 
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'CNSS QPP'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="cnss_qpp" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['cnss_qpp'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'INPP'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="inpp" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['inpp'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'ONEM'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="onem" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['onem'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Cotisation syndicale'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="cotisation_syndicale" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['cotisation_syndicale'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'CNSS QPO'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="cnss_qpo" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['cnss_qpo'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Allocation de logement'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="allocation_logement" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['allocation_logement'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Allocation transport'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="allocation_transport" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['allocation_transport'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Allocation familliale'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="allocation_familliale" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['allocation_familliale'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Allocation de l\'épouse'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="allocation_epouse" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['allocation_epouse'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Nbre max d\'enfants courverts'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="nbr_max_enfant_courvert" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['nbr_max_enfant_courvert'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Monnaie'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="monnaie" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['monnaie'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Nbre d\'heures de travail'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="nbre_heure_travail" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['nbre_heure_travail'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Taux dollard USD/CDF'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="taux_dollard" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['taux_dollard'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour de l\'AN'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker1"
+                            formControlName="new_year" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['new_year'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour de Noêl'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker2"
+                            formControlName="noel" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['noel'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div> 
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour de Martyr'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker3"
+                            formControlName="martyr_day" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['martyr_day'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour de L.D. Kabila'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker4"
+                            formControlName="kabila_day" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                    <mat-datepicker #picker4></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['kabila_day'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour de P. Lumumba'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker5"
+                            formControlName="lumumba_day" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker5"></mat-datepicker-toggle>
+                    <mat-datepicker #picker5></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['lumumba_day'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour de traval'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker6"
+                            formControlName="labour_day" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker6"></mat-datepicker-toggle>
+                    <mat-datepicker #picker6></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['labour_day'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour de liberation'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker7"
+                            formControlName="liberation_day" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker7"></mat-datepicker-toggle>
+                    <mat-datepicker #picker7></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['liberation_day'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div> 
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour de l\'independance'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker8"
+                            formControlName="indepence_day" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker8"></mat-datepicker-toggle>
+                    <mat-datepicker #picker8></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['indepence_day'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour des parents'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker9"
+                            formControlName="parent_day" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker9"></mat-datepicker-toggle>
+                    <mat-datepicker #picker9></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['parent_day'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div> 
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Jour de S. kimbangu'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill" class="date-input">
+                    <mat-label>MM/DD/YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker10"
+                            formControlName="kimbangu_day" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker10"></mat-datepicker-toggle>
+                    <mat-datepicker #picker10></mat-datepicker> 
+                    <mat-error *ngIf="formGroup.controls['kimbangu_day'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </div> 
+    </div>
+        <div class="text-end">
+            <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
+            <button type="submit"><i class="ri-edit-fill"></i> Modifier</button>
+        </div>
+    </form> 
+</div>

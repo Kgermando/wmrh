@@ -23,7 +23,7 @@ export class DepartementsComponent implements OnInit {
   departmentList: DepartementModel[] = [];
 
   currentUser: PersonnelModel | any;
-
+ 
 
   constructor(
     private router: Router,
@@ -81,7 +81,7 @@ export class DepartementsComponent implements OnInit {
             console.log(err);
           }
         });
-      } 
+      }
       this.isLoading = false;
     } catch (error) {
       this.isLoading = false;

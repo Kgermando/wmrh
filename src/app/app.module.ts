@@ -51,7 +51,7 @@ import { BrouillonComponent } from './mail/brouillon/brouillon.component';
 import { EmailSidebarComponent } from './mail/email-sidebar/email-sidebar.component'; 
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { DepartementsComponent, EditDepartementDialogBox } from './preferences/departements/departements.component';
-import { ReglagesComponent } from './preferences/reglages/reglages.component';
+import { EditReglageDialogBox, ReglagesComponent } from './preferences/reglages/reglages.component';
 import { EditTitleDialogBox, TitlesComponent } from './preferences/titles/titles.component';
 import { EditFonctionDialogBox, FonctionComponent } from './preferences/fonction/fonction.component';
 import { EditServiceDialogBox, ServicesComponent } from './preferences/services/services.component';
@@ -108,6 +108,7 @@ import { EditSiteLocationDialogBox, SiteLocationComponent } from './preferences/
     EditServiceDialogBox,
     EditTitleDialogBox,
     EditSiteLocationDialogBox,
+    EditReglageDialogBox
   ],
   imports: [
     BrowserModule,

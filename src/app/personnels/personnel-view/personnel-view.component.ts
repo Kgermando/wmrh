@@ -25,11 +25,9 @@ export class PersonnelViewComponent implements OnInit {
       let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
       this.personnelService.get(Number(id)).subscribe(res => {
         this.personne = res;
-        this.isLoading = false;
-  
-        console.log(this.personne); 
-        this.isLoading = true;
+        this.isLoading = false; 
       });
+      this.isLoading = false;
     }
   
     toggleTheme() {

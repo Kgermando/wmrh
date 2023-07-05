@@ -1,1 +1,357 @@
-<p>reglages works!</p>
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
+    <h5 class="mb-0">Reglages</h5>
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item gray-color">Preferences</li>
+        <li class="breadcrumb-item fw-semibold">Reglages</li>
+    </ol>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+</div>
+<div *ngIf="!isLoading">
+    <div class="row" *ngIf="preference">
+        <div class="col-lg-4 col-md-12">
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Information de l'entreprise</h5>
+                </mat-card-header>
+                <mat-card-content> 
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold d-inline-block">Nom de l'entreprise: </span>
+                            <span class="gray-color">{{ preference.company_name }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Nom de l\'entreprise', preference.company_name)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Nombre d'employés: </span>
+                            <span class="gray-color">{{ preference.nbr_employe }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Nombre d\'employés', preference.nbr_employe)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Numéro CNSS: </span>
+                            <span class="gray-color">{{ preference.cnss }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Numéro CNSS', preference.cnss)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Numéro de Taxe: </span>
+                            <span class="gray-color">{{ preference.numero_taxe }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Numéro de Taxe', preference.numero_taxe)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">RCCM: </span>
+                            <span class="gray-color">{{ preference.rccm }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'RCCM', preference.rccm)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">ID Nat: </span>
+                            <span class="gray-color">{{ preference.id_nat }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'ID Nat', preference.id_nat)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Numero impôt: </span>
+                            <span class="gray-color">{{ preference.numero_impot }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Numero impôt', preference.numero_impot)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Email: </span>
+                            <span class="gray-color">{{ preference.email }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Email', preference.email)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Telephone: </span>
+                            <span class="gray-color">{{ preference.telephone }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Telephone', preference.telephone)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Adresse: </span>
+                            <span class="gray-color">{{ preference.adresse }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Adresse', preference.adresse)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                    </ul>
+                </mat-card-content>
+            </mat-card> 
+            
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Impôts de la société</h5>
+                </mat-card-header>
+                <mat-card-content>
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold d-inline-block">CNSS QPP: </span>
+                            <span class="gray-color">{{ preference.cnss_qpp }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'CNSS QPP', preference.cnss_qpp)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">INPP: </span>
+                            <span class="gray-color">{{ preference.inpp }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'INPP', preference.inpp)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">ONEM: </span>
+                            <span class="gray-color">{{ preference.onem }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'ONEM', preference.onem)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li> 
+                    </ul>   
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+
+        <div class="col-lg-4 col-md-12">   
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Paramètres de déduction </h5>
+                </mat-card-header>
+                <mat-card-content>
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold d-inline-block">Cotisation syndicale: </span>
+                            <span class="gray-color">{{ preference.cotisation_syndicale }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Cotisation syndicale', preference.cotisation_syndicale)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">CNSS QPO: </span>
+                            <span class="gray-color">{{ preference.cnss_qpo }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'CNSS QPO', preference.cnss_qpo)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                    </ul>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Jours feriés</h5>
+                </mat-card-header>
+                <mat-card-content>
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour de l'AN: </span>
+                            <span class="gray-color">{{ preference.new_year  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour de l\'AN', preference.new_year)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour de Noêl: </span>
+                            <span class="gray-color">{{ preference.noel  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour de Noêl', preference.noel)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour de Martyr: </span>
+                            <span class="gray-color">{{ preference.martyr_day  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour de Martyr', preference.martyr_day)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour de L.D. Kabila: </span>
+                            <span class="gray-color">{{ preference.kabila_day  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour de L.D. Kabila', preference.kabila_day)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour de P. Lumumba: </span>
+                            <span class="gray-color">{{ preference.lumumba_day  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour de P. Lumumba', preference.lumumba_day)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour de traval: </span>
+                            <span class="gray-color">{{ preference.labour_day  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour de traval', preference.labour_day)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour de liberation: </span>
+                            <span class="gray-color">{{ preference.liberation_day  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour de liberation', preference.liberation_day)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour de l'independance: </span>
+                            <span class="gray-color">{{ preference.indepence_day  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour de l\'independance', preference.indepence_day)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour des parents: </span>
+                            <span class="gray-color">{{ preference.parent_day  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour des parents', preference.parent_day)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Jour de S. kimbangu: </span>
+                            <span class="gray-color">{{ preference.kimbangu_day  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Jour de S. kimbangu', preference.kimbangu_day)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                    </ul>   
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Periode de paie</h5>
+                </mat-card-header>
+                <mat-card-content>
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold d-inline-block">Date de paie: </span>
+                            <span class="gray-color">{{ preference.date_paie  | date: 'dd-MM-yyyy' }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Date de paie', preference.date_paie)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Monnaie: </span>
+                            <span class="gray-color">{{ preference.monnaie }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Monnaie', preference.monnaie)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Nbre d'heures de travail: </span>
+                            <span class="gray-color">{{ preference.nbre_heure_travail }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Nbre d\'heures de travail', preference.nbre_heure_travail)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Taux dollard USD/CDF: </span> 
+                            <span class="gray-color">{{ preference.taux_dollard }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Taux dollard USD/CDF', preference.taux_dollard)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </li>
+                    </ul>   
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Autres bénéfices</h5>
+                </mat-card-header>
+                <mat-card-content>
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold d-inline-block">Allocation de logement: </span>
+                            <span class="gray-color">{{ preference.allocation_logement }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Allocation de logement', preference.allocation_logement)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Allocation transport: </span>
+                            <span class="gray-color">{{ preference.allocation_transport }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Allocation transport', preference.allocation_transport)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Allocation familliale: </span>
+                            <span class="gray-color">{{ preference.allocation_familliale }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Allocation familliale', preference.allocation_familliale)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Allocation de l'épouse: </span>
+                            <span class="gray-color">{{ preference.allocation_epouse }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Allocation de l\'épouse', preference.allocation_epouse)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Nbre max d'enfants courverts: </span>
+                            <span class="gray-color">{{ preference.nbr_max_enfant_courvert }}</span>
+                            <button mat-icon-button color="warn" 
+                            (click)="openEditDialog('300ms', '100ms', 'Nbre max d\'enfants courverts', preference.nbr_max_enfant_courvert)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        </li>
+                    </ul>  
+                </mat-card-content>
+            </mat-card>
+            
+        </div>
+    </div>
+</div>
