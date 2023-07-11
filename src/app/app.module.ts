@@ -70,6 +70,7 @@ import { PresencePieAllComponent } from './presences/pointage/presences-pie/pres
 import { PresencesPieComponent } from './presences/pointage/presences-pie/presences-pie.component'; 
 import { PointageTableComponent } from './presences/pointage/pointage-table/pointage-table.component';
 import { RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
+import { SyndicatsComponent } from './syndicats/syndicats.component';
 
 
 @NgModule({
@@ -134,7 +135,8 @@ import { RegistrePresenceComponent } from './presences/registre-presence/registr
     PresencesPieComponent,
     PresenceSortieDialogBox, 
     PointageTableComponent,
-    RegistrePresenceComponent
+    RegistrePresenceComponent,
+    SyndicatsComponent
   ],
   imports: [
     BrowserModule,

@@ -26,6 +26,7 @@ import { SiteLocationComponent } from './preferences/site-location/site-location
 import { PointageComponent } from './presences/pointage/pointage.component';
 import { PointageMatriculeComponent } from './presences/pointage/pointage-matricule/pointage-matricule.component';  
 import { RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
+import { SyndicatsComponent } from './syndicats/syndicats.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -54,6 +55,8 @@ const routes: Routes = [
     { path: 'presences/pointage', component: PointageComponent },
     { path: 'presences/pointage/:id', component: PointageMatriculeComponent },
     { path: 'presences/registre-presences', component: RegistrePresenceComponent }, 
+
+    { path: 'personnels/syndicats', component: SyndicatsComponent },
 
     { path: 'mail/inbox', component: InboxComponent },
     { path: 'mail/compose', component: ComposeComponent },

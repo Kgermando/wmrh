@@ -5,17 +5,18 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
-import { PersonnelModel } from '../models/personnel-model';
-import { PersonnelService } from '../personnel.service'; 
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
+import { PersonnelModel } from '../personnels/models/personnel-model';
+import { PersonnelService } from '../personnels/personnel.service';
+
 
 @Component({
-  selector: 'app-personnel-list',
-  templateUrl: './personnel-list.component.html',
-  styleUrls: ['./personnel-list.component.scss']
+  selector: 'app-syndicats',
+  templateUrl: './syndicats.component.html',
+  styleUrls: ['./syndicats.component.scss']
 })
-export class PersonnelListComponent implements AfterViewInit {
+export class SyndicatsComponent implements AfterViewInit {
   displayedColumns: string[] = ['matricule','nom', 'postnom', 'prenom', 'email', 'telephone', 'sexe', 'id'];
   
   ELEMENT_DATA: PersonnelModel[] = [];
@@ -46,7 +47,7 @@ export class PersonnelListComponent implements AfterViewInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.personnelService.getAll(this.currentUser.code_entreprise).subscribe({
+                this.personnelService.getSyndicat(this.currentUser.code_entreprise).subscribe({
                     next: res => {
                         this.ELEMENT_DATA = res; 
                         this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
@@ -95,6 +96,4 @@ export class PersonnelListComponent implements AfterViewInit {
         .subscribe(() => this.ELEMENT_DATA = this.ELEMENT_DATA.filter(item => item.id !== id));
     }
   }
-
 }
- 
