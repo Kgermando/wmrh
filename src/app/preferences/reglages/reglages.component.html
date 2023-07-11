@@ -16,7 +16,7 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
 </div>
 <div *ngIf="!isLoading">
-    <div class="row" *ngIf="preference">
+    <div class="row" *ngIf="!preference">
         <h4>Créé la page de reglage</h4>
     </div>
     <div class="row" *ngIf="preference">
