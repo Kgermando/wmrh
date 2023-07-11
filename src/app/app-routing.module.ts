@@ -23,6 +23,9 @@ import { DepartementsComponent } from './preferences/departements/departements.c
 import { ServicesComponent } from './preferences/services/services.component';
 import { TitlesComponent } from './preferences/titles/titles.component';
 import { SiteLocationComponent } from './preferences/site-location/site-location.component';
+import { PointageComponent } from './presences/pointage/pointage.component';
+import { PointageMatriculeComponent } from './presences/pointage/pointage-matricule/pointage-matricule.component';  
+import { RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -48,6 +51,9 @@ const routes: Routes = [
     { path: 'preferences/titles', component: TitlesComponent },
     { path: 'preferences/site-location', component: SiteLocationComponent },
 
+    { path: 'presences/pointage', component: PointageComponent },
+    { path: 'presences/pointage/:id', component: PointageMatriculeComponent },
+    { path: 'presences/registre-presences', component: RegistrePresenceComponent }, 
 
     { path: 'mail/inbox', component: InboxComponent },
     { path: 'mail/compose', component: ComposeComponent },

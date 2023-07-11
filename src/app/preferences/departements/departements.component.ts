@@ -23,7 +23,6 @@ export class DepartementsComponent implements OnInit {
   departmentList: DepartementModel[] = [];
 
   currentUser: PersonnelModel | any;
- 
 
   constructor(
     private router: Router,

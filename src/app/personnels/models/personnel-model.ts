@@ -1,3 +1,5 @@
+import { ApointementModel } from "src/app/presences/models/presence-model";
+
 export interface PersonnelModel {
     id: number;
     photo: string;
@@ -42,8 +44,10 @@ export interface PersonnelModel {
     created: Date; 
     update_created : Date; 
     password: string; 
-    statut_presence: boolean; 
+    
     entreprise: string; 
-    code_entreprise: string;  
+    code_entreprise: string;
+
+    presences: ApointementModel[];
     
 }

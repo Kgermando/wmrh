@@ -89,6 +89,9 @@ export class PersonnelAddComponent implements OnInit {
       if (this.userID.length !== 0) {
         numID = Math.max(...this.userID);
       }
+      var codeEntreprise = this.currentUser.code_entreprise;
+      var mat = this.formGroup.value.matricule;
+      var identifiant = `${mat}-${codeEntreprise}`
       if (this.formGroup.valid) {
         var body = {
           nom: this.formGroup.value.nom,
@@ -97,9 +100,8 @@ export class PersonnelAddComponent implements OnInit {
           email: this.formGroup.value.email,
           telephone: this.formGroup.value.telephone,
           sexe: this.formGroup.value.sexe,
-          adresse: this.formGroup.value.adresse,
-          // matricule: `${structure}-${year}-${numID + 1}`,
-          matricule: this.formGroup.value.matricule,
+          adresse: this.formGroup.value.adresse, 
+          matricule: identifiant,
           category: this.formGroup.value.category,
           role: this.formGroup.value.role, 
           signature: this.currentUser.matricule,

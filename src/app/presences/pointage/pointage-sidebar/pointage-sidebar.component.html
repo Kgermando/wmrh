@@ -1,0 +1,47 @@
+<!-- <mat-card
+    class="mb-25 tagus-card" 
+>
+    <mat-card-content> 
+        <form class="tagus-search-box">
+            <input type="text" class="input-search border-radius" placeholder="Filtre matricule" (keyup)="applyFilter($event)">
+            <button type="submit"><i class="ri-search-line"></i></button>
+        </form>
+        <span class="sub-title d-block muted-color fw-normal fs-14">Matricule</span>
+        <div class="d-flex justify-content-center" *ngIf="isLoading">
+            <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+        </div>
+        <ul class="email-sidebar ps-0 list-unstyled mb-0" *ngIf="!isLoading">
+            <li class="position-relative" *ngFor="let item of personnelFlter">
+                <i class="ri-user-line"></i>
+                <a [routerLink]="['/layouts/presences/pointage', item.matricule]"
+                    class="fw-semibold position-relative d-block" 
+                    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    {{ item.matricule }}
+                    <span class="d-block">*</span>
+                </a>
+            </li> 
+        </ul>
+    </mat-card-content>
+</mat-card> -->
+
+<form class="tagus-search-box">
+    <input type="text" class="input-search border-radius" placeholder="Recherche par matricule" (keyup)="applyFilter($event)">
+    <button type="submit"><i class="ri-search-line"></i></button>
+</form>
+
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3"  *ngFor="let item of personnelFilter">
+        <a [routerLink]="['/layouts/presences/pointage', item.id]"
+                    class="fw-semibold position-relative d-block" 
+                    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <mat-card class="mb-25 text-center tagus-card"> 
+                <mat-card-content matBadge="ss"  matBadgeColor="warn">
+                    <img src="assets/img/user/user12.jpg" class="rounded-circle mb-15" width="150" alt="user" *ngIf="!item.photo">
+                    <img [src]="item.photo" class="rounded-circle mb-15" width="50" alt="user" *ngIf="item.photo">
+                    <h5 class="mb-5 fw-semibold">{{ item.matricule }}</h5>
+                    <span class="d-block muted-color">{{ item.prenom }} {{ item.nom }}</span>
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </div>
+</div>

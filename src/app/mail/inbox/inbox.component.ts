@@ -27,9 +27,7 @@ export class InboxComponent {
         this.themeService.toggleTheme();
     }
 
-    toggleRTLEnabledTheme() {
-        this.themeService.toggleRTLEnabledTheme();
-    }
+ 
 
 }
 

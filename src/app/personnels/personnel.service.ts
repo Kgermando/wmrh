@@ -6,5 +6,5 @@ import { ApiService } from '../shared/services/api.service';
   providedIn: 'root'
 })
 export class PersonnelService extends ApiService {
-  endpoint: string = `${environment.apiURL}/users`;
+  endpoint: string = `${environment.apiURL}/personnels`;
 }

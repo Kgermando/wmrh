@@ -183,8 +183,9 @@
                             <span class="gray-color">{{ personne.nom_banque }}</span>
                         </li>
                         <li>
-                            <span class="fw-semibold d-inline-block">Statut du personnel: </span>
-                            <span class="gray-color">{{ personne.statut_personnel }}</span>
+                            <span class="fw-semibold d-inline-block">Statut du personnel: </span> 
+                            <span class="gray-color" *ngIf="personne.statut_personnel">Actif</span>
+                            <span class="gray-color" *ngIf="!personne.statut_personnel">Inactif</span>
                         </li>
                         <li>
                             <span class="fw-semibold d-inline-block">Syndicat: </span>

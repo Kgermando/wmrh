@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { PreferenceModel } from './models/reglage-model';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ReglageService } from './reglage.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reglages',

@@ -37,25 +37,34 @@ export class LoginComponent {
 
 
   onSubmit(): void {
-    this.isLoading = true; 
-    this.authService.login(this.form.getRawValue()).subscribe({
-        next: (res) => {
-          // console.log(res); 
-         
-          this.isLoading = false;
-          this.router.navigate(['/layouts/dashboard']);
-        },
-        error: (e) => {
-          this.isLoading = false;
-          // console.error(e);
-          this.isLoggIn = true; 
-          this.router.navigate(['/auth/login']);
-        },
-        complete: () => {
-          this.isLoading = false;
+    this.isLoading = true;  
+    if (this.form.valid) {
+      var mat = this.form.value.matricule;
+      var code = mat.split("-");
+      var code_entreprise = code[code.length - 1];
+      console.log(code[code.length - 1]);
+      var body = {
+        matricule: this.form.value.matricule,
+        password: this.form.value.password,
+        code_entreprise: code
+      };
+      this.authService.login(this.form.getRawValue()).subscribe({
+          next: (res) => { 
+            this.isLoading = false;
+            this.router.navigate(['/layouts/dashboard']);
+          },
+          error: (e) => {
+            this.isLoading = false;
+            // console.error(e);
+            this.isLoggIn = true; 
+            this.router.navigate(['/auth/login']);
+          },
+          complete: () => {
+            this.isLoading = false;
+          }
         }
-      }
-    );
+      );
+    } 
     this.isLoading = false; 
   } 
 

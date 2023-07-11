@@ -6,8 +6,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { PersonnelModel } from '../models/personnel-model';
-import { PersonnelService } from '../personnel.service';
-import { Auth } from 'src/app/classes/auth';
+import { PersonnelService } from '../personnel.service'; 
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
 

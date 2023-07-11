@@ -6,6 +6,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { provideToastr } from 'ngx-toastr';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,6 +59,17 @@ import { EditTitleDialogBox, TitlesComponent } from './preferences/titles/titles
 import { EditFonctionDialogBox, FonctionComponent } from './preferences/fonction/fonction.component';
 import { EditServiceDialogBox, ServicesComponent } from './preferences/services/services.component';
 import { EditSiteLocationDialogBox, SiteLocationComponent } from './preferences/site-location/site-location.component';
+import { PointageComponent } from './presences/pointage/pointage.component';
+import { PointageMatriculeComponent } from './presences/pointage/pointage-matricule/pointage-matricule.component';
+import { PointageSidebarComponent } from './presences/pointage/pointage-sidebar/pointage-sidebar.component'; 
+import { PresenceFormComponent, PresenceSortieDialogBox } from './presences/pointage/presence-form/presence-form.component';
+import { PresenceCalendarComponent } from './presences/pointage/presence-calendar/presence-calendar.component';
+import { PresencePieMonthComponent } from './presences/pointage/presences-pie/presence-pie-month/presence-pie-month.component';
+import { PresencePieYearComponent } from './presences/pointage/presences-pie/presence-pie-year/presence-pie-year.component';
+import { PresencePieAllComponent } from './presences/pointage/presences-pie/presence-pie-all/presence-pie-all.component';
+import { PresencesPieComponent } from './presences/pointage/presences-pie/presences-pie.component'; 
+import { PointageTableComponent } from './presences/pointage/pointage-table/pointage-table.component';
+import { RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
 
 
 @NgModule({
@@ -108,7 +122,19 @@ import { EditSiteLocationDialogBox, SiteLocationComponent } from './preferences/
     EditServiceDialogBox,
     EditTitleDialogBox,
     EditSiteLocationDialogBox,
-    EditReglageDialogBox
+    EditReglageDialogBox, 
+    PointageComponent, 
+    PointageMatriculeComponent, 
+    PointageSidebarComponent,
+    PresenceFormComponent,
+    PresenceCalendarComponent, 
+    PresencePieMonthComponent, 
+    PresencePieYearComponent, 
+    PresencePieAllComponent, 
+    PresencesPieComponent,
+    PresenceSortieDialogBox, 
+    PointageTableComponent,
+    RegistrePresenceComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +146,10 @@ import { EditSiteLocationDialogBox, SiteLocationComponent } from './preferences/
     }),
     QuillModule.forRoot(),
     ToastrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [
     DatePipe,

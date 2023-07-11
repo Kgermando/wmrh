@@ -31,6 +31,10 @@ export abstract class ApiService {
     return this.http.get(`${this.endpoint}/get/${id}`);
   }
 
+  presence(matricule: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/presence/${matricule}`);
+  }
+
   create(data: any): Observable<any> {
     return this.http.post(this.endpoint, data);
   }

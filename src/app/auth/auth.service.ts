@@ -15,7 +15,7 @@ export class AuthService {
     private router: Router) { }
 
   login(data: any): Observable<any> {
-    return this.http.post(`${environment.apiURL}/auth/login/1234`, data, {
+    return this.http.post(`${environment.apiURL}/auth/login`, data, {
         withCredentials: true
     });
   }
@@ -27,7 +27,7 @@ export class AuthService {
 
 
   user(): Observable<PersonnelModel> {
-    return this.http.get<PersonnelModel>(`${environment.apiURL}/auth/user`);
+    return this.http.get<PersonnelModel>(`${environment.apiURL}/auth/personnel`);
   }
 
   isLoggedIn() {
@@ -40,10 +40,10 @@ export class AuthService {
 
 
   updateInfo(data: any): Observable<PersonnelModel> {
-    return this.http.put<PersonnelModel>(`${environment.apiURL}/users/info`, data);
+    return this.http.put<PersonnelModel>(`${environment.apiURL}/personnels/info`, data);
   }
 
   updatePassword(data: any): Observable<PersonnelModel> {
-    return this.http.put<PersonnelModel>(`${environment.apiURL}/users/password`, data);
+    return this.http.put<PersonnelModel>(`${environment.apiURL}/personnels/password`, data);
   }
 }

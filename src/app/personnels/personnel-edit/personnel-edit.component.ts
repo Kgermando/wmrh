@@ -126,7 +126,6 @@ export class PersonnelEditComponent implements OnInit {
       telephone: [''],
       sexe: [''],
       adresse: [''],
-      matricule: [''],
       category: [''],
       role: [''],
     });
@@ -175,7 +174,6 @@ export class PersonnelEditComponent implements OnInit {
           telephone: item.telephone,
           sexe: item.sexe,
           adresse: item.adresse,
-          matricule: item.matricule,
           category: item.category,
           role: item.role,
           signature: this.currentUser.matricule, 
@@ -298,7 +296,7 @@ export class PersonnelEditComponent implements OnInit {
       .subscribe({
         next: () => {
           this.toastr.success('Success!', 'Modification enregistré!');
-          // this.router.navigate(['/layouts/personnels/personnel-list']);
+          this.router.navigate(['/layouts/personnels/personnel-list']);
           this.isLoading = false;
         },
         error: err => {
@@ -313,10 +311,5 @@ export class PersonnelEditComponent implements OnInit {
       this.isLoading = false;
       console.log(error);
     }
-  }
-
-
-  navigate() {
-    this.router.navigate(['/layouts/personnels/personnel-list']);
-  }
+  } 
 }
