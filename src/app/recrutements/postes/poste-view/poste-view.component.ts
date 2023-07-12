@@ -39,7 +39,7 @@ export class PosteViewComponent implements OnInit {
           .delete(id)
           .subscribe(() => {
             this.toastr.success('Success!', 'Ajouter avec succès!');
-            this.router.navigate(['recrutements/postes'])
+            this.router.navigate(['recrutements/postes']);
           });
       }
     }

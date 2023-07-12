@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonnelModel } from '../models/personnel-model';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PersonnelService } from '../personnel.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-personnel-view',
@@ -17,7 +18,9 @@ export class PersonnelViewComponent implements OnInit {
   constructor(
     public themeService: CustomizerSettingsService,
     private route: ActivatedRoute,
-    private personnelService: PersonnelService) {}
+    private router: Router,
+    private personnelService: PersonnelService,
+    private toastr: ToastrService) {}
 
 
     ngOnInit(): void {
@@ -28,6 +31,17 @@ export class PersonnelViewComponent implements OnInit {
         this.isLoading = false; 
       });
       this.isLoading = false;
+    }
+
+    delete(id: number): void {
+      if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
+        this.personnelService
+          .delete(id)
+          .subscribe(() => {
+            this.toastr.success('Success!', 'Ajouter avec succès!');
+            this.router.navigate(['/layouts/personnels/personnel-list']);
+          });
+      }
     }
   
     toggleTheme() {
