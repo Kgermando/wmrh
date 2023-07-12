@@ -29,7 +29,7 @@
                 <ng-container matColumnDef="matricule">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Matricule</th>
                     <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['/layouts/personnels', element.id, 'personnel-view']">
+                        <a [routerLink]="['/layouts/personnels/syndicats', element.id, 'view']">
                             {{element.matricule.toUpperCase()}}
                         </a>
                     </td>
@@ -39,7 +39,7 @@
                  <ng-container matColumnDef="nom">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
                     <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['/layouts/personnels', element.id, 'personnel-view']">
+                        <a [routerLink]="['/layouts/personnels/syndicats', element.id, 'view']">
                             {{element.nom}}
                         </a>
                     </td>
@@ -49,7 +49,7 @@
                 <ng-container matColumnDef="postnom">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Postnom</th>
                     <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['/layouts/personnels', element.id, 'personnel-view']">
+                        <a [routerLink]="['/layouts/personnels/syndicats', element.id, 'view']">
                             {{element.postnom}}
                         </a> 
                     </td>
@@ -59,7 +59,7 @@
                 <ng-container matColumnDef="prenom">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Prenom</th>
                     <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['/layouts/personnels', element.id, 'personnel-view']">
+                        <a [routerLink]="['/layouts/personnels/syndicats', element.id, 'view']">
                             {{element.prenom}}
                         </a> 
                     </td>
@@ -82,35 +82,8 @@
                 <ng-container matColumnDef="sexe">
                     <th mat-header-cell *matHeaderCellDef>Sexe</th>
                     <td mat-cell *matCellDef="let element">{{element.sexe}}</td>
-                </ng-container>
-
-                <!-- Address Column -->
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
-                    <td mat-cell *matCellDef="let element">
-                        <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="actionMenu">
-                            <i class="ri-more-fill"></i>
-                        </button>
-                        <mat-menu #actionMenu="matMenu" class="dotMenu two monthMenu" xPosition="before">
-                            <button mat-menu-item type="button" 
-                                    class="bg-transparent border-none position-relative" (click)="detail(element.id)">
-                                <i class="ri-edit-line"></i> Completer les informations
-                            </button> 
-                            <button mat-menu-item type="button" class="bg-transparent border-none position-relative" >
-                                <i class="ri-mail-send-line"></i> Mail 
-                            </button>
-                            <button mat-menu-item type="button" class="bg-transparent border-none position-relative">
-                                <a href="tel:{{element.email}}"> 
-                                    <i class="ri-phone-line"></i> Appel 
-                                </a>  
-                            </button>
-                            <button mat-menu-item type="button" class="bg-transparent border-none position-relative" (click)="delete(element.id)">
-                                <i class="ri-delete-bin-line"></i> Supprimer
-                            </button>
-                        </mat-menu>
-                    </td>
-                </ng-container>
-
+                </ng-container> 
+                
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
 

@@ -407,7 +407,7 @@
                         <div class="col-12">
                             <label class="d-block mb-12 fw-semibold gray-color">Attacher le CV scanner</label>
                             <div class="input-group">
-                              <input formControlName="cv_url" class="form-control" name="cv_url">
+                              <input formControlName="cv_url" hidden class="form-control" name="cv_url">
                               <app-upload (uploadedUrl)="formGroup.patchValue({'cv_url': $event})"></app-upload> 
                             </div>
                         </div>

@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core'; 
 import { AuthService } from 'src/app/auth/auth.service';
-import { RoleModel } from 'src/app/shared/models/role-model';
 import { PersonnelService } from '../personnel.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { PersonnelModel } from '../models/personnel-model';
-import { MyErrorStateMatcher } from 'src/app/shared/error/MyErrorStateMatcher';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -15,10 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./personnel-add.component.scss']
 })
 export class PersonnelAddComponent implements OnInit {
-  isLoading: boolean = false;
-
-  // matcher = new MyErrorStateMatcher();
-
+  isLoading: boolean = false; 
   formGroup!: FormGroup;
 
   currentUser: PersonnelModel | any;
@@ -130,15 +125,6 @@ export class PersonnelAddComponent implements OnInit {
       this.isLoading = false;
       console.log(error);
     }
-  }
-
-
-  // get nom() { return this.formGroup.get('nom'); }
-
-
-  get f() {
-    return this.formGroup.controls;
-  }
-
+  } 
 
 }

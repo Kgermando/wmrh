@@ -22,8 +22,7 @@ export abstract class ApiService {
     let url = `${this.endpoint}/${code_entreprise}`;
     if (page) { // page is optional
       url += `?page=${page}`;
-    }
-
+    } 
     return this.http.get(url); 
   }
 

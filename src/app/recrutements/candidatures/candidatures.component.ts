@@ -4,25 +4,25 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service'; 
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
-import { PersonnelModel } from '../personnels/models/personnel-model';
-import { PersonnelService } from '../personnels/personnel.service';
-
+import { CandidatureModel } from './models/candidature-model';
+import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
+import { CandidaturesService } from '../candidatures.service';
 
 @Component({
-  selector: 'app-syndicats',
-  templateUrl: './syndicats.component.html',
-  styleUrls: ['./syndicats.component.scss']
+  selector: 'app-candidatures',
+  templateUrl: './candidatures.component.html',
+  styleUrls: ['./candidatures.component.scss']
 })
-export class SyndicatsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['matricule','nom', 'postnom', 'prenom', 'email', 'telephone', 'sexe'];
+export class CandidaturesComponent implements AfterViewInit {
+  displayedColumns: string[] = ['statut', 'full_name', 'sexe', 'departement', 'created'];
   
-  ELEMENT_DATA: PersonnelModel[] = [];
+  ELEMENT_DATA: CandidatureModel[] = [];
   
-  dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-  selection = new SelectionModel<PersonnelModel>(true, []);
+  dataSource = new MatTableDataSource<CandidatureModel>(this.ELEMENT_DATA);
+  selection = new SelectionModel<CandidatureModel>(true, []);
 
   isLoading = false;
   currentUser: PersonnelModel | any;
@@ -32,7 +32,7 @@ export class SyndicatsComponent implements AfterViewInit {
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService,
-      private personnelService: PersonnelService
+      private candidaturesService: CandidaturesService
   ) {}
 
   toggleTheme() {
@@ -47,10 +47,10 @@ export class SyndicatsComponent implements AfterViewInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.personnelService.getSyndicat(this.currentUser.code_entreprise).subscribe({
+                this.candidaturesService.getAll(this.currentUser.code_entreprise).subscribe({
                     next: res => {
                         this.ELEMENT_DATA = res; 
-                        this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+                        this.dataSource = new MatTableDataSource<CandidatureModel>(this.ELEMENT_DATA);
                         this.dataSource.sort = this.sort;
                         this.dataSource.paginator = this.paginator;
         
@@ -85,15 +85,5 @@ export class SyndicatsComponent implements AfterViewInit {
       }
   }
 
-  detail(id: number) {
-    this.router.navigate(['/layouts/personnels', id, 'personnel-edit'])
-  }
-
-  delete(id: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-      this.personnelService
-        .delete(id)
-        .subscribe(() => this.ELEMENT_DATA = this.ELEMENT_DATA.filter(item => item.id !== id));
-    }
-  }
+  
 }

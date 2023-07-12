@@ -1,0 +1,83 @@
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
+    <h4 class="mb-0">Candidatures</h4>
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item gray-color">Recutements</li>
+        <li class="breadcrumb-item fw-semibold">View</li>
+    </ol>
+</div> 
+
+<mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
+    <mat-card-header>
+        <h5 class="mb-0">Candidatures List</h5>
+        <div> 
+            <button mat-icon-button class="tagus">
+                <mat-icon>print</mat-icon>
+            </button>
+        </div> 
+    </mat-card-header>
+    <mat-card-content> 
+        <div class="tagus-form-group">
+            <mat-form-field appearance="fill">
+                <i class="ri-search-line"></i>
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" #input>
+            </mat-form-field>
+        </div>
+        <div class="mat-elevation-z8 tagus-mat-table">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+ 
+                <ng-container matColumnDef="statut">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
+                    <td mat-cell *matCellDef="let element">
+                        <a [routerLink]="['/layouts/recrutements/candidatures', element.id, 'candidature-view']"> 
+                            <span class="badge text-soft-success" *ngIf="element.statut === 'Recrue'">Recrue</span>
+                            <span class="badge text-soft-primary" *ngIf="element.statut === 'Postulant'">Postulant</span>
+                        </a>
+                    </td>
+                </ng-container> 
+  
+                 <ng-container matColumnDef="full_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Full name</th>
+                    <td mat-cell *matCellDef="let element">
+                        <a [routerLink]="['/layouts/recrutements/candidatures', element.id, 'candidature-view']">
+                            {{element.full_name}}
+                        </a>
+                    </td>
+                </ng-container> 
+ 
+                <ng-container matColumnDef="sexe">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexe</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.sexe}}
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="departement">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Département</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.departement}}
+                    </td>
+                </ng-container>
+ 
+                <ng-container matColumnDef="created">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date de mise en ligne</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.created | date: 'dd/MM/yyyy'}}
+                    </td>
+                </ng-container> 
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+
+            </table>
+            <mat-paginator [pageSizeOptions]="[15, 30, 45]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -27,6 +27,15 @@ import { PointageComponent } from './presences/pointage/pointage.component';
 import { PointageMatriculeComponent } from './presences/pointage/pointage-matricule/pointage-matricule.component';  
 import { RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
 import { SyndicatsComponent } from './syndicats/syndicats.component';
+import { PostesComponent } from './recrutements/postes/postes.component';
+import { CandidaturesComponent } from './recrutements/candidatures/candidatures.component';
+import { PosteAddComponent } from './recrutements/postes/poste-add/poste-add.component';
+import { PosteEditComponent } from './recrutements/postes/poste-edit/poste-edit.component';
+import { PosteViewComponent } from './recrutements/postes/poste-view/poste-view.component';
+import { CandidatureAddComponent } from './recrutements/candidatures/candidature-add/candidature-add.component';
+import { CandidatureEditComponent } from './recrutements/candidatures/candidature-edit/candidature-edit.component';
+import { CandidatureViewComponent } from './recrutements/candidatures/candidature-view/candidature-view.component';
+import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -57,6 +66,16 @@ const routes: Routes = [
     { path: 'presences/registre-presences', component: RegistrePresenceComponent }, 
 
     { path: 'personnels/syndicats', component: SyndicatsComponent },
+    { path: 'personnels/syndicats/:id/view', component: SyndicatViewComponent },
+
+    { path: 'recrutements/postes', component: PostesComponent },
+    { path: 'recrutements/postes/poste-add', component: PosteAddComponent },
+    { path: 'recrutements/postes/:id/poste-edit', component: PosteEditComponent },
+    { path: 'recrutements/postes/:id/poste-view', component: PosteViewComponent },
+    { path: 'recrutements/candidatures', component: CandidaturesComponent },
+    { path: 'recrutements/candidatures/:id/candidature-add', component: CandidatureAddComponent },
+    { path: 'recrutements/candidatures/:id/candidature-edit', component: CandidatureEditComponent },
+    { path: 'recrutements/candidatures/:id/candidature-view', component: CandidatureViewComponent },
 
     { path: 'mail/inbox', component: InboxComponent },
     { path: 'mail/compose', component: ComposeComponent },

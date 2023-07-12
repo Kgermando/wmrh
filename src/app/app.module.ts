@@ -71,6 +71,15 @@ import { PresencesPieComponent } from './presences/pointage/presences-pie/presen
 import { PointageTableComponent } from './presences/pointage/pointage-table/pointage-table.component';
 import { RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
 import { SyndicatsComponent } from './syndicats/syndicats.component';
+import { CandidaturesComponent } from './recrutements/candidatures/candidatures.component';
+import { PostesComponent } from './recrutements/postes/postes.component';
+import { PosteAddComponent } from './recrutements/postes/poste-add/poste-add.component';
+import { PosteEditComponent } from './recrutements/postes/poste-edit/poste-edit.component';
+import { PosteViewComponent } from './recrutements/postes/poste-view/poste-view.component';
+import { CandidatureAddComponent } from './recrutements/candidatures/candidature-add/candidature-add.component';
+import { CandidatureEditComponent } from './recrutements/candidatures/candidature-edit/candidature-edit.component';
+import { CandidatureViewComponent } from './recrutements/candidatures/candidature-view/candidature-view.component';
+import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';  
 
 
 @NgModule({
@@ -136,7 +145,16 @@ import { SyndicatsComponent } from './syndicats/syndicats.component';
     PresenceSortieDialogBox, 
     PointageTableComponent,
     RegistrePresenceComponent,
-    SyndicatsComponent
+    SyndicatsComponent,
+    CandidaturesComponent,
+    PostesComponent,
+    PosteAddComponent,
+    PosteEditComponent,
+    PosteViewComponent,
+    CandidatureAddComponent,
+    CandidatureEditComponent,
+    CandidatureViewComponent,
+    SyndicatViewComponent, 
   ],
   imports: [
     BrowserModule,
