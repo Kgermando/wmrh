@@ -36,6 +36,8 @@ import { CandidatureAddComponent } from './recrutements/candidatures/candidature
 import { CandidatureEditComponent } from './recrutements/candidatures/candidature-edit/candidature-edit.component';
 import { CandidatureViewComponent } from './recrutements/candidatures/candidature-view/candidature-view.component';
 import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';
+import { StatutPresenceComponent } from './presences/statut-presence/statut-presence.component';
+import { HeuresSuplementairesComponent } from './presences/heures-suplementaires/heures-suplementaires.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -64,7 +66,9 @@ const routes: Routes = [
     { path: 'presences/pointage', component: PointageComponent },
     { path: 'presences/pointage/:id', component: PointageMatriculeComponent },
     { path: 'presences/registre-presences', component: RegistrePresenceComponent }, 
-
+    { path: 'presences/statuts-presences', component: StatutPresenceComponent },
+    { path: 'presences/heures-supplementaires', component: HeuresSuplementairesComponent },
+                                                                                                                                                                           
     { path: 'personnels/syndicats', component: SyndicatsComponent },
     { path: 'personnels/syndicats/:id/view', component: SyndicatViewComponent },
 

@@ -79,7 +79,9 @@ import { PosteViewComponent } from './recrutements/postes/poste-view/poste-view.
 import { CandidatureAddComponent } from './recrutements/candidatures/candidature-add/candidature-add.component';
 import { CandidatureEditComponent } from './recrutements/candidatures/candidature-edit/candidature-edit.component';
 import { CandidatureViewComponent } from './recrutements/candidatures/candidature-view/candidature-view.component';
-import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';  
+import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';
+import { StatutPresenceComponent } from './presences/statut-presence/statut-presence.component';
+import { HeuresSuplementairesComponent } from './presences/heures-suplementaires/heures-suplementaires.component';  
 
 
 @NgModule({
@@ -154,7 +156,9 @@ import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.c
     CandidatureAddComponent,
     CandidatureEditComponent,
     CandidatureViewComponent,
-    SyndicatViewComponent, 
+    SyndicatViewComponent,
+    StatutPresenceComponent,
+    HeuresSuplementairesComponent, 
   ],
   imports: [
     BrowserModule,

@@ -37,6 +37,11 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
+                                <a routerLink="/layouts/presences/statuts-presences" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Statuts presence
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
                                 <a routerLink="/layouts/presences/pointage" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Pointage presence
                                 </a>
@@ -44,6 +49,11 @@
                             <li class="sidemenu-item">
                                 <a routerLink="/layouts/presences/registre-presences" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Registre de presences
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/presences/heures-supplementaires" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Heures supplementaires
                                 </a>
                             </li> 
                         </ul>
@@ -58,12 +68,27 @@
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
                                 <a routerLink="/layouts/mail/inbox" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Relevé de salaire
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/mail/inbox" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Bulletin de paie
                                 </a>
                             </li>
                             <li class="sidemenu-item">
                                 <a routerLink="/layouts/mail/compose" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Impôts
+                                    Avances sur salaires
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/mail/compose" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Statut de paies
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/mail/compose" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Taxes de la société
                                 </a>
                             </li>
                             <li class="sidemenu-item">
@@ -72,8 +97,13 @@
                                 </a>
                             </li>
                             <li class="sidemenu-item">
+                                <a routerLink="/layouts/mail/read-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Penalités
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
                                 <a routerLink="/layouts/mail/brouillon" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Frais bancaire
+                                    Retenues frais bancaire
                                 </a>
                             </li>
                         </ul>
@@ -106,8 +136,6 @@
                             </li>
                         </ul>
                     </mat-expansion-panel>
-
-
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -154,7 +182,7 @@
                             </li>
                             <li class="sidemenu-item">
                                 <a routerLink="/layouts/preferences/departement" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Département
+                                    Départements
                                 </a>
                             </li>
                             <li class="sidemenu-item">
@@ -179,7 +207,10 @@
                             </li>
                         </ul>
                     </mat-expansion-panel>
-                    
+                    <a routerLink="/layouts/personnels/personnel-list" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="ri-archive-line"></i>
+                        <span class="title">Archives</span>
+                    </a>
                     
                 </mat-accordion>
             </div>
