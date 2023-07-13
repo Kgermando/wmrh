@@ -38,6 +38,7 @@ import { CandidatureViewComponent } from './recrutements/candidatures/candidatur
 import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';
 import { StatutPresenceComponent } from './presences/statut-presence/statut-presence.component';
 import { HeuresSuplementairesComponent } from './presences/heures-suplementaires/heures-suplementaires.component';
+import { PrimesComponent } from './primes/primes.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -80,6 +81,8 @@ const routes: Routes = [
     { path: 'recrutements/candidatures/:id/candidature-add', component: CandidatureAddComponent },
     { path: 'recrutements/candidatures/:id/candidature-edit', component: CandidatureEditComponent },
     { path: 'recrutements/candidatures/:id/candidature-view', component: CandidatureViewComponent },
+
+    { path: 'salaires/primes', component: PrimesComponent },
 
     { path: 'mail/inbox', component: InboxComponent },
     { path: 'mail/compose', component: ComposeComponent },

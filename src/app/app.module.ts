@@ -81,7 +81,8 @@ import { CandidatureEditComponent } from './recrutements/candidatures/candidatur
 import { CandidatureViewComponent } from './recrutements/candidatures/candidature-view/candidature-view.component';
 import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';
 import { StatutPresenceComponent } from './presences/statut-presence/statut-presence.component';
-import { HeuresSuplementairesComponent } from './presences/heures-suplementaires/heures-suplementaires.component';  
+import { HeuresSuplementairesComponent } from './presences/heures-suplementaires/heures-suplementaires.component';
+import { PrimesComponent } from './primes/primes.component';  
 
 
 @NgModule({
@@ -158,7 +159,8 @@ import { HeuresSuplementairesComponent } from './presences/heures-suplementaires
     CandidatureViewComponent,
     SyndicatViewComponent,
     StatutPresenceComponent,
-    HeuresSuplementairesComponent, 
+    HeuresSuplementairesComponent,
+    PrimesComponent, 
   ],
   imports: [
     BrowserModule,

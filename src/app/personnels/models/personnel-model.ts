@@ -1,4 +1,5 @@
 import { ApointementModel } from "src/app/presences/models/presence-model";
+import { PrimeModel } from "src/app/primes/models/prime-model";
 
 export interface PersonnelModel {
     id: number;
@@ -49,5 +50,6 @@ export interface PersonnelModel {
     code_entreprise: string;
 
     presences: ApointementModel[];
+    primes: PrimeModel[];
     
 }
