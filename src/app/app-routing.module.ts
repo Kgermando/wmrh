@@ -36,9 +36,11 @@ import { CandidatureAddComponent } from './recrutements/candidatures/candidature
 import { CandidatureEditComponent } from './recrutements/candidatures/candidature-edit/candidature-edit.component';
 import { CandidatureViewComponent } from './recrutements/candidatures/candidature-view/candidature-view.component';
 import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';
-import { StatutPresenceComponent } from './presences/statut-presence/statut-presence.component';
-import { HeuresSuplementairesComponent } from './presences/heures-suplementaires/heures-suplementaires.component';
+import { StatutPresenceComponent } from './presences/statut-presence/statut-presence.component'; 
 import { PrimesComponent } from './primes/primes.component';
+import { HeuresSuppComponent } from './heures-supp/heures-supp.component';
+import { PenalitesComponent } from './penalites/penalites.component';
+import { AvanceSalairesComponent } from './avance-salaires/avance-salaires.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -68,7 +70,7 @@ const routes: Routes = [
     { path: 'presences/pointage/:id', component: PointageMatriculeComponent },
     { path: 'presences/registre-presences', component: RegistrePresenceComponent }, 
     { path: 'presences/statuts-presences', component: StatutPresenceComponent },
-    { path: 'presences/heures-supplementaires', component: HeuresSuplementairesComponent },
+    { path: 'presences/heures-supp', component: HeuresSuppComponent },
                                                                                                                                                                            
     { path: 'personnels/syndicats', component: SyndicatsComponent },
     { path: 'personnels/syndicats/:id/view', component: SyndicatViewComponent },
@@ -83,6 +85,8 @@ const routes: Routes = [
     { path: 'recrutements/candidatures/:id/candidature-view', component: CandidatureViewComponent },
 
     { path: 'salaires/primes', component: PrimesComponent },
+    { path: 'salaires/penalite', component: PenalitesComponent },
+    { path: 'salaires/avance-salaire', component: AvanceSalairesComponent },
 
     { path: 'mail/inbox', component: InboxComponent },
     { path: 'mail/compose', component: ComposeComponent },

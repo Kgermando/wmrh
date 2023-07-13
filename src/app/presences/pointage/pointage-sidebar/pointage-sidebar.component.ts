@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
+import { PresenceService } from '../../presence.service';
+import { ApointementModel } from '../../models/presence-model';
 
 
 @Component({
@@ -19,11 +21,14 @@ export class PointageSidebarComponent implements OnInit {
   personnelList: PersonnelModel[] = [];
   personnelFilter: PersonnelModel[] = []; 
 
+  presence: ApointementModel;
+
     constructor(
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService,
-      private personnelService: PersonnelService
+      private personnelService: PersonnelService,
+      private presenceService: PresenceService
   ) {}
 
 
@@ -35,7 +40,7 @@ export class PointageSidebarComponent implements OnInit {
                 this.personnelService.getAll(this.currentUser.code_entreprise).subscribe({
                     next: res => {
                         this.personnelList = res; 
-                        this.personnelFilter = [...this.personnelList]; 
+                        this.personnelFilter = [...this.personnelList];
                         this.isLoading = false;
                     },
                     error: (err) => {
@@ -56,6 +61,11 @@ export class PointageSidebarComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value; 
     this.personnelFilter = [...this.personnelList.filter(personne => personne.matricule.includes(filterValue.trim().toLowerCase()))];
+ }
+
+
+ getPresenceIcon(code_entreprise: string, matricule: string) {
+  this.presenceService.getLastItem(code_entreprise, matricule).subscribe(res => this.presence = res)
  }
 
 

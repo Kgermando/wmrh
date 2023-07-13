@@ -80,9 +80,12 @@ import { CandidatureAddComponent } from './recrutements/candidatures/candidature
 import { CandidatureEditComponent } from './recrutements/candidatures/candidature-edit/candidature-edit.component';
 import { CandidatureViewComponent } from './recrutements/candidatures/candidature-view/candidature-view.component';
 import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';
-import { StatutPresenceComponent } from './presences/statut-presence/statut-presence.component';
-import { HeuresSuplementairesComponent } from './presences/heures-suplementaires/heures-suplementaires.component';
-import { PrimesComponent } from './primes/primes.component';  
+import { StatutPresenceComponent } from './presences/statut-presence/statut-presence.component'; 
+import { PrimesComponent } from './primes/primes.component';
+import { PenalitesComponent } from './penalites/penalites.component';
+import { AvanceSalairesComponent } from './avance-salaires/avance-salaires.component';
+import { HeuresSuppComponent } from './heures-supp/heures-supp.component';
+import { PresencePointageComponent } from './presences/pointage/pointage-sidebar/presence-pointage/presence-pointage.component';  
 
 
 @NgModule({
@@ -158,9 +161,12 @@ import { PrimesComponent } from './primes/primes.component';
     CandidatureEditComponent,
     CandidatureViewComponent,
     SyndicatViewComponent,
-    StatutPresenceComponent,
-    HeuresSuplementairesComponent,
-    PrimesComponent, 
+    StatutPresenceComponent, 
+    PrimesComponent,
+    PenalitesComponent,
+    AvanceSalairesComponent,
+    HeuresSuppComponent,
+    PresencePointageComponent, 
   ],
   imports: [
     BrowserModule,

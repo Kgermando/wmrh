@@ -1,0 +1,45 @@
+
+<div *ngIf="presence"> 
+    <div class="position-relative muted-color plus-btn present p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'P'">
+    </div>
+
+    <div class="position-relative muted-color plus-btn absence-sans-autorisation p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'A'">
+    </div>
+
+    <div class="position-relative muted-color plus-btn absence-autorisee p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'AA'">
+    </div>
+
+    <div class="position-relative muted-color plus-btn absent-maladie p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'AM'">
+    </div>
+
+    <div class="position-relative muted-color plus-btn conge-deuil p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'CD'">
+    </div>
+
+    <div class="position-relative muted-color plus-btn conge-annuel p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'CA'">
+    </div>
+
+    <div class="position-relative muted-color plus-btn conge-occasionnel p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'CO'">
+    </div>
+
+    <div class="position-relative muted-color plus-btn suspension p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'S'">
+    </div>
+
+    <div class="position-relative muted-color plus-btn service-off p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'O'">
+    </div>
+
+    <div class="position-relative muted-color plus-btn mission p-0 border-none rounded-circle"
+        *ngIf="presence.apointement == 'M'">
+    </div>
+     
+</div>
+ 
+ 
