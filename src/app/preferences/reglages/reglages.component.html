@@ -321,7 +321,7 @@
                         </li>
                         <li>
                             <span class="fw-semibold d-inline-block">Allocation transport: </span>
-                            <span class="gray-color">{{ preference.allocation_transport }} ù</span>
+                            <span class="gray-color">{{ preference.allocation_transport }} %</span>
                             <button mat-icon-button color="warn" 
                             (click)="openEditDialog('300ms', '100ms', 'Allocation transport', preference.allocation_transport)">
                             <mat-icon>edit</mat-icon>
@@ -329,7 +329,7 @@
                         </li> 
                         <li>
                             <span class="fw-semibold d-inline-block">Allocation familliale: </span>
-                            <span class="gray-color">{{ preference.allocation_familliale }}</span>
+                            <span class="gray-color">{{ preference.allocation_familliale }} %</span>
                             <button mat-icon-button color="warn" 
                             (click)="openEditDialog('300ms', '100ms', 'Allocation familliale', preference.allocation_familliale)">
                             <mat-icon>edit</mat-icon>
@@ -337,7 +337,7 @@
                         </li> 
                         <li>
                             <span class="fw-semibold d-inline-block">Allocation de l'épouse: </span>
-                            <span class="gray-color">{{ preference.allocation_epouse }}</span>
+                            <span class="gray-color">{{ preference.allocation_epouse }} %</span>
                             <button mat-icon-button color="warn" 
                             (click)="openEditDialog('300ms', '100ms', 'Allocation de l\'épouse', preference.allocation_epouse)">
                             <mat-icon>edit</mat-icon>
@@ -354,7 +354,55 @@
                     </ul>  
                 </mat-card-content>
             </mat-card>
-            
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Primes d'anciennetés</h5>
+                </mat-card-header>
+                <mat-card-content>
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold d-inline-block">Prime de plus de 5 ans: </span>
+                            <span class="gray-color">{{ preference.prime_ancien_5 }} %</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Prime de plus de 5 ans', preference.prime_ancien_5)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Prime de plus de 10 ans: </span>
+                            <span class="gray-color">{{ preference.prime_ancien_10 }} %</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Prime de plus de 10 ans', preference.prime_ancien_10)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Prime de plus de 15 ans: </span>
+                            <span class="gray-color">{{ preference.prime_ancien_15 }} %</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Prime de plus de 15 ans', preference.prime_ancien_15)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Prime de plus de 20 ans: </span>
+                            <span class="gray-color">{{ preference.prime_ancien_20 }} %</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Prime de plus de 20 ans', preference.prime_ancien_20)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Prime de plus de 25 ans: </span>
+                            <span class="gray-color">{{ preference.prime_ancien_25 }} %</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Prime de plus de 25 ans', preference.prime_ancien_25)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li> 
+                    </ul>  
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>

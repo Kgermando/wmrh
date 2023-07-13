@@ -263,6 +263,36 @@ export class EditReglageDialogBox implements OnInit{
         kimbangu_day: '',
       });
     }
+
+    if (this.data['reglage'] == 'Prime de plus de 5 ans') {
+      this.formGroup = this.formBuilder.group({  
+        prime_ancien_5: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Prime de plus de 10 ans') {
+      this.formGroup = this.formBuilder.group({  
+        prime_ancien_10: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Prime de plus de 15 ans') {
+      this.formGroup = this.formBuilder.group({  
+        prime_ancien_15: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Prime de plus de 20 ans') {
+      this.formGroup = this.formBuilder.group({  
+        prime_ancien_20: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Prime de plus de 25 ans') {
+      this.formGroup = this.formBuilder.group({  
+        prime_ancien_25: '',
+      });
+    }
     
 
     this.authService.user().subscribe({
@@ -508,6 +538,47 @@ export class EditReglageDialogBox implements OnInit{
             update_created: new Date(),
           });
         }
+
+        if (this.data['reglage'] == 'Prime de plus de 5 ans') {
+          this.formGroup.patchValue({
+            prime_ancien_5: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        if (this.data['reglage'] == 'Prime de plus de 10 ans') {
+          this.formGroup.patchValue({
+            prime_ancien_10: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        if (this.data['reglage'] == 'Prime de plus de 15 ans') {
+          this.formGroup.patchValue({
+            prime_ancien_15: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        if (this.data['reglage'] == 'Prime de plus de 20 ans') {
+          this.formGroup.patchValue({
+            prime_ancien_20: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        if (this.data['reglage'] == 'Prime de plus de 25 ans') {
+          this.formGroup.patchValue({
+            prime_ancien_25: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
