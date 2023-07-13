@@ -96,7 +96,7 @@ export class PersonnelAddComponent implements OnInit {
           telephone: this.formGroup.value.telephone,
           sexe: this.formGroup.value.sexe,
           adresse: this.formGroup.value.adresse, 
-          matricule: identifiant,
+          matricule: identifiant.toLowerCase(),
           category: this.formGroup.value.category,
           role: this.formGroup.value.role, 
           signature: this.currentUser.matricule,
