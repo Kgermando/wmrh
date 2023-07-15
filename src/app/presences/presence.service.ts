@@ -29,7 +29,11 @@ export class PresenceService extends ApiService {
     return this.http.get(`${this.endpoint}/get-last-item/${code_entreprise}/${matricule}`);
   }
 
-  getLastItemStats(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-last-item/${code_entreprise}`);
+  getItemsPAAA(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-item-p-a-aa/${code_entreprise}`);
+  }
+
+  getItemsCongE(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-item-conge/${code_entreprise}`);
   }
 }
