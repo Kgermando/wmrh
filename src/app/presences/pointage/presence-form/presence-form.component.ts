@@ -125,6 +125,9 @@ export class PresenceFormComponent {
         if (dateEntreeDay === day && dateEntreeMonth === dayMonth && dateEntreeYear === dayYear) {
           this.isAAToday = true;
         }
+        if (dateEntreeDay < day && dateEntreeMonth === dayMonth && dateEntreeYear === dayYear) {
+          this.isAATodayForm = true;
+        }
       }
       
       
@@ -132,29 +135,50 @@ export class PresenceFormComponent {
         if (datePresenceSortie > dateToday) {
           this.isAMToday = true;
         }
+        if (datePresenceSortie == dateToday) {
+          this.isAMTodayForm = true;
+        }
       } else if(this.apointementItem.apointement === 'CD'){
         if (datePresenceSortie > dateToday) {
           this.isCDToday = true;
-        } 
+        }
+        if (datePresenceSortie == dateToday) {
+          this.isCDTodayForm = true;
+        }
       } else if(this.apointementItem.apointement === 'CA'){
         if (datePresenceSortie > dateToday) {
           this.isCAToday = true;
+        }
+        if (datePresenceSortie == dateToday) {
+          this.isCATodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'CO'){
         if (datePresenceSortie > dateToday) {
           this.isCOToday = true;
         }
+        if (datePresenceSortie == dateToday) {
+          this.isCOTodayForm = true;
+        }
       } else if(this.apointementItem.apointement === 'S'){
         if (datePresenceSortie > dateToday) {
           this.isSToday = true;
+        }
+        if (datePresenceSortie == dateToday) {
+          this.isSTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'O'){
         if (datePresenceSortie > dateToday) {
           this.isOToday = true;
         }
+        if (datePresenceSortie == dateToday) {
+          this.isOTodayForm = true;
+        }
       } else if(this.apointementItem.apointement === 'M'){
         if (datePresenceSortie > dateToday) {
           this.isMToday = true;
+        }
+        if (datePresenceSortie == dateToday) {
+          this.isMTodayForm = true;
         }
       }
       
