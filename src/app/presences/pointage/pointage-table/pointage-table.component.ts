@@ -1,15 +1,18 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service'; 
 import { AuthService } from 'src/app/auth/auth.service';
-import { Router } from '@angular/router';  
+import { ActivatedRoute, Router } from '@angular/router';  
 import { ApointementModel } from '../../models/presence-model';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { PresenceService } from '../../presence.service';
+import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -19,8 +22,11 @@ import { PresenceService } from '../../presence.service';
 })
 export class PointageTableComponent implements AfterViewInit {
   @Input('personne') personne: PersonnelModel; 
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
   
-  displayedColumns: string[] = ['matricule','apointement', 'date_entree', 'date_sortie', 'observation'];
+  displayedColumns: string[] = ['matricule','apointement', 'date_entree', 'date_sortie', 'observation', 'action'];
   
   ELEMENT_DATA: ApointementModel[] = []; 
   
@@ -32,20 +38,18 @@ export class PointageTableComponent implements AfterViewInit {
  
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
-      public themeService: CustomizerSettingsService,
-      private router: Router,
+      public themeService: CustomizerSettingsService, 
+      private router: Router, 
       private authService: AuthService,
       private presenceService: PresenceService,
+      public dialog: MatDialog,
+      private toastr: ToastrService
   ) {}
 
-  toggleTheme() {
-      this.themeService.toggleTheme();
-  }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-    ngAfterViewInit() { 
+
+  ngAfterViewInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {
@@ -70,8 +74,8 @@ export class PointageTableComponent implements AfterViewInit {
             }
           }); 
         this.isLoading = false;
-    }
 
+    } 
  
   applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
@@ -91,8 +95,145 @@ export class PointageTableComponent implements AfterViewInit {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
       this.presenceService
         .delete(id)
-        .subscribe(() => this.ELEMENT_DATA = this.ELEMENT_DATA.filter(item => item.id !== id));
+        .subscribe({
+          next: () => { 
+            window.location.reload(); 
+            this.toastr.success('Success!', 'Suppression effectuée!'); 
+          },
+          error: (err) => {
+            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+            console.log(err);
+          }
+        }
+      );
     }
   }
+
+  openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
+    this.dialog.open(EditPresenceDialogBox, {
+      width: '600px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        id: id
+      }
+    }); 
+  }  
+
+}
+
+
+
+
+@Component({
+  selector: 'edit-presence-dialog',
+  templateUrl: './edit-presence.html',
+})
+export class EditPresenceDialogBox implements OnInit {
+  isLoading = false;
+
+  formGroup!: FormGroup;
+ 
+
+  currentUser: PersonnelModel | any;
+
+  isAbsense = false;
+
+  apointementList: string[] = [
+    'P',
+    'A',
+    'AA',
+    'AM',
+    'CD',
+    'CA',
+    'CO',
+    'S', 
+    'O',
+    'M'
+  ];
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+      public dialogRef: MatDialogRef<EditPresenceDialogBox>,
+      private formBuilder: FormBuilder,
+      private router: Router,
+      private authService: AuthService, 
+      private toastr: ToastrService,
+      private presenceService: PresenceService,
+  ) {}
+
+
+
+  ngOnInit(): void {
+    this.authService.user().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
+    }); 
+    this.formGroup = this.formBuilder.group({
+      apointement: [''],
+      observation: [''],
+      date_sortie: ['']
+    });
+
+    this.presenceService.get(parseInt(this.data['id'])).subscribe(item => {
+      this.formGroup.patchValue({
+        apointement: item.apointement,
+        observation: item.observation, 
+        date_sortie: item.date_sortie, 
+        signature: this.currentUser.matricule, 
+        update_created: new Date(),
+      });
+    });
+   
+ 
+  } 
+
+  onPresenceChange(event: any) {
+    console.log(event.value);
+    if (
+      event.value === 'AM' || event.value === 'CD' || 
+      event.value === 'CA' || event.value === 'CO' || 
+      event.value === 'S' || event.value === 'M') { 
+      this.isAbsense = true;
+    } else if(event.value === 'P' || event.value === 'A' || 
+      event.value === 'AA' || event.value === 'O') {
+      this.isAbsense = false;
+    }
+  }
+
+
+
+  onSubmit() {
+    try {
+      this.isLoading = true;
+      this.presenceService.update(parseInt(this.data['id']), this.formGroup.getRawValue())
+      .subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.toastr.success('Success!', 'Modification enregistré!');
+          window.location.reload();
+        },
+        error: err => {
+          console.log(err);
+          this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          this.isLoading = false;
+        }
+      });
+
+      this.isLoading = false;
+    } catch (error) {
+      this.isLoading = false;
+      console.log(error);
+    }
+  }
+
+  close(){
+      this.dialogRef.close(true);
+  } 
 
 }

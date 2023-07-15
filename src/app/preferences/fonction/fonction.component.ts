@@ -170,7 +170,7 @@ export class EditFonctionDialogBox implements OnInit{
         next: () => {
           this.isLoading = false;
           this.toastr.success('Success!', 'Modification enregistré!');
-          window.location.reload(); 
+          window.location.reload();
         },
         error: err => {
           console.log(err);

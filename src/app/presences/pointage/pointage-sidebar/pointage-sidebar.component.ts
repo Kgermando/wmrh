@@ -27,8 +27,7 @@ export class PointageSidebarComponent implements OnInit {
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService,
-      private personnelService: PersonnelService,
-      private presenceService: PresenceService
+      private personnelService: PersonnelService, 
   ) {}
 
 
@@ -62,16 +61,5 @@ export class PointageSidebarComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value; 
     this.personnelFilter = [...this.personnelList.filter(personne => personne.matricule.includes(filterValue.trim().toLowerCase()))];
  }
-
-
- getPresenceIcon(code_entreprise: string, matricule: string) {
-  this.presenceService.getLastItem(code_entreprise, matricule).subscribe(res => this.presence = res)
- }
-
-
- navigationUrl(matricule: string) {
-  this.router.navigate(['/layouts/presences/pointage', matricule]);
- }
-
-      
+    
 }

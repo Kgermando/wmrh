@@ -54,6 +54,8 @@ export class PresenceCalendarComponent implements OnInit {
               dataCSS = "suspension";
             } else if (index.apointement === 'O') {
               dataCSS = "service-off";
+            }else if (index.apointement === 'M') {
+              dataCSS = "mission";
             }
           }
         } 

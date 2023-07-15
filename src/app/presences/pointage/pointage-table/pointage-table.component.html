@@ -39,14 +39,14 @@
                 </ng-container>
  
                 <ng-container matColumnDef="date_entree">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date d'absence</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date d'entrée</th>
                     <td mat-cell *matCellDef="let element">
                         {{ element.date_entree | date: 'dd/MM/yyyy HH:mm:ss' }} 
                     </td>
                 </ng-container> 
 
                 <ng-container matColumnDef="date_sortie">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date de sortie</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date de Sortie / Reprise</th>
                     <td mat-cell *matCellDef="let element">
                         {{ element.date_sortie | date: 'dd/MM/yyyy HH:mm:ss' }} 
                     </td>
@@ -57,7 +57,19 @@
                     <td mat-cell *matCellDef="let element">
                         {{element.observation}}
                     </td>
-                </ng-container> 
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="primary" (click)="openEditDialog('300ms', '100ms', element.id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent" (click)="delete(element.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
 

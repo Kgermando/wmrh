@@ -62,13 +62,13 @@ import { EditSiteLocationDialogBox, SiteLocationComponent } from './preferences/
 import { PointageComponent } from './presences/pointage/pointage.component';
 import { PointageMatriculeComponent } from './presences/pointage/pointage-matricule/pointage-matricule.component';
 import { PointageSidebarComponent } from './presences/pointage/pointage-sidebar/pointage-sidebar.component'; 
-import { PresenceFormComponent, PresenceSortieDialogBox } from './presences/pointage/presence-form/presence-form.component';
+import { PresenceFormComponent } from './presences/pointage/presence-form/presence-form.component';
 import { PresenceCalendarComponent } from './presences/pointage/presence-calendar/presence-calendar.component';
 import { PresencePieMonthComponent } from './presences/pointage/presences-pie/presence-pie-month/presence-pie-month.component';
 import { PresencePieYearComponent } from './presences/pointage/presences-pie/presence-pie-year/presence-pie-year.component';
 import { PresencePieAllComponent } from './presences/pointage/presences-pie/presence-pie-all/presence-pie-all.component';
 import { PresencesPieComponent } from './presences/pointage/presences-pie/presences-pie.component'; 
-import { PointageTableComponent } from './presences/pointage/pointage-table/pointage-table.component';
+import { EditPresenceDialogBox, PointageTableComponent } from './presences/pointage/pointage-table/pointage-table.component';
 import { RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
 import { SyndicatsComponent } from './syndicats/syndicats.component';
 import { CandidaturesComponent } from './recrutements/candidatures/candidatures.component';
@@ -148,7 +148,6 @@ import { PresencePointageComponent } from './presences/pointage/pointage-sidebar
     PresencePieYearComponent, 
     PresencePieAllComponent, 
     PresencesPieComponent,
-    PresenceSortieDialogBox, 
     PointageTableComponent,
     RegistrePresenceComponent,
     SyndicatsComponent,
@@ -166,7 +165,8 @@ import { PresencePointageComponent } from './presences/pointage/pointage-sidebar
     PenalitesComponent,
     AvanceSalairesComponent,
     HeuresSuppComponent,
-    PresencePointageComponent, 
+    PresencePointageComponent,
+    EditPresenceDialogBox
   ],
   imports: [
     BrowserModule,
