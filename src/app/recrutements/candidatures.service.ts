@@ -6,6 +6,5 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CandidaturesService extends ApiService {
-  endpoint: string = `${environment.apiURL}/candidatures`;
- 
+  endpoint: string = `${environment.apiURL}/candidatures`; 
 }

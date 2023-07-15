@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class HeureSuppService extends ApiService {
-  endpoint: string = `${environment.apiURL}/heures-supp`; 
+export class PrimeService extends ApiService {
+  endpoint: string = `${environment.apiURL}/primes`; 
 }
+
