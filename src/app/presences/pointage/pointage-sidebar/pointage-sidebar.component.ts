@@ -22,12 +22,23 @@ export class PointageSidebarComponent implements OnInit {
   personnelFilter: PersonnelModel[] = []; 
 
   presence: ApointementModel;
-
+ 
+  numberA: number = 0;
+  numberAA: number = 0;
+  numberAM: number = 0;
+  numberCD: number = 0;
+  numberCA: number = 0;
+  numberCO: number = 0;
+  numberS: number = 0;
+  numberO: number = 0;
+  numberM: number = 0;
+ 
     constructor(
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService,
-      private personnelService: PersonnelService, 
+      private personnelService: PersonnelService,
+      private presenceService: PresenceService
   ) {}
 
 
@@ -40,6 +51,9 @@ export class PointageSidebarComponent implements OnInit {
                     next: res => {
                         this.personnelList = res; 
                         this.personnelFilter = [...this.personnelList];
+                        this.presenceService.getLastItemStats(this.currentUser.code_entreprise).subscribe(res => {
+                          console.log(res)
+                        });
                         this.isLoading = false;
                     },
                     error: (err) => {

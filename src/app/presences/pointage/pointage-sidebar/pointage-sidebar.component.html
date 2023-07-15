@@ -1,6 +1,50 @@
 <mat-card
     class="mb-25 tagus-card top-instructors-box" 
-> 
+>
+    <mat-card-header>
+        <div class="d-flex flex-wrap justify-content-space-between">
+            <div class="pointage">
+                <div class="box-present">A</div>
+                <div class="box-value">200</div>
+            </div>
+            <div class="pointage">
+                <div class="box-absence-sans-autorisation">A</div>
+                <div class="box-value">200</div>
+            </div>
+            <div class="pointage">
+                <div class="box-absence-autorisee">AA</div>
+                <div class="box-value">200</div>
+            </div>
+            <div class="pointage">
+                <div class="box-absent-maladie">AM</div>
+                <div class="box-value">200</div>
+            </div>
+            <div class="pointage">
+                <div class="box-conge-deuil">CD</div>
+                <div class="box-value">200</div>
+            </div>
+            <div class="pointage">
+                <div class="box-conge-annuel">CA</div>
+                <div class="box-value">200</div>
+            </div>
+            <div class="pointage">
+                <div class="box-conge-occasionnel">CO</div>
+                <div class="box-value">200</div>
+            </div>
+            <div class="pointage">
+                <div class="box-suspension">S</div>
+                <div class="box-value">200</div>
+            </div>
+            <div class="pointage">
+                <div class="box-service-off">O</div>
+                <div class="box-value">200</div>
+            </div>
+            <div class="pointage">
+                <div class="box-mission">M</div>
+                <div class="box-value">200</div>
+            </div>
+        </div>
+    </mat-card-header>
     <mat-card-content>
         <form class="tagus-search-box mb-25">
             <input type="text" class="input-search border-radius" placeholder="Recherche par identifiant..." (keyup)="applyFilter($event)">
@@ -26,4 +70,3 @@
         </div>
     </mat-card-content>
 </mat-card>
- 

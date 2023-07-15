@@ -28,4 +28,8 @@ export class PresenceService extends ApiService {
   getLastItem(code_entreprise: string, matricule: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-last-item/${code_entreprise}/${matricule}`);
   }
+
+  getLastItemStats(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-last-item/${code_entreprise}`);
+  }
 }

@@ -181,6 +181,15 @@ export class EditPresenceDialogBox implements OnInit {
     });
 
     this.presenceService.get(parseInt(this.data['id'])).subscribe(item => {
+      if (
+        item.apointement === 'AM' || item.apointement === 'CD' || 
+        item.apointement === 'CA' || item.apointement === 'CO' || 
+        item.apointement === 'S' || item.apointement === 'M') { 
+        this.isAbsense = true;
+      } else if(item.apointement === 'P' || item.apointement === 'A' || 
+      item.apointement === 'AA' || item.apointement === 'O') {
+        this.isAbsense = false;
+      }
       this.formGroup.patchValue({
         apointement: item.apointement,
         observation: item.observation, 
