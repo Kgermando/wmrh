@@ -92,7 +92,10 @@ export class DepartementsComponent implements OnInit {
 
   delete(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-      this.departementService.delete(id).subscribe(res => window.location.reload());
+      this.departementService.delete(id).subscribe(res => {
+        this.toastr.success('Success!', 'Supprimée avec succès!'); 
+        window.location.reload();
+      });
     }
   }
 

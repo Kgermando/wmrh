@@ -176,30 +176,30 @@ export class EditPresenceDialogBox implements OnInit {
     }); 
     this.formGroup = this.formBuilder.group({
       apointement: [''],
-      observation: [''],
-      date_sortie: ['']
+      date_entree: [''],
+      date_sortie: [''],
+      observation: [''] 
     });
 
     this.presenceService.get(parseInt(this.data['id'])).subscribe(item => {
       if (
         item.apointement === 'AM' || item.apointement === 'CD' || 
         item.apointement === 'CA' || item.apointement === 'CO' || 
-        item.apointement === 'S' || item.apointement === 'M') { 
+        item.apointement === 'S' || item.apointement === 'O' || item.apointement === 'M') { 
         this.isAbsense = true;
       } else if(item.apointement === 'P' || item.apointement === 'A' || 
-      item.apointement === 'AA' || item.apointement === 'O') {
+      item.apointement === 'AA') {
         this.isAbsense = false;
       }
       this.formGroup.patchValue({
-        apointement: item.apointement,
+        apointement: item.apointement, 
+        date_entree: item.date_entree, 
+        date_sortie: item.date_sortie,
         observation: item.observation, 
-        date_sortie: item.date_sortie, 
         signature: this.currentUser.matricule, 
         update_created: new Date(),
       });
     });
-   
- 
   } 
 
   onPresenceChange(event: any) {
@@ -207,10 +207,10 @@ export class EditPresenceDialogBox implements OnInit {
     if (
       event.value === 'AM' || event.value === 'CD' || 
       event.value === 'CA' || event.value === 'CO' || 
-      event.value === 'S' || event.value === 'M') { 
+      event.value === 'S' || event.value === 'O' || event.value === 'M') { 
       this.isAbsense = true;
     } else if(event.value === 'P' || event.value === 'A' || 
-      event.value === 'AA' || event.value === 'O') {
+      event.value === 'AA') {
       this.isAbsense = false;
     }
   }

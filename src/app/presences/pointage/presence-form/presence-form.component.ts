@@ -8,6 +8,7 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PresenceService } from '../../presence.service';
 import { ApointementModel } from '../../models/presence-model';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-presence-form',
@@ -104,7 +105,12 @@ export class PresenceFormComponent {
       const dateEntreeMonth = dateEntree.getMonth();
       const dateEntreeYear = dateEntree.getFullYear(); 
 
-      var datePresenceSortie = new Date(this.apointementItem.date_sortie);
+      var dataSortie = new Date(this.apointementItem.date_sortie);
+
+      const datePresenceSortie = formatDate(dataSortie, 'dd-MM-yyyy', 'en-US');
+      const dateAujourdui = formatDate(dateToday, 'dd-MM-yyyy', 'en-US');
+
+      console.log(datePresenceSortie < dateAujourdui);
 
 
       if (this.apointementItem.apointement === 'P') {
@@ -132,57 +138,55 @@ export class PresenceFormComponent {
       
       
       else if(this.apointementItem.apointement === 'AM'){
-        if (datePresenceSortie > dateToday) {
+        if (datePresenceSortie > dateAujourdui) {
           this.isAMToday = true;
         }
-        if (datePresenceSortie == dateToday) {
+        if (datePresenceSortie == dateAujourdui) {
           this.isAMTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'CD'){
-        if (datePresenceSortie > dateToday) {
+        if (datePresenceSortie > dateAujourdui) {
           this.isCDToday = true;
         }
-        if (datePresenceSortie == dateToday) {
+        if (datePresenceSortie == dateAujourdui) {
           this.isCDTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'CA'){
-        if (datePresenceSortie > dateToday) {
+        if (datePresenceSortie > dateAujourdui) {
           this.isCAToday = true;
         }
-        if (datePresenceSortie == dateToday) {
+        if (datePresenceSortie == dateAujourdui) {
           this.isCATodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'CO'){
-        if (datePresenceSortie > dateToday) {
+        if (datePresenceSortie > dateAujourdui) {
           this.isCOToday = true;
         }
-        if (datePresenceSortie == dateToday) {
+        if (datePresenceSortie == dateAujourdui) {
           this.isCOTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'S'){
-        if (datePresenceSortie > dateToday) {
+        if (datePresenceSortie > dateAujourdui) {
           this.isSToday = true;
         }
-        if (datePresenceSortie == dateToday) {
+        if (datePresenceSortie == dateAujourdui) {
           this.isSTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'O'){
-        if (datePresenceSortie > dateToday) {
+        if (datePresenceSortie > dateAujourdui) {
           this.isOToday = true;
         }
-        if (datePresenceSortie == dateToday) {
+        if (datePresenceSortie == dateAujourdui) {
           this.isOTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'M'){
-        if (datePresenceSortie > dateToday) {
+        if (datePresenceSortie > dateAujourdui) {
           this.isMToday = true;
         }
-        if (datePresenceSortie == dateToday) {
+        if (datePresenceSortie == dateAujourdui) {
           this.isMTodayForm = true;
         }
       }
-      
-      
     });
     
     this.formGroup = this._formBuilder.group({
@@ -201,8 +205,6 @@ export class PresenceFormComponent {
       this.isAbsense = true; 
     } else if(event.value === 'P' || event.value === 'A' || 
       event.value === 'AA') {
-      this.isAbsense = false;
-    } else {
       this.isAbsense = false;
     }
   }

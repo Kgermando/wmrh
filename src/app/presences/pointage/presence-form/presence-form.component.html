@@ -35,11 +35,9 @@
                     <span class="fw-semibold d-inline-block">Observation: </span>
                     <span class="gray-color">{{ apointementItem.observation }}</span>
                 </li>
-                <li *ngIf="apointementItem.apointement === 'P'">
-                    <span class="fw-semibold d-inline-block">Sortie: </span>
-                    <span class="gray-color">Pas encore sortie</span> 
-                </li>
-                <li *ngIf="apointementItem.apointement !== 'P'">
+               
+                <li *ngIf="apointementItem.apointement !== 'P' && apointementItem.apointement !== 'A' &&
+                    apointementItem.apointement !== 'AA'">
                     <span class="fw-semibold d-inline-block">Date de reprise: </span>
                     <span class="gray-color">{{ apointementItem.date_sortie | date: 'dd/MM/yyyy' }}</span>
                 </li>
@@ -64,12 +62,10 @@
         </div>
          
         <div class="tagus-form-group" *ngIf="isPTodayForm || 
-                                            isATodayForm || 
-                                            isAMTodayForm ||
-                                            isCDTodayForm || 
-                                            isCATodayForm ||
-                                            isCOTodayForm || isSTodayForm || 
-                                            isOTodayForm || isMTodayForm"> 
+            isATodayForm ||  isAATodayForm ||
+            isAMTodayForm || isCDTodayForm || 
+            isCATodayForm || isCOTodayForm || 
+            isSTodayForm || isOTodayForm || isMTodayForm"> 
 
             <p>PRESENCE ENTRER</p>
             <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">

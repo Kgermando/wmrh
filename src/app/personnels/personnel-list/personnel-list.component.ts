@@ -88,13 +88,5 @@ export class PersonnelListComponent implements AfterViewInit {
     this.router.navigate(['/layouts/personnels', id, 'personnel-edit'])
   }
 
-  delete(id: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-      this.personnelService
-        .delete(id)
-        .subscribe(() => this.ELEMENT_DATA = this.ELEMENT_DATA.filter(item => item.id !== id));
-    }
-  }
-
 }
  

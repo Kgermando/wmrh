@@ -46,9 +46,16 @@
                 </ng-container> 
 
                 <ng-container matColumnDef="date_sortie">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date de Sortie / Reprise</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date de Reprise</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.date_sortie | date: 'dd/MM/yyyy HH:mm:ss' }} 
+                        <div *ngIf="element.apointement === 'P' || element.apointement === 'A' ||
+                                element.apointement === 'AA'">
+                                -
+                        </div>  
+                        <div *ngIf="element.apointement !== 'P' && element.apointement !== 'A' &&
+                                element.apointement !== 'AA'">
+                                {{ element.date_sortie | date: 'dd/MM/yyyy' }}
+                        </div>
                     </td>
                 </ng-container> 
  

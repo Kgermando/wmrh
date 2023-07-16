@@ -79,13 +79,14 @@ import { PosteViewComponent } from './recrutements/postes/poste-view/poste-view.
 import { CandidatureAddComponent } from './recrutements/candidatures/candidature-add/candidature-add.component';
 import { CandidatureEditComponent } from './recrutements/candidatures/candidature-edit/candidature-edit.component';
 import { CandidatureViewComponent } from './recrutements/candidatures/candidature-view/candidature-view.component';
-import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component';
-import { StatutPresenceComponent } from './presences/statut-presence/statut-presence.component'; 
+import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component'; 
 import { PrimesComponent } from './primes/primes.component';
 import { PenalitesComponent } from './penalites/penalites.component';
-import { AvanceSalairesComponent } from './avance-salaires/avance-salaires.component';
+import { AvanceSalaireAddDialogBox, AvanceSalairesComponent } from './avance-salaires/avance-salaires.component';
 import { HeuresSuppComponent } from './heures-supp/heures-supp.component';
-import { PresencePointageComponent } from './presences/pointage/pointage-sidebar/presence-pointage/presence-pointage.component';  
+import { PresencePointageComponent } from './presences/pointage/pointage-sidebar/presence-pointage/presence-pointage.component';
+import { AvanceSalaireDetailComponent } from './avance-salaires/avance-salaire-detail/avance-salaire-detail.component';
+import { AvanceSalaireAddComponent } from './avance-salaires/avance-salaire-add/avance-salaire-add.component';  
 
 
 @NgModule({
@@ -160,13 +161,15 @@ import { PresencePointageComponent } from './presences/pointage/pointage-sidebar
     CandidatureEditComponent,
     CandidatureViewComponent,
     SyndicatViewComponent,
-    StatutPresenceComponent, 
     PrimesComponent,
     PenalitesComponent,
     AvanceSalairesComponent,
     HeuresSuppComponent,
     PresencePointageComponent,
-    EditPresenceDialogBox
+    EditPresenceDialogBox,
+    AvanceSalaireDetailComponent,
+    AvanceSalaireAddComponent,
+    AvanceSalaireAddDialogBox,
   ],
   imports: [
     BrowserModule,

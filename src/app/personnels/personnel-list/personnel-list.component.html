@@ -35,7 +35,7 @@
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
                 <!-- Matricule Column -->
                 <ng-container matColumnDef="matricule">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Matricule</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Identifiant</th>
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/personnels', element.id, 'personnel-view']">
                             {{element.matricule.toUpperCase()}}
