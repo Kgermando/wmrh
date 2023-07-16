@@ -19,7 +19,7 @@ import { HeureSuppModel } from '../../models/heure-supp-model';
 export class HeureSuppTableComponent implements AfterViewInit {
   @Input('heureSupp') heureSupp: HeureSuppModel;  
 
-  displayedColumns: string[] = ['motif', 'nbr_heures', 'created', 'update_created', 'id'];
+  displayedColumns: string[] = ['motif', 'nbr_heures', 'created', 'update_created'];
   
   ELEMENT_DATA: HeureSuppModel[] = [];
   

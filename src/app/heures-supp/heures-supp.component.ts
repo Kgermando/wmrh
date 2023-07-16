@@ -22,7 +22,7 @@ import { HeureSuppService } from './heure-supp.service';
   styleUrls: ['./heures-supp.component.scss']
 })
 export class HeuresSuppComponent implements AfterViewInit {
-  displayedColumns: string[] = ['matricule','nom', 'postnom', 'prenom', 'nbr_heures', 'created', 'id'];
+  displayedColumns: string[] = ['matricule','fullname', 'nbr_heures', 'created', 'id'];
   
   ELEMENT_DATA: HeureSuppModel[] = [];
   

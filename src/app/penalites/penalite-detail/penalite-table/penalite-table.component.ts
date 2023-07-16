@@ -21,7 +21,7 @@ export class PenaliteTableComponent implements AfterViewInit {
   @Input('penalite') penalite: PenaliteModel;
   @Input('preference') preference: PreferenceModel;
 
-  displayedColumns: string[] = ['intitule', 'montant', 'created', 'update_created', 'id'];
+  displayedColumns: string[] = ['intitule', 'montant', 'created', 'update_created'];
   
   ELEMENT_DATA: PenaliteModel[] = [];
   

@@ -90,8 +90,8 @@ const routes: Routes = [
 
     { path: 'salaires/primes', component: PrimesComponent },
     { path: 'salaires/primes/:id/detail', component: PrimeDetailComponent },
-    { path: 'salaires/penalite', component: PenalitesComponent },
-    { path: 'salaires/penalite/:id/detail', component: PenaliteDetailComponent },
+    { path: 'salaires/penalites', component: PenalitesComponent },
+    { path: 'salaires/penalites/:id/detail', component: PenaliteDetailComponent },
     { path: 'salaires/avance-salaire', component: AvanceSalairesComponent },
     { path: 'salaires/avance-salaire/:id/detail', component: AvanceSalaireDetailComponent }, 
 

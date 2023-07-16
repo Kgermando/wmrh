@@ -21,7 +21,7 @@ export class PrimeTableComponent implements AfterViewInit {
   @Input('prime') prime: PrimeModel;
   @Input('preference') preference: PreferenceModel;
 
-  displayedColumns: string[] = ['intitule', 'montant', 'created', 'update_created', 'id'];
+  displayedColumns: string[] = ['intitule', 'montant', 'created', 'update_created'];
   
   ELEMENT_DATA: PrimeModel[] = [];
   
@@ -93,6 +93,7 @@ applyFilter(event: Event) {
 
 detail(id: number) {
   this.router.navigate(['/layouts/salaires/primes', id, 'detail'])
+  window.location.reload(); 
 } 
 
  

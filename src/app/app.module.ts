@@ -93,7 +93,11 @@ import { EditPenaliteDialogBox, PenaliteDetailComponent } from './penalites/pena
 import { PenaliteTableComponent } from './penalites/penalite-detail/penalite-table/penalite-table.component';
 import { EditHeureSuppDialogBox, HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
 import { HeureSuppTableComponent } from './heures-supp/heure-supp-detail/heure-supp-table/heure-supp-table.component';
-import { HoraireComponent } from './horaire/horaire.component';  
+import { HoraireComponent } from './horaire/horaire.component';
+import { PrimeFilterComponent } from './primes/prime-filter/prime-filter.component';
+import { PenaliteFilterComponent } from './penalites/penalite-filter/penalite-filter.component';
+import { HeureSuppFilterComponent } from './heures-supp/heure-supp-filter/heure-supp-filter.component';
+import { AvanceSalaireFilterComponent } from './avance-salaires/avance-salaire-filter/avance-salaire-filter.component';  
 
 
 @NgModule({
@@ -191,6 +195,10 @@ import { HoraireComponent } from './horaire/horaire.component';
     HeureSuppAddDialogBox,
     EditHeureSuppDialogBox,
     HoraireComponent,
+    PrimeFilterComponent,
+    PenaliteFilterComponent,
+    HeureSuppFilterComponent,
+    AvanceSalaireFilterComponent,
   ],
   imports: [
     BrowserModule,

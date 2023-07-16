@@ -23,7 +23,7 @@ import { PrimeService } from './prime.service';
   styleUrls: ['./primes.component.scss']
 })
 export class PrimesComponent implements AfterViewInit {
-  displayedColumns: string[] = ['matricule','nom', 'postnom', 'prenom', 'intitule', 'montant', 'created', 'id'];
+  displayedColumns: string[] = ['matricule','fullname', 'intitule', 'montant', 'created', 'id'];
   
   ELEMENT_DATA: PrimeModel[] = [];
   

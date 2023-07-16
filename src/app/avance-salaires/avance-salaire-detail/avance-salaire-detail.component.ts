@@ -26,6 +26,15 @@ export class AvanceSalaireDetailComponent implements OnInit {
 
   preference: PreferenceModel;
 
+  isValid = false; 
+  isMoisSuivantValid = false;
+  isMoisSuivantANValid = false;
+  isMoisPrecedentValid = false;
+
+  dateNow = new Date();  
+  dateMonth = this.dateNow.getMonth();
+  dateAN = this.dateNow.getFullYear(); 
+
   constructor(
     public themeService: CustomizerSettingsService,
     private route: ActivatedRoute,
@@ -42,6 +51,14 @@ export class AvanceSalaireDetailComponent implements OnInit {
       let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
       this.avanceSalaireService.get(Number(id)).subscribe(res => {
         this.avanceSalaire = res;
+        const created = new Date(this.avanceSalaire.created);
+        const moisSuivant = created.getMonth() + 1;
+        const annee = created.getFullYear();
+        this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
+        this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
+        this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
+        this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
+
         this.isLoading = false; 
       });
       this.authService.user().subscribe({

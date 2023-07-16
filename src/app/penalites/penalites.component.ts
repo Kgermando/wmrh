@@ -24,7 +24,7 @@ import { PenaliteService } from './penalite.service';
   styleUrls: ['./penalites.component.scss']
 })
 export class PenalitesComponent implements AfterViewInit {
-  displayedColumns: string[] = ['matricule','nom', 'postnom', 'prenom', 'intitule', 'montant', 'created', 'id'];
+  displayedColumns: string[] = ['matricule','fullname', 'intitule', 'montant', 'created', 'id'];
   
   ELEMENT_DATA: PenaliteModel[] = [];
   
@@ -35,7 +35,7 @@ export class PenalitesComponent implements AfterViewInit {
   currentUser: PersonnelModel | any;
 
   preference: PreferenceModel;
- 
+  
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
@@ -44,7 +44,8 @@ export class PenalitesComponent implements AfterViewInit {
       private penaliteService: PenaliteService,
       private reglageService: ReglageService,
       public dialog: MatDialog,
-  ) {}
+  ) {
+  }
 
   toggleTheme() {
     this.themeService.toggleTheme();
@@ -101,7 +102,7 @@ export class PenalitesComponent implements AfterViewInit {
   }
 
   detail(id: number) {
-    this.router.navigate(['/layouts/salaires/penalite', id, 'detail'])
+    this.router.navigate(['/layouts/salaires/penalites', id, 'detail'])
   }
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

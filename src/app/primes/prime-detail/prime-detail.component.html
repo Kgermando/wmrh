@@ -75,8 +75,16 @@
                                 <li>
                                     <span class="fw-semibold d-inline-block">Montant avancé: </span>
                                     <span class="gray-color">
-                                        <span class="badge text-soft-success" *ngIf="preference">
-                                            {{ prime.montant }} {{ preference.monnaie }}
+                                        <span class="badge text-soft-success" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
+                                            {{ prime.montant }} <span *ngIf="preference">{{ preference.monnaie }}</span> <sup>+1</sup>
+                                        </span>
+                                        
+                                        <span class="badge text-soft-success" *ngIf="!isMoisSuivantValid && isValid">
+                                            {{ prime.montant }} <span *ngIf="preference">{{ preference.monnaie }}</span>
+                                        </span>
+                                        
+                                        <span *ngIf="isMoisPrecedentValid && !isValid">
+                                           <del>{{ prime.montant }} <span *ngIf="preference">{{ preference.monnaie }}</span></del> 
                                         </span>
                                     </span>
                                 </li> 

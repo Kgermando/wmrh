@@ -21,7 +21,7 @@ export class AvanceSalaireTableComponent implements AfterViewInit {
   @Input('avanceSalaire') avanceSalaire: AvanceSalaireModel;
   @Input('preference') preference: PreferenceModel;
 
-  displayedColumns: string[] = ['intitule', 'montant', 'created', 'update_created', 'id'];
+  displayedColumns: string[] = ['intitule', 'montant', 'created', 'update_created'];
   
   ELEMENT_DATA: AvanceSalaireModel[] = [];
   

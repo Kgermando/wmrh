@@ -23,7 +23,7 @@ import { PersonnelService } from '../personnels/personnel.service';
   styleUrls: ['./avance-salaires.component.scss']
 })
 export class AvanceSalairesComponent implements AfterViewInit {
-  displayedColumns: string[] = ['matricule','nom', 'postnom', 'prenom', 'intitule', 'montant', 'created', 'id'];
+  displayedColumns: string[] = ['matricule','fullname', 'intitule', 'montant', 'created', 'id'];
   
   ELEMENT_DATA: AvanceSalaireModel[] = [];
   

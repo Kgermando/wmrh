@@ -75,11 +75,19 @@
                                 <li>
                                     <span class="fw-semibold d-inline-block">Montant avancé: </span>
                                     <span class="gray-color">
-                                        <span class="badge text-soft-danger" *ngIf="preference">
-                                            {{ penalite.montant }} {{ preference.monnaie }}
+                                        <span class="badge text-soft-danger" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
+                                            {{ penalite.montant }} <span *ngIf="preference">{{ preference.monnaie }}</span> <sup>+1</sup>
+                                        </span>
+                                        
+                                        <span class="badge text-soft-danger" *ngIf="!isMoisSuivantValid && isValid">
+                                            {{ penalite.montant }} <span *ngIf="preference">{{ preference.monnaie }}</span>
+                                        </span>
+                                        
+                                        <span *ngIf="isMoisPrecedentValid && !isValid">
+                                           <del>{{ penalite.montant }} <span *ngIf="preference">{{ preference.monnaie }}</span></del> 
                                         </span>
                                     </span>
-                                </li> 
+                                </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Signature: </span>
                                     <span class="gray-color">{{ penalite.signature }}</span>

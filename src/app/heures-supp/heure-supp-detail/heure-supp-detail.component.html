@@ -75,15 +75,21 @@
                                 <li>
                                     <span class="fw-semibold d-inline-block">Nombre d'heures: </span>
                                     <span class="gray-color">
-                                        <span class="badge text-soft-info">
-                                            {{heureSupp.nbr_heures}} H
+                                        <span class="badge text-soft-info" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
+                                            {{ heureSupp.nbr_heures }} H<sup>+1</sup>
                                         </span>
+                                        <span class="badge text-soft-info" *ngIf="!isMoisSuivantValid && isValid">
+                                            {{ heureSupp.nbr_heures }} H
+                                        </span>
+                                        <span *ngIf="isMoisPrecedentValid && !isValid">
+                                           <del>{{ heureSupp.nbr_heures }} H</del> 
+                                        </span>  
                                     </span>
                                 </li> 
                                 <li>
                                     <span class="fw-semibold d-inline-block">Signature: </span>
                                     <span class="gray-color">{{ heureSupp.signature }}</span>
-                                </li>
+                                </li> 
                             </ul>
                         </div> 
                     </div>  
