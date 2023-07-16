@@ -86,16 +86,21 @@ export class DepartementsComponent implements OnInit {
       this.isLoading = false;
       console.log(error);
     }
-  }
-
- 
+  } 
 
   delete(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-      this.departementService.delete(id).subscribe(res => {
-        this.toastr.success('Success!', 'Supprimée avec succès!'); 
-        window.location.reload();
-      });
+      this.departementService
+        .delete(id)
+        .subscribe({
+          next: () => {
+            this.toastr.success('Success!', 'Supprimé avec succès!');
+            window.location.reload();
+          },
+          error: err => {
+            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          }
+        });
     }
   }
 

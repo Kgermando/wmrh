@@ -88,10 +88,20 @@ export class FonctionComponent implements OnInit {
       console.log(error);
     }
   }
-
+ 
   delete(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-      this.fonctionService.delete(id);
+      this.fonctionService
+        .delete(id)
+        .subscribe({
+          next: () => {
+            this.toastr.success('Success!', 'Supprimé avec succès!');
+            window.location.reload();
+          },
+          error: err => {
+            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          }
+        });
     }
   }
 

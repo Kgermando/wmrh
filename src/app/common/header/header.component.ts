@@ -94,6 +94,6 @@ export class HeaderComponent {
     }
 
     currentDate: Date = new Date();
-    formattedDate: any = this.datePipe.transform(this.currentDate, 'dd MMMM yyyy');
+    formattedDate: any = this.datePipe.transform(this.currentDate, 'dd MMMM yyyy', 'fr-FR');
 
 }

@@ -40,8 +40,7 @@ import { PrimesComponent } from './primes/primes.component';
 import { HeuresSuppComponent } from './heures-supp/heures-supp.component';
 import { PenalitesComponent } from './penalites/penalites.component';
 import { AvanceSalairesComponent } from './avance-salaires/avance-salaires.component';
-import { AvanceSalaireDetailComponent } from './avance-salaires/avance-salaire-detail/avance-salaire-detail.component';
-import { AvanceSalaireAddComponent } from './avance-salaires/avance-salaire-add/avance-salaire-add.component';
+import { AvanceSalaireDetailComponent } from './avance-salaires/avance-salaire-detail/avance-salaire-detail.component'; 
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -87,8 +86,7 @@ const routes: Routes = [
     { path: 'salaires/primes', component: PrimesComponent },
     { path: 'salaires/penalite', component: PenalitesComponent },
     { path: 'salaires/avance-salaire', component: AvanceSalairesComponent },
-    { path: 'salaires/avance-salaire/:id/detail', component: AvanceSalaireDetailComponent },
-    { path: 'salaires/avance-salaire/add', component: AvanceSalaireAddComponent },
+    { path: 'salaires/avance-salaire/:id/detail', component: AvanceSalaireDetailComponent }, 
 
     { path: 'mail/inbox', component: InboxComponent },
     { path: 'mail/compose', component: ComposeComponent },

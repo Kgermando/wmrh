@@ -90,9 +90,19 @@ export class TitlesComponent implements OnInit{
 
   delete(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-      this.titleService.delete(id);
+      this.titleService
+        .delete(id)
+        .subscribe({
+          next: () => {
+            this.toastr.success('Success!', 'Supprimé avec succès!');
+            window.location.reload();
+          },
+          error: err => {
+            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          }
+        });
     }
-  }
+  } 
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
     this.dialog.open(EditTitleDialogBox, {

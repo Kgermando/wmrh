@@ -1,1 +1,104 @@
-<p>avance-salaire-detail works!</p>
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
+    <h5 class="mb-0">Informations du personnel</h5>
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item gray-color">Avance-salaires</li>
+        <li class="breadcrumb-item fw-semibold">View</li>
+    </ol>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+</div>
+<div *ngIf="!isLoading">
+    <div class="row" *ngIf="avanceSalaire">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0"> </h5>
+                    <div> 
+                        <button mat-icon-button color="accent" (click)="openEditDialog('300ms', '100ms', avanceSalaire.id)">
+                                <mat-icon>edit</mat-icon>
+                        </button> 
+                        <button mat-icon-button color="warn" 
+                                (click)="delete(avanceSalaire.id)">
+                                <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-card-header>
+                <mat-card-content> 
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Identifiant: </span>
+                                    <span class="gray-color">{{ avanceSalaire.personnel.matricule }}</span>
+                                </li>
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Nom complet: </span>
+                                    <span class="gray-color">
+                                        {{ avanceSalaire.personnel.nom }}
+                                        {{ avanceSalaire.personnel.postnom }}
+                                        {{ avanceSalaire.personnel.prenom }}
+                                    </span>
+                                </li> 
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Date: </span>
+                                    <span class="gray-color">{{avanceSalaire.created | date: 'dd/MM/yyyy'}}</span>
+                                </li>
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Mise à jour: </span>
+                                    <span class="gray-color">{{avanceSalaire.update_created | date: 'dd/MM/yyyy'}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>  
+                </mat-card-content>
+                <mat-card-content> 
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Intitule: </span>
+                                    <span class="gray-color">{{ avanceSalaire.intitule }}</span>
+                                </li>
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Montant avancé: </span>
+                                    <span class="gray-color">
+                                        <span class="badge text-soft-primary" *ngIf="preference">
+                                            {{ avanceSalaire.montant }} {{ preference.monnaie }}
+                                        </span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Observation: </span>
+                                    <span class="gray-color">
+                                        {{ avanceSalaire.observation }}
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Signature: </span>
+                                    <span class="gray-color">{{ avanceSalaire.signature }}</span>
+                                </li>
+                            </ul>
+                        </div> 
+                    </div>  
+                </mat-card-content>
+            </mat-card> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <app-avance-salaire-table [avanceSalaire]="avanceSalaire" [preference]="preference"></app-avance-salaire-table>
+        </div>
+
+         
+    </div>
+</div>

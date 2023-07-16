@@ -148,7 +148,7 @@ export class AvanceSalaireAddDialogBox implements OnInit {
         this.currentUser = user;
         this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.personneList = res;
-        })
+        });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);

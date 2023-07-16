@@ -37,10 +37,15 @@ export class CandidatureViewComponent implements OnInit {
       if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
         this.candidaturesService
           .delete(id)
-          .subscribe(() => {
-            this.toastr.success('Success!', 'Ajouter avec succès!');
-            this.router.navigate(['recrutements/postes']);
-          });
+          .subscribe({
+            next: () => {
+              this.toastr.success('Success!', 'Supprimé avec succès!');
+              this.router.navigate(['layouts/recrutements/postes']);
+            },
+            error: err => {
+              this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+            }
+          }); 
       }
     }
   

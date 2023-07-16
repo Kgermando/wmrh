@@ -138,49 +138,49 @@ export class PresenceFormComponent {
       
       
       else if(this.apointementItem.apointement === 'AM'){
-        if (datePresenceSortie > dateAujourdui) {
+        if (dataSortie > dateToday) {
           this.isAMToday = true;
         }
         if (datePresenceSortie == dateAujourdui) {
           this.isAMTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'CD'){
-        if (datePresenceSortie > dateAujourdui) {
+        if (dataSortie > dateToday) {
           this.isCDToday = true;
         }
         if (datePresenceSortie == dateAujourdui) {
           this.isCDTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'CA'){
-        if (datePresenceSortie > dateAujourdui) {
+        if (dataSortie > dateToday) {
           this.isCAToday = true;
         }
         if (datePresenceSortie == dateAujourdui) {
           this.isCATodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'CO'){
-        if (datePresenceSortie > dateAujourdui) {
+        if (dataSortie > dateToday) {
           this.isCOToday = true;
         }
         if (datePresenceSortie == dateAujourdui) {
           this.isCOTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'S'){
-        if (datePresenceSortie > dateAujourdui) {
+        if (dataSortie > dateToday) {
           this.isSToday = true;
         }
         if (datePresenceSortie == dateAujourdui) {
           this.isSTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'O'){
-        if (datePresenceSortie > dateAujourdui) {
+        if (dataSortie > dateToday) {
           this.isOToday = true;
         }
         if (datePresenceSortie == dateAujourdui) {
           this.isOTodayForm = true;
         }
       } else if(this.apointementItem.apointement === 'M'){
-        if (datePresenceSortie > dateAujourdui) {
+        if (dataSortie > dateToday) {
           this.isMToday = true;
         }
         if (datePresenceSortie == dateAujourdui) {

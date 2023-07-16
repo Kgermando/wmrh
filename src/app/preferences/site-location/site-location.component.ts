@@ -92,9 +92,20 @@ export class SiteLocationComponent implements OnInit{
     }
   }
 
+ 
   delete(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-      this.siteLocationService.delete(id);
+      this.siteLocationService
+        .delete(id)
+        .subscribe({
+          next: () => {
+            this.toastr.success('Success!', 'Supprimé avec succès!');
+            window.location.reload();
+          },
+          error: err => {
+            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          }
+        });
     }
   }
 

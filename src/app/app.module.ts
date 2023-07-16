@@ -85,8 +85,8 @@ import { PenalitesComponent } from './penalites/penalites.component';
 import { AvanceSalaireAddDialogBox, AvanceSalairesComponent } from './avance-salaires/avance-salaires.component';
 import { HeuresSuppComponent } from './heures-supp/heures-supp.component';
 import { PresencePointageComponent } from './presences/pointage/pointage-sidebar/presence-pointage/presence-pointage.component';
-import { AvanceSalaireDetailComponent } from './avance-salaires/avance-salaire-detail/avance-salaire-detail.component';
-import { AvanceSalaireAddComponent } from './avance-salaires/avance-salaire-add/avance-salaire-add.component';  
+import { AvanceSalaireDetailComponent, EditAvanceSalaireDialogBox } from './avance-salaires/avance-salaire-detail/avance-salaire-detail.component';
+import { AvanceSalaireTableComponent } from './avance-salaires/avance-salaire-table/avance-salaire-table.component';  
 
 
 @NgModule({
@@ -168,8 +168,9 @@ import { AvanceSalaireAddComponent } from './avance-salaires/avance-salaire-add/
     PresencePointageComponent,
     EditPresenceDialogBox,
     AvanceSalaireDetailComponent,
-    AvanceSalaireAddComponent,
     AvanceSalaireAddDialogBox,
+    AvanceSalaireTableComponent,
+    EditAvanceSalaireDialogBox,
   ],
   imports: [
     BrowserModule,

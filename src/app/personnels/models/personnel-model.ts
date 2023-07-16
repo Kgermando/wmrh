@@ -1,3 +1,6 @@
+import { AvanceSalaireModel } from "src/app/avance-salaires/models/avance-salaire-model";
+import { HeureSuppModel } from "src/app/heures-supp/models/heure-supp-model";
+import { PenaliteModel } from "src/app/penalites/models/penalite-model";
 import { ApointementModel } from "src/app/presences/models/presence-model";
 import { PrimeModel } from "src/app/primes/models/prime-model";
 
@@ -39,7 +42,7 @@ export interface PersonnelModel {
     frais_bancaire: string;
     statut_personnel: boolean; 
     syndicat: boolean; 
-    cv_url: string;   
+    cv_url: string; 
     
     signature: string; 
     created: Date; 
@@ -50,6 +53,10 @@ export interface PersonnelModel {
     code_entreprise: string;
 
     presences: ApointementModel[];
-    primes: PrimeModel[];
+    primes: PrimeModel[]; 
+    penalites: PenaliteModel[];
+    avances_salaires: AvanceSalaireModel[];
+    heures_supp: HeureSuppModel[];
+    
     
 }
