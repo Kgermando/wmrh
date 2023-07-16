@@ -90,6 +90,6 @@ toggleTheme() {
   }
 
   detail(id: number) {
-    this.router.navigate(['/layouts/salaires/primes', id, 'detail'])
+    this.router.navigate(['/layouts/presences/heures-supp', id, 'detail']) 
   } 
 } 

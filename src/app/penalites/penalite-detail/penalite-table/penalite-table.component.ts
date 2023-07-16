@@ -92,7 +92,7 @@ toggleTheme() {
   }
 
   detail(id: number) {
-    this.router.navigate(['/layouts/salaires/primes', id, 'detail'])
+    this.router.navigate(['/layouts/salaires/penalite', id, 'detail'])
   } 
 
  

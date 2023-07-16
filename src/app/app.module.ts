@@ -92,7 +92,8 @@ import { PrimeTableComponent } from './primes/prime-detail/prime-table/prime-tab
 import { EditPenaliteDialogBox, PenaliteDetailComponent } from './penalites/penalite-detail/penalite-detail.component';
 import { PenaliteTableComponent } from './penalites/penalite-detail/penalite-table/penalite-table.component';
 import { EditHeureSuppDialogBox, HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
-import { HeureSuppTableComponent } from './heures-supp/heure-supp-detail/heure-supp-table/heure-supp-table.component';  
+import { HeureSuppTableComponent } from './heures-supp/heure-supp-detail/heure-supp-table/heure-supp-table.component';
+import { HoraireComponent } from './horaire/horaire.component';  
 
 
 @NgModule({
@@ -189,6 +190,7 @@ import { HeureSuppTableComponent } from './heures-supp/heure-supp-detail/heure-s
     HeureSuppTableComponent,
     HeureSuppAddDialogBox,
     EditHeureSuppDialogBox,
+    HoraireComponent,
   ],
   imports: [
     BrowserModule,
