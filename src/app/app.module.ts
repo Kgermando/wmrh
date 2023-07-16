@@ -80,13 +80,19 @@ import { CandidatureAddComponent } from './recrutements/candidatures/candidature
 import { CandidatureEditComponent } from './recrutements/candidatures/candidature-edit/candidature-edit.component';
 import { CandidatureViewComponent } from './recrutements/candidatures/candidature-view/candidature-view.component';
 import { SyndicatViewComponent } from './syndicats/syndicat-view/syndicat-view.component'; 
-import { PrimesComponent } from './primes/primes.component';
-import { PenalitesComponent } from './penalites/penalites.component';
+import { PrimeAddDialogBox, PrimesComponent } from './primes/primes.component';
+import { PenaliteAddDialogBox, PenalitesComponent } from './penalites/penalites.component';
 import { AvanceSalaireAddDialogBox, AvanceSalairesComponent } from './avance-salaires/avance-salaires.component';
-import { HeuresSuppComponent } from './heures-supp/heures-supp.component';
+import { HeureSuppAddDialogBox, HeuresSuppComponent } from './heures-supp/heures-supp.component';
 import { PresencePointageComponent } from './presences/pointage/pointage-sidebar/presence-pointage/presence-pointage.component';
 import { AvanceSalaireDetailComponent, EditAvanceSalaireDialogBox } from './avance-salaires/avance-salaire-detail/avance-salaire-detail.component';
-import { AvanceSalaireTableComponent } from './avance-salaires/avance-salaire-table/avance-salaire-table.component';  
+import { AvanceSalaireTableComponent } from './avance-salaires/avance-salaire-table/avance-salaire-table.component';
+import { EditPrimeDialogBox, PrimeDetailComponent } from './primes/prime-detail/prime-detail.component';
+import { PrimeTableComponent } from './primes/prime-detail/prime-table/prime-table.component';
+import { EditPenaliteDialogBox, PenaliteDetailComponent } from './penalites/penalite-detail/penalite-detail.component';
+import { PenaliteTableComponent } from './penalites/penalite-detail/penalite-table/penalite-table.component';
+import { EditHeureSuppDialogBox, HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
+import { HeureSuppTableComponent } from './heures-supp/heure-supp-detail/heure-supp-table/heure-supp-table.component';  
 
 
 @NgModule({
@@ -171,6 +177,18 @@ import { AvanceSalaireTableComponent } from './avance-salaires/avance-salaire-ta
     AvanceSalaireAddDialogBox,
     AvanceSalaireTableComponent,
     EditAvanceSalaireDialogBox,
+    PrimeAddDialogBox,
+    PrimeDetailComponent,
+    PrimeTableComponent,
+    EditPrimeDialogBox,
+    PenaliteDetailComponent,
+    PenaliteTableComponent,
+    PenaliteAddDialogBox,
+    EditPenaliteDialogBox,
+    HeureSuppDetailComponent,
+    HeureSuppTableComponent,
+    HeureSuppAddDialogBox,
+    EditHeureSuppDialogBox,
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,7 @@ import { PersonnelService } from 'src/app/personnels/personnel.service';
   templateUrl: './avance-salaire-table.component.html',
   styleUrls: ['./avance-salaire-table.component.scss']
 })
-export class AvanceSalaireTableComponent  implements AfterViewInit {
+export class AvanceSalaireTableComponent implements AfterViewInit {
   @Input('avanceSalaire') avanceSalaire: AvanceSalaireModel;
   @Input('preference') preference: PreferenceModel;
 
@@ -60,7 +60,6 @@ export class AvanceSalaireTableComponent  implements AfterViewInit {
                         this.dataSource = new MatTableDataSource<AvanceSalaireModel>(this.ELEMENT_DATA);
                         this.dataSource.sort = this.sort;
                         this.dataSource.paginator = this.paginator;
-                        console.log(this.ELEMENT_DATA);
                         this.isLoading = false; 
                     },
                     error: (err) => {

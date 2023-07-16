@@ -12,11 +12,10 @@ import { PersonnelModel } from '../personnels/models/personnel-model';
 import { AvanceSalaireService } from './avance-salaire.service';
 import { ReglageService } from '../preferences/reglages/reglage.service';
 import { PreferenceModel } from '../preferences/reglages/models/reglage-model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { PersonnelService } from '../personnels/personnel.service';
-import { Validators } from 'ngx-editor';
 
 @Component({
   selector: 'app-avance-salaires',

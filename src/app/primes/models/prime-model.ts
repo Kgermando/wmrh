@@ -1,6 +1,7 @@
 import { PersonnelModel } from "src/app/personnels/models/personnel-model";
 
 export interface PrimeModel {
+    id: number;
     intitule: string;
     montant: number;
     personnel: PersonnelModel;

@@ -41,6 +41,9 @@ import { HeuresSuppComponent } from './heures-supp/heures-supp.component';
 import { PenalitesComponent } from './penalites/penalites.component';
 import { AvanceSalairesComponent } from './avance-salaires/avance-salaires.component';
 import { AvanceSalaireDetailComponent } from './avance-salaires/avance-salaire-detail/avance-salaire-detail.component'; 
+import { PrimeDetailComponent } from './primes/prime-detail/prime-detail.component';
+import { PenaliteDetailComponent } from './penalites/penalite-detail/penalite-detail.component';
+import { HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -70,6 +73,7 @@ const routes: Routes = [
     { path: 'presences/pointage/:id', component: PointageMatriculeComponent },
     { path: 'presences/registre-presences', component: RegistrePresenceComponent }, 
     { path: 'presences/heures-supp', component: HeuresSuppComponent },
+    { path: 'presences/heures-supp/:id/detail', component: HeureSuppDetailComponent },
                                                                                                                                                                            
     { path: 'personnels/syndicats', component: SyndicatsComponent },
     { path: 'personnels/syndicats/:id/view', component: SyndicatViewComponent },
@@ -84,7 +88,9 @@ const routes: Routes = [
     { path: 'recrutements/candidatures/:id/candidature-view', component: CandidatureViewComponent },
 
     { path: 'salaires/primes', component: PrimesComponent },
+    { path: 'salaires/primes/:id/detail', component: PrimeDetailComponent },
     { path: 'salaires/penalite', component: PenalitesComponent },
+    { path: 'salaires/penalite/:id/detail', component: PenaliteDetailComponent },
     { path: 'salaires/avance-salaire', component: AvanceSalairesComponent },
     { path: 'salaires/avance-salaire/:id/detail', component: AvanceSalaireDetailComponent }, 
 

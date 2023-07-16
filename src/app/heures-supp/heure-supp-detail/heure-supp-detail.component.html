@@ -1,5 +1,5 @@
 <div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
-    <h4 class="mb-0">Avance-salaires</h4>
+    <h4 class="mb-0">Heures supplementaires</h4>
     <ol class="breadcrumb mb-0 ps-0">
         <li class="breadcrumb-item">
             <a routerLink="/">
@@ -7,7 +7,7 @@
                 Dashboard
             </a>
         </li>
-        <li class="breadcrumb-item gray-color">Avance-salaires</li>
+        <li class="breadcrumb-item gray-color">Heures supplementaires</li>
         <li class="breadcrumb-item fw-semibold">View</li>
     </ol>
 </div>
@@ -16,17 +16,18 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
 </div>
 <div *ngIf="!isLoading">
-    <div class="row" *ngIf="avanceSalaire">
+    <div class="row" *ngIf="heureSupp">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
-                    <h5 class="mb-0">Avance-salaires</h5>
+                    <h5 class="mb-0"> Heures supplementaires</h5>
                     <div> 
-                        <button mat-icon-button color="accent" (click)="openEditDialog('300ms', '100ms', avanceSalaire.id)">
+                        <button mat-icon-button color="accent" 
+                            (click)="openEditDialog('300ms', '100ms', heureSupp.id)">
                                 <mat-icon>edit</mat-icon>
                         </button> 
                         <button mat-icon-button color="warn" 
-                                (click)="delete(avanceSalaire.id)">
+                                (click)="delete(heureSupp.id)">
                                 <mat-icon>delete</mat-icon>
                         </button>
                     </div>
@@ -37,14 +38,14 @@
                             <ul class="list ps-0 mb-0">
                                 <li>
                                     <span class="fw-semibold d-inline-block">Identifiant: </span>
-                                    <span class="gray-color">{{ avanceSalaire.personnel.matricule.toUpperCase() }}</span>
+                                    <span class="gray-color">{{ heureSupp.personnel.matricule.toUpperCase() }}</span>
                                 </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Nom complet: </span>
                                     <span class="gray-color">
-                                        {{ avanceSalaire.personnel.nom }}
-                                        {{ avanceSalaire.personnel.postnom }}
-                                        {{ avanceSalaire.personnel.prenom }}
+                                        {{ heureSupp.personnel.nom }}
+                                        {{ heureSupp.personnel.postnom }}
+                                        {{ heureSupp.personnel.prenom }}
                                     </span>
                                 </li> 
                             </ul>
@@ -53,11 +54,11 @@
                             <ul class="list ps-0 mb-0">
                                 <li>
                                     <span class="fw-semibold d-inline-block">Date: </span>
-                                    <span class="gray-color">{{avanceSalaire.created | date: 'dd/MM/yyyy'}}</span>
+                                    <span class="gray-color">{{heureSupp.created | date: 'dd/MM/yyyy'}}</span>
                                 </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Mise à jour: </span>
-                                    <span class="gray-color">{{avanceSalaire.update_created | date: 'dd/MM/yyyy'}}</span>
+                                    <span class="gray-color">{{heureSupp.update_created | date: 'dd/MM/yyyy'}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -68,26 +69,20 @@
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <ul class="list ps-0 mb-0">
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Intitule: </span>
-                                    <span class="gray-color">{{ avanceSalaire.intitule }}</span>
+                                    <span class="fw-semibold d-inline-block">Motif: </span>
+                                    <span class="gray-color">{{ heureSupp.motif }}</span>
                                 </li>
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Montant avancé: </span>
+                                    <span class="fw-semibold d-inline-block">Nombre d'heures: </span>
                                     <span class="gray-color">
-                                        <span class="badge text-soft-primary" *ngIf="preference">
-                                            {{ avanceSalaire.montant }} {{ preference.monnaie }}
+                                        <span class="badge text-soft-info">
+                                            {{heureSupp.nbr_heures}} H
                                         </span>
                                     </span>
-                                </li>
-                                <li>
-                                    <span class="fw-semibold d-inline-block">Observation: </span>
-                                    <span class="gray-color">
-                                        {{ avanceSalaire.observation }}
-                                    </span>
-                                </li>
+                                </li> 
                                 <li>
                                     <span class="fw-semibold d-inline-block">Signature: </span>
-                                    <span class="gray-color">{{ avanceSalaire.signature }}</span>
+                                    <span class="gray-color">{{ heureSupp.signature }}</span>
                                 </li>
                             </ul>
                         </div> 
@@ -95,10 +90,8 @@
                 </mat-card-content>
             </mat-card> 
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <app-avance-salaire-table [avanceSalaire]="avanceSalaire" [preference]="preference"></app-avance-salaire-table>
-        </div>
-
-         
+        <div class="col-lg-12 col-md-12 col-sm-12"> 
+            <app-heure-supp-table [heureSupp]="heureSupp"></app-heure-supp-table>
+        </div> 
     </div>
 </div>
