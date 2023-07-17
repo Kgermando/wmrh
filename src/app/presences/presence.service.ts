@@ -13,6 +13,10 @@ export class PresenceService extends ApiService {
     return this.http.get(`${this.endpoint}/get-matricule/${code_entreprise}/${matricule}`);
   }
 
+  getRegisterPresence(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-registre/${code_entreprise}`);
+  }
+
   getPie(code_entreprise: string, matricule: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-pie/${code_entreprise}/${matricule}`);
   }

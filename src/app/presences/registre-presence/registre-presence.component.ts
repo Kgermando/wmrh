@@ -49,7 +49,7 @@ export class RegistrePresenceComponent implements AfterViewInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.presenceService.getAll(this.currentUser.code_entreprise).subscribe({
+                this.presenceService.getRegisterPresence(this.currentUser.code_entreprise).subscribe({
                     next: res => {
                         this.ELEMENT_DATA = res;
                         this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);

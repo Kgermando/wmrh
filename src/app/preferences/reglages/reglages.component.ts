@@ -601,7 +601,7 @@ export class EditReglageDialogBox implements OnInit{
         },
         error: err => {
           console.log(err);
-          this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
       });
