@@ -4,7 +4,7 @@
         [class.component-dark-theme]="themeService.isDark()"
     >
         <mat-card-header class="mb-5">
-            <h5 class="mb-0">{{ personne.prenom }} {{ personne.nom }}</h5>
+            <h5 class="mb-0">{{ personne.prenom.toUpperCase() }} {{ personne.nom.toUpperCase() }}</h5>
             <div class="info-list">
                 <!-- <h6>Vous avez déjà cumulé {{cumulsMonth}} heures / 45</h6>  -->
             </div>

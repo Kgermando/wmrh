@@ -87,9 +87,9 @@
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="isAbsense">
                         <div class="tagus-form-group">
-                            <label class="d-block mb-12 fw-semibold gray-color">Date de fin</label>
+                            <label class="d-block mb-12 fw-semibold gray-color">Date de reprise</label>
                             <mat-form-field appearance="fill">
-                                <mat-label>Date de fin de dit absense</mat-label>
+                                <mat-label>Date de reprise</mat-label>
                                 <input matInput [matDatepicker]="picker" formControlName="date_sortie" required="Champs obligatoire">
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker> 
@@ -125,19 +125,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
 <div *ngIf="!apointementItem">
     <div class="tagus-form-group">
         <p>PRESENCE ENTRER</p>
@@ -160,9 +147,9 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="isAbsense">
                     <div class="tagus-form-group">
-                        <label class="d-block mb-12 fw-semibold gray-color">Date de fin</label>
+                        <label class="d-block mb-12 fw-semibold gray-color">Date de reprise</label>
                         <mat-form-field appearance="fill">
-                            <mat-label>Date de fin de dit absense</mat-label>
+                            <mat-label>Date de reprise</mat-label>
                             <input matInput [matDatepicker]="picker" formControlName="date_sortie" required="Champs obligatoire">
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker> 
@@ -194,4 +181,4 @@
             </div> 
         </form>
     </div>
-</div> -->
+</div>

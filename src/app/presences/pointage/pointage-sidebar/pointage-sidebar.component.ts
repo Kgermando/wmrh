@@ -31,7 +31,7 @@ export class PointageSidebarComponent implements OnInit {
 
   itemsCongeList: PresencePAAAModel[] = [];
   itemsAMList: PresencePAAAModel[] = [];
-  itemsCDList: PresencePAAAModel[] = [];
+  itemsCCList: PresencePAAAModel[] = [];
   itemsCAList: PresencePAAAModel[] = [];
   itemsCOList: PresencePAAAModel[] = [];
   itemsSList: PresencePAAAModel[] = [];
@@ -43,7 +43,7 @@ export class PointageSidebarComponent implements OnInit {
   numberAA: number = 0;
 
   numberAM: number = 0;
-  numberCD: number = 0;
+  numberCC: number = 0;
   numberCA: number = 0;
   numberCO: number = 0;
   numberS: number = 0;
@@ -82,7 +82,7 @@ export class PointageSidebarComponent implements OnInit {
                         this.presenceService.getItemsCongE(this.currentUser.code_entreprise).subscribe(res => {
                           this.itemsCongeList = res;
                           this.itemsAMList = this.itemsCongeList.filter(v => v.apointement === 'AM');
-                          this.itemsCDList = this.itemsCongeList.filter(v => v.apointement === 'CC');
+                          this.itemsCCList = this.itemsCongeList.filter(v => v.apointement === 'CC');
                           this.itemsCAList = this.itemsCongeList.filter(v => v.apointement === 'CA');
                           this.itemsCOList = this.itemsCongeList.filter(v => v.apointement === 'CO');
                           this.itemsSList = this.itemsCongeList.filter(v => v.apointement === 'S');
@@ -90,7 +90,7 @@ export class PointageSidebarComponent implements OnInit {
                           this.itemsMList = this.itemsCongeList.filter(v => v.apointement === 'M');
 
                           this.itemsAMList.map((item: any) => this.numberAM = item.count);
-                          this.itemsCDList.map((item: any) => this.numberCD = item.count);
+                          this.itemsCCList.map((item: any) => this.numberCC = item.count);
                           this.itemsCAList.map((item: any) => this.numberCA = item.count);
                           this.itemsCOList.map((item: any) => this.numberCO = item.count);
                           this.itemsSList.map((item: any) => this.numberS = item.count);
