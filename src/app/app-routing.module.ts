@@ -45,6 +45,7 @@ import { PrimeDetailComponent } from './primes/prime-detail/prime-detail.compone
 import { PenaliteDetailComponent } from './penalites/penalite-detail/penalite-detail.component';
 import { HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
 import { HoraireComponent } from './horaire/horaire.component';
+import { PerformencesComponent } from './performences/performences.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -96,6 +97,8 @@ const routes: Routes = [
     { path: 'salaires/avance-salaire/:id/detail', component: AvanceSalaireDetailComponent }, 
 
     { path: 'horaire', component: HoraireComponent },
+
+    { path: 'performences', component: PerformencesComponent },
 
     { path: 'mail/inbox', component: InboxComponent },
     { path: 'mail/compose', component: ComposeComponent },

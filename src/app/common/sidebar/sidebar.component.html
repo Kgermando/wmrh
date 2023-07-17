@@ -108,8 +108,12 @@
                         <span class="title">Syndicats</span>
                     </a>
                     <a routerLink="/layouts/horaire" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="ri-calendar-todo-fill"></i>
+                        <i class="ri-calendar-todo-line"></i>
                         <span class="title">Horaire</span>
+                    </a>
+                    <a routerLink="/layouts/performences" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="ri-calendar-todo-line"></i>
+                        <span class="title">Performences</span>
                     </a>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
