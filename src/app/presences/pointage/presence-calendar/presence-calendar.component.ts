@@ -44,8 +44,8 @@ export class PresenceCalendarComponent implements OnInit {
               dataCSS = "absence-autorisee";
             } else if (index.apointement === 'AM') {
               dataCSS = "absent-maladie";
-            } else if (index.apointement === 'CD') {
-              dataCSS = "conge-deuil";
+            } else if (index.apointement === 'CC') {
+              dataCSS = "conge-circonstanciel";
             } else if (index.apointement === 'CA') {
               dataCSS = "conge-annuel";
             } else if (index.apointement === 'CO') {
@@ -73,7 +73,7 @@ const dataList = [
   { id: 2, 'apointement': 'AM' },
   { id: 3, 'apointement': 'AA' },
   { id: 4, 'apointement': 'A' },
-  { id: 5, 'apointement': 'CD' },
+  { id: 5, 'apointement': 'CC' },
   { id: 6, 'apointement': 'O' },
 ]
 

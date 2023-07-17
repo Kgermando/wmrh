@@ -68,7 +68,7 @@ export class PresencePieYearComponent implements OnInit{
                             return "#FAAA0C";
                         } else if(item.apointement == 'AM') {
                             return "#ee368c";
-                        } else if(item.apointement == 'CD') {
+                        } else if(item.apointement == 'CC') {
                             return "#8e44ad";
                         } else if(item.apointement == 'CA') {
                             return "#2db6f5";
@@ -117,7 +117,7 @@ export class PresencePieYearComponent implements OnInit{
                     //   'A',
                     //   'AA',
                     //   'AM',
-                    //   'CD',
+                    //   'CC',
                     //   'CA',
                     //   'CO',
                     //   'S', 

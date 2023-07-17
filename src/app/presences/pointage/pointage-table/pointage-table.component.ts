@@ -144,7 +144,7 @@ export class EditPresenceDialogBox implements OnInit {
     'A',
     'AA',
     'AM',
-    'CD',
+    'CC',
     'CA',
     'CO',
     'S', 
@@ -183,7 +183,7 @@ export class EditPresenceDialogBox implements OnInit {
 
     this.presenceService.get(parseInt(this.data['id'])).subscribe(item => {
       if (
-        item.apointement === 'AM' || item.apointement === 'CD' || 
+        item.apointement === 'AM' || item.apointement === 'CC' || 
         item.apointement === 'CA' || item.apointement === 'CO' || 
         item.apointement === 'S' || item.apointement === 'O' || item.apointement === 'M') { 
         this.isAbsense = true;
@@ -205,7 +205,7 @@ export class EditPresenceDialogBox implements OnInit {
   onPresenceChange(event: any) {
     console.log(event.value);
     if (
-      event.value === 'AM' || event.value === 'CD' || 
+      event.value === 'AM' || event.value === 'CC' || 
       event.value === 'CA' || event.value === 'CO' || 
       event.value === 'S' || event.value === 'O' || event.value === 'M') { 
       this.isAbsense = true;

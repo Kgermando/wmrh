@@ -60,7 +60,7 @@ export class PresenceFormComponent {
     'A',
     'AA',
     'AM',
-    'CD',
+    'CC',
     'CA',
     'CO',
     'S', 
@@ -144,7 +144,7 @@ export class PresenceFormComponent {
         if (datePresenceSortie == dateAujourdui) {
           this.isAMTodayForm = true;
         }
-      } else if(this.apointementItem.apointement === 'CD'){
+      } else if(this.apointementItem.apointement === 'CC'){
         if (dataSortie > dateToday) {
           this.isCDToday = true;
         }
@@ -199,7 +199,7 @@ export class PresenceFormComponent {
 
   onPresenceChange(event: any) { 
     if (
-      event.value === 'AM' || event.value === 'CD' || 
+      event.value === 'AM' || event.value === 'CC' || 
       event.value === 'CA' || event.value === 'CO' || 
       event.value === 'S' || event.value === 'O' || event.value === 'M') { 
       this.isAbsense = true; 

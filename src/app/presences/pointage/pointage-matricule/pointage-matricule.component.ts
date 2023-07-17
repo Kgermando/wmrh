@@ -15,8 +15,7 @@ export class PointageMatriculeComponent implements OnInit {
 
   personne: PersonnelModel;  
 
-  cumulsMonth: number = 0; 
-   
+  cumulsMonth: number = 0;
 
   constructor(
     public themeService: CustomizerSettingsService,

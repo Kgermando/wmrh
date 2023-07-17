@@ -72,7 +72,7 @@ export class PresencePointageComponent implements OnInit{
           if (datePresenceSortie > dateToday) {
             this.isAMToday = true;
           }
-        } else if(this.presence.apointement === 'CD'){
+        } else if(this.presence.apointement === 'CC'){
           if (datePresenceSortie > dateToday) {
             this.isCDToday = true;
           } 

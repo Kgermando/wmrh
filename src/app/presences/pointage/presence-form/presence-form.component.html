@@ -20,7 +20,7 @@
                     <span class="presence-form absence-sans-autorisation" *ngIf="apointementItem.apointement == 'A'">Absence sans autorisation</span>
                     <span class="presence-form absence-autorisee" *ngIf="apointementItem.apointement == 'AA'">Absence autorisee</span>
                     <span class="presence-form absent-maladie" *ngIf="apointementItem.apointement == 'AM'">Absent maladie</span>
-                    <span class="presence-form conge-deuil" *ngIf="apointementItem.apointement == 'CD'">Congé deuil</span>
+                    <span class="presence-form conge-circonstanciel" *ngIf="apointementItem.apointement == 'CC'">Congé circonstanciel</span>
                     <span class="presence-form conge-annuel" *ngIf="apointementItem.apointement == 'CA'">Congé annuel</span>
                     <span class="presence-form conge-occasionnel" *ngIf="apointementItem.apointement == 'CO'">Congé occasionnel</span> 
                     <span class="presence-form suspension" *ngIf="apointementItem.apointement == 'S'">Suspension</span>
@@ -50,7 +50,7 @@
                         <span *ngIf="apointementItem.apointement == 'A'">Absence sans autorisation</span>
                         <span *ngIf="apointementItem.apointement == 'AA'">Absence autorisee</span>
                         <span *ngIf="apointementItem.apointement == 'AM'">Absent maladie</span>
-                        <span *ngIf="apointementItem.apointement == 'CD'">Congé deuil</span>
+                        <span *ngIf="apointementItem.apointement == 'CC'">Congé deuil</span>
                         <span *ngIf="apointementItem.apointement == 'CA'">Congé annuel</span>
                         <span *ngIf="apointementItem.apointement == 'CO'">Congé occasionnel</span> 
                         <span *ngIf="apointementItem.apointement == 'S'">Suspension</span>

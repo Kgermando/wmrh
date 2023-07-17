@@ -82,7 +82,7 @@ export class PointageSidebarComponent implements OnInit {
                         this.presenceService.getItemsCongE(this.currentUser.code_entreprise).subscribe(res => {
                           this.itemsCongeList = res;
                           this.itemsAMList = this.itemsCongeList.filter(v => v.apointement === 'AM');
-                          this.itemsCDList = this.itemsCongeList.filter(v => v.apointement === 'CD');
+                          this.itemsCDList = this.itemsCongeList.filter(v => v.apointement === 'CC');
                           this.itemsCAList = this.itemsCongeList.filter(v => v.apointement === 'CA');
                           this.itemsCOList = this.itemsCongeList.filter(v => v.apointement === 'CO');
                           this.itemsSList = this.itemsCongeList.filter(v => v.apointement === 'S');
