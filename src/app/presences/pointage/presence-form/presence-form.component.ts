@@ -240,7 +240,7 @@ export class PresenceFormComponent {
           },
           error: (err) => {
             this.isLoadingForm = false;
-            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });

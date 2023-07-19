@@ -91,13 +91,13 @@ export class PosteEditComponent implements OnInit{
       this.postesService.update(this.id, this.formGroup.getRawValue())
       .subscribe({
         next: () => {
-          this.toastr.success('Success!', 'Modification enregistré!');
+          this.toastr.success('Modification enregistré!', 'Success!');
           this.router.navigate(['/layouts/recrutements/postes']);
           this.isLoading = false;
         },
         error: err => {
           console.log(err);
-          this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
       });

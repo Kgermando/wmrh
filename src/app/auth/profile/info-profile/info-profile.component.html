@@ -7,123 +7,99 @@
             <ng-template carouselSlide>
                 <ul class="list ps-0 mb-0">
                     <li>
-                        <span class="fw-semibold d-inline-block">Nom: </span>
+                        <span class="fw-semibold">Nom: </span>
                         <span class="gray-color">{{ currentUser.nom }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Postnom: </span>
+                        <span class="fw-semibold">Postnom: </span>
                         <span class="gray-color">{{ currentUser.postnom }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Prenom: </span>
+                        <span class="fw-semibold">Prenom: </span>
                         <span class="gray-color">{{ currentUser.prenom }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Sexe: </span>
+                        <span class="fw-semibold">Sexe: </span>
                         <span class="gray-color">{{ currentUser.sexe }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Adresse:</span>
+                        <span class="fw-semibold">Adresse:</span>
                         <span class="gray-color">{{ currentUser.adresse }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Email: </span>
+                        <span class="fw-semibold">Email: </span>
                         <span class="gray-color">{{ currentUser.email }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Telephone: </span>
+                        <span class="fw-semibold">Telephone: </span>
                         <span class="gray-color">{{ currentUser.telephone }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Identifiant: </span>
+                        <span class="fw-semibold">Identifiant: </span>
                         <span class="gray-color">{{ currentUser.matricule }}</span>
-                    </li>  
-                    <li>
-                        <span class="fw-semibold d-inline-block">Accreditation: </span>
-                        <span class="gray-color">Niveau {{ currentUser.role }}</span>
                     </li> 
-                    <li>
-                        <span class="fw-semibold d-inline-block">Signature: </span>
-                        <span class="gray-color">{{ currentUser.signature }}</span>
-                    </li>
-                    <li>
-                        <span class="fw-semibold d-inline-block">Créé le: </span>
-                        <span class="gray-color">{{ currentUser.created | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
-                    </li>
-                    <li>
-                        <span class="fw-semibold d-inline-block">Mis à jour le: </span>
-                        <span class="gray-color">{{ currentUser.update_created | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
-                    </li>
                 </ul>
             </ng-template>
             <ng-template carouselSlide>
                 <ul class="list ps-0 mb-0">
                     <li>
-                        <span class="fw-semibold d-inline-block">Numero CNSS: </span>
+                        <span class="fw-semibold">Numero CNSS: </span>
                         <span class="gray-color">{{ currentUser.numero_cnss }}</span>
                     </li> 
                     <li>
-                        <span class="fw-semibold d-inline-block">Date de naissance: </span>
+                        <span class="fw-semibold">Date de naissance: </span>
                         <span class="gray-color">{{ currentUser.date_naissance | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Lieu de naissance: </span>
+                        <span class="fw-semibold">Lieu de naissance: </span>
                         <span class="gray-color">{{ currentUser.lieu_naissance }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Nationalité: </span>
+                        <span class="fw-semibold">Nationalité: </span>
                         <span class="gray-color">{{ currentUser.nationalite }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Etat civile: </span>
+                        <span class="fw-semibold">Etat civile: </span>
                         <span class="gray-color">{{ currentUser.etat_civile }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Nombre d'enfants: </span>
-                        <span class="gray-color">{{ currentUser.nbr_enfant }}</span>
-                    </li>
-                    <li>
-                        <span class="fw-semibold d-inline-block">Nombre de dependants: </span>
-                        <span class="gray-color">{{ currentUser.nbr_dependants }}</span>
-                    </li>
-                    <li>
-                        <span class="fw-semibold d-inline-block">Nombre de dependants max: </span>
-                        <span class="gray-color">{{ currentUser.nbr_dependants_max }}</span>
-                    </li>  
+                        <span class="fw-semibold">Nombre d'enfants: </span>
+                        <span class="gray-color">{{ currentUser.nbr_enfants }}</span>
+                    </li> 
                 </ul>
             </ng-template>
             <ng-template carouselSlide>
                 <ul class="list ps-0 mb-0">
                     <li>
-                        <span class="fw-semibold d-inline-block">Département: </span>
+                        <span class="fw-semibold">Département: </span>
                         <span class="gray-color">{{ currentUser.departement }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Titre: </span>
+                        <span class="fw-semibold">Titre: </span>
                         <span class="gray-color">{{ currentUser.title }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Fonction: </span>
+                        <span class="fw-semibold">Fonction: </span>
                         <span class="gray-color">{{ currentUser.fonction }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Services: </span>
+                        <span class="fw-semibold">Services: </span>
                         <span class="gray-color">{{ currentUser.services }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Site location: </span>
+                        <span class="fw-semibold">Site location: </span>
                         <span class="gray-color">{{ currentUser.site_location }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Type de contrat:</span>
+                        <span class="fw-semibold">Type de contrat:</span>
                         <span class="gray-color">{{ currentUser.type_contrat }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Date de debut decontrat:</span>
+                        <span class="fw-semibold">Date de debut decontrat:</span>
                         <span class="gray-color">{{ currentUser.date_debut_contrat | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Date de fin de contrat:</span>
+                        <span class="fw-semibold">Date de fin de contrat:</span>
                         <span class="gray-color">{{ currentUser.date_fin_contrat | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
                     </li> 
                 </ul>
@@ -131,34 +107,58 @@
             <ng-template carouselSlide>
                 <ul class="list ps-0 mb-0">
                     <li>
-                        <span class="fw-semibold d-inline-block">Salaire: </span>
+                        <span class="fw-semibold">Salaire: </span>
                         <span class="gray-color">{{ currentUser.salaire }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Compte bancaire: </span>
+                        <span class="fw-semibold">Compte bancaire: </span>
                         <span class="gray-color">{{ currentUser.compte_bancaire }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Nom de la banque: </span>
+                        <span class="fw-semibold">Nom de la banque: </span>
                         <span class="gray-color">{{ currentUser.nom_banque }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Frais bancaire: </span>
+                        <span class="fw-semibold">Frais bancaire: </span>
                         <span class="gray-color">{{ currentUser.frais_bancaire }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Statut du personnel: </span>
-                        <span class="gray-color" *ngIf="currentUser.statut_personnel"> Actif</span>
-                            <span class="gray-color" *ngIf="!currentUser.statut_personnel"> Inactif</span>
-                    </li>
-                    <li>
-                        <span class="fw-semibold d-inline-block">Syndicat: </span>
+                        <span class="fw-semibold">Syndicat: </span>
                         <span class="gray-color" *ngIf="currentUser.syndicat">OUI</span>
                         <span class="gray-color" *ngIf="!currentUser.syndicat">NON</span>
                     </li>
                     <li>
-                        <span class="fw-semibold d-inline-block">Entreprise: </span>
+                        <span class="fw-semibold">Entreprise: </span>
                         <span class="gray-color">{{ currentUser.entreprise }}</span>
+                    </li>
+                </ul>
+            </ng-template>
+            <ng-template carouselSlide>
+                <ul class="list ps-0 mb-0">
+                    <li>
+                        <span class="fw-semibold">Statut du personnel: </span>
+                        <span class="gray-color" *ngIf="currentUser.statut_personnel"> Actif</span>
+                            <span class="gray-color" *ngIf="!currentUser.statut_personnel"> Inactif</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold">Accreditation: </span>
+                        <span class="gray-color">Niveau {{ currentUser.role }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold">Permission: </span> 
+                            <span class="gray-color"> {{ currentUser.permission }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold">Signature: </span>
+                        <span class="gray-color">{{ currentUser.signature }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold">Créé le: </span>
+                        <span class="gray-color">{{ currentUser.created | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold">Mis à jour le: </span>
+                        <span class="gray-color">{{ currentUser.update_created | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
                     </li>
                 </ul>
             </ng-template>

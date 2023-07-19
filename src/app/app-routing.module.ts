@@ -46,6 +46,7 @@ import { PenaliteDetailComponent } from './penalites/penalite-detail/penalite-de
 import { HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
 import { HoraireComponent } from './horaire/horaire.component';
 import { PerformencesComponent } from './performences/performences.component';
+import { ArchivesComponent } from './archives/archives.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -99,6 +100,8 @@ const routes: Routes = [
     { path: 'horaire', component: HoraireComponent },
 
     { path: 'performences', component: PerformencesComponent },
+
+    { path: 'archives', component: ArchivesComponent },
 
     { path: 'mail/inbox', component: InboxComponent },
     { path: 'mail/compose', component: ComposeComponent },

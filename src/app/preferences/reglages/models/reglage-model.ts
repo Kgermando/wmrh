@@ -1,5 +1,7 @@
 export interface PreferenceModel {
-    id: number;
+    id: number;  
+    
+    // Infos entreprise
     company_name: string;
     nbr_employe: number;
     cnss: string;
@@ -8,22 +10,27 @@ export interface PreferenceModel {
     id_nat: string;
     numero_impot: string;
     email: string;
-    telephone: string; 
+    telephone: string;
     adresse: string;
+
+    // Date de paie
     date_paie : Date;
-    cnss_qpp : number;
-    inpp : number;
-    onem : number;
-    cotisation_syndicale : number;
-    cnss_qpo : number;
-    allocation_logement : number;
-    allocation_transport : number; 
-    allocation_familliale : number;
-    allocation_epouse : number;
-    nbr_max_enfant_courvert : number;
+
+    // Impôt societe
+    cnss_qpp : string;
+    inpp : string;
+    onem : string;
+
+    // Parametre de deduction
+    cotisation_syndicale : string;
+    cnss_qpo : string; 
+
+    // Taux
     monnaie : string;
     nbre_heure_travail : number;
     taux_dollard : number;
+
+    // Jours feries
     new_year: Date;
     noel: Date;
     martyr_day: Date;
@@ -34,14 +41,28 @@ export interface PreferenceModel {
     indepence_day: Date;
     parent_day: Date;
     kimbangu_day: Date;
-    prime_ancien_5: number; 
-    prime_ancien_10: number; 
-    prime_ancien_15: number; 
-    prime_ancien_20: number; 
+
+    // Ancienneté
+    prime_ancien_0: number;
+    prime_ancien_5: number;
+    prime_ancien_10: number;
+    prime_ancien_15: number;
+    prime_ancien_20: number;
     prime_ancien_25: number;
+
+    // Categories
+    categorie_mo: string;
+    categorie_ts: string;
+    categorie_tsq: string;
+    categorie_tq: string;
+    categorie_thq: string;
+
+    nbr_course: number; 
+    contre_valeur_logement: string;
+
     signature: string;
     created: Date;
     update_created : Date;
     entreprise: string;
-    code_entreprise: string; 
+    code_entreprise: string;
 }

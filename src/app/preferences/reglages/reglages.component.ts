@@ -173,29 +173,9 @@ export class EditReglageDialogBox implements OnInit{
         cnss_qpo: '', 
       });
     }
-    if (this.data['reglage'] == 'Allocation de logement') {
-      this.formGroup = this.formBuilder.group({  
-        allocation_logement: '', 
-      });
-    }
-    if (this.data['reglage'] == 'Allocation transport') {
-      this.formGroup = this.formBuilder.group({  
-        allocation_transport: '', 
-      });
-    }
     if (this.data['reglage'] == 'Nbre max d\'enfants courverts') {
       this.formGroup = this.formBuilder.group({  
         nbr_max_enfant_courvert: '', 
-      });
-    }
-    if (this.data['reglage'] == 'Allocation familliale') {
-      this.formGroup = this.formBuilder.group({  
-        allocation_familliale: '',
-      });
-    }
-    if (this.data['reglage'] == 'Allocation de l\'épouse') {
-      this.formGroup = this.formBuilder.group({  
-        allocation_epouse: '', 
       });
     }
     if (this.data['reglage'] == 'Monnaie') {
@@ -291,6 +271,47 @@ export class EditReglageDialogBox implements OnInit{
     if (this.data['reglage'] == 'Prime de plus de 25 ans') {
       this.formGroup = this.formBuilder.group({  
         prime_ancien_25: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Manœuvre') {
+      this.formGroup = this.formBuilder.group({  
+        categorie_mo: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Travailleur spécialisé') {
+      this.formGroup = this.formBuilder.group({  
+        categorie_ts: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Travailleur semi qualifié') {
+      this.formGroup = this.formBuilder.group({  
+        categorie_tsq: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Travailleur qualifié') {
+      this.formGroup = this.formBuilder.group({  
+        categorie_tq: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Travailleur hautement qualifié') {
+      this.formGroup = this.formBuilder.group({  
+        categorie_thq: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Nombre de course transport') {
+      this.formGroup = this.formBuilder.group({  
+        nbr_course: '',
+      });
+    }
+    if (this.data['reglage'] == 'Contre-valeur du logement') {
+      this.formGroup = this.formBuilder.group({  
+        contre_valeur_logement: '',
       });
     }
     
@@ -579,6 +600,70 @@ export class EditReglageDialogBox implements OnInit{
           });
         }
 
+        if (this.data['reglage'] == 'Prime de plus de 25 ans') {
+          this.formGroup = this.formBuilder.group({  
+            prime_ancien_25: '',
+          });
+        }
+    
+        if (this.data['reglage'] == 'Manœuvre') {
+          this.formGroup = this.formBuilder.group({  
+            categorie_mo: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+    
+        if (this.data['reglage'] == 'Travailleur spécialisé') {
+          this.formGroup = this.formBuilder.group({  
+            categorie_ts: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+    
+        if (this.data['reglage'] == 'Travailleur semi qualifié') {
+          this.formGroup = this.formBuilder.group({  
+            categorie_tsq: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+    
+        if (this.data['reglage'] == 'Travailleur qualifié') {
+          this.formGroup = this.formBuilder.group({  
+            categorie_tq: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+    
+        if (this.data['reglage'] == 'Travailleur hautement qualifié') {
+          this.formGroup = this.formBuilder.group({  
+            categorie_thq: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        if (this.data['reglage'] == 'Nombre de course transport') {
+          this.formGroup = this.formBuilder.group({  
+            nbr_course: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        if (this.data['reglage'] == 'Contre-valeur du logement') {
+          this.formGroup = this.formBuilder.group({  
+            contre_valeur_logement: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        
+
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -597,7 +682,7 @@ export class EditReglageDialogBox implements OnInit{
         next: () => {
           this.isLoading = false;
           window.location.reload(); 
-          this.toastr.success('Success!', 'Modification enregistré!'); 
+          this.toastr.success('Success!', 'Reglage enregistré!'); 
         },
         error: err => {
           console.log(err);

@@ -43,7 +43,7 @@ export class PosteViewComponent implements OnInit {
               this.router.navigate(['layouts/recrutements/postes']);
             },
             error: err => {
-              this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+              this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             }
           });
       }

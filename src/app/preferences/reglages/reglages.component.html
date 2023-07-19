@@ -17,7 +17,7 @@
 </div>
 <div *ngIf="!isLoading">
     <div class="row" *ngIf="!preference">
-        <h4>la page de reglage n'existe pas</h4>
+        <h4>La page de reglage n'est pas encore disponilble.</h4>
     </div>
     <div class="row" *ngIf="preference">
         <div class="col-lg-4 col-md-12">
@@ -307,51 +307,67 @@
             </mat-card>
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
-                    <h5 class="mb-0">Autres bénéfices</h5>
+                    <h5 class="mb-0">Categories</h5>
                 </mat-card-header>
                 <mat-card-content>
                     <ul class="list ps-0 mb-0">
                         <li>
-                            <span class="fw-semibold">Allocation de logement: </span>
-                            <span class="gray-color">{{ preference.allocation_logement }} %</span>
+                            <span class="fw-semibold">Manœuvre: </span>
+                            <span class="gray-color">{{ preference.categorie_mo }} </span>
                             <button mat-icon-button color="warn" 
-                            (click)="openEditDialog('300ms', '100ms', 'Allocation de logement', preference.allocation_logement)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
+                                (click)="openEditDialog('300ms', '100ms', 'Manœuvre', preference.categorie_mo)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
                         </li>
                         <li>
-                            <span class="fw-semibold ">Allocation transport: </span>
-                            <span class="gray-color">{{ preference.allocation_transport }} %</span>
+                            <span class="fw-semibold">Travailleur spécialisé: </span>
+                            <span class="gray-color">{{ preference.categorie_ts }}</span>
                             <button mat-icon-button color="warn" 
-                            (click)="openEditDialog('300ms', '100ms', 'Allocation transport', preference.allocation_transport)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        </li> 
-                        <li>
-                            <span class="fw-semibold">Allocation familliale: </span>
-                            <span class="gray-color">{{ preference.allocation_familliale }} %</span>
-                            <button mat-icon-button color="warn" 
-                            (click)="openEditDialog('300ms', '100ms', 'Allocation familliale', preference.allocation_familliale)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        </li> 
-                        <li>
-                            <span class="fw-semibold">Allocation de l'épouse: </span>
-                            <span class="gray-color">{{ preference.allocation_epouse }} %</span>
-                            <button mat-icon-button color="warn" 
-                            (click)="openEditDialog('300ms', '100ms', 'Allocation de l\'épouse', preference.allocation_epouse)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        </li> 
-                        <li>
-                            <span class="fw-semibold">Nbre max d'enfants courverts: </span>
-                            <span class="gray-color">{{ preference.nbr_max_enfant_courvert }}</span>
-                            <button mat-icon-button color="warn" 
-                            (click)="openEditDialog('300ms', '100ms', 'Nbre max d\'enfants courverts', preference.nbr_max_enfant_courvert)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
+                                (click)="openEditDialog('300ms', '100ms', 'Travailleur spécialisé', preference.categorie_ts)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
                         </li>
-                    </ul>  
+                        <li>
+                            <span class="fw-semibold">Travailleur semi qualifié: </span>
+                            <span class="gray-color">{{ preference.categorie_tsq }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Travailleur semi qualifié', preference.categorie_tsq)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Travailleur qualifié: </span>
+                            <span class="gray-color">{{ preference.categorie_tq }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Travailleur qualifié', preference.categorie_tq)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Travailleur hautement qualifié: </span>
+                            <span class="gray-color">{{ preference.categorie_thq }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Travailleur hautement qualifié', preference.categorie_thq)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Nombre de course transport: </span>
+                            <span class="gray-color">{{ preference.nbr_course }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Nombre de course transport', preference.nbr_course)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Contre-valeur du logement: </span>
+                            <span class="gray-color">{{ preference.contre_valeur_logement }} %</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Contre-valeur du logement', preference.contre_valeur_logement)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                    </ul>
                 </mat-card-content>
             </mat-card>
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">

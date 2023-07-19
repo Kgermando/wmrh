@@ -65,7 +65,7 @@ export class PersonnelViewComponent implements OnInit {
               this.router.navigate(['/layouts/personnels/personnel-list']);
             },
             error: err => {
-              this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+              this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
               console.log(err);
             }
           });

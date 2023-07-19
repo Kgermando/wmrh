@@ -3,6 +3,7 @@ import { HeureSuppModel } from "src/app/heures-supp/models/heure-supp-model";
 import { PenaliteModel } from "src/app/penalites/models/penalite-model";
 import { ApointementModel } from "src/app/presences/models/presence-model";
 import { PrimeModel } from "src/app/primes/models/prime-model";
+import { SalaireModel } from "src/app/salaires/models/salaire-model";
 
 export interface PersonnelModel {
     id: number;
@@ -16,16 +17,17 @@ export interface PersonnelModel {
     adresse: string;
     matricule: string;
     category: string; 
+
+    statut_personnel: boolean; 
     role: number;
+    permission: string;
 
     numero_cnss: string;
     date_naissance: Date;
     lieu_naissance: string;
     nationalite: string;
     etat_civile: string;
-    nbr_enfant: string;
-    nbr_dependants: string;
-    nbr_dependants_max: string;
+    nbr_enfants: number;
     
     departement: string;
     title: string;
@@ -40,23 +42,25 @@ export interface PersonnelModel {
     compte_bancaire: string;
     nom_banque: string;
     frais_bancaire: string;
-    statut_personnel: boolean; 
+    
     syndicat: boolean; 
     cv_url: string; 
-    
-    signature: string; 
-    created: Date; 
-    update_created : Date; 
-    password: string; 
-    
-    entreprise: string; 
-    code_entreprise: string;
+
+    password: string;
 
     presences: ApointementModel[];
     primes: PrimeModel[]; 
     penalites: PenaliteModel[];
     avances_salaires: AvanceSalaireModel[];
     heures_supp: HeureSuppModel[];
+    salaires: SalaireModel[];
     
+    signature: string; 
+    created: Date; 
+    update_created : Date; 
+    
+    
+    entreprise: string; 
+    code_entreprise: string; 
     
 }

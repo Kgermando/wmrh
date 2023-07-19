@@ -177,7 +177,7 @@ export class HeureSuppAddDialogBox implements OnInit {
           },
           error: (err) => {
             this.isLoading = false;
-            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });

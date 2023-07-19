@@ -98,7 +98,9 @@ import { PrimeFilterComponent } from './primes/prime-filter/prime-filter.compone
 import { PenaliteFilterComponent } from './penalites/penalite-filter/penalite-filter.component';
 import { HeureSuppFilterComponent } from './heures-supp/heure-supp-filter/heure-supp-filter.component';
 import { AvanceSalaireFilterComponent } from './avance-salaires/avance-salaire-filter/avance-salaire-filter.component';
-import { PerformencesComponent } from './performences/performences.component';  
+import { PerformencesComponent } from './performences/performences.component';
+import { ArchivesComponent } from './archives/archives.component';
+import { SalairesComponent } from './salaires/salaires.component';  
 
 
 @NgModule({
@@ -201,6 +203,8 @@ import { PerformencesComponent } from './performences/performences.component';
     HeureSuppFilterComponent,
     AvanceSalaireFilterComponent,
     PerformencesComponent,
+    ArchivesComponent,
+    SalairesComponent,
   ],
   imports: [
     BrowserModule,

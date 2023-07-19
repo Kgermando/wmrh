@@ -77,7 +77,7 @@ export class FonctionComponent implements OnInit {
           },
           error: (err) => {
             this.isLoading = false;
-            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });
@@ -99,7 +99,7 @@ export class FonctionComponent implements OnInit {
             window.location.reload();
           },
           error: err => {
-            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           }
         });
     }
@@ -179,12 +179,12 @@ export class EditFonctionDialogBox implements OnInit{
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.toastr.success('Success!', 'Modification enregistré!');
+          this.toastr.success('Modification enregistré!', 'Success!');
           window.location.reload();
         },
         error: err => {
           console.log(err);
-          this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
       });

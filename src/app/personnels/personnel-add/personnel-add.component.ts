@@ -30,7 +30,7 @@ export class PersonnelAddComponent implements OnInit {
   ];
   categoryList: string[] = [
     'Manoeuvres Ordinaires (MO)',
-    'Manoeuvres Spécialisés (MS)',
+    'Travailleur Spécialisés (MS)',
     'Travailleurs semi Qualifiés (TSQ)',
     'Travailleurs Qualifiés (TQ)',
     'Travailleurs Hautement Qualifiés (THQ)',
@@ -114,7 +114,7 @@ export class PersonnelAddComponent implements OnInit {
           },
           error: (err) => {
             this.isLoading = false;
-            this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });

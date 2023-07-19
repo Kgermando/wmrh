@@ -29,11 +29,11 @@ export class PersonnelEditComponent implements OnInit {
   formGroup2!: FormGroup;
   formGroup3!: FormGroup;
   formGroup4!: FormGroup;
+  formGroup5!: FormGroup;
 
   currentUser: PersonnelModel | any;
 
-  userID: number[] = []; // List ID
-  userList: PersonnelModel[] = [];
+  personne: PersonnelModel;
 
   typeContrat: string = 'CDD';
 
@@ -51,14 +51,17 @@ export class PersonnelEditComponent implements OnInit {
     'CDD', 'CDI'
   ];
   categoryList: string[] = [
-    'Manoeuvres Ordinaires (MO)',
-    'Manoeuvres Spécialisés (MS)',
-    'Travailleurs semi Qualifiés (TSQ)',
-    'Travailleurs Qualifiés (TQ)',
-    'Travailleurs Hautement Qualifiés (THQ)',
-    'Cadres Subalternes',
-    'Cadres Supérieurs' 
+    'Manœuvre',
+    'Travailleur spécialisé',
+    'Travailleur semi qualifié',
+    'Travailleur qualifié',
+    'Travailleur hautement qualifié'
   ];
+
+  permissionList: string[] = [
+    'CR',  'RU', 'RD', 
+    'CRU', 'RUD', 'CRUD',
+  ]
 
   id: number;
 
@@ -92,10 +95,10 @@ export class PersonnelEditComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.userList = res;
-          this.userID = this.userList.map(e => e.id);
-        });
+        // this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+        //   this.userList = res;
+        //   this.userID = this.userList.map(e => e.id);
+        // });
         this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.departementList = res; 
         });
@@ -126,8 +129,7 @@ export class PersonnelEditComponent implements OnInit {
       telephone: [''],
       sexe: [''],
       adresse: [''],
-      category: [''],
-      role: [''],
+      category: [''], 
     });
 
     this.formGroup2 = this._formBuilder.group({
@@ -136,9 +138,7 @@ export class PersonnelEditComponent implements OnInit {
       lieu_naissance: [''],
       nationalite: [''],
       etat_civile: [''],
-      nbr_enfant: [''],
-      nbr_dependants: [''],
-      nbr_dependants_max: [''],
+      nbr_enfants: [''],
     }); 
 
     this.formGroup3 = this._formBuilder.group({
@@ -156,16 +156,22 @@ export class PersonnelEditComponent implements OnInit {
       salaire: [''],
       compte_bancaire: [''],
       nom_banque: [''],
-      frais_bancaire: [''],
-      statut_personnel: [''],
+      frais_bancaire: [''],  
       syndicat: [''],
       cv_url: [''], 
     });
 
+    this.formGroup5 = this._formBuilder.group({
+      statut_personnel: [''],
+      role: [''],
+      permission: [''],
+    });
 
-    this.id = this.route.snapshot.params['id'];
-    console.log(this.id);
+
+    this.id = this.route.snapshot.params['id']; 
     this.personnelService.get(this.id).subscribe(item => { 
+        this.personne = item;
+        console.log(this.personne);
         this.formGroup.patchValue({
           nom: item.nom,
           postnom: item.postnom,
@@ -174,8 +180,7 @@ export class PersonnelEditComponent implements OnInit {
           telephone: item.telephone,
           sexe: item.sexe,
           adresse: item.adresse,
-          category: item.category,
-          role: item.role,
+          category: item.category, 
           signature: this.currentUser.matricule, 
           update_created: new Date()
         });
@@ -185,9 +190,7 @@ export class PersonnelEditComponent implements OnInit {
           lieu_naissance: item.lieu_naissance,
           nationalite: item.nationalite,
           etat_civile: item.etat_civile,
-          nbr_enfant: item.nbr_enfant,
-          nbr_dependants: item.nbr_dependants,
-          nbr_dependants_max: item.nbr_dependants_max,
+          nbr_enfants: item.nbr_enfants,
           signature: this.currentUser.matricule, 
           update_created: new Date()
         });
@@ -207,10 +210,16 @@ export class PersonnelEditComponent implements OnInit {
           salaire: item.salaire,
           compte_bancaire: item.compte_bancaire,
           nom_banque: item.nom_banque,
-          frais_bancaire: item.frais_bancaire,
-          statut_personnel: item.statut_personnel,
+          frais_bancaire: item.frais_bancaire, 
           syndicat: item.syndicat,
           cv_url: item.cv_url, 
+          signature: this.currentUser.matricule,
+          update_created: new Date()
+        });
+        this.formGroup5.patchValue({ 
+          statut_personnel: item.statut_personnel,
+          role: item.role, 
+          permission: item.permission,
           signature: this.currentUser.matricule,
           update_created: new Date()
         });
@@ -224,13 +233,13 @@ export class PersonnelEditComponent implements OnInit {
       this.personnelService.update(this.id, this.formGroup.getRawValue())
       .subscribe({
         next: () => {
-          this.toastr.success('Success!', 'Modification enregistré!');
+          this.toastr.success('Modification enregistré!', 'Success!');
           // this.router.navigate(['/layouts/personnels/personnel-list']);
           this.isLoading = false;
         },
         error: err => {
           console.log(err);
-          this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
       });
@@ -248,13 +257,13 @@ export class PersonnelEditComponent implements OnInit {
       this.personnelService.update(this.id, this.formGroup2.getRawValue())
       .subscribe({
         next: () => {
-          this.toastr.success('Success!', 'Modification enregistré!');
+          this.toastr.success('Modification enregistré!', 'Success!');
           // this.router.navigate(['/layouts/personnels/personnel-list']);
           this.isLoading = false;
         },
         error: err => {
           console.log(err);
-          this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
       });
@@ -271,13 +280,13 @@ export class PersonnelEditComponent implements OnInit {
       this.personnelService.update(this.id, this.formGroup3.getRawValue())
       .subscribe({
         next: () => {
-          this.toastr.success('Success!', 'Modification enregistré!');
+          this.toastr.success('Modification enregistré!', 'Success!');
           // this.router.navigate(['/layouts/personnels/personnel-list']);
           this.isLoading = false;
         },
         error: err => {
           console.log(err);
-          this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
       });
@@ -295,13 +304,37 @@ export class PersonnelEditComponent implements OnInit {
       this.personnelService.update(this.id, this.formGroup4.getRawValue())
       .subscribe({
         next: () => {
-          this.toastr.success('Success!', 'Modification enregistré!');
+          this.toastr.success('Modification enregistré!', 'Success!');
           this.router.navigate(['/layouts/personnels/personnel-list']);
           this.isLoading = false;
         },
         error: err => {
           console.log(err);
-          this.toastr.error('Oupss!', 'Une erreur s\'est produite!');
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+          this.isLoading = false;
+        }
+      });
+
+      this.isLoading = false;
+    } catch (error) {
+      this.isLoading = false;
+      console.log(error);
+    }
+  }
+
+  onSubmit5() {
+    try {
+      this.isLoading = true;
+      this.personnelService.update(this.id, this.formGroup5.getRawValue())
+      .subscribe({
+        next: () => {
+          this.toastr.success('Modification enregistré!', 'Success!');
+          this.router.navigate(['/layouts/personnels/personnel-list']);
+          this.isLoading = false;
+        },
+        error: err => {
+          console.log(err);
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
       });
