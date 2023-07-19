@@ -47,6 +47,7 @@ import { HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-
 import { HoraireComponent } from './horaire/horaire.component';
 import { PerformencesComponent } from './performences/performences.component';
 import { ArchivesComponent } from './archives/archives.component';
+import { SalairesComponent } from './salaires/salaires.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -95,7 +96,10 @@ const routes: Routes = [
     { path: 'salaires/penalites', component: PenalitesComponent },
     { path: 'salaires/penalites/:id/detail', component: PenaliteDetailComponent },
     { path: 'salaires/avance-salaire', component: AvanceSalairesComponent },
-    { path: 'salaires/avance-salaire/:id/detail', component: AvanceSalaireDetailComponent }, 
+    { path: 'salaires/avance-salaire/:id/detail', component: AvanceSalaireDetailComponent },
+
+    { path: 'salaires/releve-salaire', component: SalairesComponent },
+    
 
     { path: 'horaire', component: HoraireComponent },
 
