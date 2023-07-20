@@ -99,8 +99,14 @@ import { PenaliteFilterComponent } from './penalites/penalite-filter/penalite-fi
 import { HeureSuppFilterComponent } from './heures-supp/heure-supp-filter/heure-supp-filter.component';
 import { AvanceSalaireFilterComponent } from './avance-salaires/avance-salaire-filter/avance-salaire-filter.component';
 import { PerformencesComponent } from './performences/performences.component';
-import { ArchivesComponent } from './archives/archives.component';
-import { SalairesComponent } from './salaires/salaires.component';  
+import { ArchivesComponent } from './archives/archives.component'; 
+import { StatutsPaieComponent } from './salaires/statuts-paie/statuts-paie.component';
+import { ListPaimentsComponent } from './salaires/list-paiments/list-paiments.component';
+import { RelevePaiesComponent } from './salaires/releve-paies/releve-paies.component';
+import { PaieViewComponent } from './salaires/list-paiments/paie-view/paie-view.component';
+import { RelevePaieTableComponent } from './salaires/list-paiments/paie-view/releve-paie-table/releve-paie-table.component';
+import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
+import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component';  
 
 
 @NgModule({
@@ -203,8 +209,14 @@ import { SalairesComponent } from './salaires/salaires.component';
     HeureSuppFilterComponent,
     AvanceSalaireFilterComponent,
     PerformencesComponent,
-    ArchivesComponent,
-    SalairesComponent,
+    ArchivesComponent, 
+    StatutsPaieComponent,
+    ListPaimentsComponent,
+    RelevePaiesComponent,
+    PaieViewComponent,
+    RelevePaieTableComponent,
+    FichePaieComponent,
+    BulletinPaieComponent,
   ],
   imports: [
     BrowserModule,

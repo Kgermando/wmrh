@@ -1,0 +1,42 @@
+
+<div class="reports-table table-responsive mt-25">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="fw-semibold main-color">Statuts</th>
+                <th class="fw-semibold gray-color">Alloc. logement</th>
+                <th class="fw-semibold gray-color">Alloc. transport</th>
+                <th class="fw-semibold gray-color">Alloc. familliale</th>
+                <th class="fw-semibold gray-color">Salaire de base</th>
+                <th class="fw-semibold gray-color">Primes</th>
+                <th class="fw-semibold gray-color">Heures supp</th>
+                <th class="fw-semibold gray-color">Congé payés</th>
+                <th class="fw-semibold gray-color">Nbre de jrs prestés</th>
+                <th class="fw-semibold gray-color">Penalités</th>
+                <th class="fw-semibold gray-color">Syndicat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let fiche of personne.salaires">
+                <td class="main-color fw-semibold">{{fiche.statut}}</td>
+                <td class="gray-color fw-semibold">{{fiche.alloc_logement}}</td>
+                <td class="gray-color fw-semibold">{{fiche.alloc_transport}}</td>
+                <td class="gray-color fw-semibold">{{fiche.alloc_familliale}}</td>
+                <td class="gray-color fw-semibold">{{fiche.salaire_base}}</td>
+                <td class="gray-color fw-semibold">{{fiche.heures_supp}}</td>
+                <td class="gray-color fw-semibold">{{fiche.conge_paye}}</td>
+                <td class="gray-color fw-semibold">{{fiche.nbre_jrs_preste}}</td>
+                <td class="gray-color fw-semibold">{{fiche.penalites}}</td>
+                <td class="gray-color fw-semibold">{{fiche.syndicat}}</td>
+            </tr> 
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+

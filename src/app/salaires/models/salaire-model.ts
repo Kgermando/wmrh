@@ -16,9 +16,10 @@ export class SalaireModel {
     cnss_qpo: string; // Impôt de 5% => 0.05
     rni: string;  // Remuneration Nette Imposable
     ipr: string;  // Impôt Professionnel sur les Rémunérations (IPR)
-    syncdicat: string;  // 1 % 
+    syndicat: string;  // 1 % 
     penalites: string;  // Sanctions sur le salaire net à payer
     net_a_payer: string;
+    statut: string; // Genereted, Traitement, Disponible
     signature: string;
     created: Date;
     update_created: Date;

@@ -1,0 +1,105 @@
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
+    <h4 class="mb-0">Relévés de bulletin de paies</h4>
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item gray-color">Personnels</li>
+        <li class="breadcrumb-item fw-semibold">View</li>
+    </ol>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+</div>
+<div *ngIf="!isLoading">
+    <div class="row" *ngIf="personne">
+        <div class="col-lg-12 col-md-12">
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header>
+                    <h5 class="mb-0"></h5>
+                    <div>
+                        <button mat-flat-button class="default-btn tagus" (click)="onSubmit()" >
+                            <i class="ri-add-fill"></i> Génerer la fiche de paie
+                        </button>
+                    </div>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold">Matricule: </span>
+                                    <span class="gray-color">{{ personne.matricule }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-8 col-md-6 col-sm-6">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold">Categorie: </span>
+                                    <span class="gray-color">{{ personne.category }}</span>
+                                </li> 
+                            </ul>
+                        </div> 
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold">Nom: </span>
+                                    <span class="gray-color">{{ personne.nom }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold">Postnom: </span>
+                                    <span class="gray-color">{{ personne.postnom }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold">Prenom: </span>
+                                    <span class="gray-color">{{ personne.prenom }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold">Email: </span>
+                                    <span class="gray-color">{{ personne.email }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold">Telephone: </span>
+                                    <span class="gray-color">{{ personne.telephone }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold">Sexe: </span>
+                                    <span class="gray-color">{{ personne.sexe }}</span>
+                                </li> 
+                            </ul>
+                        </div> 
+                    </div> 
+                </mat-card-content>
+                <mat-card-content>
+                    <app-releve-paie-table [personne]="personne"></app-releve-paie-table>
+                </mat-card-content>
+            </mat-card> 
+        </div>
+        
+    </div>
+</div>

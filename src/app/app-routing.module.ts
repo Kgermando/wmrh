@@ -46,8 +46,12 @@ import { PenaliteDetailComponent } from './penalites/penalite-detail/penalite-de
 import { HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
 import { HoraireComponent } from './horaire/horaire.component';
 import { PerformencesComponent } from './performences/performences.component';
-import { ArchivesComponent } from './archives/archives.component';
-import { SalairesComponent } from './salaires/salaires.component';
+import { ArchivesComponent } from './archives/archives.component'; 
+import { StatutsPaieComponent } from './salaires/statuts-paie/statuts-paie.component';
+import { ListPaimentsComponent } from './salaires/list-paiments/list-paiments.component';
+import { PaieViewComponent } from './salaires/list-paiments/paie-view/paie-view.component';
+import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
+import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -97,8 +101,11 @@ const routes: Routes = [
     { path: 'salaires/penalites/:id/detail', component: PenaliteDetailComponent },
     { path: 'salaires/avance-salaire', component: AvanceSalairesComponent },
     { path: 'salaires/avance-salaire/:id/detail', component: AvanceSalaireDetailComponent },
-
-    { path: 'salaires/releve-salaire', component: SalairesComponent },
+    { path: 'salaires/liste-paiements', component: ListPaimentsComponent },
+    { path: 'salaires/liste-paiements/:id/paie-view', component: PaieViewComponent },
+    { path: 'salaires/statuts-paies', component: StatutsPaieComponent },
+    { path: 'salaires/traitement/:id/fiche-paie', component: FichePaieComponent },
+    { path: 'salaires/disponible/:id/bulletin-paie', component: BulletinPaieComponent },
     
 
     { path: 'horaire', component: HoraireComponent },
