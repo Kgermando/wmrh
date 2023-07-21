@@ -80,7 +80,7 @@
                         <li>
                             <span class="fw-semibold">Categorie: </span>
                             <span class="gray-color">{{ personne.category }}</span>
-                        </li> 
+                        </li>   
                     </ul>  
                 </mat-card-content>
             </mat-card> 
@@ -115,6 +115,15 @@
                         <li>
                             <span class="fw-semibold">Nombre d'enfants: </span>
                             <span class="gray-color">{{ personne.nbr_enfants }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Syndicat: </span>
+                            <span class="gray-color" *ngIf="personne.syndicat">OUI</span>
+                            <span class="gray-color" *ngIf="!personne.syndicat">NON</span>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold">Lien du CV: </span>
+                            <span class="gray-color">{{ personne.cv_url }}</span>
                         </li>
                     </ul>   
                 </mat-card-content>
@@ -198,20 +207,17 @@
                         <li>
                             <span class="fw-semibold">Compte bancaire: </span>
                             <span class="gray-color">{{ personne.compte_bancaire }}</span>
-                        </li>
+                        </li> 
                         <li>
                             <span class="fw-semibold">Nom de la banque: </span>
                             <span class="gray-color">{{ personne.nom_banque }}</span>
                         </li>
                         <li>
-                            <span class="fw-semibold">Syndicat: </span>
-                            <span class="gray-color" *ngIf="personne.syndicat">OUI</span>
-                            <span class="gray-color" *ngIf="!personne.syndicat">NON</span>
-                        </li> 
-                        <li>
-                            <span class="fw-semibold">CV SCAN: </span>
-                            <span class="gray-color">{{ personne.cv_url }}</span>
-                        </li> 
+                            <span class="fw-semibold">Frais de la banque: </span>
+                            <span class="gray-color">{{ personne.frais_bancaire }} {{ preference.monnaie }}</span>
+                        </li>
+                        
+                        
                     </ul>   
                 </mat-card-content>
             </mat-card>

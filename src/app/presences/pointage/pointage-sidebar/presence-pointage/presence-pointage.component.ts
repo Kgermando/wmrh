@@ -44,7 +44,7 @@ export class PresencePointageComponent implements OnInit{
         const day = dateToday.getDate();
         const dayMonth = dateToday.getMonth();
         const dayYear = dateToday.getFullYear(); 
-        // Date d'entree
+        // Date d'entree 
         const dateEntree = new Date(this.presence.date_entree);
         const dateEntreeDay = dateEntree.getDate();
         const dateEntreeMonth = dateEntree.getMonth();

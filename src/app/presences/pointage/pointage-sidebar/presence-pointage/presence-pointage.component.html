@@ -39,13 +39,6 @@
         <div class="position-relative plus-btn conge-annuel p-5 border-none rounded-circle"
             *ngIf="presence.apointement == 'CA'">CA</div>
     </div>
-
-    <div *ngIf="isCOToday">
-        <div class="position-relative plus-btn conge-occasionnel p-5 border-none rounded-circle"
-            *ngIf="presence.apointement == 'CO'">
-            CO
-        </div>
-    </div>
  
     <div *ngIf="isSToday">
         <div class="position-relative plus-btn suspension p-5 border-none rounded-circle"

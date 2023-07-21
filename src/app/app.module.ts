@@ -4,10 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
-
 import { provideToastr } from 'ngx-toastr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -62,7 +62,7 @@ import { EditSiteLocationDialogBox, SiteLocationComponent } from './preferences/
 import { PointageComponent } from './presences/pointage/pointage.component';
 import { PointageMatriculeComponent } from './presences/pointage/pointage-matricule/pointage-matricule.component';
 import { PointageSidebarComponent } from './presences/pointage/pointage-sidebar/pointage-sidebar.component'; 
-import { PresenceFormComponent } from './presences/pointage/presence-form/presence-form.component';
+import { PenaliteSAddDialogBox, PresenceFormComponent } from './presences/pointage/presence-form/presence-form.component';
 import { PresenceCalendarComponent } from './presences/pointage/presence-calendar/presence-calendar.component';
 import { PresencePieMonthComponent } from './presences/pointage/presences-pie/presence-pie-month/presence-pie-month.component';
 import { PresencePieYearComponent } from './presences/pointage/presences-pie/presence-pie-year/presence-pie-year.component';
@@ -102,7 +102,6 @@ import { PerformencesComponent } from './performences/performences.component';
 import { ArchivesComponent } from './archives/archives.component'; 
 import { StatutsPaieComponent } from './salaires/statuts-paie/statuts-paie.component';
 import { ListPaimentsComponent } from './salaires/list-paiments/list-paiments.component';
-import { RelevePaiesComponent } from './salaires/releve-paies/releve-paies.component';
 import { PaieViewComponent } from './salaires/list-paiments/paie-view/paie-view.component';
 import { RelevePaieTableComponent } from './salaires/list-paiments/paie-view/releve-paie-table/releve-paie-table.component';
 import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
@@ -212,11 +211,11 @@ import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bul
     ArchivesComponent, 
     StatutsPaieComponent,
     ListPaimentsComponent,
-    RelevePaiesComponent,
     PaieViewComponent,
     RelevePaieTableComponent,
     FichePaieComponent,
     BulletinPaieComponent,
+    PenaliteSAddDialogBox,
   ],
   imports: [
     BrowserModule,
@@ -232,6 +231,7 @@ import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bul
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    QRCodeModule
   ],
   providers: [
     DatePipe,

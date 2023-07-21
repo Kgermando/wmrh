@@ -37,6 +37,11 @@ export class PersonnelViewComponent implements OnInit {
       this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user;
+          let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
+          this.personnelService.get(Number(id)).subscribe(res => {
+            this.personne = res;
+            this.isLoading = false; 
+          });
           this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
             this.preference = res;
             this.isLoading = false;  
@@ -46,12 +51,7 @@ export class PersonnelViewComponent implements OnInit {
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      }); 
-      let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
-      this.personnelService.get(Number(id)).subscribe(res => {
-        this.personne = res;
-        this.isLoading = false; 
-      });
+      });  
       this.isLoading = false;
     }
 

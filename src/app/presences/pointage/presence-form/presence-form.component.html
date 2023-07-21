@@ -21,8 +21,7 @@
                     <span class="presence-form absence-autorisee" *ngIf="apointementItem.apointement == 'AA'">Absence autorisee</span>
                     <span class="presence-form absent-maladie" *ngIf="apointementItem.apointement == 'AM'">Absent maladie</span>
                     <span class="presence-form conge-circonstanciel" *ngIf="apointementItem.apointement == 'CC'">Congé circonstanciel</span>
-                    <span class="presence-form conge-annuel" *ngIf="apointementItem.apointement == 'CA'">Congé annuel</span>
-                    <span class="presence-form conge-occasionnel" *ngIf="apointementItem.apointement == 'CO'">Congé occasionnel</span> 
+                    <span class="presence-form conge-annuel" *ngIf="apointementItem.apointement == 'CA'">Congé annuel</span> 
                     <span class="presence-form suspension" *ngIf="apointementItem.apointement == 'S'">Suspension</span>
                     <span class="presence-form service-off" *ngIf="apointementItem.apointement == 'O'">Service OFF</span>
                     <span class="presence-form mission" *ngIf="apointementItem.apointement == 'M'">Mission</span>
@@ -51,8 +50,7 @@
                         <span *ngIf="apointementItem.apointement == 'AA'">Absence autorisee</span>
                         <span *ngIf="apointementItem.apointement == 'AM'">Absent maladie</span>
                         <span *ngIf="apointementItem.apointement == 'CC'">Congé deuil</span>
-                        <span *ngIf="apointementItem.apointement == 'CA'">Congé annuel</span>
-                        <span *ngIf="apointementItem.apointement == 'CO'">Congé occasionnel</span> 
+                        <span *ngIf="apointementItem.apointement == 'CA'">Congé annuel</span> 
                         <span *ngIf="apointementItem.apointement == 'S'">Suspension</span>
                         <span *ngIf="apointementItem.apointement == 'O'">Service OFF</span>
                         <span *ngIf="apointementItem.apointement == 'M'">Mission</span>
@@ -64,8 +62,8 @@
         <div class="tagus-form-group" *ngIf="isPTodayForm || 
             isATodayForm ||  isAATodayForm ||
             isAMTodayForm || isCDTodayForm || 
-            isCATodayForm || isCOTodayForm || 
-            isSTodayForm || isOTodayForm || isMTodayForm"> 
+            isCATodayForm ||isSTodayForm || 
+            isOTodayForm || isMTodayForm">
 
             <p>PRESENCE ENTRER</p>
             <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">

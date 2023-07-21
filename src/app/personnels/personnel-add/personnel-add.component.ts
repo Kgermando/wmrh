@@ -79,11 +79,6 @@ export class PersonnelAddComponent implements OnInit {
   onSubmit() {
     try {
       this.isLoading = true;
-      var year = formatDate(new Date(), 'yy', 'en');
-      var numID = 0;
-      if (this.userID.length !== 0) {
-        numID = Math.max(...this.userID);
-      }
       var codeEntreprise = this.currentUser.code_entreprise;
       var mat = this.formGroup.value.matricule;
       var identifiant = `${mat}-${codeEntreprise}`

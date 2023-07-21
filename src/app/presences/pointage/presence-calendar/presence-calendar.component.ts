@@ -48,8 +48,6 @@ export class PresenceCalendarComponent implements OnInit {
               dataCSS = "conge-circonstanciel";
             } else if (index.apointement === 'CA') {
               dataCSS = "conge-annuel";
-            } else if (index.apointement === 'CO') {
-              dataCSS = "conge-occasionnel";
             } else if (index.apointement === 'S') {
               dataCSS = "suspension";
             } else if (index.apointement === 'O') {

@@ -9,6 +9,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { PresenceService } from '../../presence.service';
 import { ApointementModel } from '../../models/presence-model';
 import { formatDate } from '@angular/common';
+import { PenaliteAddDialogBox } from 'src/app/penalites/penalites.component';
+import { PenaliteService } from 'src/app/penalites/penalite.service';
 
 @Component({
   selector: 'app-presence-form',
@@ -62,7 +64,6 @@ export class PresenceFormComponent {
     'AM',
     'CC',
     'CA',
-    'CO',
     'S', 
     'O',
     'M'
@@ -99,7 +100,7 @@ export class PresenceFormComponent {
         const day = dateToday.getDate();
         const dayMonth = dateToday.getMonth();
         const dayYear = dateToday.getFullYear(); 
-        // Date d'entree
+        // Date d'entree 
         const dateEntree = new Date(this.apointementItem.date_entree);
         const dateEntreeDay = dateEntree.getDate();
         const dateEntreeMonth = dateEntree.getMonth();
@@ -158,13 +159,6 @@ export class PresenceFormComponent {
           if (datePresenceSortie == dateAujourdui) {
             this.isCATodayForm = true;
           }
-        } else if(this.apointementItem.apointement === 'CO'){
-          if (dataSortie > dateToday) {
-            this.isCOToday = true;
-          }
-          if (datePresenceSortie == dateAujourdui) {
-            this.isCOTodayForm = true;
-          }
         } else if(this.apointementItem.apointement === 'S'){
           if (dataSortie > dateToday) {
             this.isSToday = true;
@@ -201,14 +195,27 @@ export class PresenceFormComponent {
   onPresenceChange(event: any) { 
     if (
       event.value === 'AM' || event.value === 'CC' || 
-      event.value === 'CA' || event.value === 'CO' || 
-      event.value === 'S' || event.value === 'O' || event.value === 'M') { 
+      event.value === 'CA' || event.value === 'S' || 
+      event.value === 'O' || event.value === 'M') { 
       this.isAbsense = true; 
     } else if(event.value === 'P' || event.value === 'A' || 
       event.value === 'AA') {
       this.isAbsense = false;
+    } else if(event.value === 'S') {
+
     }
   }
+
+  openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, personnel: number): void {
+    this.dialog.open(PenaliteSAddDialogBox, {
+      width: '600px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        personnel: personnel
+      }
+    }); 
+  } 
 
 
   onSubmit() {
@@ -231,12 +238,15 @@ export class PresenceFormComponent {
           personnel: this.personne.id
         };
         this.presenceService.create(body).subscribe({
-          next: () => {
+          next: (res) => {
             this.isLoadingForm = false;
             this.formGroup.reset();
+            console.log(res['personnel']);
             this.toastr.success('Success!', 'Ajouté avec succès!');
+            if(res['apointement'] === 'S') {
+              this.openEditDialog('300ms', '100ms', res['personnel']);
+            } 
             this.router.navigate(['/layouts/presences/pointage']);
-            // window.location.reload();
           },
           error: (err) => {
             this.isLoadingForm = false;
@@ -255,3 +265,85 @@ export class PresenceFormComponent {
 }
 
 
+
+@Component({
+  selector: 'penalite-s-dialog',
+  templateUrl: './presence-s-penalite.html',
+})
+export class PenaliteSAddDialogBox implements OnInit {
+  isLoading = false;
+
+  formGroup!: FormGroup; 
+ 
+
+  currentUser: PersonnelModel | any; 
+
+  constructor( 
+    @Inject(MAT_DIALOG_DATA) public data: any,
+      public dialogRef: MatDialogRef<PenaliteAddDialogBox>,
+      private formBuilder: FormBuilder,
+      private router: Router,
+      private authService: AuthService, 
+      private toastr: ToastrService, 
+      private penaliteService: PenaliteService,
+  ) {}
+  
+
+
+  ngOnInit(): void {
+    this.authService.user().subscribe({
+      next: (user) => {
+        this.currentUser = user; 
+      },
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
+    }); 
+    this.formGroup = this.formBuilder.group({  
+      intitule: ['', Validators.required],
+      montant: ['', Validators.required], 
+    }); 
+  } 
+
+
+  onSubmit() {
+    try {
+      this.isLoading = true; 
+      if (this.formGroup.valid) {
+        var body = {
+          personnel: this.data['personnel'],
+          intitule: this.formGroup.value.intitule,
+          montant: this.formGroup.value.montant,
+          signature: this.currentUser.matricule,
+          created: new Date(),
+          update_created: new Date(),
+          entreprise: this.currentUser.entreprise,
+          code_entreprise: this.currentUser.code_entreprise
+        };
+        this.penaliteService.create(body).subscribe({
+          next: () => {
+            this.isLoading = false;
+            this.formGroup.reset();
+            this.toastr.success('Success!', 'Ajouté avec succès!'); 
+            window.location.reload();
+          },
+          error: (err) => {
+            this.isLoading = false;
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+            console.log(err);
+          }
+        });
+      }
+      this.isLoading = false;
+    } catch (error) {
+      this.isLoading = false;
+      console.log(error);
+    }
+  }
+
+  close(){
+      this.dialogRef.close(true);
+  } 
+
+}

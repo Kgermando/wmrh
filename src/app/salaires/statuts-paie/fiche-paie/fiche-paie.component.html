@@ -1,1 +1,162 @@
-<p>fiche-paie works!</p>
+<div class="row justify-content-center" *ngIf="salaire && preference">
+    <div class="col-md-8 .offset-md-4">
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header class="mb-10 d-flex justify-content-center">
+                <h4 class="mb-0 text-center">{{ title.toUpperCase()}} </h4>
+            </mat-card-header>
+            <mat-card-header>
+                <h6>Bulletin N°{{salaire.id}} du {{salaire.created | date: 'dd/MM/yyyy'}}</h6>
+                <div> 
+                    <button mat-icon-button class="tagus">
+                        <mat-icon>print</mat-icon>
+                    </button>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <div class=" d-flex flex-nowrap mb-25 align-items-center justify-content-space-between">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <table class="table"> 
+                            <tbody>
+                                <tr>
+                                    <td class="text-start">
+                                        Entreprise:
+                                    </td>
+                                    <td class="gray-color text-start">{{ preference.company_name }}</td> 
+                                </tr>
+                                <tr>
+                                    <td class="text-start">
+                                        RCCM:
+                                    </td>
+                                    <td class="gray-color text-start">{{ preference.rccm }}</td> 
+                                </tr>
+                                <tr>
+                                    <td class="text-start">
+                                        ID. Nat:
+                                    </td>
+                                    <td class="gray-color text-start">{{ preference.id_nat }}</td> 
+                                </tr>
+                                <tr>
+                                    <td class="text-start">
+                                        N° Impôt:
+                                    </td>
+                                    <td class="gray-color text-start">{{ preference.numero_impot }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center">
+                        <qrcode [qrdata]="salaire.personnel.matricule" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <table class="table"> 
+                    <tbody>
+                        <tr>
+                            <td class="text-start">
+                                Identifiant:
+                            </td>
+                            <td class="gray-color text-start">{{ salaire.personnel.matricule }}</td> 
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                Nom complet:
+                            </td>
+                            <td class="gray-color text-start">{{ salaire.personnel.nom}} {{ salaire.personnel.postnom}} {{ salaire.personnel.prenom}}</td> 
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                Département
+                            </td>
+                            <td class="gray-color text-start">{{ salaire.personnel.departement}} </td> 
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                N° CNSS:
+                            </td>
+                            <td class="gray-color text-start">{{ salaire.personnel.numero_cnss }}</td> 
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                Compte bancaire:
+                            </td>
+                            <td class="gray-color text-start">{{ salaire.personnel.compte_bancaire }}</td> 
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="list ps-0 mb-0 mt-25">
+                    <li class="gray-color d-flex align-items-center justify-content-space-between">
+                        Salaire de base : 
+                        <span class="fw-semibold">{{ salaire.personnel.salaire }} {{ preference.monnaie }}</span>
+                    </li>
+                    <li class="gray-color d-flex align-items-center justify-content-space-between">
+                        Allocation logement :
+                        <span class="fw-semibold">{{ salaire.alloc_logement }} {{ preference.monnaie }}</span>
+                    </li>
+                    <li class="gray-color d-flex align-items-center justify-content-space-between">
+                        Allocation transport :
+                        <span class="fw-semibold">{{ salaire.alloc_transport }} {{ preference.monnaie }}</span>
+                    </li>
+                    <li class="gray-color d-flex align-items-center justify-content-space-between">
+                        Allocation familliale :
+                        <span class="fw-semibold">{{ salaire.alloc_familliale }} {{ preference.monnaie }}</span>
+                    </li> 
+                </ul>
+                <div class="table-responsive">
+                    <table class="table"> 
+                        <tbody>
+                            <tr>
+                                <td class="text-start">
+                                    Remunération Brute Imposaable(RBI)
+                                </td>
+                                <td class="gray-color">{{ salaire.rbi }} {{ preference.monnaie }}</td> 
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+                <mat-divider></mat-divider>
+                <ul class="list ps-0 mb-0 mt-25">
+                    <li class="gray-color d-flex align-items-center justify-content-space-between">
+                        Sub Total :
+                        <span class="fw-semibold">$760.00</span>
+                    </li>
+                    <li class="gray-color d-flex align-items-center justify-content-space-between">
+                        Discount :
+                        <span class="fw-semibold">$60.00</span>
+                    </li>
+                    <li class="gray-color d-flex align-items-center justify-content-space-between">
+                        Shipping Charge :
+                        <span class="fw-semibold">$50.00</span>
+                    </li>
+                    <li class="gray-color d-flex align-items-center justify-content-space-between">
+                        Estimated Tax :
+                        <span class="fw-semibold">$00.00</span>
+                    </li>
+                    <li class="fw-semibold net_a_payer d-flex align-items-center justify-content-space-between">
+                        Net à payer :
+                        <span class="fw-semibold">{{ salaire.net_a_payer }} {{ preference.monnaie }}</span>
+                    </li>
+                </ul>
+            </mat-card-content>
+        </mat-card> 
+    </div>
+ 
+    <p>primes: {{ salaire.primes }} </p> 
+    <p>prime_anciennete: {{ salaire.prime_anciennete }} </p>
+    <p>heures_supp: {{ salaire.heures_supp }} </p>
+    <p>conge_paye: {{ salaire.conge_paye }} </p> 
+    <p>nbre_jrs_preste: {{ salaire.nbre_jrs_preste }} </p>
+    <p>rbi: {{ salaire.rbi }} </p>
+    <p>cnss_qpo: {{ salaire.cnss_qpo }} </p> 
+    <p>rni: {{ salaire.rni }} </p>
+    <p>ipr: {{ salaire.ipr }} </p>
+    <p>syndicat: {{ salaire.syndicat }} </p> 
+    <p>penalites: {{ salaire.penalites }} </p>
+    <p>net_a_payer: {{ salaire.net_a_payer }} </p> 
+
+    <p>statut: {{ salaire.statut }} </p> 
+    <p>signature: {{ salaire.signature }} </p>
+    <p>created: {{ salaire.created }} </p>
+    <p>update_created: {{ salaire.update_created }} </p> 
+
+
+</div>
