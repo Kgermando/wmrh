@@ -107,8 +107,24 @@
             <ng-template carouselSlide>
                 <ul class="list ps-0 mb-0">
                     <li>
-                        <span class="fw-semibold">Salaire: </span>
-                        <span class="gray-color">{{ currentUser.salaire }}</span>
+                        <span class="fw-semibold">Salaire de base: </span>
+                        <span class="gray-color">{{ currentUser.salaire_base }} {{ preference.monnaie }} </span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold">Salaire de base: </span>
+                        <span class="gray-color">{{ currentUser.salaire_base }} {{ preference.monnaie }} </span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold">Allocation logement: </span>
+                        <span class="gray-color">{{ currentUser.alloc_logement }} {{ preference.monnaie }} </span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold">Allocation transport: </span>
+                        <span class="gray-color">{{ currentUser.alloc_transport }} {{ preference.monnaie }} </span>
+                    </li>
+                    <li>
+                        <span class="fw-semibold">Allocation familliale: </span>
+                        <span class="gray-color">{{ currentUser.alloc_familliale }} {{ preference.monnaie }} </span>
                     </li>
                     <li>
                         <span class="fw-semibold">Compte bancaire: </span>

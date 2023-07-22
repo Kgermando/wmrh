@@ -153,7 +153,10 @@ export class PersonnelEditComponent implements OnInit {
     });
 
     this.formGroup4 = this._formBuilder.group({
-      salaire: [''],
+      salaire_base: [''],
+      alloc_logement: [''],
+      alloc_transport: [''],
+      alloc_familliale: [''],
       compte_bancaire: [''],
       nom_banque: [''],
       frais_bancaire: [''],  
@@ -207,7 +210,10 @@ export class PersonnelEditComponent implements OnInit {
           update_created: new Date()
         });
         this.formGroup4.patchValue({ 
-          salaire: item.salaire,
+          salaire_base: item.salaire_base,
+          alloc_logement: item.alloc_logement,
+          alloc_transport: item.alloc_transport,
+          alloc_familliale: item.alloc_familliale,
           compte_bancaire: item.compte_bancaire,
           nom_banque: item.nom_banque,
           frais_bancaire: item.frais_bancaire, 

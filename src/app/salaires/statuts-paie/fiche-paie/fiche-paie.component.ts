@@ -73,7 +73,7 @@ export class FichePaieComponent implements OnInit {
     private heureSupp: HeureSuppService,
     private primeService: PrimeService,
     private penaliteService: PenaliteService,
-    private avanceSalaireService: AvanceSalaireService, 
+    private avanceSalaireService: AvanceSalaireService,
     private toastr: ToastrService) {}
 
 
@@ -88,20 +88,25 @@ export class FichePaieComponent implements OnInit {
           this.salaireService.get(Number(id)).subscribe(res => {
             this.salaire = res;
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
-              this.preference = reglage; 
+              this.preference = reglage;
             });
-            this.presenceService.getAll(this.currentUser.code_entreprise).subscribe(presence => {
-              this.presenceFilter = presence;
-              this.presenceList = this.presenceFilter.filter(v => v.date_entree.getMonth() == dateMonth);
-              // this.presenceList.forEach(nbr => {
-              //     value.checked = parentChecked;
-              // });
-            });
-             
 
+            this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.salaire.personnel.id).subscribe(
+              heureSup => {
+                var heureSupp  = heureSup;
+                heureSupp.map((item: any) => this.nbrHeureSupp = parseFloat(item.sum));
+                console.log(this.nbrHeureSupp);
+                
+              }
+            );
 
-
-
+            this.salaireService.getJrPrestE(this.currentUser.code_entreprise, this.salaire.personnel.matricule).subscribe(
+              jrsPreste => {
+                var jrsPrestE = jrsPreste; 
+                jrsPrestE.map((item: any) => this.nbreJrsPreste = parseFloat(item.presence));
+                // console.log(this.nbreJrsPreste);
+              }
+            );
 
             this.formGroup = this._formBuilder.group({
               alloc_logement: ['', Validators.required],
@@ -110,7 +115,7 @@ export class FichePaieComponent implements OnInit {
               salaire_base: [''],
               primes: ['', Validators.required],
               prime_anciennete: ['', Validators.required],
-              heures_supp: ['', Validators.required],
+              heures_supp: [`${this.nbrHeureSupp}`, Validators.required],
               conge_paye: ['', Validators.required],
               nbre_jrs_preste: ['', Validators.required],
               rbi: ['', Validators.required],
@@ -121,6 +126,23 @@ export class FichePaieComponent implements OnInit {
               penalites: ['', Validators.required],
               net_a_payer: ['', Validators.required],
             });
+             
+            // this.salaireService.get(this.id).subscribe(item => {
+            //   this.formGroup.patchValue({
+            //     search_profil: item.search_profil,
+            //     resume: item.resume,
+            //     type_contrat: item.type_contrat,
+            //     statut: item.statut,
+            //     echeance: item.echeance,
+            //     signature: this.currentUser.matricule,
+            //     update_created: new Date()
+            //   }); 
+            // });
+
+
+
+
+            
             this.isLoading = false; 
           }); 
         },

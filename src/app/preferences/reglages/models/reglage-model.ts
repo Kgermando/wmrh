@@ -57,9 +57,6 @@ export interface PreferenceModel {
     categorie_tq: string;
     categorie_thq: string;
 
-    nbr_course: number; 
-    contre_valeur_logement: string;
-
     signature: string;
     created: Date;
     update_created : Date;

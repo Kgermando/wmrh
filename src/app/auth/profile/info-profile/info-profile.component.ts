@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
+import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
+import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
 
 @Component({
   selector: 'app-info-profile',
@@ -9,10 +11,13 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
   styleUrls: ['./info-profile.component.scss']
 })
 export class InfoProfileComponent {
-  @Input() currentUser: PersonnelModel; 
+  @Input() currentUser: PersonnelModel;
+
+  preference: PreferenceModel;
 
   constructor(
-    public themeService: CustomizerSettingsService
+    public themeService: CustomizerSettingsService,
+    private reglageService: ReglageService,
 ) {}
 
   imageSlides2: OwlOptions = {

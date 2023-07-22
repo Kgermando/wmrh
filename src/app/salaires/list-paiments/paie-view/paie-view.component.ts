@@ -47,7 +47,7 @@ export class PaieViewComponent implements OnInit {
           });
           this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
             this.preference = res;
-            this.isLoading = false;  
+            this.isLoading = false;
           });
         },
         error: (error) => {
@@ -62,9 +62,27 @@ export class PaieViewComponent implements OnInit {
     onSubmit() {
       try {
         this.isLoading = true; 
+        // let logement = this.personne.
          
         var body = {
           personnel: this.personne.id,
+          monnaie: this.preference.monnaie,
+          // alloc_logement: string,
+          // alloc_transport: string,
+          // alloc_familliale: string,
+          // salaire_base: string,  // Par jour 
+          // primes: string,
+          // prime_anciennete: string,
+          // heures_supp: number,
+          // conge_paye: string,
+          // nbre_jrs_preste: number, // Nombre de jours presents
+          // rbi: string,  // Remuneration brute imposable
+          // cnss_qpo: string, // Impôt de 5% => 0.05
+          // rni: string,  // Remuneration Nette Imposable
+          // ipr: string,  // Impôt Professionnel sur les Rémunérations (IPR)
+          // syndicat: string,  // 1 % 
+          // penalites: string,  // Sanctions sur le salaire net à payer
+          // net_a_payer: string,
           statut: 'Traitement',
           signature: this.currentUser.matricule,
           created: new Date(),

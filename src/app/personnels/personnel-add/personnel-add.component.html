@@ -34,7 +34,7 @@
                             <mat-form-field appearance="fill">
                                 <i class="ri-edit-2-line"></i>
                                 <mat-label>Entrer le Postnom</mat-label>
-                                <input matInput formControlName="postnom" name="postnom">
+                                <input matInput type="text" formControlName="postnom" name="postnom">
                                 <mat-error *ngIf="formGroup.controls['postnom'].hasError('required')">
                                     Ce champs est obligatoire
                                 </mat-error>
@@ -45,7 +45,7 @@
                             <mat-form-field appearance="fill">
                                 <i class="ri-edit-2-line"></i>
                                 <mat-label>Entrer le prenom</mat-label>
-                                <input matInput formControlName="prenom" name="prenom">
+                                <input matInput type="text" formControlName="prenom" name="prenom">
                                 <mat-error *ngIf="formGroup.controls['prenom'].hasError('required')">
                                     Ce champs est obligatoire
                                 </mat-error>
@@ -99,7 +99,7 @@
                             <mat-form-field appearance="fill">
                                 <i class="ri-edit-2-line"></i>
                                 <mat-label>Ex: id52368-eventdrc</mat-label>
-                                <input matInput type="tel" formControlName="matricule" name="matricule">
+                                <input matInput type="text" formControlName="matricule" name="matricule">
                                 <mat-error *ngIf="formGroup.controls['matricule'].hasError('required')">
                                     Ce champs est obligatoire
                                 </mat-error>

@@ -16,7 +16,7 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
 </div>
 <div *ngIf="!isLoading">
-    <div class="row" *ngIf="personne">
+    <div class="row" *ngIf="personne && preference">
         <div class="col-lg-4 col-md-12">
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
@@ -201,8 +201,24 @@
                 <mat-card-content>
                     <ul class="list ps-0 mb-0">
                         <li>
-                            <span class="fw-semibold">Salaire: </span>
-                            <span class="gray-color">{{ personne.salaire }} {{ preference.monnaie }} </span>
+                            <span class="fw-semibold">Salaire de base: </span>
+                            <span class="gray-color">{{ personne.salaire_base }} {{ preference.monnaie }} </span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Salaire de base: </span>
+                            <span class="gray-color">{{ personne.salaire_base }} {{ preference.monnaie }} </span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Allocation logement: </span>
+                            <span class="gray-color">{{ personne.alloc_logement }} {{ preference.monnaie }} </span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Allocation transport: </span>
+                            <span class="gray-color">{{ personne.alloc_transport }} {{ preference.monnaie }} </span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Allocation familliale: </span>
+                            <span class="gray-color">{{ personne.alloc_familliale }} {{ preference.monnaie }} </span>
                         </li>
                         <li>
                             <span class="fw-semibold">Compte bancaire: </span>

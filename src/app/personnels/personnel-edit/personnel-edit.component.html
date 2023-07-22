@@ -316,16 +316,46 @@
                 </form>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel>Salaire</ng-template>
+                <ng-template matStepLabel>Salaire de base</ng-template>
                 <form [formGroup]="formGroup4" (ngSubmit)="onSubmit4()">
                     <div class="row mb-25">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Salaire </label>
+                                <label class="d-block mb-12 fw-semibold gray-color">Salaire de base</label>
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Entrer le salaire de base</mat-label>
-                                    <input matInput type="number" id="salaire" formControlName="salaire" required>
+                                    <input matInput type="number" id="salaire_base" formControlName="salaire_base" required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="tagus-form-group">
+                                <label class="d-block mb-12 fw-semibold gray-color">Allocation logement</label>
+                                <mat-form-field appearance="fill">
+                                    <i class="ri-edit-2-line"></i>
+                                    <mat-label>Entrer l'allocation logement</mat-label>
+                                    <input matInput type="number" id="alloc_logement" formControlName="alloc_logement" required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="tagus-form-group">
+                                <label class="d-block mb-12 fw-semibold gray-color">Allocation transport</label>
+                                <mat-form-field appearance="fill">
+                                    <i class="ri-edit-2-line"></i>
+                                    <mat-label>Entrer l'Allocation transport</mat-label>
+                                    <input matInput type="number" id="alloc_transport" formControlName="alloc_transport" required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="tagus-form-group">
+                                <label class="d-block mb-12 fw-semibold gray-color">Allocation familliale</label>
+                                <mat-form-field appearance="fill">
+                                    <i class="ri-edit-2-line"></i>
+                                    <mat-label>Entrer l'Allocation familliale</mat-label>
+                                    <input matInput type="number" id="alloc_familliale" formControlName="alloc_familliale" required>
                                 </mat-form-field>
                             </div>
                         </div>

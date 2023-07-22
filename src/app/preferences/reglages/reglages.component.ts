@@ -303,17 +303,6 @@ export class EditReglageDialogBox implements OnInit{
         categorie_thq: '',
       });
     }
-
-    if (this.data['reglage'] == 'Nombre de course transport') {
-      this.formGroup = this.formBuilder.group({  
-        nbr_course: '',
-      });
-    }
-    if (this.data['reglage'] == 'Contre-valeur du logement') {
-      this.formGroup = this.formBuilder.group({  
-        contre_valeur_logement: '',
-      });
-    }
     
 
     this.authService.user().subscribe({
@@ -645,23 +634,6 @@ export class EditReglageDialogBox implements OnInit{
             update_created: new Date(),
           });
         }
-
-        if (this.data['reglage'] == 'Nombre de course transport') {
-          this.formGroup = this.formBuilder.group({  
-            nbr_course: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-
-        if (this.data['reglage'] == 'Contre-valeur du logement') {
-          this.formGroup = this.formBuilder.group({  
-            contre_valeur_logement: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-
         
 
       },
