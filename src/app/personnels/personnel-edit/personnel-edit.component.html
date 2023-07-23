@@ -98,20 +98,6 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Categorie </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                <mat-label>Select categorie</mat-label>
-                                <mat-select formControlName="category">
-                                    <mat-option *ngFor="let category of categoryList" [value]="category">{{category}}</mat-option>
-                                </mat-select>
-                                
-                                </mat-form-field>
-                            </div>
-                        </div> 
-                        
                     </div>
                     <div class="d-flex justify-content-cEntrer" *ngIf="isLoading">
                         <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
@@ -185,7 +171,7 @@
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Entrer le Nombre d'enfants</mat-label>
-                                    <input matInput type="number" id="nbr_enfants" formControlName="nbr_enfants" required>
+                                    <input matInput type="number" id="nbr_dependants" formControlName="nbr_dependants" required>
                                 </mat-form-field>
                             </div>
                         </div> 
@@ -319,6 +305,20 @@
                 <ng-template matStepLabel>Salaire de base</ng-template>
                 <form [formGroup]="formGroup4" (ngSubmit)="onSubmit4()">
                     <div class="row mb-25">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="tagus-form-group">
+                                <label class="d-block mb-12 fw-semibold gray-color">Monnaie <span>*</span></label>
+                                <mat-form-field appearance="fill">
+                                    <i class="ri-edit-2-line"></i>
+                                    <mat-label>Monnaie</mat-label>
+                                    <mat-select formControlName="monnaie">
+                                        <mat-option *ngFor="let monnaie of monnaieList" [value]="monnaie">
+                                            {{monnaie}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
                                 <label class="d-block mb-12 fw-semibold gray-color">Salaire de base</label>

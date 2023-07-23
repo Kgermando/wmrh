@@ -22,8 +22,12 @@
                 <mat-card-header>
                     <h5 class="mb-0"></h5>
                     <div>
+                        
                         <button mat-flat-button class="default-btn tagus" (click)="onSubmit()" >
-                            <i class="ri-add-fill"></i> Génerer la fiche de paie
+                            <span><i class="ri-add-fill"></i> Génerer la fiche de paie </span>
+                            <div class="d-flex justify-content-center" *ngIf="isLoadingSubmit">
+                                <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+                            </div>
                         </button>
                     </div>
                 </mat-card-header>

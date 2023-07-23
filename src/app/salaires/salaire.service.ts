@@ -32,6 +32,10 @@ export class SalaireService extends ApiService {
   avanceSalaireTotal(code_entreprise: string, id: number): Observable<any> {
     return this.http.get(`${this.endpoint}/get-avance-salaire-total/${code_entreprise}/${id}`);
   }
+
+  getAnciennete(code_entreprise: string, id: number, date_debut_contrat: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-date-debut-contrat/${code_entreprise}/${id}/${date_debut_contrat}`);
+  }
 }
 
 

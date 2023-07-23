@@ -16,6 +16,8 @@ import { FonctionModel } from 'src/app/preferences/fonction/models/fonction-mode
 import { TitleModel } from 'src/app/preferences/titles/models/title-model';
 import { ServicePrefModel } from 'src/app/preferences/services/models/service-models';
 import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
+import { permissionDataList } from 'src/app/shared/tools/permission-list';
+import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
 
 @Component({
   selector: 'app-personnel-edit',
@@ -50,18 +52,9 @@ export class PersonnelEditComponent implements OnInit {
   typeContratList: string[] = [
     'CDD', 'CDI'
   ];
-  categoryList: string[] = [
-    'Manœuvre',
-    'Travailleur spécialisé',
-    'Travailleur semi qualifié',
-    'Travailleur qualifié',
-    'Travailleur hautement qualifié'
-  ];
-
-  permissionList: string[] = [
-    'CR',  'RU', 'RD', 
-    'CRU', 'RUD', 'CRUD',
-  ]
+ 
+  permissionList = permissionDataList;
+  monnaieList = monnaieDataList;
 
   id: number;
 
@@ -128,8 +121,7 @@ export class PersonnelEditComponent implements OnInit {
       email: [''],
       telephone: [''],
       sexe: [''],
-      adresse: [''],
-      category: [''], 
+      adresse: [''], 
     });
 
     this.formGroup2 = this._formBuilder.group({
@@ -138,7 +130,7 @@ export class PersonnelEditComponent implements OnInit {
       lieu_naissance: [''],
       nationalite: [''],
       etat_civile: [''],
-      nbr_enfants: [''],
+      nbr_dependants: [''],
     }); 
 
     this.formGroup3 = this._formBuilder.group({
@@ -153,6 +145,7 @@ export class PersonnelEditComponent implements OnInit {
     });
 
     this.formGroup4 = this._formBuilder.group({
+      monnaie: [''],
       salaire_base: [''],
       alloc_logement: [''],
       alloc_transport: [''],
@@ -182,8 +175,7 @@ export class PersonnelEditComponent implements OnInit {
           email: item.email,
           telephone: item.telephone,
           sexe: item.sexe,
-          adresse: item.adresse,
-          category: item.category, 
+          adresse: item.adresse, 
           signature: this.currentUser.matricule, 
           update_created: new Date()
         });
@@ -193,7 +185,7 @@ export class PersonnelEditComponent implements OnInit {
           lieu_naissance: item.lieu_naissance,
           nationalite: item.nationalite,
           etat_civile: item.etat_civile,
-          nbr_enfants: item.nbr_enfants,
+          nbr_dependants: item.nbr_dependants,
           signature: this.currentUser.matricule, 
           update_created: new Date()
         });
@@ -210,6 +202,7 @@ export class PersonnelEditComponent implements OnInit {
           update_created: new Date()
         });
         this.formGroup4.patchValue({ 
+          monnaie: item.monnaie,
           salaire_base: item.salaire_base,
           alloc_logement: item.alloc_logement,
           alloc_transport: item.alloc_transport,
@@ -311,7 +304,7 @@ export class PersonnelEditComponent implements OnInit {
       .subscribe({
         next: () => {
           this.toastr.success('Modification enregistré!', 'Success!');
-          this.router.navigate(['/layouts/personnels/personnel-list']);
+          // this.router.navigate(['/layouts/personnels/personnel-list']);
           this.isLoading = false;
         },
         error: err => {

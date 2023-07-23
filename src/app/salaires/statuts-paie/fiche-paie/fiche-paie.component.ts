@@ -61,6 +61,8 @@ export class FichePaieComponent implements OnInit {
   rni = 0;
   ipr = 0;
 
+  net_a_payer = 0;
+
   constructor(
     public themeService: CustomizerSettingsService,
     private route: ActivatedRoute,
@@ -68,12 +70,7 @@ export class FichePaieComponent implements OnInit {
     private authService: AuthService,
     private _formBuilder: FormBuilder,
     private salaireService: SalaireService,
-    private reglageService: ReglageService,
-    private presenceService: PresenceService,
-    private heureSupp: HeureSuppService,
-    private primeService: PrimeService,
-    private penaliteService: PenaliteService,
-    private avanceSalaireService: AvanceSalaireService,
+    private reglageService: ReglageService, 
     private toastr: ToastrService) {}
 
 
@@ -82,13 +79,20 @@ export class FichePaieComponent implements OnInit {
       this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user;
-          let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
-          const dateNow = new Date();
-          const dateMonth = dateNow.getMonth() + 1;
+          let id = this.route.snapshot.paramMap.get('id'); 
+          // const dateNow = new Date();
+          // const dateMonth = dateNow.getMonth() + 1;
           this.salaireService.get(Number(id)).subscribe(res => {
-            this.salaire = res;
+            this.salaire = res; 
+
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
               this.preference = reglage;
+              
+              var netCDF = parseFloat(this.salaire.net_a_payer)  / this.preference.taux_dollard;
+              this.net_a_payer = parseFloat(netCDF.toFixed(2));
+
+              var rbiCDF = parseFloat(this.salaire.rbi)  / this.preference.taux_dollard;
+              this.rbi = parseFloat(rbiCDF.toFixed(2));
             });
 
             this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.salaire.personnel.id).subscribe(

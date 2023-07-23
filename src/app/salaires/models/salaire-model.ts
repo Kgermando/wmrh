@@ -4,6 +4,8 @@ export class SalaireModel {
     id: number;
     personnel: PersonnelModel;
     monnaie: string;
+    taux_dollard : string; 
+    nbr_dependants: number;
     alloc_logement: string;
     alloc_transport: string;
     alloc_familliale: string;

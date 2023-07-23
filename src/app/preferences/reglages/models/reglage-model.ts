@@ -48,14 +48,7 @@ export interface PreferenceModel {
     prime_ancien_10: number;
     prime_ancien_15: number;
     prime_ancien_20: number;
-    prime_ancien_25: number;
-
-    // Categories
-    categorie_mo: string;
-    categorie_ts: string;
-    categorie_tsq: string;
-    categorie_tq: string;
-    categorie_thq: string;
+    prime_ancien_25: number; 
 
     signature: string;
     created: Date;

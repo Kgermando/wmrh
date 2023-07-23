@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center" *ngIf="isLoading">
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-5">Patientez-svp...</p>
 </div>
-<div  *ngIf="!isLoading">
+<div class="mb-25"  *ngIf="!isLoading">
     <div class="row justify-content-center" *ngIf="salaire && preference">
         <div class="col-md-8 .offset-md-4">
             <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -86,26 +86,80 @@
                                     </td>
                                     <td class="gray-color text-start">{{ salaire.personnel.compte_bancaire }}</td> 
                                 </tr>
+                                <tr>
+                                    <td class="text-start">
+                                        Monnaie:
+                                    </td>
+                                    <td class="gray-color text-start">{{ salaire.monnaie }}</td> 
+                                </tr>
                             </tbody>
                         </table>
                         <ul class="list ps-0 mb-0 mt-25">
                             <li class="gray-color d-flex align-items-center justify-content-space-between">
                                 Salaire de base : 
-                                <span class="fw-semibold">{{ salaire.personnel.salaire }} {{ preference.monnaie }}</span>
+                                <span class="fw-semibold">{{ salaire.salaire_base }}</span>
                             </li>
                             <li class="gray-color d-flex align-items-center justify-content-space-between">
                                 Allocation logement :
-                                <span class="fw-semibold">{{ salaire.alloc_logement }} {{nbreJrsPreste}} {{ preference.monnaie }}</span>
+                                <span class="fw-semibold">{{ salaire.alloc_logement }}</span>
                             </li>
                             <li class="gray-color d-flex align-items-center justify-content-space-between">
                                 Allocation transport :
-                                <span class="fw-semibold">{{ salaire.alloc_transport }} {{ preference.monnaie }}</span>
+                                <span class="fw-semibold">{{ salaire.alloc_transport }}</span>
                             </li>
                             <li class="gray-color d-flex align-items-center justify-content-space-between">
                                 Allocation familliale :
-                                <span class="fw-semibold">{{ salaire.alloc_familliale }} {{ preference.monnaie }}</span>
+                                <span class="fw-semibold">{{ salaire.alloc_familliale }}</span>
+                            </li>
+
+
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                primes :
+                                <span class="fw-semibold">{{ salaire.primes }}</span>
                             </li>
                             <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                prime_anciennete:
+                                <span class="fw-semibold">{{ salaire.prime_anciennete }}</span>
+                            </li>
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                heures_supp :
+                                <span class="fw-semibold">{{ salaire.heures_supp }} </span>
+                            </li>
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                conge_paye :
+                                <span class="fw-semibold">{{ salaire.conge_paye }} </span>
+                            </li>
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                nbre_jrs_preste :
+                                <span class="fw-semibold">{{ salaire.nbre_jrs_preste }}  </span>
+                            </li>
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                RBI :
+                                <span class="fw-semibold">{{ salaire.rbi }}</span>
+                            </li>
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                cnss_qpo :
+                                <span class="fw-semibold">{{ salaire.cnss_qpo }} %</span>
+                            </li>
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                RNI:
+                                <span class="fw-semibold">{{ salaire.rni }}</span>
+                            </li>
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                IPR :
+                                <span class="fw-semibold">{{ salaire.ipr }} </span>
+                            </li>
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                syndicat :
+                                <span class="fw-semibold">{{ salaire.syndicat }} %</span>
+                            </li>
+                            <li class="gray-color d-flex align-items-center justify-content-space-between">
+                                penalites :
+                                <span class="fw-semibold">{{ salaire.penalites }} </span>
+                            </li>
+
+ 
+                            <!-- <li class="gray-color d-flex align-items-center justify-content-space-between">
                                 Heures supplementaires : 
                                 <span class="fw-semibold"> 
                                     <mat-form-field appearance="outline"> 
@@ -115,7 +169,7 @@
                                         </mat-error>
                                     </mat-form-field>
                                 </span>
-                            </li>
+                            </li> -->
                         </ul>
                         <div class="table-responsive">
                             <table class="table"> 
@@ -124,45 +178,30 @@
                                         <td class="text-start">
                                             Remunération Brute Imposaable(RBI)
                                         </td>
-                                        <td class="gray-color">{{ salaire.rbi }} {{ preference.monnaie }}</td> 
+                                        <td class="gray-color">{{ rbi }} {{ preference.monnaie }}</td> <br>
+                                        <td class="gray-color">{{ salaire.rbi }}</td>  
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <mat-divider></mat-divider>
-                        <ul class="list ps-0 mb-0 mt-25">
+                        <ul class="list ps-0 mb-25">
                             <li class="gray-color d-flex align-items-center justify-content-space-between">
-                                Sub Total :
-                                <span class="fw-semibold">$760.00</span>
+                                IPR :
+                                <span class="fw-semibold">{{salaire.ipr}}</span>
                             </li>
                             <li class="fw-semibold net_a_payer d-flex align-items-center justify-content-space-between">
                                 Net à payer :
-                                <span class="fw-semibold">{{ salaire.net_a_payer }} {{ preference.monnaie }}</span>
+                                <span>
+                                    <span class="fw-semibold" *ngIf="salaire.monnaie == 'USD'">{{ net_a_payer }} USD</span> <br>
+                                    <span  class="gray-color" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.net_a_payer }} CDF</span>
+                                </span>
                             </li>
                         </ul>
                     </mat-card-content>
                 </mat-card> 
             </form> 
-        </div>
-     
-        <p>primes: {{ salaire.primes }} </p> 
-        <p>prime_anciennete: {{ salaire.prime_anciennete }} </p>
-        <p>heures_supp: {{ salaire.heures_supp }} </p>
-        <p>conge_paye: {{ salaire.conge_paye }} </p> 
-        <p>nbre_jrs_preste: {{ salaire.nbre_jrs_preste }} </p>
-        <p>rbi: {{ salaire.rbi }} </p>
-        <p>cnss_qpo: {{ salaire.cnss_qpo }} </p> 
-        <p>rni: {{ salaire.rni }} </p>
-        <p>ipr: {{ salaire.ipr }} </p>
-        <p>syndicat: {{ salaire.syndicat }} </p> 
-        <p>penalites: {{ salaire.penalites }} </p>
-        <p>net_a_payer: {{ salaire.net_a_payer }} </p> 
-    
-        <p>statut: {{ salaire.statut }} </p> 
-        <p>signature: {{ salaire.signature }} </p>
-        <p>created: {{ salaire.created }} </p>
-        <p>update_created: {{ salaire.update_created }} </p> 
-    
+        </div> 
     
     </div>
 </div>

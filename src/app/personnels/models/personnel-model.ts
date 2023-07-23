@@ -27,7 +27,7 @@ export interface PersonnelModel {
     lieu_naissance: string;
     nationalite: string;
     etat_civile: string;
-    nbr_enfants: number;
+    nbr_dependants: number;
     
     departement: string;
     title: string;
@@ -38,6 +38,7 @@ export interface PersonnelModel {
     date_debut_contrat: Date;
     date_fin_contrat: Date;
      
+    monnaie: string;
     salaire_base: string;
     alloc_logement: string;
     alloc_transport: string;

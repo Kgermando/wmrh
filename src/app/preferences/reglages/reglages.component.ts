@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
 
 @Component({
   selector: 'app-reglages',
@@ -79,6 +80,8 @@ export class EditReglageDialogBox implements OnInit{
  
 
   currentUser: PersonnelModel | any;
+
+  monnaieList = monnaieDataList;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -271,36 +274,6 @@ export class EditReglageDialogBox implements OnInit{
     if (this.data['reglage'] == 'Prime de plus de 25 ans') {
       this.formGroup = this.formBuilder.group({  
         prime_ancien_25: '',
-      });
-    }
-
-    if (this.data['reglage'] == 'Manœuvre') {
-      this.formGroup = this.formBuilder.group({  
-        categorie_mo: '',
-      });
-    }
-
-    if (this.data['reglage'] == 'Travailleur spécialisé') {
-      this.formGroup = this.formBuilder.group({  
-        categorie_ts: '',
-      });
-    }
-
-    if (this.data['reglage'] == 'Travailleur semi qualifié') {
-      this.formGroup = this.formBuilder.group({  
-        categorie_tsq: '',
-      });
-    }
-
-    if (this.data['reglage'] == 'Travailleur qualifié') {
-      this.formGroup = this.formBuilder.group({  
-        categorie_tq: '',
-      });
-    }
-
-    if (this.data['reglage'] == 'Travailleur hautement qualifié') {
-      this.formGroup = this.formBuilder.group({  
-        categorie_thq: '',
       });
     }
     
@@ -594,47 +567,6 @@ export class EditReglageDialogBox implements OnInit{
             prime_ancien_25: '',
           });
         }
-    
-        if (this.data['reglage'] == 'Manœuvre') {
-          this.formGroup = this.formBuilder.group({  
-            categorie_mo: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-    
-        if (this.data['reglage'] == 'Travailleur spécialisé') {
-          this.formGroup = this.formBuilder.group({  
-            categorie_ts: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-    
-        if (this.data['reglage'] == 'Travailleur semi qualifié') {
-          this.formGroup = this.formBuilder.group({  
-            categorie_tsq: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-    
-        if (this.data['reglage'] == 'Travailleur qualifié') {
-          this.formGroup = this.formBuilder.group({  
-            categorie_tq: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-    
-        if (this.data['reglage'] == 'Travailleur hautement qualifié') {
-          this.formGroup = this.formBuilder.group({  
-            categorie_thq: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        
 
       },
       error: (error) => {

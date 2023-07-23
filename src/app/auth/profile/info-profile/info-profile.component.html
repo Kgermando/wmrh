@@ -64,7 +64,7 @@
                     </li>
                     <li>
                         <span class="fw-semibold">Nombre d'enfants: </span>
-                        <span class="gray-color">{{ currentUser.nbr_enfants }}</span>
+                        <span class="gray-color">{{ currentUser.nbr_dependants }}</span>
                     </li> 
                 </ul>
             </ng-template>
@@ -91,25 +91,21 @@
                         <span class="gray-color">{{ currentUser.site_location }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold">Type de contrat:</span>
+                        <span class="fw-semibold">Type de contrat: </span>
                         <span class="gray-color">{{ currentUser.type_contrat }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold">Date de debut decontrat:</span>
-                        <span class="gray-color">{{ currentUser.date_debut_contrat | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                        <span class="fw-semibold">Date de debut decontrat: </span>
+                        <span class="gray-color">{{ currentUser.date_debut_contrat | date: 'dd/MM/yyyy' }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold">Date de fin de contrat:</span>
-                        <span class="gray-color">{{ currentUser.date_fin_contrat | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                        <span class="fw-semibold">Date de fin de contrat: </span>
+                        <span class="gray-color">{{ currentUser.date_fin_contrat | date: 'dd/MM/yyyy' }}</span>
                     </li> 
                 </ul>
             </ng-template>
             <ng-template carouselSlide>
-                <ul class="list ps-0 mb-0">
-                    <li>
-                        <span class="fw-semibold">Salaire de base: </span>
-                        <span class="gray-color">{{ currentUser.salaire_base }} {{ preference.monnaie }} </span>
-                    </li>
+                <ul class="list ps-0 mb-0" *ngIf="preference">
                     <li>
                         <span class="fw-semibold">Salaire de base: </span>
                         <span class="gray-color">{{ currentUser.salaire_base }} {{ preference.monnaie }} </span>

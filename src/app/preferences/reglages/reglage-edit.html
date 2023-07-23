@@ -282,15 +282,16 @@
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Monnaie'">
             <div class="tagus-form-group">
-                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}}</label>
                 <mat-form-field appearance="fill">
                     <i class="ri-edit-2-line"></i>
                     <mat-label>Modifier {{data['reglage']}}</mat-label>
-                    <input matInput type="text" formControlName="monnaie" name="{{data['reglage']}}">
-                    <mat-error *ngIf="formGroup.controls['monnaie'].hasError('required')">
-                        Ce champs est obligatoire
-                    </mat-error>
-                </mat-form-field> 
+                    <mat-select formControlName="monnaie">
+                        <mat-option *ngFor="let monnaie of monnaieList" [value]="monnaie">
+                            {{monnaie}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div> 
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Nbre d\'heures de travail'">
@@ -529,71 +530,6 @@
                     <mat-label>Modifier {{data['reglage']}}</mat-label>
                     <input matInput type="number" formControlName="prime_ancien_25" name="{{data['reglage']}}">
                     <mat-error *ngIf="formGroup.controls['prime_ancien_25'].hasError('required')">
-                        Ce champs est obligatoire
-                    </mat-error>
-                </mat-form-field> 
-            </div> 
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Manœuvre'">
-            <div class="tagus-form-group">
-                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
-                <mat-form-field appearance="fill">
-                    <i class="ri-edit-2-line"></i>
-                    <mat-label>Modifier {{data['reglage']}}</mat-label>
-                    <input matInput type="number" formControlName="categorie_mo" name="{{data['reglage']}}">
-                    <mat-error *ngIf="formGroup.controls['categorie_mo'].hasError('required')">
-                        Ce champs est obligatoire
-                    </mat-error>
-                </mat-form-field> 
-            </div> 
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Travailleur spécialisé'">
-            <div class="tagus-form-group">
-                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
-                <mat-form-field appearance="fill">
-                    <i class="ri-edit-2-line"></i>
-                    <mat-label>Modifier {{data['reglage']}}</mat-label>
-                    <input matInput type="number" formControlName="categorie_ts" name="{{data['reglage']}}">
-                    <mat-error *ngIf="formGroup.controls['categorie_ts'].hasError('required')">
-                        Ce champs est obligatoire
-                    </mat-error>
-                </mat-form-field> 
-            </div> 
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Travailleur semi qualifié'">
-            <div class="tagus-form-group">
-                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
-                <mat-form-field appearance="fill">
-                    <i class="ri-edit-2-line"></i>
-                    <mat-label>Modifier {{data['reglage']}}</mat-label>
-                    <input matInput type="number" formControlName="categorie_tsq" name="{{data['reglage']}}">
-                    <mat-error *ngIf="formGroup.controls['categorie_tsq'].hasError('required')">
-                        Ce champs est obligatoire
-                    </mat-error>
-                </mat-form-field>
-            </div> 
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Travailleur qualifié'">
-            <div class="tagus-form-group">
-                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
-                <mat-form-field appearance="fill">
-                    <i class="ri-edit-2-line"></i>
-                    <mat-label>Modifier {{data['reglage']}}</mat-label>
-                    <input matInput type="number" formControlName="categorie_tq" name="{{data['reglage']}}">
-                    <mat-error *ngIf="formGroup.controls['categorie_tq'].hasError('required')">
-                        Ce champs est obligatoire
-                    </mat-error>
-                </mat-form-field> 
-            </div> 
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Travailleur hautement qualifié'">
-            <div class="tagus-form-group">
-                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
-                <mat-form-field appearance="fill">
-                    <i class="ri-edit-2-line"></i>
-                    <mat-label>Modifier {{data['reglage']}}</mat-label>
-                    <input matInput type="number" formControlName="categorie_thq" name="{{data['reglage']}}">
-                    <mat-error *ngIf="formGroup.controls['categorie_thq'].hasError('required')">
                         Ce champs est obligatoire
                     </mat-error>
                 </mat-form-field> 
