@@ -1,5 +1,10 @@
+
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+</div>
+
 <mat-card
-    class="mb-25 tagus-card top-instructors-box" 
+    class="mb-25 tagus-card top-instructors-box" *ngIf="!isLoading"
 >
     <mat-card-header>
         <div class="flex-wrap d-flex align-items-center justify-content-space-between">

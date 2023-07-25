@@ -13,6 +13,7 @@ export class SalaireModel {
     primes: string;
     prime_anciennete: string;
     heures_supp: number;
+    heureSupplementaireMonnaie: string;
     conge_paye: string;
     nbre_jrs_preste: number; // Nombre de jours presents
     rbi: string;  // Remuneration brute imposable
@@ -21,6 +22,7 @@ export class SalaireModel {
     ipr: string;  // Impôt Professionnel sur les Rémunérations (IPR)
     syndicat: string;  // 1 % 
     penalites: string;  // Sanctions sur le salaire net à payer
+    avance_slaire: string;
     net_a_payer: string;
     statut: string; // Genereted, Traitement, Disponible
     signature: string;

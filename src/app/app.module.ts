@@ -105,7 +105,8 @@ import { ListPaimentsComponent } from './salaires/list-paiments/list-paiments.co
 import { PaieViewComponent } from './salaires/list-paiments/paie-view/paie-view.component';
 import { RelevePaieTableComponent } from './salaires/list-paiments/paie-view/releve-paie-table/releve-paie-table.component';
 import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
-import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component';  
+import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component';
+import { NumberFormatPipe } from './pipes/number-format.pipe';  
 
 
 @NgModule({
@@ -216,6 +217,7 @@ import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bul
     FichePaieComponent,
     BulletinPaieComponent,
     PenaliteSAddDialogBox,
+    NumberFormatPipe,
   ],
   imports: [
     BrowserModule,
@@ -243,6 +245,7 @@ import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bul
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     provideAnimations(), // required animations providers
     provideToastr(),
+    NumberFormatPipe,
   ],
   bootstrap: [AppComponent],
 })

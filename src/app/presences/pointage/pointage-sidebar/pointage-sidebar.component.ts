@@ -106,6 +106,7 @@ export class PointageSidebarComponent implements OnInit {
                 });
             },
             error: (error) => {
+              this.isLoading = false;
               this.router.navigate(['/auth/login']);
               console.log(error);
             }

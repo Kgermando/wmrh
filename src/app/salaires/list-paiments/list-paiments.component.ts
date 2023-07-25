@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router'; 
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
+import { Subject, finalize } from 'rxjs';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class ListPaimentsComponent implements AfterViewInit, OnInit {
   
   dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<PersonnelModel>(true, []);
+
+  public loading$ = new Subject<boolean>();
 
   isLoading = false;
   currentUser: PersonnelModel | any;
@@ -41,10 +44,7 @@ export class ListPaimentsComponent implements AfterViewInit, OnInit {
   ) {}
 
 
-  ngOnInit(): void {
-    
-
-   
+  ngOnInit(): void { 
 
     if (this.dateMonth === 1) {
         this.mois = 'Janvier';
@@ -87,15 +87,18 @@ export class ListPaimentsComponent implements AfterViewInit, OnInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.personnelService.getAll(this.currentUser.code_entreprise).subscribe({
-                    next: res => { 
-                        console.log(this.dateMonth);
+                this.personnelService.getAll(this.currentUser.code_entreprise)
+                .pipe(finalize(() => this.loading$.next(false)))
+                .subscribe({
+                    next: res => {  
                         this.personnelFilter = res;
                         this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < this.dateMonth);
                         this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
                         this.dataSource.sort = this.sort;
                         this.dataSource.paginator = this.paginator; 
                         this.isLoading = false;
+
+                        console.log(this.dateMonth);
                     },
                     error: (err) => {
                         this.isLoading = false;

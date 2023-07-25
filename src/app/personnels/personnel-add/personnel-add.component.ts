@@ -27,17 +27,7 @@ export class PersonnelAddComponent implements OnInit {
   ];
   roleList: number[] = [
     1,2,3,4,5
-  ];
-  categoryList: string[] = [
-    'Manoeuvres Ordinaires (MO)',
-    'Travailleur Spécialisés (MS)',
-    'Travailleurs semi Qualifiés (TSQ)',
-    'Travailleurs Qualifiés (TQ)',
-    'Travailleurs Hautement Qualifiés (THQ)',
-    'Cadres Subalternes',
-    'Cadres Supérieurs' 
-  ];
-
+  ]; 
   constructor(private router: Router,
     private _formBuilder: FormBuilder,
     private authService: AuthService, 
@@ -69,8 +59,7 @@ export class PersonnelAddComponent implements OnInit {
       telephone: ['', Validators.required],
       sexe: ['', Validators.required],
       adresse: ['', Validators.required],
-      matricule: ['', Validators.required],
-      category: ['', Validators.required],
+      matricule: ['', Validators.required], 
       role: ['', Validators.required],
     });
   }
@@ -91,8 +80,7 @@ export class PersonnelAddComponent implements OnInit {
           telephone: this.formGroup.value.telephone,
           sexe: this.formGroup.value.sexe,
           adresse: this.formGroup.value.adresse, 
-          matricule: identifiant.toLowerCase(),
-          category: this.formGroup.value.category,
+          matricule: identifiant.toLowerCase(), 
           role: this.formGroup.value.role, 
           signature: this.currentUser.matricule,
           created: new Date(),

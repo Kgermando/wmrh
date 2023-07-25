@@ -4,9 +4,7 @@ import { CustomizerSettingsService } from 'src/app/customizer-settings/customize
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonnelService } from '../personnel.service';
 import { ToastrService } from 'ngx-toastr';
-import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
 
 @Component({
   selector: 'app-personnel-view',
@@ -18,8 +16,6 @@ export class PersonnelViewComponent implements OnInit {
 
   personne: PersonnelModel;
 
-  preference: PreferenceModel;
-
   currentUser: PersonnelModel | any;
 
   constructor(
@@ -28,7 +24,6 @@ export class PersonnelViewComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private personnelService: PersonnelService,
-    private reglageService: ReglageService,
     private toastr: ToastrService) {}
 
 
@@ -41,10 +36,6 @@ export class PersonnelViewComponent implements OnInit {
           this.personnelService.get(Number(id)).subscribe(res => {
             this.personne = res;
             this.isLoading = false; 
-          });
-          this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-            this.preference = res;
-            this.isLoading = false;  
           });
         },
         error: (error) => {

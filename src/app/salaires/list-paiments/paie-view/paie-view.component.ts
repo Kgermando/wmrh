@@ -39,6 +39,9 @@ export class PaieViewComponent implements OnInit {
   rbi = 0;
   rni = 0;
   ipr = 0;
+
+  dateNow = new Date();
+  dateMonth = this.dateNow.getMonth() + 1;
  
 
   constructor(
@@ -101,15 +104,14 @@ export class PaieViewComponent implements OnInit {
                 console.log(`congepayeNbr ${this.congepayeNbr}`);
               }
             );
-            var date_debut_contrats = formatDate(this.personne.date_debut_contrat, 'yyyy-MM-dd', 'en-US') 
-            this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_debut_contrats).subscribe(
+            var date_debut = formatDate(this.personne.date_debut_contrat, 'yyyy-MM-dd', 'en-US') 
+            this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_debut).subscribe(
               date_debut_contrat => {
-                var date_debut_contrats = date_debut_contrat; 
-                date_debut_contrats.map((item: any) => this.primeAncennete = parseFloat(item.age));
-                console.log(`primeAncennete ${this.primeAncennete}`);
+                var date_debut_contrats = date_debut_contrat;  
+                date_debut_contrats.map((item: any) => this.primeAncennete = parseFloat(item.age['years']));
+                console.log(`primeAncennete ${this.primeAncennete}`)
               }
-            ); 
-
+            );
           });
           
         },
@@ -132,17 +134,26 @@ export class PaieViewComponent implements OnInit {
         var alloc_logementMonnaie = 0;
         var primeMonnaie = 0;
         var penaliteMonnaie = 0;
-        var avanceSalaireMonnaie = 0; 
+        var avanceSalaireMonnaie = 0;
 
         if (this.personne.monnaie == 'USD') {
           salaire = parseFloat(this.personne.salaire_base) * this.preference.taux_dollard;
-          alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale) * this.preference.taux_dollard;
-          alloc_transportMonnaie = parseFloat(this.personne.alloc_transport) * this.preference.taux_dollard;
-          alloc_logementMonnaie = parseFloat(this.personne.alloc_logement) * this.preference.taux_dollard;
-          primeMonnaie = this.primeNbr * this.preference.taux_dollard;
-          penaliteMonnaie = this.penaliteNbr * this.preference.taux_dollard;
-          avanceSalaireMonnaie = this.avanceSalaireNbr * this.preference.taux_dollard; 
-        } else if (this.preference.monnaie == 'CDF'){
+            alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale) * this.preference.taux_dollard;
+            alloc_transportMonnaie = parseFloat(this.personne.alloc_transport) * this.preference.taux_dollard;
+            alloc_logementMonnaie = parseFloat(this.personne.alloc_logement) * this.preference.taux_dollard;
+            primeMonnaie = this.primeNbr * this.preference.taux_dollard;
+            penaliteMonnaie = this.penaliteNbr * this.preference.taux_dollard;
+            avanceSalaireMonnaie = this.avanceSalaireNbr * this.preference.taux_dollard;
+        } else if (this.personne.monnaie == 'CDF'){
+          if (this.preference.monnaie == 'USD') {
+            salaire = parseFloat(this.personne.salaire_base) * this.preference.taux_dollard;
+            alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale) * this.preference.taux_dollard;
+            alloc_transportMonnaie = parseFloat(this.personne.alloc_transport) * this.preference.taux_dollard;
+            alloc_logementMonnaie = parseFloat(this.personne.alloc_logement) * this.preference.taux_dollard;
+            primeMonnaie = this.primeNbr * this.preference.taux_dollard;
+            penaliteMonnaie = this.penaliteNbr * this.preference.taux_dollard;
+            avanceSalaireMonnaie = this.avanceSalaireNbr * this.preference.taux_dollard; 
+          } 
           salaire =  parseFloat(this.personne.salaire_base);
           alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale);
           alloc_transportMonnaie = parseFloat(this.personne.alloc_transport);
@@ -183,7 +194,7 @@ export class PaieViewComponent implements OnInit {
           heureSupplementaireMonnaie = salaire_base * 60 / 100;
         } else if(this.nbrHeureSupp > 8) {
           heureSupplementaireMonnaie = salaire_base * 100 / 100;
-        } 
+        }
 
         var alloc_familliale = alloc_famillialeMonnaie * this.personne.nbr_dependants * this.nbreJrsPreste;
         var alloc_transport = alloc_transportMonnaie * this.nbreJrsPreste;
@@ -194,30 +205,35 @@ export class PaieViewComponent implements OnInit {
             primeMonnaie + ancennete + heureSupplementaireMonnaie;
 
         // Remuneration Nette impôsable
-        var rni = rbi * (rbi * parseFloat(this.preference.cnss_qpo) / 100); // RNI = RBI(RBI * CNSQPO)
+        var rni = rbi - (rbi * parseFloat(this.preference.cnss_qpo) / 100); // RNI = RBI(RBI * CNSQPO)
 
 
         // Calcul IPR retenu
-        var ipr = 0;
+        var iprRetenu = 0;
         var iprTrois = 0;
         var iprQuinze = 0;
         var iprTrente = 0;
 
         if (rni <= 162000) {
-          ipr = rni * 3 / 100;
-          iprTrois = 162000 * 3 / 100;
+          iprRetenu = rni * 3 / 100;
+          iprTrois = (162000 - 0) * 3 / 100;
+
         } else if (rni <= 1800000){
-          ipr = (rni - 162000 * 15 / 100) + iprTrois;
+          iprRetenu = (rni - 162000) * 15 / 100 + iprTrois;
+
           iprQuinze = 1800000 * 15 / 100;
+
         } else if (rni <= 3600000){
-          ipr = (rni - 3600000 * 30 / 100) + iprTrois + iprQuinze;
+          iprRetenu = (rni - 3600000) * 30 / 100 + iprTrois + iprQuinze;
           iprTrente = 1800000 * 30 / 100;
+
         } else if (rni > 3600001){
-          ipr = (rni - 3600000 * 40 / 100) + iprTrois + iprQuinze + iprTrente;
-        }
+          iprRetenu = (rni - 3600000) * 40 / 100 + iprTrois + iprQuinze + iprTrente;
+        } 
+
 
         // IPR à payé
-        var iprApeyE = ipr - (2*ipr/100) * this.personne.nbr_dependants;
+        var iprApeyE = iprRetenu - (0.02 * iprRetenu * this.personne.nbr_dependants);
 
         // Syndicat souscrit
         var syndicat = 0;
@@ -226,31 +242,37 @@ export class PaieViewComponent implements OnInit {
         }
         
 
-        var net_a_payerTotal = rni - iprApeyE  + alloc_logementMonnaie + 
+        var deductions = rni - penaliteMonnaie - avanceSalaireMonnaie
+
+        var totalAPayE = iprApeyE + alloc_logementMonnaie + 
             alloc_transport + alloc_familliale +
             primeMonnaie + ancennete + heureSupplementaireMonnaie;
+        
 
-        var net_a_payer = net_a_payerTotal - penaliteMonnaie - avanceSalaireMonnaie;
+        var net_a_payer = totalAPayE - deductions;
 
         var body = {
           personnel: this.personne.id,
-          monnaie: this.preference.monnaie,
+          monnaie: this.personne.monnaie,
           taux_dollard: this.preference.taux_dollard,
+          nbr_dependants: this.personne.nbr_dependants, 
           alloc_logement: alloc_logementMonnaie,
-          alloc_transport: alloc_transportMonnaie,
-          alloc_familliale: alloc_famillialeMonnaie,
+          alloc_transport: alloc_transport,
+          alloc_familliale: alloc_familliale,
           salaire_base: salaire_base,  // Par jour * 26
           primes: primeMonnaie,
           prime_anciennete: ancennete,
           heures_supp: this.nbrHeureSupp,
+          heureSupplementaireMonnaie: heureSupplementaireMonnaie,
           conge_paye: this.congepayeNbr,
           nbre_jrs_preste: this.nbreJrsPreste, // Nombre de jours presents
           rbi: rbi,  // Remuneration brute imposable
           cnss_qpo: this.preference.cnss_qpo, // Impôt de 5% => 0.05
           rni: rni,  // Remuneration Nette Imposable
           ipr: iprApeyE,  // Impôt Professionnel sur les Rémunérations (IPR)
-          syndicat: this.preference.cotisation_syndicale,  // 1 %
+          syndicat: syndicat,  // 1 %
           penalites: penaliteMonnaie,  // Sanctions sur le salaire net à payer
+          avance_slaire: avanceSalaireMonnaie,
           net_a_payer: net_a_payer,
           statut: 'Traitement',
           signature: this.currentUser.matricule,

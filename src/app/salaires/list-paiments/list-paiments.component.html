@@ -91,6 +91,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
 
             </table>
+            <mat-spinner [diameter]="20" *ngIf="loading$ | async"></mat-spinner>
             <mat-paginator [pageSizeOptions]="[15, 30, 45]" showFirstLastButtons></mat-paginator>
         </div>
     </mat-card-content>

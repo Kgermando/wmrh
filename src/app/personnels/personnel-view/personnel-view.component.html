@@ -16,7 +16,7 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
 </div>
 <div *ngIf="!isLoading">
-    <div class="row" *ngIf="personne && preference">
+    <div class="row mb-25" *ngIf="personne">
         <div class="col-lg-4 col-md-12">
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
@@ -187,7 +187,7 @@
                             <span class="fw-semibold">Date de debut du contrat: </span>
                             <span class="gray-color">{{ personne.date_debut_contrat | date: 'dd/MM/yyyy' }}</span>
                         </li>
-                        <li>
+                        <li *ngIf="personne.type_contrat === 'CDD'">
                             <span class="fw-semibold">Date de fin du contrat: </span>
                             <span class="gray-color">{{ personne.date_fin_contrat | date: 'dd/MM/yyyy' }}</span>
                         </li> 
@@ -202,19 +202,19 @@
                     <ul class="list ps-0 mb-0">
                         <li>
                             <span class="fw-semibold">Salaire de base: </span>
-                            <span class="gray-color">{{ personne.salaire_base }} {{ preference.monnaie }} </span>
+                            <span class="gray-color">{{ personne.salaire_base | numberFormat:'fr-FR' }} {{ personne.monnaie }} </span>
                         </li>
                         <li>
                             <span class="fw-semibold">Allocation logement: </span>
-                            <span class="gray-color">{{ personne.alloc_logement }} {{ preference.monnaie }} </span>
+                            <span class="gray-color">{{ personne.alloc_logement | numberFormat:'fr-FR' }} {{ personne.monnaie }} </span>
                         </li>
                         <li>
                             <span class="fw-semibold">Allocation transport: </span>
-                            <span class="gray-color">{{ personne.alloc_transport }} {{ preference.monnaie }} </span>
+                            <span class="gray-color">{{ personne.alloc_transport | numberFormat:'fr-FR' }} {{ personne.monnaie }} </span>
                         </li>
                         <li>
                             <span class="fw-semibold">Allocation familliale: </span>
-                            <span class="gray-color">{{ personne.alloc_familliale }} {{ preference.monnaie }} </span>
+                            <span class="gray-color">{{ personne.alloc_familliale | numberFormat:'fr-FR' }} {{ personne.monnaie }} </span>
                         </li>
                         <li>
                             <span class="fw-semibold">Compte bancaire: </span>
@@ -226,7 +226,7 @@
                         </li>
                         <li>
                             <span class="fw-semibold">Frais de la banque: </span>
-                            <span class="gray-color">{{ personne.frais_bancaire }} {{ preference.monnaie }}</span>
+                            <span class="gray-color">{{ personne.frais_bancaire }} {{ personne.monnaie }}</span>
                         </li>
                         
                         

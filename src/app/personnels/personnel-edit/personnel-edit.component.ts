@@ -141,7 +141,7 @@ export class PersonnelEditComponent implements OnInit {
       site_location: [''],
       type_contrat: [''],
       date_debut_contrat: [''],
-      date_fin_contrat: ['2099-06-27 15:45:59.632	'],
+      date_fin_contrat: ['2099-06-27 15:45:59.632'],
     });
 
     this.formGroup4 = this._formBuilder.group({
@@ -197,7 +197,7 @@ export class PersonnelEditComponent implements OnInit {
           site_location: item.site_location,
           type_contrat: item.type_contrat,
           date_debut_contrat: item.date_debut_contrat,
-          date_fin_contrat: item.date_fin_contrat,
+          date_fin_contrat: this.typeContrat === 'CDI' ? '2099-01-01' : item.date_fin_contrat,
           signature: this.currentUser.matricule,
           update_created: new Date()
         });

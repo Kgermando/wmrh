@@ -45,23 +45,24 @@ export class FichePaieComponent implements OnInit {
 
  
   formGroup!: FormGroup;
+ 
 
-  nbreJrsPreste = 0;
-  congepaye = 0;
-  nbrHeureSupp = 0;
-  prime = 0;
-  primeAncennete = 0;
-  prenalite = 0;
-  avanceSalaire = 0;
-  allocLogement = 0;
-  allocTransport = 0;
-  allocFamilliale = 0;
+  rbiUSD = 0;
+  rniUSD = 0;
+  iprUSD = 0;
+  syndicatUSD = 0;
+  net_a_payerUSD = 0;
+  penalitesUSD = 0;
+  avanceSalaireNbrUSD = 0;
+  heureSupplementaireMonnaieUSD = 0;
+  primesUSD = 0;
+  prime_ancienneteUSD = 0;
+  alloc_famillialeUSD = 0;
+  alloc_transportUSD = 0;
+  alloc_logementUSD = 0;
+  salaire_baseUSD = 0;
 
-  rbi = 0;
-  rni = 0;
-  ipr = 0;
-
-  net_a_payer = 0;
+    
 
   constructor(
     public themeService: CustomizerSettingsService,
@@ -88,29 +89,53 @@ export class FichePaieComponent implements OnInit {
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
               this.preference = reglage;
               
-              var netCDF = parseFloat(this.salaire.net_a_payer)  / this.preference.taux_dollard;
-              this.net_a_payer = parseFloat(netCDF.toFixed(2));
+              var net_a_payer = parseFloat(this.salaire.net_a_payer)  / this.preference.taux_dollard;
+              this.net_a_payerUSD = parseFloat(net_a_payer.toFixed(2)); 
 
-              var rbiCDF = parseFloat(this.salaire.rbi)  / this.preference.taux_dollard;
-              this.rbi = parseFloat(rbiCDF.toFixed(2));
+              var rbi = parseFloat(this.salaire.rbi)  / this.preference.taux_dollard;
+              this.rbiUSD = parseFloat(rbi.toFixed(2));
+
+              var rni = parseFloat(this.salaire.rni)  / this.preference.taux_dollard;
+              this.rniUSD = parseFloat(rni.toFixed(2));
+
+              var ipr = parseFloat(this.salaire.ipr)  / this.preference.taux_dollard;
+              this.iprUSD = parseFloat(ipr.toFixed(2));
+
+              var syndicat = parseFloat(this.salaire.syndicat)  / this.preference.taux_dollard;
+              this.syndicatUSD = parseFloat(syndicat.toFixed(2));
+
+              var avance_slaire = parseFloat(this.salaire.avance_slaire)  / this.preference.taux_dollard;
+              this.avanceSalaireNbrUSD = parseFloat(avance_slaire.toFixed(2));
+
+              var penalites = parseFloat(this.salaire.penalites)  / this.preference.taux_dollard;
+              this.penalitesUSD = parseFloat(penalites.toFixed(2));
+
+              var heureSupplementaireMonnaie = parseFloat(this.salaire.heureSupplementaireMonnaie)  / this.preference.taux_dollard;
+              this.heureSupplementaireMonnaieUSD = parseFloat(heureSupplementaireMonnaie.toFixed(2));
+
+              var primes = parseFloat(this.salaire.primes)  / this.preference.taux_dollard;
+              this.primesUSD = parseFloat(primes.toFixed(2));
+
+              var prime_anciennete = parseFloat(this.salaire.prime_anciennete)  / this.preference.taux_dollard;
+              this.prime_ancienneteUSD = parseFloat(prime_anciennete.toFixed(2));
+
+              var alloc_familliale = parseFloat(this.salaire.alloc_familliale)  / this.preference.taux_dollard;
+              this.alloc_famillialeUSD = parseFloat(alloc_familliale.toFixed(2));
+
+              var alloc_transport = parseFloat(this.salaire.alloc_transport)  / this.preference.taux_dollard;
+              this.alloc_transportUSD = parseFloat(alloc_transport.toFixed(2));
+
+              var alloc_logement = parseFloat(this.salaire.alloc_logement)  / this.preference.taux_dollard;
+              this.alloc_logementUSD = parseFloat(alloc_logement.toFixed(2));
+
+              var salaire_base = parseFloat(this.salaire.salaire_base)  / this.preference.taux_dollard;
+              this.salaire_baseUSD = parseFloat(salaire_base.toFixed(2));
+              
+              
+              
             });
-
-            this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.salaire.personnel.id).subscribe(
-              heureSup => {
-                var heureSupp  = heureSup;
-                heureSupp.map((item: any) => this.nbrHeureSupp = parseFloat(item.sum));
-                console.log(this.nbrHeureSupp);
-                
-              }
-            );
-
-            this.salaireService.getJrPrestE(this.currentUser.code_entreprise, this.salaire.personnel.matricule).subscribe(
-              jrsPreste => {
-                var jrsPrestE = jrsPreste; 
-                jrsPrestE.map((item: any) => this.nbreJrsPreste = parseFloat(item.presence));
-                // console.log(this.nbreJrsPreste);
-              }
-            );
+ 
+ 
 
             this.formGroup = this._formBuilder.group({
               alloc_logement: ['', Validators.required],
@@ -119,7 +144,7 @@ export class FichePaieComponent implements OnInit {
               salaire_base: [''],
               primes: ['', Validators.required],
               prime_anciennete: ['', Validators.required],
-              heures_supp: [`${this.nbrHeureSupp}`, Validators.required],
+              heures_supp: [``, Validators.required],
               conge_paye: ['', Validators.required],
               nbre_jrs_preste: ['', Validators.required],
               rbi: ['', Validators.required],

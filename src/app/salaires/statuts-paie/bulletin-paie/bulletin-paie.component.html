@@ -2,7 +2,7 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-5">Patientez-svp...</p>
 </div>
 <div class="mb-25"  *ngIf="!isLoading">
-    <div class="row justify-content-center" *ngIf="salaire && preference">
+    <div class="row justify-content-center" *ngIf="salaire">
         <div class="col-md-8 .offset-md-4">
             <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                 <mat-card class="mb-25 tagus-card">
@@ -53,7 +53,7 @@
                                 <qrcode [qrdata]="salaire.personnel.matricule" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
                             </div>
                         </div>
-                        <mat-divider></mat-divider>
+                        <mat-divider class="mb-25" ></mat-divider>
                         <table class="table"> 
                             <tbody>
                                 <tr>
@@ -86,69 +86,193 @@
                                     </td>
                                     <td class="gray-color text-start">{{ salaire.personnel.compte_bancaire }}</td> 
                                 </tr>
+                                <tr>
+                                    <td class="text-start">
+                                        Monnaie:
+                                    </td>
+                                    <td class="gray-color text-start">{{ salaire.monnaie }}</td> 
+                                </tr>
                             </tbody>
                         </table>
                         <ul class="list ps-0 mb-0 mt-25">
-                            <li class="gray-color d-flex align-items-center justify-content-space-between">
-                                Salaire de base : 
-                                <span class="fw-semibold">{{ salaire.salaire_base }} {{ preference.monnaie }}</span>
-                            </li>
-                            <li class="gray-color d-flex align-items-center justify-content-space-between">
-                                Allocation logement :
-                                <span class="fw-semibold">{{ salaire.alloc_logement }} {{nbreJrsPreste}} {{ preference.monnaie }}</span>
-                            </li>
-                            <li class="gray-color d-flex align-items-center justify-content-space-between">
-                                Allocation transport :
-                                <span class="fw-semibold">{{ salaire.alloc_transport }} {{ preference.monnaie }}</span>
-                            </li>
-                            <li class="gray-color d-flex align-items-center justify-content-space-between">
-                                Allocation familliale :
-                                <span class="fw-semibold">{{ salaire.alloc_familliale }} {{ preference.monnaie }}</span>
-                            </li>
-                            <li class="gray-color d-flex align-items-center justify-content-space-between">
-                                Heures supplementaires : 
-                                <span class="fw-semibold"> 
-                                    <mat-form-field appearance="outline"> 
-                                        <input matInput type="number" formControlName="heures_supp" name="matricule">
-                                        <mat-error *ngIf="formGroup.controls['heures_supp'].hasError('required')">
-                                            Ce champs est obligatoire
-                                        </mat-error>
-                                    </mat-form-field>
-                                </span>
-                            </li>
-                        </ul>
-                        <div class="table-responsive">
-                            <table class="table"> 
-                                <tbody>
-                                    <tr>
-                                        <td class="text-start">
-                                            Remunération Brute Imposaable(RBI)
-                                        </td>
-                                        <td class="gray-color" *ngIf="preference.monnaie === 'USD'">{{ rbi }} {{ preference.monnaie }}</td>
-                                        <td class="gray-color" *ngIf="preference.monnaie === 'CDF'">{{ salaire.rbi }} {{ preference.monnaie }}</td>  
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <mat-divider></mat-divider>
-                        <ul class="list ps-0 mb-25">
-                            <li class="gray-color d-flex align-items-center justify-content-space-between">
-                                IPR :
-                                <span class="fw-semibold">{{salaire.ipr}}</span>
-                            </li>
+                            <div class="table-responsive mb-10">
+                                <table class="table"> 
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center fontSize">
+                                                PRESTATIONS
+                                            </td> 
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Jours prestés :
+                                            </td> 
+                                            <td class="gray-color text-end">{{ salaire.nbre_jrs_preste }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Congé payés (2/3) :
+                                            </td> 
+                                            <td class="gray-color text-end">{{ salaire.conge_paye }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Nombre de dependants :
+                                            </td> 
+                                            <td class="gray-color text-end">{{ salaire.nbr_dependants }}</td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                            </div>  
+                            <div class="table-responsive mb-10">
+                                <table class="table"> 
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center fontSize">
+                                                BRUTE IMPOSABLE
+                                            </td> 
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Salaire de base : 
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.salaire_base | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ salaire_baseUSD | numberFormat:'fr-FR' }} $</td>  
+                                        </tr>
+                                        <tr> 
+                                            <td class="text-start">
+                                                Allocation logement :
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_logement | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_logementUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Allocation transport : 
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_transport | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_transportUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Allocation familliale : 
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_familliale | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_famillialeUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Primes d'anciennetés : 
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.prime_anciennete | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ prime_ancienneteUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Primes divers :
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.primes | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ primesUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Heures supplementaires :
+                                            </td> 
+                                            <td class="gray-color text-end"> 
+                                                <span *ngIf="salaire.monnaie == 'CDF'">{{ salaire.heureSupplementaireMonnaie | numberFormat:'fr-FR' }} FC</span>
+                                                <span *ngIf="salaire.monnaie == 'USD'">{{ heureSupplementaireMonnaieUSD | numberFormat:'fr-FR' }} $</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Remunération Brute Imposaable(RBI)
+                                            </td> 
+                                            <td class="gray-color fontSize text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.rbi | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color fontSize text-end" *ngIf="salaire.monnaie == 'USD'">{{ rbiUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
+                            <div class="table-responsive mb-10">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center fontSize">
+                                                NETTE IMPOSABLE
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                CNSS(QPO) :
+                                            </td>
+                                            <td class="gray-color text-end">{{ salaire.cnss_qpo }} %</td>
+                                        </tr> 
+                                        <tr>
+                                            <td class="text-start">
+                                                Remunération Nette Imposable(RNI)
+                                            </td>
+                                            <td class="gray-color fontSize text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.rni | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color fontSize text-end" *ngIf="salaire.monnaie == 'USD'">{{ rniUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>  
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="table-responsive mb-10">
+                                <table class="table"> 
+                                    <tbody> 
+                                        <tr>
+                                            <td class="text-center fontSize">
+                                                DEDUCTIONS
+                                            </td> 
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                              Impôt sur le revenue professionnel(IPR)
+                                            </td>
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.ipr | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ iprUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                            Cotisations Syndicale(1%)
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.syndicat | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ syndicatUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Avances salaire
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.avance_slaire | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ avanceSalaireNbrUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Sanctions ou pénalités
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.penalites | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ penalitesUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <li class="fw-semibold net_a_payer d-flex align-items-center justify-content-space-between">
                                 Net à payer :
                                 <span>
-                                    <span class="fw-semibold">{{ net_a_payer }} {{ preference.monnaie }}</span> <br>
-                                    <span  class="gray-color" >{{ salaire.net_a_payer }} CDF</span>
-                                </span> 
+                                    <span class="fw-semibold fontSize" *ngIf="salaire.monnaie == 'USD'">{{ net_a_payerUSD | numberFormat:'fr-FR' }} $</span> <br>
+                                    <span  class="gray-color fontSize" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.net_a_payer | numberFormat:'fr-FR' }} FC</span>
+                                </span>
                             </li>
-                        </ul>
+                        </ul>  
                     </mat-card-content>
                 </mat-card> 
             </form> 
         </div> 
     
     </div>
-</div>
- -->
+</div> -->

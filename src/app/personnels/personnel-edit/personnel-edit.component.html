@@ -19,7 +19,7 @@
 
 <mat-card class="mb-25 tagus-card">
     <mat-card-content>
-        <mat-stepper #stepper class="tagus-wizard">
+        <mat-stepper #stepper class="tagus-wizard mb-25">
             <mat-step>
                 <ng-template matStepLabel>Identité</ng-template>
                 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -108,7 +108,7 @@
                 </form>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel>Infos</ng-template>
+                <ng-template matStepLabel>Infos Pers.</ng-template>
                 <form [formGroup]="formGroup2" (ngSubmit)="onSubmit2()">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -167,10 +167,10 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Nombre d'enfants</label>
+                                <label class="d-block mb-12 fw-semibold gray-color">Nombre de dependants</label>
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer le Nombre d'enfants</mat-label>
+                                    <mat-label>Entrer le Nombre de personnes dependantes</mat-label>
                                     <input matInput type="number" id="nbr_dependants" formControlName="nbr_dependants" required>
                                 </mat-form-field>
                             </div>
@@ -184,7 +184,7 @@
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Fonction</ng-template>
-                <form [formGroup]="formGroup3" (ngSubmit)="onSubmit3()">
+                <form class="mb-25" [formGroup]="formGroup3" (ngSubmit)="onSubmit3()">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
@@ -302,10 +302,10 @@
                 </form>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel>Salaire de base</ng-template>
+                <ng-template matStepLabel>Salaire</ng-template>
                 <form [formGroup]="formGroup4" (ngSubmit)="onSubmit4()">
                     <div class="row mb-25">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
                                 <label class="d-block mb-12 fw-semibold gray-color">Monnaie <span>*</span></label>
                                 <mat-form-field appearance="fill">
@@ -456,4 +456,3 @@
         </mat-stepper>
     </mat-card-content>
 </mat-card>
- 
