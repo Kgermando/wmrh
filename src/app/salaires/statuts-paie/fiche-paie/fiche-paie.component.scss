@@ -87,13 +87,13 @@ table, .table {
 }
 .list {
     list-style-type: none;
-
     li {
         margin-bottom: 20px;
         &.net_a_payer {
             margin-bottom: 0;
             padding-top: 20px;
             border-top: 1px solid #F7FAFF;
+            border-bottom: 1px solid #F7FAFF;
         }
 
         // &:last-child {
@@ -215,4 +215,15 @@ table, .table {
 
 .fontSize {
     font-size: 20px !important; 
+}
+
+.example-buttons {
+    margin-bottom: -15px;
+    
+    button, a {
+        margin: {
+            right: 15px;
+            bottom: 15px;
+        };
+    }
 }

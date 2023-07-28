@@ -109,7 +109,7 @@ export class PaieViewComponent implements OnInit {
               date_debut_contrat => {
                 var date_debut_contrats = date_debut_contrat;  
                 date_debut_contrats.map((item: any) => this.primeAncennete = parseFloat(item.age['years']));
-                console.log(`primeAncennete ${this.primeAncennete}`)
+                console.log(`primeAncennete ${this.primeAncennete}`);
               }
             );
           });
@@ -153,7 +153,7 @@ export class PaieViewComponent implements OnInit {
             primeMonnaie = this.primeNbr * this.preference.taux_dollard;
             penaliteMonnaie = this.penaliteNbr * this.preference.taux_dollard;
             avanceSalaireMonnaie = this.avanceSalaireNbr * this.preference.taux_dollard; 
-          } 
+          }
           salaire =  parseFloat(this.personne.salaire_base);
           alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale);
           alloc_transportMonnaie = parseFloat(this.personne.alloc_transport);
@@ -170,8 +170,6 @@ export class PaieViewComponent implements OnInit {
         } else {
           salaire_base = salaire * this.nbreJrsPreste;
         }
-
-        console.log(`salaire_base ${salaire_base}`);
 
         var ancennete = 0;
         if (this.primeAncennete >=5) {
@@ -204,8 +202,12 @@ export class PaieViewComponent implements OnInit {
             alloc_transport + alloc_familliale +
             primeMonnaie + ancennete + heureSupplementaireMonnaie;
 
+        var cnss_qpo = 0;
+
+        cnss_qpo = rbi * parseFloat(this.preference.cnss_qpo) / 100;
+
         // Remuneration Nette impôsable
-        var rni = rbi - (rbi * parseFloat(this.preference.cnss_qpo) / 100); // RNI = RBI(RBI * CNSQPO)
+        var rni = rbi - cnss_qpo; // RNI = RBI-(RBI * CNSQPO)
 
 
         // Calcul IPR retenu
@@ -220,7 +222,6 @@ export class PaieViewComponent implements OnInit {
 
         } else if (rni <= 1800000){
           iprRetenu = (rni - 162000) * 15 / 100 + iprTrois;
-
           iprQuinze = 1800000 * 15 / 100;
 
         } else if (rni <= 3600000){
@@ -233,23 +234,30 @@ export class PaieViewComponent implements OnInit {
 
 
         // IPR à payé
-        var iprApeyE = iprRetenu - (0.02 * iprRetenu * this.personne.nbr_dependants);
+        var iprApeyE = 0; 
+        var iprApeyE = iprRetenu - (iprRetenu * this.personne.nbr_dependants * 2 / 100);
 
         // Syndicat souscrit
         var syndicat = 0;
         if (this.personne.syndicat) {
-          syndicat = salaire_base * parseFloat(this.preference.cotisation_syndicale) / 100;
+          syndicat = rni * parseFloat(this.preference.cotisation_syndicale) / 100;
+        }
+
+        // prise_en_charge_frais_bancaire
+        var prise_en_charge_frais_bancaireMonnaie = 0;
+        if(this.preference.prise_en_charge_frais_bancaire) {
+          prise_en_charge_frais_bancaireMonnaie = parseFloat(this.personne.frais_bancaire);
         }
         
 
-        var deductions = rni - penaliteMonnaie - avanceSalaireMonnaie
+        var deductions = iprApeyE + penaliteMonnaie + avanceSalaireMonnaie + syndicat;
 
-        var totalAPayE = iprApeyE + alloc_logementMonnaie + 
+        var avantageSocials = alloc_logementMonnaie + 
             alloc_transport + alloc_familliale +
-            primeMonnaie + ancennete + heureSupplementaireMonnaie;
+            primeMonnaie + ancennete + heureSupplementaireMonnaie + prise_en_charge_frais_bancaireMonnaie;
         
 
-        var net_a_payer = totalAPayE - deductions;
+        var net_a_payer = rni + avantageSocials - deductions;
 
         var body = {
           personnel: this.personne.id,
@@ -261,18 +269,20 @@ export class PaieViewComponent implements OnInit {
           alloc_familliale: alloc_familliale,
           salaire_base: salaire_base,  // Par jour * 26
           primes: primeMonnaie,
-          prime_anciennete: ancennete,
+          anciennete_nbr_age: this.primeAncennete, //Nombre d'age d'ancienneté
+          prime_anciennete: ancennete, // Cumul de prime d'ancienneté
           heures_supp: this.nbrHeureSupp,
           heureSupplementaireMonnaie: heureSupplementaireMonnaie,
           conge_paye: this.congepayeNbr,
           nbre_jrs_preste: this.nbreJrsPreste, // Nombre de jours presents
           rbi: rbi,  // Remuneration brute imposable
-          cnss_qpo: this.preference.cnss_qpo, // Impôt de 5% => 0.05
+          cnss_qpo: cnss_qpo, // Impôt de 5% => 0.05
           rni: rni,  // Remuneration Nette Imposable
           ipr: iprApeyE,  // Impôt Professionnel sur les Rémunérations (IPR)
           syndicat: syndicat,  // 1 %
           penalites: penaliteMonnaie,  // Sanctions sur le salaire net à payer
           avance_slaire: avanceSalaireMonnaie,
+          prise_en_charge_frais_bancaire: prise_en_charge_frais_bancaireMonnaie,
           net_a_payer: net_a_payer,
           statut: 'Traitement',
           signature: this.currentUser.matricule,
@@ -288,7 +298,6 @@ export class PaieViewComponent implements OnInit {
             var personnel = { 
               is_paie: dateMonth,
               signature: this.currentUser.matricule,
-              created: new Date(),
               update_created: new Date(),
               entreprise: this.currentUser.entreprise,
               code_entreprise: this.currentUser.code_entreprise

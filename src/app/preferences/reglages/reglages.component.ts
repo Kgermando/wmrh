@@ -196,6 +196,14 @@ export class EditReglageDialogBox implements OnInit{
         taux_dollard: '', 
       });
     }
+
+    if (this.data['reglage'] == 'Prise en charge frais bancaire') {
+      this.formGroup = this.formBuilder.group({  
+        prise_en_charge_frais_bancaire: '', 
+      });
+    }
+
+    
     if (this.data['reglage'] == 'Jour de l\'AN') {
       this.formGroup = this.formBuilder.group({  
         new_year: '', 
@@ -274,6 +282,25 @@ export class EditReglageDialogBox implements OnInit{
     if (this.data['reglage'] == 'Prime de plus de 25 ans') {
       this.formGroup = this.formBuilder.group({  
         prime_ancien_25: '',
+      });
+    }
+
+
+    if (this.data['reglage'] == 'Taux Barèmique de 3%') {
+      this.formGroup = this.formBuilder.group({  
+        bareme_3: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Taux Barèmique de 15%') {
+      this.formGroup = this.formBuilder.group({  
+        bareme_15: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Taux Barèmique de 30%') {
+      this.formGroup = this.formBuilder.group({  
+        bareme_30: '',
       });
     }
     
@@ -393,35 +420,7 @@ export class EditReglageDialogBox implements OnInit{
             signature: this.currentUser.matricule, 
             update_created: new Date(),
           });
-        }
-        if (this.data['reglage'] == 'Allocation de logement') {
-          this.formGroup.patchValue({
-            allocation_logement: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Allocation transport') {
-          this.formGroup.patchValue({
-            allocation_transport: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Allocation familliale') {
-          this.formGroup.patchValue({
-            allocation_familliale: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Allocation de l\'épouse') {
-          this.formGroup.patchValue({
-            allocation_epouse: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
+        } 
 
         if (this.data['reglage'] == 'Nbre max d\'enfants courverts') {
           this.formGroup.patchValue({
@@ -451,6 +450,13 @@ export class EditReglageDialogBox implements OnInit{
             update_created: new Date(),
           });
         }
+        if (this.data['reglage'] == 'Prise en charge frais bancaire') {
+          this.formGroup.patchValue({
+            prise_en_charge_frais_bancaire: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        } 
         if (this.data['reglage'] == 'Jour de l\'AN') {
           this.formGroup.patchValue({
             new_year: this.data['valeur'],
@@ -562,9 +568,27 @@ export class EditReglageDialogBox implements OnInit{
           });
         }
 
-        if (this.data['reglage'] == 'Prime de plus de 25 ans') {
-          this.formGroup = this.formBuilder.group({  
-            prime_ancien_25: '',
+        if (this.data['reglage'] == 'Taux Barèmique de 3%') {
+          this.formGroup.patchValue({
+            bareme_3: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          }); 
+        }
+    
+        if (this.data['reglage'] == 'Taux Barèmique de 15%') {
+          this.formGroup.patchValue({
+            bareme_15: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          }); 
+        }
+    
+        if (this.data['reglage'] == 'Taux Barèmique de 30%') {
+          this.formGroup.patchValue({
+            bareme_30: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
           });
         }
 

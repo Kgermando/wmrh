@@ -8,17 +8,8 @@ import { SalaireService } from '../../salaire.service';
 import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
 import { ToastrService } from 'ngx-toastr';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HeureSuppService } from 'src/app/heures-supp/heure-supp.service';
-import { PrimeService } from 'src/app/primes/prime.service';
-import { PenaliteService } from 'src/app/penalites/penalite.service';
-import { AvanceSalaireService } from 'src/app/avance-salaires/avance-salaire.service';
-import { PresenceService } from 'src/app/presences/presence.service';
-import { ApointementModel } from 'src/app/presences/models/presence-model';
-import { HeureSuppModel } from 'src/app/heures-supp/models/heure-supp-model';
-import { PrimeModel } from 'src/app/primes/models/prime-model';
-import { PenaliteModel } from 'src/app/penalites/models/penalite-model';
-import { AvanceSalaireModel } from 'src/app/avance-salaires/models/avance-salaire-model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
+import { PersonnelService } from 'src/app/personnels/personnel.service';
 
 @Component({
   selector: 'app-fiche-paie',
@@ -36,32 +27,25 @@ export class FichePaieComponent implements OnInit {
 
   currentUser: PersonnelModel | any;
 
-  presenceList: ApointementModel[] = [];
-  presenceFilter: ApointementModel[] = [];
-  nbrHeureSuppList: HeureSuppModel[] = [];
-  primeList: PrimeModel[] = [];
-  penaliteList: PenaliteModel[] = [];
-  AvanceSalaireList: AvanceSalaireModel[] = [];
-
- 
   formGroup!: FormGroup;
  
 
-  rbiUSD = 0;
-  rniUSD = 0;
-  iprUSD = 0;
-  syndicatUSD = 0;
-  net_a_payerUSD = 0;
-  penalitesUSD = 0;
-  avanceSalaireNbrUSD = 0;
-  heureSupplementaireMonnaieUSD = 0;
-  primesUSD = 0;
-  prime_ancienneteUSD = 0;
-  alloc_famillialeUSD = 0;
-  alloc_transportUSD = 0;
-  alloc_logementUSD = 0;
-  salaire_baseUSD = 0;
-
+  alloc_logement = 0;
+  alloc_transport = 0;
+  alloc_familliale = 0;
+  salaire_base = 0;
+  primes = 0;
+  prime_anciennete = 0;
+  heureSupplementaireMonnaie = 0;
+  rbi = 0;
+  rni = 0;
+  ipr = 0;
+  syndicat = 0;
+  cnss_qpo = 0;
+  penalites = 0;
+  avance_slaire = 0;
+  prise_en_charge_frais_bancaire = 0; 
+  net_a_payer = 0;
     
 
   constructor(
@@ -71,8 +55,9 @@ export class FichePaieComponent implements OnInit {
     private authService: AuthService,
     private _formBuilder: FormBuilder,
     private salaireService: SalaireService,
-    private reglageService: ReglageService, 
-    private toastr: ToastrService) {}
+    private reglageService: ReglageService,
+    private personnelService: PersonnelService,
+    private toastr: ToastrService) {} 
 
 
     ngOnInit(): void {
@@ -80,173 +65,266 @@ export class FichePaieComponent implements OnInit {
       this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user;
-          let id = this.route.snapshot.paramMap.get('id'); 
-          // const dateNow = new Date();
-          // const dateMonth = dateNow.getMonth() + 1;
+          let id = this.route.snapshot.paramMap.get('id');
           this.salaireService.get(Number(id)).subscribe(res => {
             this.salaire = res; 
 
-            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
-              this.preference = reglage;
-              
-              var net_a_payer = parseFloat(this.salaire.net_a_payer)  / this.preference.taux_dollard;
-              this.net_a_payerUSD = parseFloat(net_a_payer.toFixed(2)); 
-
-              var rbi = parseFloat(this.salaire.rbi)  / this.preference.taux_dollard;
-              this.rbiUSD = parseFloat(rbi.toFixed(2));
-
-              var rni = parseFloat(this.salaire.rni)  / this.preference.taux_dollard;
-              this.rniUSD = parseFloat(rni.toFixed(2));
-
-              var ipr = parseFloat(this.salaire.ipr)  / this.preference.taux_dollard;
-              this.iprUSD = parseFloat(ipr.toFixed(2));
-
-              var syndicat = parseFloat(this.salaire.syndicat)  / this.preference.taux_dollard;
-              this.syndicatUSD = parseFloat(syndicat.toFixed(2));
-
-              var avance_slaire = parseFloat(this.salaire.avance_slaire)  / this.preference.taux_dollard;
-              this.avanceSalaireNbrUSD = parseFloat(avance_slaire.toFixed(2));
-
-              var penalites = parseFloat(this.salaire.penalites)  / this.preference.taux_dollard;
-              this.penalitesUSD = parseFloat(penalites.toFixed(2));
-
-              var heureSupplementaireMonnaie = parseFloat(this.salaire.heureSupplementaireMonnaie)  / this.preference.taux_dollard;
-              this.heureSupplementaireMonnaieUSD = parseFloat(heureSupplementaireMonnaie.toFixed(2));
-
-              var primes = parseFloat(this.salaire.primes)  / this.preference.taux_dollard;
-              this.primesUSD = parseFloat(primes.toFixed(2));
-
-              var prime_anciennete = parseFloat(this.salaire.prime_anciennete)  / this.preference.taux_dollard;
-              this.prime_ancienneteUSD = parseFloat(prime_anciennete.toFixed(2));
-
-              var alloc_familliale = parseFloat(this.salaire.alloc_familliale)  / this.preference.taux_dollard;
-              this.alloc_famillialeUSD = parseFloat(alloc_familliale.toFixed(2));
-
-              var alloc_transport = parseFloat(this.salaire.alloc_transport)  / this.preference.taux_dollard;
-              this.alloc_transportUSD = parseFloat(alloc_transport.toFixed(2));
-
-              var alloc_logement = parseFloat(this.salaire.alloc_logement)  / this.preference.taux_dollard;
-              this.alloc_logementUSD = parseFloat(alloc_logement.toFixed(2));
-
-              var salaire_base = parseFloat(this.salaire.salaire_base)  / this.preference.taux_dollard;
-              this.salaire_baseUSD = parseFloat(salaire_base.toFixed(2));
-              
-              
-              
-            });
- 
- 
-
             this.formGroup = this._formBuilder.group({
+              salaire_base: ['', Validators.required],
               alloc_logement: ['', Validators.required],
               alloc_transport: ['', Validators.required],
               alloc_familliale: ['', Validators.required],
-              salaire_base: [''],
               primes: ['', Validators.required],
               prime_anciennete: ['', Validators.required],
-              heures_supp: [``, Validators.required],
-              conge_paye: ['', Validators.required],
-              nbre_jrs_preste: ['', Validators.required],
-              rbi: ['', Validators.required],
-              cnss_qpo: ['', Validators.required],
-              rni: ['', Validators.required],
-              ipr: ['', Validators.required],
-              syndicat: ['', Validators.required],
-              penalites: ['', Validators.required],
-              net_a_payer: ['', Validators.required],
+              heureSupplementaireMonnaie: ['', Validators.required], 
             });
-             
-            // this.salaireService.get(this.id).subscribe(item => {
-            //   this.formGroup.patchValue({
-            //     search_profil: item.search_profil,
-            //     resume: item.resume,
-            //     type_contrat: item.type_contrat,
-            //     statut: item.statut,
-            //     echeance: item.echeance,
-            //     signature: this.currentUser.matricule,
-            //     update_created: new Date()
-            //   }); 
-            // });
 
+            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
+              this.preference = reglage;
+              if (this.salaire.personnel.monnaie == 'USD') {
+                this.formGroup.patchValue({
+                  alloc_logement: parseFloat(this.salaire.alloc_logement) * this.preference.taux_dollard,
+                  alloc_transport: parseFloat(this.salaire.alloc_transport) * this.preference.taux_dollard,
+                  alloc_familliale: parseFloat(this.salaire.alloc_familliale) * this.preference.taux_dollard,
+                  salaire_base: parseFloat(this.salaire.salaire_base) * this.preference.taux_dollard,
+                  primes: parseFloat(this.salaire.primes) * this.preference.taux_dollard,
+                  prime_anciennete: parseFloat(this.salaire.prime_anciennete) * this.preference.taux_dollard,
+                  heureSupplementaireMonnaie: parseFloat(this.salaire.heureSupplementaireMonnaie) * this.preference.taux_dollard,
+                  rbi: parseFloat(this.salaire.rbi) * this.preference.taux_dollard,  // Remuneration brute imposable
+                  rni: parseFloat(this.salaire.rni) * this.preference.taux_dollard,  // Remuneration Nette Imposable
+                  ipr: parseFloat(this.salaire.ipr) * this.preference.taux_dollard,  // Impôt Professionnel sur les Rémunérations (IPR)
+                  syndicat: parseFloat(this.salaire.syndicat) * this.preference.taux_dollard,  // 1 %
+                  penalites: parseFloat(this.salaire.penalites) * this.preference.taux_dollard,  // Sanctions sur le salaire net à payer
+                  avance_slaire: parseFloat(this.salaire.avance_slaire) * this.preference.taux_dollard,
+                  prise_en_charge_frais_bancaire:  parseFloat(this.salaire.prise_en_charge_frais_bancaire) * this.preference.taux_dollard,
+                  net_a_payer: parseFloat(this.salaire.net_a_payer) * this.preference.taux_dollard,
+                  statut: 'Traitement',
+                  signature: this.currentUser.matricule,
+                  update_created: new Date(),
+                  entreprise: this.currentUser.entreprise,
+                  code_entreprise: this.currentUser.code_entreprise
+                });  
+              } else if (this.salaire.personnel.monnaie == 'CDF') {
+                this.formGroup.patchValue({
+                  alloc_logement: parseFloat(this.salaire.alloc_logement),
+                  alloc_transport: parseFloat(this.salaire.alloc_transport),
+                  alloc_familliale: parseFloat(this.salaire.alloc_familliale),
+                  salaire_base: parseFloat(this.salaire.salaire_base),
+                  primes: parseFloat(this.salaire.primes),
+                  prime_anciennete: parseFloat(this.salaire.prime_anciennete),
+                  heureSupplementaireMonnaie: parseFloat(this.salaire.heureSupplementaireMonnaie),
+                  rbi: this.rbi,  // Remuneration brute imposable
+                  rni: parseFloat(this.salaire.rni),  // Remuneration Nette Imposable
+                  ipr: parseFloat(this.salaire.ipr),  // Impôt Professionnel sur les Rémunérations (IPR)
+                  syndicat: parseFloat(this.salaire.syndicat),  // 1 %
+                  penalites: parseFloat(this.salaire.penalites),  // Sanctions sur le salaire net à payer
+                  
+                  .03: parseFloat(this.salaire.avance_slaire),
+                  prise_en_charge_frais_bancaire:  parseFloat(this.salaire.prise_en_charge_frais_bancaire),
+                  net_a_payer: parseFloat(this.salaire.net_a_payer),
+                  statut: 'Traitement',
+                  signature: this.currentUser.matricule,
+                  update_created: new Date(),
+                  entreprise: this.currentUser.entreprise,
+                  code_entreprise: this.currentUser.code_entreprise
+                });
+              } 
+            });
 
+            this.onChanges();
 
-
-            
             this.isLoading = false; 
-          }); 
+          });
         },
         error: (error) => {
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      });  
+      });
       this.isLoading = false;
-
-      
     }
+
+    onChanges(): void {
+      this.formGroup.valueChanges.subscribe(val => {
+        console.log('salaire_base', val.salaire_base);
+        console.log('alloc_logement', val.alloc_logement);
+        console.log('alloc_transport', val.alloc_transport);
+        console.log('alloc_familliale', val.alloc_familliale);
+        console.log('primes', val.primes);
+        console.log('priprime_anciennetemes', val.prime_anciennete);
+        console.log('heureSupplementaireMonnaie', val.heureSupplementaireMonnaie);
+
+        // Variables 
+        this.alloc_logement = +val.alloc_logement; 
+ 
+ 
+      
+      if (this.salaire.conge_paye >= 1) {
+        this.salaire_base = (+val.salaire_base * this.salaire.nbre_jrs_preste) * 2/3;
+      } else {
+        this.salaire_base = +val.salaire_base * this.salaire.nbre_jrs_preste; 
+      } 
+      
+ 
+      if (this.salaire.anciennete_nbr_age >=5) {
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_5 / 100; 
+      } else if(this.salaire.anciennete_nbr_age >=10) {
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_10 / 100; 
+      } else if(this.salaire.anciennete_nbr_age >=15) {
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_15 / 100; 
+      } else if(this.salaire.anciennete_nbr_age >=20) {
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_20 / 100; 
+      } else if(this.salaire.anciennete_nbr_age >=25) {
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_25 / 100; 
+      } else {
+        this.prime_anciennete = 0;
+      }
+
+      // Se refère dans les donnés de heures pour les conditions
+      if (this.salaire.heures_supp === 2) {
+        this.heureSupplementaireMonnaie = this.salaire_base * 30 / 100;
+      } else if(this.salaire.heures_supp > 2) {
+        this.heureSupplementaireMonnaie = this.salaire_base * 60 / 100;
+      } else if(this.salaire.heures_supp >= 8) {
+        this.heureSupplementaireMonnaie = this.salaire_base * 100 / 100;
+      } else {
+        this.heureSupplementaireMonnaie = 0;
+      }
+
+      this.alloc_familliale = +val.alloc_familliale * this.salaire.personnel.nbr_dependants * this.salaire.nbre_jrs_preste;
+      this.alloc_transport = +val.alloc_transport * this.salaire.nbre_jrs_preste;
+  
+      // Remuneration Brute impôsable
+      this.rbi = +this.salaire_base + +val.primes + +this.prime_anciennete + +this.heureSupplementaireMonnaie;
+
+      // this.rbi = +this.salaire_base + +this.alloc_logement + 
+      //             +this.alloc_transport + +this.alloc_familliale +
+      //             +val.primes + +this.prime_anciennete + 
+      //               +this.heureSupplementaireMonnaie; 
+      
+
+      this.cnss_qpo = this.rbi * parseFloat(this.preference.cnss_qpo) / 100;
+
+      // Remuneration Nette impôsable
+      this.rni = this.rbi - this.cnss_qpo; // RNI = RBI-(RBI * CNSQPO)
+
+
+    // Calcul IPR retenu
+      var iprRetenu = 0;
+      var iprTrois = 0;
+      var iprQuinze = 0;
+      var iprTrente = 0;
+
+      if (this.rni <= +this.preference.bareme_3) {
+        iprRetenu = this.rni * 3 / 100;
+        iprTrois = (+this.preference.bareme_3 - 0) * 3 / 100;
+
+      } else if (this.rni <= +this.preference.bareme_15){
+        iprRetenu = (this.rni - +this.preference.bareme_3) * 15 / 100 + iprTrois;
+        iprQuinze = +this.preference.bareme_15 * 15 / 100;
+
+      } else if (this.rni <= +this.preference.bareme_30){
+        iprRetenu = (this.rni - +this.preference.bareme_30) * 30 / 100 + iprTrois + iprQuinze;
+        iprTrente = +this.preference.bareme_15 * 30 / 100;
+
+      } else if (this.rni > +this.preference.bareme_30 + 1){
+        iprRetenu = (this.rni - +this.preference.bareme_30) * 40 / 100 + iprTrois + iprQuinze + iprTrente;
+      }
+
+
+      // IPR à payé 
+      this.ipr = iprRetenu - (iprRetenu * this.salaire.personnel.nbr_dependants * 2 / 100);
+
+   
+      if (this.salaire.personnel.syndicat) {
+        this.syndicat = this.rni * parseFloat(this.preference.cotisation_syndicale) / 100;
+      }
+
+      // prise_en_charge_frais_bancaire
+      if(this.preference.prise_en_charge_frais_bancaire) {
+        this.prise_en_charge_frais_bancaire = parseFloat(this.salaire.personnel.frais_bancaire);
+      }
+      
+
+      var deductions = this.ipr + this.penalites + this.avance_slaire + this.syndicat;
+
+      var avantageSocials = +this.alloc_logement + +this.alloc_familliale  +  +val.primes + 
+        +this.prime_anciennete + +this.heureSupplementaireMonnaie + +this.prise_en_charge_frais_bancaire;
+
+      // var avantageSocials = ++val.primes + +this.prime_anciennete + +this.heureSupplementaireMonnaie + 
+      //       +this.prise_en_charge_frais_bancaire;
+
+        console.log("avantageSocials", avantageSocials);
+        console.log("deductions", deductions);
+        console.log("+this.alloc_familliale", +this.alloc_familliale);
+      
+
+        let net_a_payE = this.rni + avantageSocials - deductions;
+
+        this.net_a_payer = parseFloat(net_a_payE.toFixed(2));
+      });
+    }
+
+        
+  
 
     onSubmit() {
       try {
         this.isLoading = true;
-        var codeEntreprise = this.currentUser.code_entreprise;
-        var mat = this.formGroup.value.matricule;
-        var identifiant = `${mat}-${codeEntreprise}`
-        if (this.formGroup.valid) {
-          var body = {
-            nom: this.formGroup.value.nom,
-            postnom: this.formGroup.value.postnom,
-            prenom: this.formGroup.value.prenom,
-            email: this.formGroup.value.email,
-            telephone: this.formGroup.value.telephone,
-            sexe: this.formGroup.value.sexe,
-            adresse: this.formGroup.value.adresse, 
-            matricule: identifiant.toLowerCase(),
-            category: this.formGroup.value.category,
-            role: this.formGroup.value.role, 
-            signature: this.currentUser.matricule,
-            created: new Date(),
-            update_created: new Date(),
-            entreprise: this.currentUser.entreprise,
-            code_entreprise: this.currentUser.code_entreprise
-          };
-          this.salaireService.create(body).subscribe({
-            next: () => {
-              this.isLoading = false;
-              this.formGroup.reset();
-              this.toastr.success('Success!', 'Ajouter avec succès!');
-              this.router.navigate(['/layouts/salaires/statuts-paies']);
-            },
-            error: (err) => {
-              this.isLoading = false;
-              this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-              console.log(err);
-            }
-          });
-        }
-        
+        this.salaireService.update(this.salaire.id, this.formGroup.getRawValue())
+        .subscribe({
+          next: () => {
+            this.toastr.success('Traitement enregistré!', 'Success!');
+            this.formGroup.reset();
+            this.router.navigate(['/layouts/salaires/statuts-paies']);
+            this.isLoading = false;
+          },
+          error: err => {
+            console.log(err);
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+            this.isLoading = false;
+          }
+        });
+  
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
         console.log(error);
       }
-    } 
-
+    }
+ 
     delete(id: number): void {
       if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-        this.salaireService
-          .delete(id)
-          .subscribe({
-            next: () => {
-              this.toastr.success('Success!', 'Suppriméé avec succès!');
+        const dateNow = new Date();
+        const dateMonth = dateNow.getMonth();
+        var personnel = { 
+          is_paie: dateMonth,
+          signature: this.currentUser.matricule,
+          update_created: new Date(),
+          entreprise: this.currentUser.entreprise,
+          code_entreprise: this.currentUser.code_entreprise
+        }; 
+        this.personnelService.update(this.salaire.personnel.id, personnel).subscribe({
+          next: () => {  
+            this.salaireService
+            .delete(id)
+            .subscribe(() => { 
+              this.toastr.info('Success!', 'Supprimé avec succès!');
               this.router.navigate(['/layouts/salaires/statuts-paies']);
-            },
-            error: err => {
-              this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-              console.log(err);
-            }
-          });
+            }); 
+          },
+          error: err => { 
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+            console.log(err);
+          }
+        });
+        
       }
     }
+
+    
+       
+        
   
     toggleTheme() {
       this.themeService.toggleTheme();

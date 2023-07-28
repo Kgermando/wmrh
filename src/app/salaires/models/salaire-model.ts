@@ -11,10 +11,11 @@ export class SalaireModel {
     alloc_familliale: string;
     salaire_base: string;  // Par jour 
     primes: string;
+    anciennete_nbr_age: number;
     prime_anciennete: string;
     heures_supp: number;
     heureSupplementaireMonnaie: string;
-    conge_paye: string;
+    conge_paye: number;
     nbre_jrs_preste: number; // Nombre de jours presents
     rbi: string;  // Remuneration brute imposable
     cnss_qpo: string; // Impôt de 5% => 0.05
@@ -23,6 +24,7 @@ export class SalaireModel {
     syndicat: string;  // 1 % 
     penalites: string;  // Sanctions sur le salaire net à payer
     avance_slaire: string;
+    prise_en_charge_frais_bancaire: string;
     net_a_payer: string;
     statut: string; // Genereted, Traitement, Disponible
     signature: string;

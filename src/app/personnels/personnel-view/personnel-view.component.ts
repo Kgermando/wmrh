@@ -52,7 +52,7 @@ export class PersonnelViewComponent implements OnInit {
           .delete(id)
           .subscribe({
             next: () => {
-              this.toastr.success('Success!', 'Suppriméé avec succès!');
+              this.toastr.info('Success!', 'Supprimé avec succès!');
               this.router.navigate(['/layouts/personnels/personnel-list']);
             },
             error: err => {

@@ -29,6 +29,7 @@ export interface PreferenceModel {
     monnaie : string;
     nbre_heure_travail : number;
     taux_dollard : number;
+    prise_en_charge_frais_bancaire : boolean;
 
     // Jours feries
     new_year: Date;
@@ -48,7 +49,12 @@ export interface PreferenceModel {
     prime_ancien_10: number;
     prime_ancien_15: number;
     prime_ancien_20: number;
-    prime_ancien_25: number; 
+    prime_ancien_25: number;
+
+    // IPR barèmes
+    bareme_3: number;
+    bareme_15: number;
+    bareme_30: number;
 
     signature: string;
     created: Date;

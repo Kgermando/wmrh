@@ -20,10 +20,11 @@
         <h4>La page de reglage n'est pas encore disponilble.</h4>
     </div>
     <div class="row" *ngIf="preference">
+        <p>Denière mise à jour le: {{ preference.update_created | date: 'dd/MM/yyyy HH:mm:ss' }} </p>
         <div class="col-lg-4 col-md-12">
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
-                    <h5 class="mb-0">Information de l'entreprise</h5>
+                    <h5 class="mb-0">Information de l'entreprise</h5> 
                 </mat-card-header>
                 <mat-card-content> 
                     <ul class="list ps-0 mb-0">
@@ -266,7 +267,7 @@
         <div class="col-lg-4 col-md-12">
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
-                    <h5 class="mb-0">Periode de paie</h5>
+                    <h5 class="mb-0">Paramètres de paie</h5>
                 </mat-card-header>
                 <mat-card-content>
                     <ul class="list ps-0 mb-0">
@@ -298,9 +299,18 @@
                             <span class="fw-semibold">Taux dollard USD/CDF: </span> 
                             <span class="gray-color">{{ preference.taux_dollard }}</span>
                             <button mat-icon-button color="warn" 
-                            (click)="openEditDialog('300ms', '100ms', 'Taux dollard USD/CDF', preference.taux_dollard)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
+                                (click)="openEditDialog('300ms', '100ms', 'Taux dollard USD/CDF', preference.taux_dollard)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Prise en charge frais bancaire: </span> 
+                            <span class="gray-color" *ngIf="preference.prise_en_charge_frais_bancaire">OUI</span>
+                            <span class="gray-color" *ngIf="!preference.prise_en_charge_frais_bancaire">NON</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Prise en charge frais bancaire', preference.prise_en_charge_frais_bancaire)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
                         </li>
                     </ul>   
                 </mat-card-content>
@@ -354,6 +364,39 @@
                     </ul>  
                 </mat-card-content>
             </mat-card>
-        </div>
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">IPR Taux Barèmique</h5>
+                </mat-card-header>
+                <mat-card-content>
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold">Barèmique de 3%: </span>
+                            <span class="gray-color">{{ preference.bareme_3 | number }} CDF</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Taux Barèmique de 3%', preference.bareme_3)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Barèmique de 15%: </span>
+                            <span class="gray-color">{{ preference.bareme_15 | number }} CDF</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Taux Barèmique de 15%', preference.bareme_15)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Barèmique de 30%: </span>
+                            <span class="gray-color">{{ preference.bareme_30 | number }} CDF</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Taux Barèmique de 30%', preference.bareme_30)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                    </ul>   
+                </mat-card-content>
+            </mat-card>
+        </div> 
     </div>
 </div>

@@ -1,10 +1,9 @@
-<!-- <div class="d-flex justify-content-center" *ngIf="isLoading">
+<div class="d-flex justify-content-center" *ngIf="isLoading">
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-5">Patientez-svp...</p>
 </div>
 <div class="mb-25"  *ngIf="!isLoading">
     <div class="row justify-content-center" *ngIf="salaire">
         <div class="col-md-8 .offset-md-4">
-            <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                 <mat-card class="mb-25 tagus-card">
                     <mat-card-header class="mb-10 d-flex justify-content-center">
                         <h4 class="mb-0 text-center">{{ title.toUpperCase()}} </h4>
@@ -60,7 +59,7 @@
                                     <td class="text-start">
                                         Identifiant:
                                     </td>
-                                    <td class="gray-color text-start">{{ salaire.personnel.matricule }}</td> 
+                                    <td class="gray-color text-start">{{ salaire.personnel.matricule.toUpperCase() }}</td> 
                                 </tr>
                                 <tr>
                                     <td class="text-start">
@@ -99,7 +98,7 @@
                                 <table class="table"> 
                                     <tbody>
                                         <tr>
-                                            <td class="text-center fontSize">
+                                            <td class="text-start fontSize">
                                                 PRESTATIONS
                                             </td> 
                                             <td></td>
@@ -129,7 +128,7 @@
                                 <table class="table"> 
                                     <tbody>
                                         <tr>
-                                            <td class="text-center fontSize">
+                                            <td class="text-start fontSize">
                                                 BRUTE IMPOSABLE
                                             </td> 
                                             <td></td>
@@ -143,7 +142,7 @@
                                         </tr>
                                         <tr> 
                                             <td class="text-start">
-                                                Allocation logement :
+                                                Contre-valeur logement :
                                             </td> 
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_logement | numberFormat:'fr-FR' }} FC</td>  
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_logementUSD | numberFormat:'fr-FR' }} $</td> 
@@ -199,16 +198,17 @@
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td class="text-center fontSize">
+                                            <td class="text-start fontSize">
                                                 NETTE IMPOSABLE
                                             </td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                CNSS(QPO) :
-                                            </td>
-                                            <td class="gray-color text-end">{{ salaire.cnss_qpo }} %</td>
+                                                CNSS QPO (5%):
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.cnss_qpo | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ cnss_qpoUSD | numberFormat:'fr-FR' }} $</td> 
                                         </tr> 
                                         <tr>
                                             <td class="text-start">
@@ -225,25 +225,18 @@
                                 <table class="table"> 
                                     <tbody> 
                                         <tr>
-                                            <td class="text-center fontSize">
+                                            <td class="text-start fontSize">
                                                 DEDUCTIONS
                                             </td> 
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                              Impôt sur le revenue professionnel(IPR)
+                                                Impôt Professionnel sur les Rémunérations (IPR)
                                             </td>
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.ipr | numberFormat:'fr-FR' }} FC</td>  
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ iprUSD | numberFormat:'fr-FR' }} $</td> 
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                            Cotisations Syndicale(1%)
-                                            </td> 
-                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.syndicat | numberFormat:'fr-FR' }} FC</td>  
-                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ syndicatUSD | numberFormat:'fr-FR' }} $</td> 
-                                        </tr>
+                                        </tr> 
                                         <tr>
                                             <td class="text-start">
                                                 Avances salaire
@@ -258,6 +251,20 @@
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.penalites | numberFormat:'fr-FR' }} FC</td>  
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ penalitesUSD | numberFormat:'fr-FR' }} $</td> 
                                         </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                            Cotisations Syndicale(1%)
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.syndicat | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ syndicatUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Prise en charge des frais bancaire
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.prise_en_charge_frais_bancaire | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ prise_en_charge_frais_bancaireUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -271,8 +278,8 @@
                         </ul>  
                     </mat-card-content>
                 </mat-card> 
-            </form> 
         </div> 
     
     </div>
-</div> -->
+</div>
+

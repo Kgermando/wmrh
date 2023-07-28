@@ -39,7 +39,7 @@ export class CandidatureViewComponent implements OnInit {
           .delete(id)
           .subscribe({
             next: () => {
-              this.toastr.success('Success!', 'Supprimé avec succès!');
+              this.toastr.info('Success!', 'Supprimé avec succès!');
               this.router.navigate(['layouts/recrutements/postes']);
             },
             error: err => {

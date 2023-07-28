@@ -94,7 +94,7 @@ export class TitlesComponent implements OnInit{
         .delete(id)
         .subscribe({
           next: () => {
-            this.toastr.success('Success!', 'Supprimé avec succès!');
+            this.toastr.info('Success!', 'Supprimé avec succès!');
             window.location.reload();
           },
           error: err => {
