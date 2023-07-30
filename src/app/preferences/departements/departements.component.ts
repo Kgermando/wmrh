@@ -156,8 +156,8 @@ export class EditDepartementDialogBox implements OnInit{
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    });
-    console.log(this.data['id']);
+    }); 
+    
     this.formGroup = this.formBuilder.group({  
       departement: ''
     });

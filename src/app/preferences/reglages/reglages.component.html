@@ -20,7 +20,11 @@
         <h4>La page de reglage n'est pas encore disponilble.</h4>
     </div>
     <div class="row" *ngIf="preference">
-        <p>Denière mise à jour le: {{ preference.update_created | date: 'dd/MM/yyyy HH:mm:ss' }} </p>
+        <div class="d-flex justify-content-space-between">
+            <p>Denière mise à jour le: {{ preference.update_created | date: 'dd/MM/yyyy HH:mm:ss' }} </p>
+            <p>Par: {{ preference.signature }}</p>
+        </div>
+        
         <div class="col-lg-4 col-md-12">
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">

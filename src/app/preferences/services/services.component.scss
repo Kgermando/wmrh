@@ -131,7 +131,7 @@ table, .table {
         tr {
             td {
                 text-align: center;
-                padding: 18px 20px;
+                // padding: 18px 20px;
                 white-space: nowrap;
                 border-bottom-color: #f7faff;
                 border-bottom: 1px solid #F7FAFF;
@@ -202,61 +202,7 @@ table, .table {
         }
     }
 }
-.component-rtl-enabled {
-    .tacking-box {
-        .top {
-            div {
-                margin: {
-                    left: 50px;
-                    right: 0;
-                };
-                &:last-child {
-                    margin-left: 0;
-                }
-            }
-        }
-        .track-list {
-            li {
-                padding: {
-                    left: 0;
-                    right: 22px;
-                };
-                &::before {
-                    left: auto;
-                    right: 0;
-                }
-                &::after {
-                    right: 3px;
-                    left: auto;
-                }
-            }
-        }
-    }
-    table, .table {
-        thead {
-            tr {
-                th {
-                    &::after {
-                        right: auto;
-                        left: 0;
-                    }
-                }
-            }
-        }
-        tbody {
-            tr {
-                td {
-                    .product-info {
-                        padding: {
-                            right: 0;
-                            left: 45px;
-                        };
-                    }
-                }
-            }
-        }
-    }
-}
+ 
 
 @media only screen and (max-width : 767px) {
 

@@ -156,7 +156,7 @@ export class EditFonctionDialogBox implements OnInit{
         console.log(error);
       }
     });
-    console.log(this.data['id']);
+    
     this.formGroup = this.formBuilder.group({  
       fonction: ''
     });
