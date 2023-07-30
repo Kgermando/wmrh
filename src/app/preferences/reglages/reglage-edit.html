@@ -584,6 +584,58 @@
                 </mat-form-field> 
             </div> 
         </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'SMIG'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="text" formControlName="smig" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['smig'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field>
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Courses transport'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="number" formControlName="courses_transport" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['courses_transport'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field>
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Montant pour travailleur quadre'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="number" formControlName="montant_travailler_quadre" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['montant_travailler_quadre'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field>
+            </div> 
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Montant pour travailleur non quadre'">
+            <div class="tagus-form-group">
+                <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                <mat-form-field appearance="fill">
+                    <i class="ri-edit-2-line"></i>
+                    <mat-label>Modifier {{data['reglage']}}</mat-label>
+                    <input matInput type="number" formControlName="montant_travailler_non_quadre" name="{{data['reglage']}}">
+                    <mat-error *ngIf="formGroup.controls['montant_travailler_non_quadre'].hasError('required')">
+                        Ce champs est obligatoire
+                    </mat-error>
+                </mat-form-field>
+            </div> 
+        </div>
     </div>
         <div class="text-end">
             <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>

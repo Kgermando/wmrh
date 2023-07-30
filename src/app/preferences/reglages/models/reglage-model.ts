@@ -23,13 +23,18 @@ export interface PreferenceModel {
 
     // Parametre de deduction
     cotisation_syndicale : string;
-    cnss_qpo : string; 
+    cnss_qpo : string;
+    smig: string;
 
     // Taux
     monnaie : string;
     nbre_heure_travail : number;
     taux_dollard : number;
     prise_en_charge_frais_bancaire : boolean;
+    courses_transport : number;
+
+    montant_travailler_quadre : string;
+    montant_travailler_non_quadre : string;
 
     // Jours feries
     new_year: Date;

@@ -18,6 +18,7 @@ import { ServicePrefModel } from 'src/app/preferences/services/models/service-mo
 import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
 import { permissionDataList } from 'src/app/shared/tools/permission-list';
 import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
+import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel';
 
 @Component({
   selector: 'app-personnel-edit',
@@ -63,6 +64,8 @@ export class PersonnelEditComponent implements OnInit {
   titleList: TitleModel[] = [];
   serviceList: ServicePrefModel[] = [];
   siteLocationList: SiteLocationModel[] = [];
+
+  categoriList = CategoriepersonnelDataList;
 
   constructor(
     private router: Router,
@@ -122,6 +125,7 @@ export class PersonnelEditComponent implements OnInit {
       telephone: [''],
       sexe: [''],
       adresse: [''], 
+      category: [''], 
     });
 
     this.formGroup2 = this._formBuilder.group({
@@ -150,6 +154,7 @@ export class PersonnelEditComponent implements OnInit {
       alloc_logement: [''],
       alloc_transport: [''],
       alloc_familliale: [''],
+      soins_medicaux: [''],
       compte_bancaire: [''],
       nom_banque: [''],
       frais_bancaire: [''],  
@@ -175,7 +180,8 @@ export class PersonnelEditComponent implements OnInit {
           email: item.email,
           telephone: item.telephone,
           sexe: item.sexe,
-          adresse: item.adresse, 
+          adresse: item.adresse,
+          category: this.formGroup.value.category,
           signature: this.currentUser.matricule, 
           update_created: new Date()
         });
@@ -207,6 +213,7 @@ export class PersonnelEditComponent implements OnInit {
           alloc_logement: item.alloc_logement,
           alloc_transport: item.alloc_transport,
           alloc_familliale: item.alloc_familliale,
+          soins_medicaux: item.soins_medicaux,
           compte_bancaire: item.compte_bancaire,
           nom_banque: item.nom_banque,
           frais_bancaire: item.frais_bancaire, 

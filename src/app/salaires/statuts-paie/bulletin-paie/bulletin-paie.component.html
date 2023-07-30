@@ -2,7 +2,7 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-5">Patientez-svp...</p>
 </div>
 <div class="mb-25"  *ngIf="!isLoading">
-    <div class="row justify-content-center" *ngIf="salaire">
+    <div class="row justify-content-center" *ngIf="salaire && preference">
         <div class="col-md-8 .offset-md-4">
                 <mat-card class="mb-25 tagus-card">
                     <mat-card-header class="mb-10 d-flex justify-content-center">
@@ -120,7 +120,19 @@
                                                 Nombre de dependants :
                                             </td> 
                                             <td class="gray-color text-end">{{ salaire.nbr_dependants }}</td>
-                                        </tr> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Nombre d'heures supp. :
+                                            </td> 
+                                            <td class="gray-color text-end">{{ salaire.heures_supp }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Age d'ancienneté :
+                                            </td> 
+                                            <td class="gray-color text-end">{{ salaire.anciennete_nbr_age }}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>  
@@ -139,28 +151,7 @@
                                             </td> 
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.salaire_base | numberFormat:'fr-FR' }} FC</td>  
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ salaire_baseUSD | numberFormat:'fr-FR' }} $</td>  
-                                        </tr>
-                                        <tr> 
-                                            <td class="text-start">
-                                                Contre-valeur logement :
-                                            </td> 
-                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_logement | numberFormat:'fr-FR' }} FC</td>  
-                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_logementUSD | numberFormat:'fr-FR' }} $</td> 
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                                Allocation transport : 
-                                            </td> 
-                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_transport | numberFormat:'fr-FR' }} FC</td>  
-                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_transportUSD | numberFormat:'fr-FR' }} $</td> 
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                                Allocation familliale : 
-                                            </td> 
-                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_familliale | numberFormat:'fr-FR' }} FC</td>  
-                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_famillialeUSD | numberFormat:'fr-FR' }} $</td> 
-                                        </tr>
+                                        </tr> 
                                         <tr>
                                             <td class="text-start">
                                                 Primes d'anciennetés : 
@@ -194,6 +185,65 @@
                                     </tbody>
                                 </table>
                             </div> 
+                            <div class="table-responsive mb-10">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-start fontSize">
+                                                AVANTAGES LEGAUX
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr> 
+                                            <td class="text-start">
+                                                Contre-valeur logement :
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_logement | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_logementUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Allocation transport : 
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_transport | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_transportUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Allocation familliale : 
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.alloc_familliale | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ alloc_famillialeUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Soins medicaux :
+                                            </td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.soins_medicaux | numberFormat:'fr-FR' }} FC</td>  
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ soins_medicauxUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- <div class="table-responsive mb-10">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-start fontSize">
+                                                IMPÔT ÉLIDE
+                                            </td>
+                                            <td></td>
+                                        </tr> 
+                                        <tr>
+                                            <td class="text-start">
+                                                Économie d'impôts
+                                            </td>
+                                            <td class="gray-color fontSize text-end">{{ salaire.impot_elide | numberFormat:'fr-FR' }} FC</td>
+                                            <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ impot_elideUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> -->
                             <div class="table-responsive mb-10">
                                 <table class="table">
                                     <tbody>

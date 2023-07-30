@@ -163,60 +163,17 @@
                                                 
                                                 >
                                            </td> 
-                                        </tr>
-                                        <tr> 
-                                            <td class="text-start">
-                                                Contre-valeur logement :
-                                            </td> 
-                                            <td class="gray-color text-end">
-                                                <input type="text" class="form-control" 
-                                                type="number"
-                                                   aria-label="Sizing example input" 
-                                                   aria-describedby="inputGroup-sizing-sm"
-                                                   formControlName="alloc_logement"
-                                                   
-                                                   >
-                                              </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                                Allocation transport : 
-                                            </td>
-                                            <td class="gray-color text-end">
-                                                <input type="text" class="form-control" 
-                                                type="number"
-                                                   aria-label="Sizing example input" 
-                                                   aria-describedby="inputGroup-sizing-sm"
-                                                   formControlName="alloc_transport"
-                                                   
-                                                   >
-                                              </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                                Allocation familliale : 
-                                            </td>
-                                            <td class="gray-color text-end">
-                                                <input type="text" class="form-control" 
-                                                type="number"
-                                                   aria-label="Sizing example input" 
-                                                   aria-describedby="inputGroup-sizing-sm"
-                                                   formControlName="alloc_familliale"
-                                                   
-                                                   >
-                                              </td>
-                                        </tr>
+                                        </tr> 
                                         <tr>
                                             <td class="text-start">
                                                 Primes d'anciennetés : 
                                             </td>
                                             <td class="gray-color text-end" *ngIf="salaire.anciennete_nbr_age >= 5">
                                                 <input type="text" class="form-control" 
-                                                type="number"
+                                                    type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
-                                                   formControlName="prime_anciennete"
-                                                   
+                                                   formControlName="prime_anciennete" 
                                                    >
                                               </td> 
                                               <td class="gray-color text-end" *ngIf="salaire.anciennete_nbr_age < 5"
@@ -229,11 +186,10 @@
                                             </td>
                                             <td class="gray-color text-end">
                                                 <input type="text" class="form-control" 
-                                                type="number"
+                                                    type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
-                                                   formControlName="primes"
-                                                   
+                                                   formControlName="primes" 
                                                    >
                                               </td> 
                                             </tr>
@@ -268,6 +224,112 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-start fontSize">
+                                                AVANTAGES LEGAUX
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr> 
+                                            <td class="text-start">
+                                                Contre-valeur logement :
+                                            </td> 
+                                            <td class="gray-color text-end" *ngIf="(this.alloc_logement > this.alloc_logementPlafond)">
+                                                <input type="text" class="form-control" 
+                                                type="number"
+                                                   aria-label="Sizing example input" 
+                                                   aria-describedby="inputGroup-sizing-sm"
+                                                   formControlName="alloc_logement" 
+                                                   >
+                                                   / {{ alloc_logementPlafond | numberFormat:'fr-FR' }} FC
+                                              </td>
+                                              <td class="gray-color text-end" *ngIf="this.alloc_logement <= this.alloc_logementPlafond"
+                                              >{{ alloc_logement | numberFormat:'fr-FR' }} FC
+                                              / {{ alloc_logementPlafond | numberFormat:'fr-FR' }} FC
+                                          </td>
+                                        </tr> 
+                                        <tr>
+                                            <td class="text-start">
+                                                Allocation transport : 
+                                            </td>
+                                            <td class="gray-color text-end" *ngIf="this.alloc_transport > this.alloc_transportPlafond">
+                                                <input type="text" class="form-control" 
+                                                type="number"
+                                                   aria-label="Sizing example input" 
+                                                   aria-describedby="inputGroup-sizing-sm"
+                                                   formControlName="alloc_transport"
+                                                   >
+                                                   / {{ alloc_transportPlafond | numberFormat:'fr-FR' }} FC
+                                              </td> 
+                                              <td class="gray-color text-end" *ngIf="this.alloc_transport <= this.alloc_transportPlafond"
+                                              >{{ alloc_transport | numberFormat:'fr-FR' }} FC 
+                                              / {{ alloc_transportPlafond | numberFormat:'fr-FR' }} FC
+                                          </td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Allocation familliale : 
+                                            </td>
+                                            <td class="gray-color text-end"  *ngIf="this.alloc_familliale > this.alloc_famillialePlafond">
+                                                <input type="text" class="form-control" 
+                                                type="number"
+                                                   aria-label="Sizing example input" 
+                                                   aria-describedby="inputGroup-sizing-sm"
+                                                   formControlName="alloc_familliale" 
+                                                   > 
+                                                   / {{ alloc_famillialePlafond | numberFormat:'fr-FR' }} FC
+                                              </td>
+                                              <td class="gray-color text-end" *ngIf="this.alloc_familliale <= this.alloc_famillialePlafond"
+                                                >{{ alloc_familliale | numberFormat:'fr-FR' }} FC
+                                                / {{ alloc_famillialePlafond | numberFormat:'fr-FR' }} FC
+                                            </td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Soins medicaux :
+                                            </td>
+                                            <td class="gray-color text-end">
+                                                <input type="text" class="form-control" 
+                                                type="number"
+                                                   aria-label="Sizing example input" 
+                                                   aria-describedby="inputGroup-sizing-sm"
+                                                   formControlName="soins_medicaux" 
+                                                   >
+                                              </td>
+                                              <!-- <td class="gray-color text-end"
+                                                >{{ salaire.soins_medicaux | numberFormat:'fr-FR' }} FC
+                                            </td>  -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive mb-10">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-start fontSize">
+                                                IMPÔT ÉLIDE
+                                            </td>
+                                            <td></td>
+                                        </tr> 
+                                        <tr>
+                                            <td class="text-start">
+                                                Redressement du RNI
+                                            </td>
+                                            <td class="gray-color text-end">{{ redressement | numberFormat:'fr-FR' }} FC</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Économie d'impôts(Fraude)
+                                            </td>
+                                            <td class="gray-color text-end">{{ impot_elide | numberFormat:'fr-FR' }} FC</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive mb-10">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-start fontSize">
                                                 NETTE IMPOSABLE
                                             </td>
                                             <td></td>
@@ -287,7 +349,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
                             <div class="table-responsive mb-10">
                                 <table class="table"> 
                                     <tbody> 
@@ -337,11 +398,16 @@
                                 </span>
                             </li>
                         </ul>
- 
+                        
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-25"> 
+                            <mat-slide-toggle style="background: color= red;"
+                                [checked]="isPublie" (change)="toggle($event)"
+                            >Cocher la case pour publié!</mat-slide-toggle>
+                        </div>
                         <div class="d-flex align-items-center justify-content-center mt-25">
-                            <button mat-flat-button class="tagus">Publier</button>
+                            <button mat-flat-button class="tagus" *ngIf="isPublie">Publier</button>
                             <p></p>
-                            <button mat-stroked-button class="tagus">Brouillon</button>
+                            <button mat-stroked-button class="tagus" *ngIf="!isPublie">Brouillon</button>
                         </div>
                     </form> 
                     </mat-card-content>

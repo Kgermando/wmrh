@@ -43,6 +43,7 @@ export interface PersonnelModel {
     alloc_logement: string;
     alloc_transport: string;
     alloc_familliale: string;
+    soins_medicaux: string;
     compte_bancaire: string;
     nom_banque: string;
     frais_bancaire: string;

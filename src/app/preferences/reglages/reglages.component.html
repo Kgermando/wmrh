@@ -171,6 +171,14 @@
                                 <mat-icon>edit</mat-icon>
                             </button>
                         </li>
+                        <li>
+                            <span class="fw-semibold">SMIG: </span>
+                            <span class="gray-color">{{ preference.smig }} FC</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'SMIG', preference.smig)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
                     </ul>
                 </mat-card-content>
             </mat-card>
@@ -309,6 +317,30 @@
                             <span class="gray-color" *ngIf="!preference.prise_en_charge_frais_bancaire">NON</span>
                             <button mat-icon-button color="warn" 
                                 (click)="openEditDialog('300ms', '100ms', 'Prise en charge frais bancaire', preference.prise_en_charge_frais_bancaire)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Courses transport: </span> 
+                            <span class="gray-color">{{ preference.courses_transport }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Courses transport', preference.courses_transport)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Travailleur Quadre: </span> 
+                            <span class="gray-color">{{ preference.montant_travailler_quadre }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Montant pour travailleur quadre', preference.montant_travailler_quadre)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Travailleur Non Quadre: </span> 
+                            <span class="gray-color">{{ preference.montant_travailler_non_quadre }}</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Montant pour travailleur non quadre', preference.montant_travailler_non_quadre)">
                                 <mat-icon>edit</mat-icon>
                             </button>
                         </li>

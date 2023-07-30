@@ -42,6 +42,8 @@ export class BulletinPaieComponent implements OnInit {
   salaire_baseUSD = 0;
   prise_en_charge_frais_bancaireUSD = 0; 
   cnss_qpoUSD = 0;
+  soins_medicauxUSD = 0;
+  impot_elideUSD = 0;
     
 
   constructor(
@@ -112,7 +114,13 @@ export class BulletinPaieComponent implements OnInit {
               this.prise_en_charge_frais_bancaireUSD = parseFloat(prise_en_charge_frais_bancaire.toFixed(2)); 
 
               var cnss_qpo = parseFloat(this.salaire.cnss_qpo)  / this.preference.taux_dollard;
-              this.cnss_qpoUSD = parseFloat(cnss_qpo.toFixed(2)); 
+              this.cnss_qpoUSD = parseFloat(cnss_qpo.toFixed(2));
+
+              var soins_medicaux = parseFloat(this.salaire.soins_medicaux)  / this.preference.taux_dollard;
+              this.soins_medicauxUSD = parseFloat(soins_medicaux.toFixed(2)); 
+
+              // var impot_elide = parseFloat(this.salaire.impot_elide)  / this.preference.taux_dollard;
+              // this.impot_elideUSD = parseFloat(impot_elide.toFixed(2));
             }); 
             this.isLoading = false; 
           }); 

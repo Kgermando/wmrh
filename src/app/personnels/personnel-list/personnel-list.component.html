@@ -1,22 +1,9 @@
-<!-- <div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
-    <h5 class="mb-0">Personnels</h5>
-    <ol class="breadcrumb mb-0 ps-0">
-        <li class="breadcrumb-item">
-            <a routerLink="/layouts">
-                <i class="ri-home-8-line"></i>
-                Dashboard
-            </a>
-        </li>
-        <li class="breadcrumb-item fw-semibold">Personnels</li>
-    </ol>
-</div> -->
-
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
-        <h5 class="mb-0">Personnels List</h5>
+        <h5 class="mb-0">Liste des Employés</h5>
         <div>
             <button mat-flat-button class="default-btn tagus" routerLink="/layouts/personnels/personnel-add">
-                <i class="ri-add-fill"></i> Add new personne
+                <i class="ri-add-fill"></i> Ajouter un employé
             </button>
             <button mat-icon-button class="tagus">
                 <mat-icon>print</mat-icon>
@@ -98,17 +85,17 @@
                             <i class="ri-more-fill"></i>
                         </button>
                         <mat-menu #actionMenu="matMenu" class="dotMenu two monthMenu" xPosition="before">
-                            <button mat-menu-item type="button" 
+                            <button mat-menu-item type="button" *ngIf="+element.salaire_base === 0"
                                     class="bg-transparent border-none position-relative" (click)="detail(element.id)">
                                 <i class="ri-edit-line"></i> Completer les informations
-                            </button> 
+                            </button>
                             <button mat-menu-item type="button" class="bg-transparent border-none position-relative" >
-                                <i class="ri-mail-send-line"></i> Mail 
+                                <i class="ri-mail-send-line"></i> Mail
                             </button>
                             <button mat-menu-item type="button" class="bg-transparent border-none position-relative">
-                                <a href="tel:{{element.email}}"> 
-                                    <i class="ri-phone-line"></i> Appel 
-                                </a>  
+                                <a href="tel:{{element.email}}">
+                                    <i class="ri-phone-line"></i> Appel
+                                </a>
                             </button>
                         </mat-menu>
                     </td>

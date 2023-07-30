@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { PersonnelModel } from '../models/personnel-model';
 import { ToastrService } from 'ngx-toastr';
+import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel';
 
 @Component({
   selector: 'app-personnel-add',
@@ -27,7 +28,11 @@ export class PersonnelAddComponent implements OnInit {
   ];
   roleList: number[] = [
     1,2,3,4,5
-  ]; 
+  ];
+
+  categoriList = CategoriepersonnelDataList;
+
+
   constructor(private router: Router,
     private _formBuilder: FormBuilder,
     private authService: AuthService, 
@@ -61,6 +66,7 @@ export class PersonnelAddComponent implements OnInit {
       adresse: ['', Validators.required],
       matricule: ['', Validators.required], 
       role: ['', Validators.required],
+      category: ['', Validators.required], 
     });
   }
   
@@ -81,7 +87,8 @@ export class PersonnelAddComponent implements OnInit {
           sexe: this.formGroup.value.sexe,
           adresse: this.formGroup.value.adresse, 
           matricule: identifiant.toLowerCase(), 
-          role: this.formGroup.value.role, 
+          role: this.formGroup.value.role,
+          category: this.formGroup.value.category,
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),

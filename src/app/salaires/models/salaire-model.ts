@@ -9,6 +9,7 @@ export class SalaireModel {
     alloc_logement: string;
     alloc_transport: string;
     alloc_familliale: string;
+    soins_medicaux: string;
     salaire_base: string;  // Par jour 
     primes: string;
     anciennete_nbr_age: number;
@@ -21,6 +22,7 @@ export class SalaireModel {
     cnss_qpo: string; // Impôt de 5% => 0.05
     rni: string;  // Remuneration Nette Imposable
     ipr: string;  // Impôt Professionnel sur les Rémunérations (IPR)
+    impot_elide: string; // Economie de l'impôt ce qui sera sanctionné
     syndicat: string;  // 1 % 
     penalites: string;  // Sanctions sur le salaire net à payer
     avance_slaire: string;

@@ -303,6 +303,30 @@ export class EditReglageDialogBox implements OnInit{
         bareme_30: '',
       });
     }
+
+    if (this.data['reglage'] == 'SMIG') {
+      this.formGroup = this.formBuilder.group({  
+        smig: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Courses transport') {
+      this.formGroup = this.formBuilder.group({  
+        courses_transport: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Montant pour travailleur quadre') {
+      this.formGroup = this.formBuilder.group({  
+        montant_travailler_quadre: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Montant pour travailleur non quadre') {
+      this.formGroup = this.formBuilder.group({  
+        montant_travailler_non_quadre: '',
+      });
+    }
     
 
     this.authService.user().subscribe({
@@ -592,13 +616,46 @@ export class EditReglageDialogBox implements OnInit{
           });
         }
 
+        if (this.data['reglage'] == 'SMIG') {
+          this.formGroup.patchValue({
+            smig: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        if (this.data['reglage'] == 'Courses transport') {
+          this.formGroup.patchValue({
+            courses_transport: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        if (this.data['reglage'] == 'Montant pour travailleur quadre') {
+          this.formGroup.patchValue({
+            montant_travailler_quadre: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          }); 
+        }
+    
+        if (this.data['reglage'] == 'Montant pour travailleur non quadre') {
+          this.formGroup.patchValue({
+            montant_travailler_non_quadre: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
+
+        
+
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
     });
-    
   } 
 
 

@@ -92,13 +92,11 @@ export class ListPaimentsComponent implements AfterViewInit, OnInit {
                 .subscribe({
                     next: res => {  
                         this.personnelFilter = res;
-                        this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < this.dateMonth);
+                        this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < this.dateMonth && parseFloat(v.salaire_base) > 0);
                         this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
                         this.dataSource.sort = this.sort;
                         this.dataSource.paginator = this.paginator; 
-                        this.isLoading = false;
-
-                        console.log(this.dateMonth);
+                        this.isLoading = false; 
                     },
                     error: (err) => {
                         this.isLoading = false;

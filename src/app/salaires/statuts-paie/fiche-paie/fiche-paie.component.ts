@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { PersonnelService } from 'src/app/personnels/personnel.service';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-fiche-paie',
@@ -20,6 +21,8 @@ export class FichePaieComponent implements OnInit {
   isLoading = false;
 
   title = 'Traitement de la Fiche de paie';
+
+  isPublie = false;
 
   salaire: SalaireModel;
 
@@ -33,6 +36,7 @@ export class FichePaieComponent implements OnInit {
   alloc_logement = 0;
   alloc_transport = 0;
   alloc_familliale = 0;
+  soins_medicaux = 0;
   salaire_base = 0;
   primes = 0;
   prime_anciennete = 0;
@@ -40,13 +44,20 @@ export class FichePaieComponent implements OnInit {
   rbi = 0;
   rni = 0;
   ipr = 0;
+  impot_elide = 0;
   syndicat = 0;
   cnss_qpo = 0;
   penalites = 0;
   avance_slaire = 0;
-  prise_en_charge_frais_bancaire = 0; 
+  prise_en_charge_frais_bancaire = 0;
   net_a_payer = 0;
-    
+
+
+  // Condition pour verrouiller l'allocation input si negatif
+  alloc_logementPlafond = 0;
+  alloc_transportPlafond = 0;
+  alloc_famillialePlafond = 0;
+  redressement = 0;
 
   constructor(
     public themeService: CustomizerSettingsService,
@@ -59,26 +70,31 @@ export class FichePaieComponent implements OnInit {
     private personnelService: PersonnelService,
     private toastr: ToastrService) {} 
 
+    public toggle(event: MatSlideToggleChange) {
+      this.isPublie = event.checked;
+    }
+
 
     ngOnInit(): void {
       this.isLoading = true;
+      this.formGroup = this._formBuilder.group({
+        salaire_base: ['', Validators.required],
+        alloc_logement: ['', Validators.required],
+        alloc_transport: ['', Validators.required],
+        alloc_familliale: ['', Validators.required],
+        soins_medicaux: ['', Validators.required],
+        primes: ['', Validators.required],
+        prime_anciennete: ['', Validators.required],
+        heureSupplementaireMonnaie: ['', Validators.required],
+        statut: this.isPublie ? 'Disponible' : 'Traitement', 
+      });
+
       this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user;
           let id = this.route.snapshot.paramMap.get('id');
           this.salaireService.get(Number(id)).subscribe(res => {
-            this.salaire = res; 
-
-            this.formGroup = this._formBuilder.group({
-              salaire_base: ['', Validators.required],
-              alloc_logement: ['', Validators.required],
-              alloc_transport: ['', Validators.required],
-              alloc_familliale: ['', Validators.required],
-              primes: ['', Validators.required],
-              prime_anciennete: ['', Validators.required],
-              heureSupplementaireMonnaie: ['', Validators.required], 
-            });
-
+            this.salaire = res;
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
               this.preference = reglage;
               if (this.salaire.personnel.monnaie == 'USD') {
@@ -86,6 +102,7 @@ export class FichePaieComponent implements OnInit {
                   alloc_logement: parseFloat(this.salaire.alloc_logement) * this.preference.taux_dollard,
                   alloc_transport: parseFloat(this.salaire.alloc_transport) * this.preference.taux_dollard,
                   alloc_familliale: parseFloat(this.salaire.alloc_familliale) * this.preference.taux_dollard,
+                  soins_medicaux: parseFloat(this.salaire.soins_medicaux) * this.preference.taux_dollard,
                   salaire_base: parseFloat(this.salaire.salaire_base) * this.preference.taux_dollard,
                   primes: parseFloat(this.salaire.primes) * this.preference.taux_dollard,
                   prime_anciennete: parseFloat(this.salaire.prime_anciennete) * this.preference.taux_dollard,
@@ -93,22 +110,24 @@ export class FichePaieComponent implements OnInit {
                   rbi: parseFloat(this.salaire.rbi) * this.preference.taux_dollard,  // Remuneration brute imposable
                   rni: parseFloat(this.salaire.rni) * this.preference.taux_dollard,  // Remuneration Nette Imposable
                   ipr: parseFloat(this.salaire.ipr) * this.preference.taux_dollard,  // Impôt Professionnel sur les Rémunérations (IPR)
+                  impot_elide: parseFloat(this.salaire.impot_elide) * this.preference.taux_dollard,
                   syndicat: parseFloat(this.salaire.syndicat) * this.preference.taux_dollard,  // 1 %
                   penalites: parseFloat(this.salaire.penalites) * this.preference.taux_dollard,  // Sanctions sur le salaire net à payer
                   avance_slaire: parseFloat(this.salaire.avance_slaire) * this.preference.taux_dollard,
                   prise_en_charge_frais_bancaire:  parseFloat(this.salaire.prise_en_charge_frais_bancaire) * this.preference.taux_dollard,
                   net_a_payer: parseFloat(this.salaire.net_a_payer) * this.preference.taux_dollard,
-                  statut: 'Traitement',
+                  statut: this.isPublie ? 'Disponible' : 'Traitement',
                   signature: this.currentUser.matricule,
                   update_created: new Date(),
                   entreprise: this.currentUser.entreprise,
                   code_entreprise: this.currentUser.code_entreprise
-                });  
-              } else if (this.salaire.personnel.monnaie == 'CDF') {
+                });
+              } else if (this.salaire.personnel.monnaie == 'CDF') { 
                 this.formGroup.patchValue({
                   alloc_logement: parseFloat(this.salaire.alloc_logement),
                   alloc_transport: parseFloat(this.salaire.alloc_transport),
                   alloc_familliale: parseFloat(this.salaire.alloc_familliale),
+                  soins_medicaux: parseFloat(this.salaire.soins_medicaux),
                   salaire_base: parseFloat(this.salaire.salaire_base),
                   primes: parseFloat(this.salaire.primes),
                   prime_anciennete: parseFloat(this.salaire.prime_anciennete),
@@ -116,24 +135,23 @@ export class FichePaieComponent implements OnInit {
                   rbi: this.rbi,  // Remuneration brute imposable
                   rni: parseFloat(this.salaire.rni),  // Remuneration Nette Imposable
                   ipr: parseFloat(this.salaire.ipr),  // Impôt Professionnel sur les Rémunérations (IPR)
+                  impot_elide: parseFloat(this.salaire.impot_elide),
                   syndicat: parseFloat(this.salaire.syndicat),  // 1 %
                   penalites: parseFloat(this.salaire.penalites),  // Sanctions sur le salaire net à payer
-                  
-                  .03: parseFloat(this.salaire.avance_slaire),
+                  avance_slaire: parseFloat(this.salaire.avance_slaire),
                   prise_en_charge_frais_bancaire:  parseFloat(this.salaire.prise_en_charge_frais_bancaire),
                   net_a_payer: parseFloat(this.salaire.net_a_payer),
-                  statut: 'Traitement',
+                  statut: this.isPublie ? 'Disponible' : 'Traitement',
                   signature: this.currentUser.matricule,
                   update_created: new Date(),
                   entreprise: this.currentUser.entreprise,
                   code_entreprise: this.currentUser.code_entreprise
                 });
-              } 
+              }
             });
 
             this.onChanges();
-
-            this.isLoading = false; 
+            this.isLoading = false;
           });
         },
         error: (error) => {
@@ -146,28 +164,15 @@ export class FichePaieComponent implements OnInit {
 
     onChanges(): void {
       this.formGroup.valueChanges.subscribe(val => {
-        console.log('salaire_base', val.salaire_base);
-        console.log('alloc_logement', val.alloc_logement);
-        console.log('alloc_transport', val.alloc_transport);
-        console.log('alloc_familliale', val.alloc_familliale);
-        console.log('primes', val.primes);
-        console.log('priprime_anciennetemes', val.prime_anciennete);
-        console.log('heureSupplementaireMonnaie', val.heureSupplementaireMonnaie);
 
-        // Variables 
-        this.alloc_logement = +val.alloc_logement; 
- 
- 
-      
-      if (this.salaire.conge_paye >= 1) {
-        this.salaire_base = (+val.salaire_base * this.salaire.nbre_jrs_preste) * 2/3;
-      } else {
-        this.salaire_base = +val.salaire_base * this.salaire.nbre_jrs_preste; 
-      } 
-      
- 
+      // Variables
+      // this.alloc_logement = +val.alloc_logement;
+      this.salaire_base = +val.salaire_base;
+      this.soins_medicaux = +val.soins_medicaux;
+
+      // Aciennetés
       if (this.salaire.anciennete_nbr_age >=5) {
-        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_5 / 100; 
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_5 / 100;
       } else if(this.salaire.anciennete_nbr_age >=10) {
         this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_10 / 100; 
       } else if(this.salaire.anciennete_nbr_age >=15) {
@@ -176,8 +181,6 @@ export class FichePaieComponent implements OnInit {
         this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_20 / 100; 
       } else if(this.salaire.anciennete_nbr_age >=25) {
         this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_25 / 100; 
-      } else {
-        this.prime_anciennete = 0;
       }
 
       // Se refère dans les donnés de heures pour les conditions
@@ -187,27 +190,73 @@ export class FichePaieComponent implements OnInit {
         this.heureSupplementaireMonnaie = this.salaire_base * 60 / 100;
       } else if(this.salaire.heures_supp >= 8) {
         this.heureSupplementaireMonnaie = this.salaire_base * 100 / 100;
-      } else {
-        this.heureSupplementaireMonnaie = 0;
       }
+ 
 
-      this.alloc_familliale = +val.alloc_familliale * this.salaire.personnel.nbr_dependants * this.salaire.nbre_jrs_preste;
-      this.alloc_transport = +val.alloc_transport * this.salaire.nbre_jrs_preste;
-  
       // Remuneration Brute impôsable
-      this.rbi = +this.salaire_base + +val.primes + +this.prime_anciennete + +this.heureSupplementaireMonnaie;
+      this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heureSupplementaireMonnaie;
+      console.log('this.rbi ', this.rbi); 
 
-      // this.rbi = +this.salaire_base + +this.alloc_logement + 
-      //             +this.alloc_transport + +this.alloc_familliale +
-      //             +val.primes + +this.prime_anciennete + 
-      //               +this.heureSupplementaireMonnaie; 
+
+      // Avantages sociaux
+      this.alloc_familliale = +val.alloc_familliale;
+      this.alloc_transport = +val.alloc_transport;
+      this.alloc_logement = +val.alloc_logement;
+
+
+      // L'allocation familliale
+      this.alloc_famillialePlafond = (parseFloat(this.preference.smig) *  
+            this.salaire.personnel.nbr_dependants * this.salaire.nbre_jrs_preste);
+
+       var alloc_famillialeExces = 0;
+        if (this.alloc_familliale > this.alloc_famillialePlafond) {
+          alloc_famillialeExces = this.alloc_familliale - this.alloc_famillialePlafond;
+        } else if (this.alloc_famillialePlafond <= this.alloc_familliale) {
+          alloc_famillialeExces = 0;
+        } 
+
+        
+        // L'allocation transport
+        if (this.salaire.personnel.category === 'Cadres supérieurs' ||
+            this.salaire.personnel.category === 'Cadres subalternes') {
+              this.alloc_transportPlafond = (this.preference.courses_transport * 
+                parseFloat(this.preference.montant_travailler_quadre) * this.salaire.nbre_jrs_preste);  
+        } else {
+          this.alloc_transportPlafond = (this.preference.courses_transport * 
+            parseFloat(this.preference.montant_travailler_non_quadre) * this.salaire.nbre_jrs_preste);  
+        }
+
+        var alloc_transportExces = 0;
+        if (this.alloc_transport > this.alloc_transportPlafond) {
+          alloc_transportExces = this.alloc_transport - this.alloc_transportPlafond;
+        } else if (this.alloc_transport <= this.alloc_transportPlafond) {
+          alloc_transportExces = 0;
+        } 
+
+        // L'allocation logement à ne pas dépasser
+        this.alloc_logementPlafond = this.rbi * 30 / 100; // Le logement ne depasse le 30% de rbi 
+        
+        var alloc_logementExces = 0;
+        if (this.alloc_logement > this.alloc_logementPlafond) {
+          alloc_logementExces = this.alloc_logement - this.alloc_logementPlafond;
+        } else if (this.alloc_logement <= this.alloc_logementPlafond) {
+          alloc_logementExces = 0;
+        }
+
+        console.log('alloc_logementPlafond', this.alloc_logementPlafond);
       
+      // Redressement de la base net imposable
+      this.redressement = (alloc_famillialeExces + alloc_transportExces + alloc_logementExces);
 
-      this.cnss_qpo = this.rbi * parseFloat(this.preference.cnss_qpo) / 100;
+      // NETTE IMPOSABELE
+      this.cnss_qpo = this.rbi * parseFloat(this.preference.cnss_qpo) / 100; // (RBI * CNSQPO)
 
       // Remuneration Nette impôsable
-      this.rni = this.rbi - this.cnss_qpo; // RNI = RBI-(RBI * CNSQPO)
+      this.rni = this.rbi - this.cnss_qpo + this.redressement; // RNI = RBI-(RBI * CNSQPO)
+      // this.rni = this.rbi - this.cnss_qpo + alloc_famillialeExces + 
+      //     alloc_transportExces + alloc_logementExces; 
 
+      
 
     // Calcul IPR retenu
       var iprRetenu = 0;
@@ -231,9 +280,18 @@ export class FichePaieComponent implements OnInit {
         iprRetenu = (this.rni - +this.preference.bareme_30) * 40 / 100 + iprTrois + iprQuinze + iprTrente;
       }
 
-
+ 
       // IPR à payé 
       this.ipr = iprRetenu - (iprRetenu * this.salaire.personnel.nbr_dependants * 2 / 100);
+
+      // Impôt Elide trouvé 
+      this.impot_elide = this.redressement - this.ipr;
+
+      if (this.impot_elide > 0) {
+        this.impot_elide = this.impot_elide;
+      } else {
+        this.impot_elide = 0;
+      }
 
    
       if (this.salaire.personnel.syndicat) {
@@ -244,20 +302,13 @@ export class FichePaieComponent implements OnInit {
       if(this.preference.prise_en_charge_frais_bancaire) {
         this.prise_en_charge_frais_bancaire = parseFloat(this.salaire.personnel.frais_bancaire);
       }
-      
 
       var deductions = this.ipr + this.penalites + this.avance_slaire + this.syndicat;
 
-      var avantageSocials = +this.alloc_logement + +this.alloc_familliale  +  +val.primes + 
-        +this.prime_anciennete + +this.heureSupplementaireMonnaie + +this.prise_en_charge_frais_bancaire;
-
-      // var avantageSocials = ++val.primes + +this.prime_anciennete + +this.heureSupplementaireMonnaie + 
-      //       +this.prise_en_charge_frais_bancaire;
-
-        console.log("avantageSocials", avantageSocials);
-        console.log("deductions", deductions);
-        console.log("+this.alloc_familliale", +this.alloc_familliale);
-      
+      var avantageSocials = +this.alloc_logement + +this.alloc_familliale  +  +val.primes +
+        +this.prime_anciennete + +this.heureSupplementaireMonnaie + 
+          +this.prise_en_charge_frais_bancaire + +val.soins_medicaux;
+ 
 
         let net_a_payE = this.rni + avantageSocials - deductions;
 
@@ -271,6 +322,12 @@ export class FichePaieComponent implements OnInit {
     onSubmit() {
       try {
         this.isLoading = true;
+        this.formGroup.patchValue({
+          impot_elide: this.impot_elide,
+          statut: this.isPublie ? 'Disponible' : 'Traitement',
+          signature: this.currentUser.matricule, 
+          update_created: new Date(),
+        });
         this.salaireService.update(this.salaire.id, this.formGroup.getRawValue())
         .subscribe({
           next: () => {

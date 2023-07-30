@@ -132,6 +132,7 @@ export class PaieViewComponent implements OnInit {
         var alloc_famillialeMonnaie = 0;
         var alloc_transportMonnaie = 0;
         var alloc_logementMonnaie = 0;
+        var soins_medicauxMonnaie = 0;
         var primeMonnaie = 0;
         var penaliteMonnaie = 0;
         var avanceSalaireMonnaie = 0;
@@ -141,6 +142,7 @@ export class PaieViewComponent implements OnInit {
             alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale) * this.preference.taux_dollard;
             alloc_transportMonnaie = parseFloat(this.personne.alloc_transport) * this.preference.taux_dollard;
             alloc_logementMonnaie = parseFloat(this.personne.alloc_logement) * this.preference.taux_dollard;
+            soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux) * this.preference.taux_dollard;
             primeMonnaie = this.primeNbr * this.preference.taux_dollard;
             penaliteMonnaie = this.penaliteNbr * this.preference.taux_dollard;
             avanceSalaireMonnaie = this.avanceSalaireNbr * this.preference.taux_dollard;
@@ -150,6 +152,7 @@ export class PaieViewComponent implements OnInit {
             alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale) * this.preference.taux_dollard;
             alloc_transportMonnaie = parseFloat(this.personne.alloc_transport) * this.preference.taux_dollard;
             alloc_logementMonnaie = parseFloat(this.personne.alloc_logement) * this.preference.taux_dollard;
+            soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux) * this.preference.taux_dollard;
             primeMonnaie = this.primeNbr * this.preference.taux_dollard;
             penaliteMonnaie = this.penaliteNbr * this.preference.taux_dollard;
             avanceSalaireMonnaie = this.avanceSalaireNbr * this.preference.taux_dollard; 
@@ -158,6 +161,7 @@ export class PaieViewComponent implements OnInit {
           alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale);
           alloc_transportMonnaie = parseFloat(this.personne.alloc_transport);
           alloc_logementMonnaie = parseFloat(this.personne.alloc_logement);
+          soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux);
           primeMonnaie = this.primeNbr;
           penaliteMonnaie = this.penaliteNbr;
           avanceSalaireMonnaie = this.avanceSalaireNbr;
@@ -195,19 +199,55 @@ export class PaieViewComponent implements OnInit {
         }
 
         var alloc_familliale = alloc_famillialeMonnaie * this.personne.nbr_dependants * this.nbreJrsPreste;
+        var alloc_famillialeSurPlus = alloc_familliale - (parseFloat(this.preference.smig) * this.personne.nbr_dependants * this.nbreJrsPreste);
+
         var alloc_transport = alloc_transportMonnaie * this.nbreJrsPreste;
 
+        var alloc_transportSurplus = 0;
+        if (this.personne.category === 'Cadres supérieurs' || this.personne.category === 'Cadres subalternes') {
+          alloc_transportSurplus = alloc_transport - (this.preference.courses_transport * parseFloat(this.preference.montant_travailler_quadre) * this.nbreJrsPreste);
+        } else {
+          alloc_transportSurplus = alloc_transport - (this.preference.courses_transport * parseFloat(this.preference.montant_travailler_non_quadre) * this.nbreJrsPreste);
+        }
+       
+ 
+
         // Remuneration Brute impôsable
-        var rbi = salaire_base + alloc_logementMonnaie + 
-            alloc_transport + alloc_familliale +
-            primeMonnaie + ancennete + heureSupplementaireMonnaie;
+        var rbi = salaire_base + 
+            primeMonnaie + ancennete + heureSupplementaireMonnaie; 
+          console.log('rbi', salaire_base + 
+            primeMonnaie + ancennete + heureSupplementaireMonnaie);
 
-        var cnss_qpo = 0;
+        var alloc_logementSurPlus = alloc_logementMonnaie - (30 * rbi / 100); // Le logement ne depasse le 30% de rbi
 
-        cnss_qpo = rbi * parseFloat(this.preference.cnss_qpo) / 100;
+
+        var alloc_famillialeExces = 0;
+        if (alloc_famillialeSurPlus > alloc_familliale) {
+          alloc_famillialeExces = alloc_familliale - alloc_famillialeSurPlus;
+        } else if (alloc_famillialeSurPlus <= alloc_familliale) {
+          alloc_famillialeExces = 0;
+        }
+
+        var alloc_transportExces = 0;
+        if (alloc_transportSurplus > alloc_transport) {
+          alloc_transportExces = alloc_transport - alloc_transportSurplus;
+        } else if (alloc_transportSurplus <= alloc_transport) {
+          alloc_transportExces = 0;
+        }
+
+        var alloc_logementExces = 0;
+        if (alloc_logementSurPlus > alloc_logementMonnaie) {
+          alloc_logementExces = alloc_logementMonnaie - alloc_logementSurPlus;
+        } else if (alloc_logementSurPlus <= alloc_logementMonnaie) {
+          alloc_logementExces = 0;
+        }
 
         // Remuneration Nette impôsable
-        var rni = rbi - cnss_qpo; // RNI = RBI-(RBI * CNSQPO)
+        var cnss_qpo = 0;
+        cnss_qpo = rbi * parseFloat(this.preference.cnss_qpo) / 100;
+
+        // RNI = RBI-(RBI * CNSQPO) + ReIntegrations
+        var rni = rbi - (cnss_qpo + alloc_famillialeExces + alloc_transportExces + alloc_logementExces); 
 
 
         // Calcul IPR retenu
@@ -233,6 +273,12 @@ export class PaieViewComponent implements OnInit {
         } 
 
 
+        // Impôt Elide
+        var impotElide = iprRetenu - (alloc_famillialeExces + alloc_transportExces + alloc_logementExces);
+
+        console.log("impotElide", impotElide);
+
+
         // IPR à payé
         var iprApeyE = 0; 
         var iprApeyE = iprRetenu - (iprRetenu * this.personne.nbr_dependants * 2 / 100);
@@ -253,8 +299,8 @@ export class PaieViewComponent implements OnInit {
         var deductions = iprApeyE + penaliteMonnaie + avanceSalaireMonnaie + syndicat;
 
         var avantageSocials = alloc_logementMonnaie + 
-            alloc_transport + alloc_familliale +
-            primeMonnaie + ancennete + heureSupplementaireMonnaie + prise_en_charge_frais_bancaireMonnaie;
+          alloc_transport + alloc_familliale +
+          primeMonnaie + ancennete + heureSupplementaireMonnaie + prise_en_charge_frais_bancaireMonnaie;
         
 
         var net_a_payer = rni + avantageSocials - deductions;
@@ -267,6 +313,7 @@ export class PaieViewComponent implements OnInit {
           alloc_logement: alloc_logementMonnaie,
           alloc_transport: alloc_transport,
           alloc_familliale: alloc_familliale,
+          soins_medicaux: soins_medicauxMonnaie,
           salaire_base: salaire_base,  // Par jour * 26
           primes: primeMonnaie,
           anciennete_nbr_age: this.primeAncennete, //Nombre d'age d'ancienneté
@@ -279,6 +326,7 @@ export class PaieViewComponent implements OnInit {
           cnss_qpo: cnss_qpo, // Impôt de 5% => 0.05
           rni: rni,  // Remuneration Nette Imposable
           ipr: iprApeyE,  // Impôt Professionnel sur les Rémunérations (IPR)
+          impot_elide: impotElide,
           syndicat: syndicat,  // 1 %
           penalites: penaliteMonnaie,  // Sanctions sur le salaire net à payer
           avance_slaire: avanceSalaireMonnaie,
@@ -304,7 +352,7 @@ export class PaieViewComponent implements OnInit {
             };
             this.personnelService.update(this.personne.id, personnel).subscribe({
               next: personne => {
-                this.isLoadingSubmit = false; 
+                this.isLoadingSubmit = false;
                 console.log(personne);
                 this.toastr.success('Success!', 'Genéré avec succès!');
                 this.router.navigate(['/layouts/salaires/traitement', res['id'], 'fiche-paie']);
