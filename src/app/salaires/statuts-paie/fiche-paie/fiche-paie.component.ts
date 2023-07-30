@@ -165,8 +165,7 @@ export class FichePaieComponent implements OnInit {
     onChanges(): void {
       this.formGroup.valueChanges.subscribe(val => {
 
-      // Variables
-      // this.alloc_logement = +val.alloc_logement;
+      // Variables 
       this.salaire_base = +val.salaire_base;
       this.soins_medicaux = +val.soins_medicaux;
 
@@ -174,13 +173,13 @@ export class FichePaieComponent implements OnInit {
       if (this.salaire.anciennete_nbr_age >=5) {
         this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_5 / 100;
       } else if(this.salaire.anciennete_nbr_age >=10) {
-        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_10 / 100; 
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_10 / 100;
       } else if(this.salaire.anciennete_nbr_age >=15) {
-        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_15 / 100; 
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_15 / 100;
       } else if(this.salaire.anciennete_nbr_age >=20) {
-        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_20 / 100; 
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_20 / 100;
       } else if(this.salaire.anciennete_nbr_age >=25) {
-        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_25 / 100; 
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_25 / 100;
       }
 
       // Se refère dans les donnés de heures pour les conditions
@@ -194,8 +193,7 @@ export class FichePaieComponent implements OnInit {
  
 
       // Remuneration Brute impôsable
-      this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heureSupplementaireMonnaie;
-      console.log('this.rbi ', this.rbi); 
+      this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heureSupplementaireMonnaie; 
 
 
       // Avantages sociaux
@@ -215,7 +213,6 @@ export class FichePaieComponent implements OnInit {
           alloc_famillialeExces = 0;
         } 
 
-        
         // L'allocation transport
         if (this.salaire.personnel.category === 'Cadres supérieurs' ||
             this.salaire.personnel.category === 'Cadres subalternes') {
@@ -241,9 +238,7 @@ export class FichePaieComponent implements OnInit {
           alloc_logementExces = this.alloc_logement - this.alloc_logementPlafond;
         } else if (this.alloc_logement <= this.alloc_logementPlafond) {
           alloc_logementExces = 0;
-        }
-
-        console.log('alloc_logementPlafond', this.alloc_logementPlafond);
+        } 
       
       // Redressement de la base net imposable
       this.redressement = (alloc_famillialeExces + alloc_transportExces + alloc_logementExces);
@@ -252,9 +247,7 @@ export class FichePaieComponent implements OnInit {
       this.cnss_qpo = this.rbi * parseFloat(this.preference.cnss_qpo) / 100; // (RBI * CNSQPO)
 
       // Remuneration Nette impôsable
-      this.rni = this.rbi - this.cnss_qpo + this.redressement; // RNI = RBI-(RBI * CNSQPO)
-      // this.rni = this.rbi - this.cnss_qpo + alloc_famillialeExces + 
-      //     alloc_transportExces + alloc_logementExces; 
+      this.rni = this.rbi - this.cnss_qpo + this.redressement; // RNI = RBI-(RBI * CNSQPO) 
 
       
 
@@ -331,7 +324,7 @@ export class FichePaieComponent implements OnInit {
         this.salaireService.update(this.salaire.id, this.formGroup.getRawValue())
         .subscribe({
           next: () => {
-            this.toastr.success('Traitement enregistré!', 'Success!');
+            this.toastr.success(this.isPublie ? 'Bulletin publié' : 'Traitement enregistré', 'Success!');
             this.formGroup.reset();
             this.router.navigate(['/layouts/salaires/statuts-paies']);
             this.isLoading = false;
@@ -366,7 +359,7 @@ export class FichePaieComponent implements OnInit {
             this.salaireService
             .delete(id)
             .subscribe(() => { 
-              this.toastr.info('Success!', 'Supprimé avec succès!');
+              this.toastr.info('Supprimé avec succès!', 'Supprimée!');
               this.router.navigate(['/layouts/salaires/statuts-paies']);
             }); 
           },
@@ -377,11 +370,7 @@ export class FichePaieComponent implements OnInit {
         });
         
       }
-    }
-
-    
-       
-        
+    } 
   
     toggleTheme() {
       this.themeService.toggleTheme();
