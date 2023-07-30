@@ -106,7 +106,8 @@ import { PaieViewComponent } from './salaires/list-paiments/paie-view/paie-view.
 import { RelevePaieTableComponent } from './salaires/list-paiments/paie-view/releve-paie-table/releve-paie-table.component';
 import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
 import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component';
-import { NumberFormatPipe } from './pipes/number-format.pipe';  
+import { NumberFormatPipe } from './pipes/number-format.pipe'; 
+import { RelevePaieComponent } from './salaires/releve-paie/releve-paie.component';  
 
 
 @NgModule({
@@ -217,7 +218,8 @@ import { NumberFormatPipe } from './pipes/number-format.pipe';
     FichePaieComponent,
     BulletinPaieComponent,
     PenaliteSAddDialogBox,
-    NumberFormatPipe,
+    NumberFormatPipe, 
+    RelevePaieComponent,
   ],
   imports: [
     BrowserModule,

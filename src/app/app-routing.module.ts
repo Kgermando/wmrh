@@ -51,7 +51,8 @@ import { StatutsPaieComponent } from './salaires/statuts-paie/statuts-paie.compo
 import { ListPaimentsComponent } from './salaires/list-paiments/list-paiments.component';
 import { PaieViewComponent } from './salaires/list-paiments/paie-view/paie-view.component';
 import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
-import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component';
+import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component'; 
+import { RelevePaieComponent } from './salaires/releve-paie/releve-paie.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -105,7 +106,8 @@ const routes: Routes = [
     { path: 'salaires/liste-paiements/:id/paie-view', component: PaieViewComponent },
     { path: 'salaires/statuts-paies', component: StatutsPaieComponent },
     { path: 'salaires/traitement/:id/fiche-paie', component: FichePaieComponent },
-    { path: 'salaires/disponible/:id/bulletin-paie', component: BulletinPaieComponent },
+    { path: 'salaires/disponible/:id/bulletin-paie', component: BulletinPaieComponent }, 
+    { path: 'salaires/releve-paie', component: RelevePaieComponent },
     
 
     { path: 'horaire', component: HoraireComponent },

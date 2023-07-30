@@ -36,6 +36,24 @@ export class SalaireService extends ApiService {
   getAnciennete(code_entreprise: string, id: number, date_debut_contrat: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-date-debut-contrat/${code_entreprise}/${id}/${date_debut_contrat}`);
   }
+
+
+  netAPayerTotal(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-net-a-payer-total/${code_entreprise}`);
+  }
+
+  iprTotal(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-ipr-total/${code_entreprise}`);
+  }
+
+  cnssQPOTotal(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-cnss-qpo-total/${code_entreprise}`);
+  }
+
+  fraisBancaireTotal(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-frais-bancaire-total/${code_entreprise}`);
+  }
+ 
 }
 
 
