@@ -69,7 +69,6 @@ export class PointageSidebarComponent implements OnInit {
                         this.personnelList = res; 
                         this.personnelFilter = [...this.personnelList];
                         this.presenceService.getItemsPAAA(this.currentUser.code_entreprise).subscribe(res => {
-                          console.log(res);
                           this.itemsPAAAList = res;
                           this.itemsPList = this.itemsPAAAList.filter(v => v.apointement === 'P');
                           this.itemsAList = this.itemsPAAAList.filter(v => v.apointement === 'A');

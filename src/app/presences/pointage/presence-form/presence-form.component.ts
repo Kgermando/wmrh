@@ -109,10 +109,7 @@ export class PresenceFormComponent {
         var dataSortie = new Date(this.apointementItem.date_sortie);
   
         const datePresenceSortie = formatDate(dataSortie, 'dd-MM-yyyy', 'en-US');
-        const dateAujourdui = formatDate(dateToday, 'dd-MM-yyyy', 'en-US');
-  
-        console.log(datePresenceSortie < dateAujourdui);
-  
+        const dateAujourdui = formatDate(dateToday, 'dd-MM-yyyy', 'en-US'); 
   
         if (this.apointementItem.apointement === 'P') {
           if (dateEntreeDay === day && dateEntreeMonth === dayMonth && dateEntreeYear === dayYear) {
