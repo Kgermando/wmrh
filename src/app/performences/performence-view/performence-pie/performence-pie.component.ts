@@ -34,68 +34,21 @@ export type ChartOptions = {
 export class PerformencePieComponent {
   @Input('personne') personne: PersonnelModel; 
 
-  isSelect = 'Mois';  
-    
-  @ViewChild("chart") chart: ChartComponent;
-    public chartOptions: Partial<ChartOptions>;
-    isLoading = false;
-    currentUser: PersonnelModel | any;
+  isSelect = 'Année';  
 
-    travailTotal = 0;
-    hospitaliteTotal = 0;
-    ponctualiteTotal = 0;
   
     constructor(
         public themeService: CustomizerSettingsService,
-        private router: Router,
-        private authService: AuthService,
-        private performenceService: PerformenceService,
     ) {  } 
 
 
     onSelectChange(event: any) {
       console.log(event.value);
-      if (event.value === 'Mois') {
-        this.isSelect = 'Mois';
-      } else if(event.value === 'Année') {
+      if(event.value === 'Année') {
         this.isSelect = 'Année';
       } else if(event.value === 'All') {
         this.isSelect = 'All';
       }
-       
     }
-
-    ngOnInit(): void {
-      this.isLoading = true;
-        this.authService.user().subscribe({
-          next: (user) => {
-            this.currentUser = user;
-            this.performenceService.ponctualiteTotal(this.currentUser.code_entreprise, this.personne.id).subscribe(
-              res => {
-                var ponctualites = res; 
-                ponctualites.map((item: any) => this.ponctualiteTotal = parseFloat(item.sum)); 
-              }
-            );
-            this.performenceService.travailTotal(this.currentUser.code_entreprise, this.personne.id).subscribe(
-              res => {
-                var travails = res; 
-                travails.map((item: any) => this.travailTotal = parseFloat(item.sum)); 
-              }
-            );
-            this.performenceService.hospitaliteTotal(this.currentUser.code_entreprise, this.personne.id).subscribe(
-              res => {
-                var hospitalite = res; 
-                hospitalite.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum)); 
-              }
-            );
-          },
-          error: (error) => {
-            this.router.navigate(['/auth/login']);
-            console.log(error);
-          }
-        });  
-        this.isLoading = false;
-    }
-
  
 }

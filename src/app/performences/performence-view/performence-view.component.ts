@@ -6,7 +6,7 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { PerformenceService } from '../performence.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 
 @Component({
@@ -53,16 +53,8 @@ export class PerformenceViewComponent implements OnInit {
  
 
 
-    openAddDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    openAddDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
       this.dialog.open(PerformenceAddDialogBox, {
-        width: '600px',
-        enterAnimationDuration,
-        exitAnimationDuration, 
-      }); 
-    } 
-
-    openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
-      this.dialog.open(EditPerformenceDialogBox, {
         width: '600px',
         enterAnimationDuration,
         exitAnimationDuration,
@@ -70,7 +62,7 @@ export class PerformenceViewComponent implements OnInit {
           id: id
         }
       }); 
-    } 
+    }  
   
     toggleTheme() {
       this.themeService.toggleTheme();
@@ -91,15 +83,13 @@ export class PerformenceAddDialogBox implements OnInit {
 
   currentUser: PersonnelModel | any;
 
-  personneList: PersonnelModel[] = [];
-
   constructor( 
+    @Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialogRef<PerformenceAddDialogBox>,
       private formBuilder: FormBuilder,
       private router: Router,
       private authService: AuthService, 
-      private toastr: ToastrService,
-      private personnelService: PersonnelService,
+      private toastr: ToastrService, 
       private performenceService: PerformenceService,
   ) {}
   
@@ -109,24 +99,58 @@ export class PerformenceAddDialogBox implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.personneList = res;
-        });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    }); 
-    this.formGroup = this.formBuilder.group({ 
-      personnel: ['', Validators.required],
-      ponctualite: ['', Validators.required],
-      hospitalite: ['', Validators.required],
-      travail: ['', Validators.required],
-      observation: ['', Validators.required], 
+    });
+    this.formGroup = this.formBuilder.group({  
+      ponctualite: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[0-9]*$'), 
+        this.defaultValueOrRangeValidator(
+          0,
+          Validators.min(0),
+          Validators.max(10)
+        ),
+      ]),
+      hospitalite: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[0-9]*$'), 
+        this.defaultValueOrRangeValidator(
+          0,
+          Validators.min(0),
+          Validators.max(10)
+        ),
+      ]),
+      travail: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[0-9]*$'), 
+        this.defaultValueOrRangeValidator(
+          0,
+          Validators.min(0),
+          Validators.max(10)
+        ),
+      ]),
+      observation: new FormControl('', [Validators.required]),  
+
     }); 
  
   } 
+
+  defaultValueOrRangeValidator(
+    defaultValue: number,
+    ...rangeValidators: ValidatorFn[]
+  ): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | any => {
+      if (control.value == defaultValue) return null;
+
+      for (let validator of rangeValidators) {
+        if (validator(control)) return validator(control);
+      }
+    };
+  }
 
 
   onSubmit() {
@@ -134,7 +158,7 @@ export class PerformenceAddDialogBox implements OnInit {
       this.isLoading = true; 
       if (this.formGroup.valid) {
         var body = {
-          personnel: this.formGroup.value.personnel,
+          personnel: this.data['id'],
           ponctualite: this.formGroup.value.ponctualite,
           hospitalite: this.formGroup.value.hospitalite,
           travail: this.formGroup.value.travail,
@@ -174,93 +198,3 @@ export class PerformenceAddDialogBox implements OnInit {
 
 
 
-@Component({
-  selector: 'edit-performence-dialog',
-  templateUrl: './performence-edit.html',
-})
-export class EditPerformenceDialogBox implements OnInit{
-  isLoading = false;
-
-  formGroup!: FormGroup;
- 
-
-  currentUser: PersonnelModel | any;
-
-  personneList: PersonnelModel[] = [];
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-      public dialogRef: MatDialogRef<EditPerformenceDialogBox>,
-      private formBuilder: FormBuilder,
-      private router: Router,
-      private authService: AuthService, 
-      private toastr: ToastrService,
-      private personnelService: PersonnelService,
-      private performenceService: PerformenceService,
-  ) {}
-  
-
-
-  ngOnInit(): void {
-    this.authService.user().subscribe({
-      next: (user) => {
-        this.currentUser = user;
-        this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.personneList = res;
-        });
-      },
-      error: (error) => {
-        this.router.navigate(['/auth/login']);
-        console.log(error);
-      }
-    });
-    this.formGroup = this.formBuilder.group({ 
-      personnel: [''],
-      intitule: [''],
-      montant: [''],
-    }); 
-    
-    this.performenceService.get(parseInt(this.data['id'])).subscribe(item => {
-      this.formGroup.patchValue({
-        personnel: item.personnel, 
-        ponctualite: item.ponctualite,
-        hospitalite: item.hospitalite,
-        travail: item.travail,
-        observation: item.observation,
-        signature: this.currentUser.matricule, 
-        update_created: new Date(),
-      });
-    });
- 
-  } 
-
-
-  onSubmit() {
-    try {
-      this.isLoading = true;
-      this.performenceService.update(parseInt(this.data['id']), this.formGroup.getRawValue())
-      .subscribe({
-        next: () => {
-          this.isLoading = false;
-          this.toastr.success('Modification enregistré!', 'Success!');
-          window.location.reload(); 
-        },
-        error: err => {
-          console.log(err);
-          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-          this.isLoading = false;
-        }
-      });
-
-      this.isLoading = false;
-    } catch (error) {
-      this.isLoading = false;
-      console.log(error);
-    }
-  }
-
-  close(){
-      this.dialogRef.close(true);
-  } 
-
-}

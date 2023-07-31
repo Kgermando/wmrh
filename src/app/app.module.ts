@@ -108,13 +108,12 @@ import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-pai
 import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component';
 import { NumberFormatPipe } from './pipes/number-format.pipe'; 
 import { RelevePaieComponent } from './salaires/releve-paie/releve-paie.component'; 
-import { EditPerformenceDialogBox, PerformenceAddDialogBox, PerformenceViewComponent } from './performences/performence-view/performence-view.component';
+import { PerformenceAddDialogBox, PerformenceViewComponent } from './performences/performence-view/performence-view.component';
 import { HospitaliteComponent } from './performences/hospitalite/hospitalite.component';
 import { TravailComponent } from './performences/travail/travail.component';
 import { PonctualiteComponent } from './performences/ponctualite/ponctualite.component';
-import { PerformenceTableComponent } from './performences/performence-view/performence-table/performence-table.component'; 
-import { PerformencePieComponent } from './performences/performence-view/performence-pie/performence-pie.component';
-import { PerformencePieMonthComponent } from './performences/performence-view/performence-pie/performence-pie-month/performence-pie-month.component';
+import { EditPerformenceDialogBox, PerformenceTableComponent } from './performences/performence-view/performence-table/performence-table.component'; 
+import { PerformencePieComponent } from './performences/performence-view/performence-pie/performence-pie.component'; 
 import { PerformencePieYearComponent } from './performences/performence-view/performence-pie/performence-pie-year/performence-pie-year.component';
 import { PerformencePieAllComponent } from './performences/performence-view/performence-pie/performence-pie-all/performence-pie-all.component';  
 
@@ -236,8 +235,7 @@ import { PerformencePieAllComponent } from './performences/performence-view/perf
     PonctualiteComponent,
     EditPerformenceDialogBox,
     PerformenceTableComponent, 
-    PerformencePieComponent,
-    PerformencePieMonthComponent,
+    PerformencePieComponent, 
     PerformencePieYearComponent,
     PerformencePieAllComponent,
   ],
