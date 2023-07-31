@@ -1,0 +1,43 @@
+<mat-card
+    class="mb-25 tagus-card milestones-overview-box"
+>
+    <mat-card-header class="border-bottom">
+        <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  (selectionChange)="onSelectChange($event)">
+            <mat-option *ngFor="let select of ['Mois', 'Année', 'All']" [value]="select">Filtre par {{select.toUpperCase()}}</mat-option>
+        </mat-select> 
+    </mat-card-header>
+    <mat-card-content>
+        <div *ngIf="isSelect == 'Mois'">
+            <app-performence-pie-month [personne]="personne"></app-performence-pie-month>
+         </div>
+         <div *ngIf="isSelect == 'Année'">
+            <app-performence-pie-year [personne]="personne"></app-performence-pie-year>
+         </div>
+         <div *ngIf="isSelect == 'All'">
+            <app-performence-pie-all [personne]="personne"></app-performence-pie-all>
+         </div>
+        <ul class="list d-flex align-items-center justify-content-space-between text-center mb-0">
+            <li class="muted-color fw-medium down">
+                <span class="d-block">Ponctualité</span>
+                <span class="gray-color d-inline-block position-relative badge text-soft-primary">
+                    <!-- <i class="flaticon-right-arrow"></i>  -->
+                    {{ponctualiteTotal}}
+                </span>
+            </li>
+            <li class="muted-color fw-medium">
+                <span class="d-block">Hospitalité</span>
+                <span class="gray-color d-inline-block position-relative badge text-soft-danger">
+                    <!-- <i class="flaticon-right-arrow"></i>  -->
+                    {{hospitaliteTotal}}
+                </span>
+            </li>
+            <li class="muted-color fw-medium down">
+                <span class="d-block">Travail</span>
+                <span class="gray-color d-inline-block position-relative badge text-soft-success">
+                    <!-- <i class="flaticon-right-arrow"></i>  -->
+                   {{travailTotal}}
+                </span>
+            </li>
+        </ul>
+    </mat-card-content>
+</mat-card>

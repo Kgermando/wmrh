@@ -6,18 +6,11 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
   templateUrl: './presences-pie.component.html',
   styleUrls: ['./presences-pie.component.scss']
 })
-export class PresencesPieComponent implements OnInit {
+export class PresencesPieComponent {
   @Input('personne') personne: PersonnelModel; 
 
   isSelect = 'Mois';
   
-  constructor() { }
-
-  
-    ngOnInit(): void {
-       
-    }
-
     onSelectChange(event: any) {
       console.log(event.value);
       if (event.value === 'Mois') {

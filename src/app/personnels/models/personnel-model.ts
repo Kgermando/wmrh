@@ -1,6 +1,7 @@
 import { AvanceSalaireModel } from "src/app/avance-salaires/models/avance-salaire-model";
 import { HeureSuppModel } from "src/app/heures-supp/models/heure-supp-model";
 import { PenaliteModel } from "src/app/penalites/models/penalite-model";
+import { PerformenceModel } from "src/app/performences/models/performence-model";
 import { ApointementModel } from "src/app/presences/models/presence-model";
 import { PrimeModel } from "src/app/primes/models/prime-model";
 import { SalaireModel } from "src/app/salaires/models/salaire-model";
@@ -61,6 +62,7 @@ export interface PersonnelModel {
     avances_salaires: AvanceSalaireModel[];
     heures_supp: HeureSuppModel[];
     salaires: SalaireModel[];
+    performences: PerformenceModel[];
     
     signature: string; 
     created: Date; 

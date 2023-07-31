@@ -53,6 +53,7 @@ import { PaieViewComponent } from './salaires/list-paiments/paie-view/paie-view.
 import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
 import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component'; 
 import { RelevePaieComponent } from './salaires/releve-paie/releve-paie.component';
+import { PerformenceViewComponent } from './performences/performence-view/performence-view.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -113,6 +114,7 @@ const routes: Routes = [
     { path: 'horaire', component: HoraireComponent },
 
     { path: 'performences', component: PerformencesComponent },
+    { path: 'performences/:id/performence-view', component: PerformenceViewComponent },
 
     { path: 'archives', component: ArchivesComponent },
 
