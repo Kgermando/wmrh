@@ -193,7 +193,7 @@ export class FichePaieComponent implements OnInit {
  
 
       // Remuneration Brute impôsable
-      this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heureSupplementaireMonnaie; 
+      this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heureSupplementaireMonnaie;
 
 
       // Avantages sociaux
@@ -241,7 +241,7 @@ export class FichePaieComponent implements OnInit {
         } 
       
       // Redressement de la base net imposable
-      this.redressement = (alloc_famillialeExces + alloc_transportExces + alloc_logementExces);
+      this.redressement = (alloc_famillialeExces + alloc_transportExces + alloc_logementExces + this.soins_medicaux);
 
       // NETTE IMPOSABELE
       this.cnss_qpo = this.rbi * parseFloat(this.preference.cnss_qpo) / 100; // (RBI * CNSQPO)

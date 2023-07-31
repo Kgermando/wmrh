@@ -21,7 +21,9 @@ export class RelevePaieComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['numero', 'matricule', 'fullname', 'departement', 'net_a_payer', 'compte', 'frais_bancaire', 'banque'];
   
-  ELEMENT_DATA: SalaireModel[] = []; 
+  ELEMENT_DATA: SalaireModel[] = [];
+
+  salaireList: SalaireModel[] = []; 
   
   dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<SalaireModel>(true, []);
@@ -59,10 +61,11 @@ export class RelevePaieComponent implements AfterViewInit {
             this.currentUser = user;
             this.salaireService.getAll(this.currentUser.code_entreprise).subscribe({
                 next: res => { 
-                    this.ELEMENT_DATA = res;
+                    this.salaireList = res;
+                    this.ELEMENT_DATA = this.salaireList.filter(v => v.statut == 'Disponible');
                     this.dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
                     this.dataSource.sort = this.sort;
-                    this.dataSource.paginator = this.paginator; 
+                    this.dataSource.paginator = this.paginator;
                     this.isLoading = false;
                 },
                 error: (err) => {
