@@ -43,10 +43,10 @@
         <mat-card class="single-stats-box tagus-card mb-25" style="background-color: aquamarine !important;">
             <span class="gray-color d-block mb-10">FILTRER Par</span>
             <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  
-                value="Employés"
+                value="All"
                 (selectionChange)="onSelectChange($event)">
                 <mat-option *ngFor="let select of ['Employés', 'Finances', 'Presences', 
-                'Recrutements', 'Archive, Stockage, Mail', 'All']" [value]="select">{{select.toUpperCase()}}</mat-option>
+                'Recrutements et Autres', 'All']" [value]="select">{{select.toUpperCase()}}</mat-option>
             </mat-select> 
             <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"
                         value="Mois"
@@ -55,4 +55,4 @@
             </mat-select> 
         </mat-card>  
     </div> 
-</div>
+</div> 
