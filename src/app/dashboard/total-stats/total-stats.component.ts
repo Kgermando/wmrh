@@ -22,7 +22,6 @@ export class TotalStatsComponent {
       } else if(event.value === 'All') {
         this.isSelect = 'All';
       }
-       
     }
 
 }

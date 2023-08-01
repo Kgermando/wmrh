@@ -116,7 +116,6 @@ import { EditPerformenceDialogBox, PerformenceTableComponent } from './performen
 import { PerformencePieComponent } from './performences/performence-view/performence-pie/performence-pie.component'; 
 import { PerformencePieYearComponent } from './performences/performence-view/performence-pie/performence-pie-year/performence-pie-year.component';
 import { PerformencePieAllComponent } from './performences/performence-view/performence-pie/performence-pie-all/performence-pie-all.component';
-import { EmployesComponent } from './dashboard/employes/employes.component';
  
 
 
@@ -239,8 +238,7 @@ import { EmployesComponent } from './dashboard/employes/employes.component';
     PerformenceTableComponent, 
     PerformencePieComponent, 
     PerformencePieYearComponent,
-    PerformencePieAllComponent, 
-    EmployesComponent,
+    PerformencePieAllComponent,
   ],
   imports: [
     BrowserModule,

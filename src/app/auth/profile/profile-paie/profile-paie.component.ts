@@ -9,7 +9,6 @@ import { CustomizerSettingsService } from 'src/app/customizer-settings/customize
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { SalaireModel } from 'src/app/salaires/models/salaire-model';
 import { AuthService } from '../../auth.service';
-import { SalaireService } from 'src/app/salaires/salaire.service';
 
 @Component({
   selector: 'app-profile-paie',
@@ -36,7 +35,6 @@ export class ProfilePaieComponent {
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService,
-      private salaireService: SalaireService
   ) {}
 
 
@@ -45,10 +43,10 @@ export class ProfilePaieComponent {
     this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user;
-            this.ELEMENT_DATA = this.currentUser.salaires.filter(v => v.statut == 'Disponible');
+            this.ELEMENT_DATA = this.currentUser.salaires;
             this.dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator; 
+            this.dataSource.paginator = this.paginator;
             this.isLoading = false; 
         },
         error: (error) => {

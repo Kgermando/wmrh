@@ -41,7 +41,7 @@
     </div>
     <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
         <mat-card class="single-stats-box tagus-card mb-25" style="background-color: aquamarine !important;">
-            <span class="gray-color d-block mb-10">FILTRES Par</span>
+            <span class="gray-color d-block mb-10">FILTRER Par</span>
             <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  
                 value="Employés"
                 (selectionChange)="onSelectChange($event)">
@@ -53,6 +53,6 @@
                     (selectionChange)="onSelectChange($event)">
                 <mat-option *ngFor="let select of ['Mois', 'Année', 'All']" [value]="select">{{select.toUpperCase()}}</mat-option>
             </mat-select> 
-        </mat-card>
+        </mat-card>  
     </div> 
 </div>
