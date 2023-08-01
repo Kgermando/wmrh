@@ -54,6 +54,40 @@ export class RelevePaieComponent implements AfterViewInit {
       this.themeService.toggleTheme();
   }
 
+  ngOnInit(): void {
+    const dateNow = new Date();
+    const dateMonth = dateNow.getMonth() + 1; 
+
+    if (dateMonth === 1) {
+        this.mois = 'Janvier';
+    } else if(dateMonth === 2) {
+        this.mois = 'Fevrier';
+    } else if(dateMonth === 3) {
+        this.mois = 'Mars';
+    } else if(dateMonth === 4) {
+        this.mois = 'Avril';
+    } else if(dateMonth === 5) {
+        this.mois = 'Mai';
+    } else if(dateMonth === 6) {
+        this.mois = 'Juin';
+    } else if(dateMonth === 7) {
+        this.mois = 'Juillet';
+    } else if(dateMonth === 8) {
+        this.mois = 'Aôut';
+    } else if(dateMonth === 9) {
+        this.mois = 'Septembre';
+    } else if(dateMonth === 10) {
+        this.mois = 'Octobre';
+    } else if(dateMonth === 11) {
+        this.mois = 'Novembre';
+    } else if(dateMonth === 12) {
+        this.mois = 'Décembre';
+    } else {
+        ''
+    }
+  }
+
+
   ngAfterViewInit() { 
     this.isLoading = true;
     this.authService.user().subscribe({

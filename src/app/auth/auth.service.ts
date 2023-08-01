@@ -46,4 +46,6 @@ export class AuthService {
   updatePassword(data: any): Observable<PersonnelModel> {
     return this.http.put<PersonnelModel>(`${environment.apiURL}/personnels/password`, data);
   }
+
+ 
 }

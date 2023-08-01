@@ -44,9 +44,7 @@ export class StatutsPaieComponent {
 
   ngOnInit(): void {
     const dateNow = new Date();
-    const dateMonth = dateNow.getMonth() + 1;
-
-    console.log(dateMonth);
+    const dateMonth = dateNow.getMonth() + 1; 
 
     if (dateMonth === 1) {
         this.mois = 'Janvier';

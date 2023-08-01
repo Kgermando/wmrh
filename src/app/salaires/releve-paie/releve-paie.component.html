@@ -4,9 +4,13 @@
 </div>
 
 <div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between" *ngIf="!isLoading">
-    <h2 class="mb-0">Relevé de paies</h2>
-    <div class="row bg-light-gray border-radius text-center p-30">
-         
+    <h2 class="mb-0">Relevé de paies de {{mois}}</h2>
+    <div class="row bg-light-gray border-radius text-center pl-10">
+        <div class="d-md-flex align-items-end justify-content-end">
+            <button mat-icon-button class="tagus">
+                <mat-icon>print</mat-icon>
+            </button>
+        </div> 
         <table class="table"> 
             <tbody>
                 <tr>
@@ -19,7 +23,7 @@
                             [readOnly]="true"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-sm"
-                            [valueAsNumber]="net_a_payer"
+                            [value]="net_a_payer"
                             > FC
                     </td>
                 </tr>
@@ -33,7 +37,7 @@
                             [readOnly]="true"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-sm"
-                            [valueAsNumber]="ipr"
+                            [value]="ipr"
                             > FC
                     </td>
                 </tr>
@@ -47,7 +51,7 @@
                             [readOnly]="true"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-sm"
-                            [valueAsNumber]="cnss"
+                            [value]="cnss"
                             > FC
                     </td>
                     
@@ -62,7 +66,7 @@
                             [readOnly]="true"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-sm"
-                            [valueAsNumber]="frais_bancaire"
+                            [value]="frais_bancaire"
                             > FC
                     </td> 
                 </tr>
@@ -78,9 +82,9 @@
     <table mat-table [dataSource]="dataSource">
         <!-- Position Column -->
         <ng-container matColumnDef="numero">
-            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <th mat-header-cell *matHeaderCellDef>N°.</th>
             <td mat-cell *matCellDef="let element;let i = index;">
-                {{ i + 1 }}
+                {{ i + 1 }}.
             </td>
         </ng-container>
     

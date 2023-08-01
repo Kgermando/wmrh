@@ -2,7 +2,9 @@
     class="mb-25 tagus-card milestones-overview-box"
 >
     <mat-card-header class="border-bottom">
-        <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  (selectionChange)="onSelectChange($event)">
+        <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  
+        value="Année" 
+            (selectionChange)="onSelectChange($event)">
             <mat-option *ngFor="let select of ['Année', 'All']" [value]="select">Filtre par {{select.toUpperCase()}}</mat-option>
         </mat-select> 
     </mat-card-header>

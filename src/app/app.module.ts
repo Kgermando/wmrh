@@ -115,7 +115,9 @@ import { PonctualiteComponent } from './performences/ponctualite/ponctualite.com
 import { EditPerformenceDialogBox, PerformenceTableComponent } from './performences/performence-view/performence-table/performence-table.component'; 
 import { PerformencePieComponent } from './performences/performence-view/performence-pie/performence-pie.component'; 
 import { PerformencePieYearComponent } from './performences/performence-view/performence-pie/performence-pie-year/performence-pie-year.component';
-import { PerformencePieAllComponent } from './performences/performence-view/performence-pie/performence-pie-all/performence-pie-all.component';  
+import { PerformencePieAllComponent } from './performences/performence-view/performence-pie/performence-pie-all/performence-pie-all.component';
+import { EmployesComponent } from './dashboard/employes/employes.component';
+ 
 
 
 @NgModule({
@@ -237,7 +239,8 @@ import { PerformencePieAllComponent } from './performences/performence-view/perf
     PerformenceTableComponent, 
     PerformencePieComponent, 
     PerformencePieYearComponent,
-    PerformencePieAllComponent,
+    PerformencePieAllComponent, 
+    EmployesComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,9 @@
             <button mat-menu-item type="button" class="bg-transparent border-none">All</button>
         </mat-menu> -->
         
-        <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  (selectionChange)="onSelectChange($event)">
+        <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none" 
+            value="Mois" 
+            (selectionChange)="onSelectChange($event)">
             <mat-option *ngFor="let select of ['Mois', 'Année', 'All']" [value]="select">Filtre par {{select.toUpperCase()}}</mat-option>
         </mat-select> 
     </mat-card-header>

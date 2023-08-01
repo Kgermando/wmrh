@@ -11,4 +11,18 @@ export class TotalStatsComponent {
     public themeService: CustomizerSettingsService
   ) {}
 
+  isSelect = 'Mois';
+  
+    onSelectChange(event: any) {
+      console.log(event.value);
+      if (event.value === 'Mois') {
+        this.isSelect = 'Mois';
+      } else if(event.value === 'Année') {
+        this.isSelect = 'Année';
+      } else if(event.value === 'All') {
+        this.isSelect = 'All';
+      }
+       
+    }
+
 }
