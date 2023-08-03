@@ -54,6 +54,7 @@ import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-pai
 import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component'; 
 import { RelevePaieComponent } from './salaires/releve-paie/releve-paie.component';
 import { PerformenceViewComponent } from './performences/performence-view/performence-view.component';
+import { PresEntrepriseComponent } from './salaires/pres-entreprise/pres-entreprise.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -109,6 +110,7 @@ const routes: Routes = [
     { path: 'salaires/traitement/:id/fiche-paie', component: FichePaieComponent },
     { path: 'salaires/disponible/:id/bulletin-paie', component: BulletinPaieComponent }, 
     { path: 'salaires/releve-paie', component: RelevePaieComponent },
+    { path: 'salaires/pres-entreprise', component: PresEntrepriseComponent },
     
 
     { path: 'horaire', component: HoraireComponent },

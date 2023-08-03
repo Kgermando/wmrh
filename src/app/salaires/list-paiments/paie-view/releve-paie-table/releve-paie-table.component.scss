@@ -1277,37 +1277,19 @@
                 }
             }
         }
-    }
-    .component-rtl-enabled {
-        .best-selling-products-table {
-            table, .table {
-                tbody {
-                    tr {
-                        td {
-                            &:first-child {
-                                padding: {
-                                    right: 10px;
-                                    left: 0;
-                                };
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .team-members-table {
-            table, .table {
-                tbody {
-                    tr {
-                        td {
-                            .user-info {
-                                padding-left: 0;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    } 
 
+}
+
+
+.disponible {
+    color: #0D8F55 !important;
+}
+
+.traitement {
+    color: #594DFC !important; 
+}
+
+.net_a_payer {
+    color: red !important;
 }

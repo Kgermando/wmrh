@@ -37,7 +37,6 @@ import { CustomizerSettingsComponent } from './customizer-settings/customizer-se
 import { InfoProfileComponent } from './auth/profile/info-profile/info-profile.component'; 
 import { ProfilePaieComponent } from './auth/profile/profile-paie/profile-paie.component';
 import { ProfileEditComponent } from './auth/profile/profile-edit/profile-edit.component';
-import { TotalStatsComponent } from './dashboard/total-stats/total-stats.component';
 import { PresenceStatusComponent } from './dashboard/presence-status/presence-status.component';
 import { ProgressionPaieComponent } from './dashboard/progression-paie/progression-paie.component';
 import { PrimeStatsComponent } from './dashboard/prime-stats/prime-stats.component';
@@ -116,8 +115,22 @@ import { EditPerformenceDialogBox, PerformenceTableComponent } from './performen
 import { PerformencePieComponent } from './performences/performence-view/performence-pie/performence-pie.component'; 
 import { PerformencePieYearComponent } from './performences/performence-view/performence-pie/performence-pie-year/performence-pie-year.component';
 import { PerformencePieAllComponent } from './performences/performence-view/performence-pie/performence-pie-all/performence-pie-all.component';
- 
-
+import { PresEntrepriseComponent } from './salaires/pres-entreprise/pres-entreprise.component';
+import { DashAllMoisComponent } from './dashboard/all/dash-all-mois/dash-all-mois.component';
+import { DashAllYearComponent } from './dashboard/all/dash-all-year/dash-all-year.component';
+import { DashAllComponent } from './dashboard/all/dash-all/dash-all.component';
+import { EmployesMoisComponent } from './dashboard/employes/employes-mois/employes-mois.component';
+import { EmployesYearComponent } from './dashboard/employes/employes-year/employes-year.component';
+import { EmployesAllComponent } from './dashboard/employes/employes-all/employes-all.component';
+import { FinanceAllComponent } from './dashboard/finances/finance-all/finance-all.component';
+import { FinanceYearComponent } from './dashboard/finances/finance-year/finance-year.component';
+import { FinanceMonthComponent } from './dashboard/finances/finance-month/finance-month.component';
+import { PresenceMonthComponent } from './dashboard/presences/presence-month/presence-month.component';
+import { PresenceYearComponent } from './dashboard/presences/presence-year/presence-year.component';
+import { PresenceAllComponent } from './dashboard/presences/presence-all/presence-all.component';
+import { AutreAllComponent } from './dashboard/autres/autre-all/autre-all.component';
+import { AutreMonthComponent } from './dashboard/autres/autre-month/autre-month.component';
+import { AutreYearComponent } from './dashboard/autres/autre-year/autre-year.component';
 
 @NgModule({
   declarations: [
@@ -143,8 +156,7 @@ import { PerformencePieAllComponent } from './performences/performence-view/perf
     InfoProfileComponent, 
     ProfilePaieComponent, 
     ProfileEditComponent, 
-    ChangePasswordDialogBox, 
-    TotalStatsComponent, 
+    ChangePasswordDialogBox,
     PresenceStatusComponent, 
     ProgressionPaieComponent, 
     PrimeStatsComponent, 
@@ -239,6 +251,22 @@ import { PerformencePieAllComponent } from './performences/performence-view/perf
     PerformencePieComponent, 
     PerformencePieYearComponent,
     PerformencePieAllComponent,
+    PresEntrepriseComponent,
+    DashAllMoisComponent,
+    DashAllYearComponent,
+    DashAllComponent,
+    EmployesMoisComponent,
+    EmployesYearComponent,
+    EmployesAllComponent,
+    FinanceAllComponent,
+    FinanceYearComponent,
+    FinanceMonthComponent,
+    PresenceMonthComponent,
+    PresenceYearComponent,
+    PresenceAllComponent,
+    AutreAllComponent,
+    AutreMonthComponent,
+    AutreYearComponent,
   ],
   imports: [
     BrowserModule,

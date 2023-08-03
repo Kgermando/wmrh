@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PerformenceService extends ApiService {
+export class PerformenceService extends ApiService { 
   endpoint: string = `${environment.apiURL}/performences`; 
 
   ponctualiteTotal(code_entreprise: string, id: number): Observable<any> {

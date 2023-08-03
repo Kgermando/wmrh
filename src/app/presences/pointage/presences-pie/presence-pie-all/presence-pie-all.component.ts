@@ -11,7 +11,7 @@ import {
 import { PersonnelModel } from "src/app/personnels/models/personnel-model";  
 import { PresencePieModel } from "src/app/presences/models/presence-pie-model";
 import { PresenceService } from "src/app/presences/presence.service";
-
+ 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
     stroke: ApexStroke;

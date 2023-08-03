@@ -15,7 +15,7 @@ import {
     ApexLegend,
     ApexFill
 } from "ng-apexcharts";
-import { PerformencePieModel } from 'src/app/performences/models/performence-pie-model';
+import { PerformencePieModel, PerformencePieYearModel } from 'src/app/performences/models/performence-pie-model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -47,7 +47,7 @@ export class PerformencePieAllComponent {
   @ViewChild("chart") chart: ChartComponent;
     public chartOptions: Partial<ChartOptions>;
 
-    prerformencePieList: PerformencePieModel[] = [];
+    prerformencePieList: PerformencePieYearModel[] = [];
 
 
     isLoading = false;
@@ -141,49 +141,7 @@ export class PerformencePieAllComponent {
                         axisBorder: {
                             show: false,
                         },
-                        categories: this.prerformencePieList.map((item: PerformencePieModel) => {
-                            if (item.month == 1) {
-                                return "Jan";
-                            } else if(item.month == 2) {
-                                return "Feb";
-                            } else if(item.month == 3) {
-                                return "Mar";
-                            } else if(item.month == 4) {
-                                return "Avr";
-                            } else if(item.month == 5) {
-                                return "Mai";
-                            } else if(item.month == 6) {
-                                return "Juin";
-                            } else if(item.month == 7) {
-                                return "Jul";
-                            } else if(item.month == 8) {
-                                return "Aou";
-                            } else if(item.month == 9) {
-                                return "Sep";
-                            } else if(item.month == 10) {
-                                return "Oct";
-                            } else if(item.month == 11) {
-                                return "Nov";
-                            } else if(item.month == 12) {
-                                return "Dec";
-                            } else {
-                                return "";
-                            }
-                        }),
-                        // categories: [
-                        //     "Jan",
-                        //     "Feb",
-                        //     "Mar",
-                        //     "Apr",
-                        //     "May",
-                        //     "Jun",
-                        //     "Jul",
-                        //     "Aou",
-                        //     "Sep",
-                        //     "Oct",
-                        //     "Nov",
-                        //     "Dec"
-                        // ],
+                        categories: this.prerformencePieList.map((item: PerformencePieYearModel) => item.year), 
                         labels: {
                             style: {
                                 colors: "#a9a9c8",

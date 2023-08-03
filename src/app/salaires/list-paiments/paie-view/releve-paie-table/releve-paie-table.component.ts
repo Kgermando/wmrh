@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core'; 
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model'; 
+import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
 @Component({
   selector: 'app-releve-paie-table',
   templateUrl: './releve-paie-table.component.html',
@@ -7,4 +8,5 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 })
 export class RelevePaieTableComponent { 
   @Input('personne') personne: PersonnelModel;
+  @Input('preference') preference: PreferenceModel;
 }
