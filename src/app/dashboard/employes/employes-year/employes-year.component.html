@@ -1,1 +1,200 @@
-<p>employes-year works!</p>
+<div fxLayout="row" fxLayoutGap="25px" fxLayout.xs="column" fxLayoutGap.xs="0" fxLayout.sm="column" fxLayoutGap.sm="0" fxLayout.md="column" fxLayoutGap.md="0">
+    <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
+
+        <mat-card class="mb-25 tagus-card active-courses-box">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Genre</h5>
+                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+                    Cette année
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="chart activeCoursesChart">
+                    <apx-chart
+                        [series]="chartOptionPieSexe.series!"
+                        [chart]="chartOptionPieSexe.chart!"
+                        [colors]="chartOptionPieSexe.colors!"
+                        [tooltip]="chartOptionPieSexe.tooltip!"
+                        [stroke]="chartOptionPieSexe.stroke!"
+                        [dataLabels]="chartOptionPieSexe.dataLabels!"
+                        [legend]="chartOptionPieSexe.legend!"
+                        [labels]="chartOptionPieSexe.labels!"
+                    ></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Durée moyenne des contrats employés</h5>
+                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+                    Cette année
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="chart revenueSummaryChart">
+                    <apx-chart
+                        [series]="chartOptions.series!"
+                        [chart]="chartOptions.chart!"
+                        [dataLabels]="chartOptions.dataLabels!"
+                        [plotOptions]="chartOptions.plotOptions!"
+                        [yaxis]="chartOptions.yaxis!"
+                        [xaxis]="chartOptions.xaxis!"
+                        [colors]="chartOptions.colors!"
+                        [fill]="chartOptions.fill!"
+                        [grid]="chartOptions.grid!"
+                        [title]="chartOptions.title!"
+                    ></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>  
+
+
+        <mat-card class="mb-25 tagus-card customer-satisfaction-box">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Performences du personnel</h5> 
+                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+                    Cette année
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="chart salesAnalyticsChart" *ngIf="prerformencePieList.length > 0">
+                    <apx-chart
+                        [series]="chartOptionPerformence.series!"
+                        [chart]="chartOptionPerformence.chart!"
+                        [dataLabels]="chartOptionPerformence.dataLabels!"
+                        [plotOptions]="chartOptionPerformence.plotOptions!"
+                        [responsive]="chartOptionPerformence.responsive!"
+                        [xaxis]="chartOptionPerformence.xaxis!"
+                        [grid]="chartOptionPerformence.grid!"
+                        [yaxis]="chartOptionPerformence.yaxis!"
+                        [legend]="chartOptionPerformence.legend!"
+                        [colors]="chartOptionPerformence.colors!"
+                        [fill]="chartOptionPerformence.fill!"
+                    ></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+
+    </div>
+    <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
+
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayout.sm="column" fxLayoutGap.sm="0" fxLayout.md="column" fxLayoutGap.md="0">
+            <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.sm="50%" fxFlex.md="50%" class="col">
+                <mat-card class="stats-box tagus-card mb-25">
+                    <div class="d-flex justify-content-space-between align-items-center">
+                        <div class="title">
+                            <span class="d-block gray-color">Départements</span>
+                            <h3>1552</h3>
+                        </div>
+                        <div class="icon">
+                            <i class="ri-stack-line"></i>
+                        </div>
+                    </div> 
+                </mat-card>
+            </div>
+            <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.sm="50%" fxFlex.md="50%" class="col">
+                <mat-card class="stats-box tagus-card mb-25">
+                    <div class="d-flex justify-content-space-between align-items-center">
+                        <div class="title">
+                            <span class="d-block gray-color">Syndicats</span>
+                            <h3>28452</h3>
+                        </div>
+                        <div class="icon">
+                            <i class="ri-pie-chart-line"></i>
+                        </div>
+                    </div>
+                </mat-card>
+            </div> 
+        </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayout.sm="column" fxLayoutGap.sm="0" fxLayout.md="column" fxLayoutGap.md="0">
+            <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.sm="50%" fxFlex.md="50%" class="col">
+                <mat-card class="stats-box tagus-card mb-25">
+                    <div class="d-flex justify-content-space-between align-items-center">
+                        <div class="title">
+                            <span class="d-block gray-color">Site de travail</span>
+                            <h3>1552</h3>
+                        </div>
+                        <div class="icon">
+                            <i class="ri-stack-line"></i>
+                        </div>
+                    </div> 
+                </mat-card>
+            </div>
+            <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.sm="50%" fxFlex.md="50%" class="col">
+                <mat-card class="stats-box tagus-card mb-25">
+                    <div class="d-flex justify-content-space-between align-items-center">
+                        <div class="title">
+                            <span class="d-block gray-color">Comptes actifs </span>
+                            <h3>28452</h3>
+                        </div>
+                        <div class="icon">
+                            <i class="ri-pie-chart-line"></i>
+                        </div>
+                    </div>
+                </mat-card>
+            </div> 
+        </div>
+
+        <mat-card
+    class="mb-25 tagus-card tasks-performance-box"
+    >
+    <mat-card-header class="border-bottom">
+        <h5 class="mb-0">Employés par département </h5>
+        <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+            Cette année
+        </button>
+        <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="chart tasksPerformanceChart">
+            <apx-chart
+                [series]="chartOptionDepartement.series!"
+                [chart]="chartOptionDepartement.chart!"
+                [plotOptions]="chartOptionDepartement.plotOptions!"
+                [labels]="chartOptionDepartement.labels!"
+                [legend]="chartOptionDepartement.legend!"
+                [colors]="chartOptionDepartement.colors!"
+            ></apx-chart>
+        </div> 
+    </mat-card-content>
+</mat-card>
+
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Age moyenne des employés</h5>
+                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+                    Cette année
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="chart sessionsByCountriesChart">
+                    <apx-chart
+                        [series]="chartOptionAgeMoyenneEmployes.series!"
+                        [chart]="chartOptionAgeMoyenneEmployes.chart!"
+                        [dataLabels]="chartOptionAgeMoyenneEmployes.dataLabels!"
+                        [plotOptions]="chartOptionAgeMoyenneEmployes.plotOptions!"
+                        [yaxis]="chartOptionAgeMoyenneEmployes.yaxis!"
+                        [legend]="chartOptionAgeMoyenneEmployes.legend!"
+                        [fill]="chartOptionAgeMoyenneEmployes.fill!"
+                        [stroke]="chartOptionAgeMoyenneEmployes.stroke!"
+                        [tooltip]="chartOptionAgeMoyenneEmployes.tooltip!"
+                        [xaxis]="chartOptionAgeMoyenneEmployes.xaxis!"
+                        [colors]="chartOptionAgeMoyenneEmployes.colors!"
+                        [grid]="chartOptionAgeMoyenneEmployes.grid!"
+                    ></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+
+    </div>
+</div>
+
