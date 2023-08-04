@@ -1,119 +1,136 @@
-<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayoutGap.sm="0"
->
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
-        <mat-card class="single-stats-box tagus-card mb-25">
-            <div class="d-flex align-items-center">
-                <div class="icon bg2">
-                    <i class="flaticon flaticon-people"></i> 
-                </div>
-                <div class="title">
-                    <div *ngIf="isSelectCategory == 'Employés' || isSelectCategory == 'All'">
-                        <div *ngIf="isSelect == 'Mois'">
-                            <h3>1020</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'Année'">
-                            <h3>4500</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'All'">
-                            <h3>8560</h3>
-                        </div>
-                    </div> 
-                    <div *ngIf="isSelectCategory == 'Finances' || 
-                                isSelectCategory == 'Presences' || 
-                                isSelectCategory == 'Autres'">
 
-                        <div *ngIf="isSelect == 'Mois' || 
-                                isSelect == 'Année' || 
-                                isSelect == 'All' ">
-                            <h3>225000</h3> 
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayoutGap.sm="0">
+        
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+                *ngIf="isSelectCategory == 'Employés' || isSelectCategory == 'All'">
+            <mat-card class="single-stats-box tagus-card mb-25">
+                <div class="d-flex align-items-center">
+                    <div class="icon bg2">
+                        <i class="flaticon flaticon-people"></i> 
+                    </div>
+                    <div class="title"> 
+                            <div *ngIf="isSelect == 'Mois'">
+                                <h3>{{totalEmployeMonth}}</h3>
+                            </div>
+                            <div *ngIf="isSelect == 'Année'">
+                                <h3>{{totalEmployeYear}}</h3>
+                            </div>
+                            <div *ngIf="isSelect == 'All'">
+                                <h3>{{totalEmployeAll}}</h3>
+                            </div>
+                        <span class="gray-color d-block">Total Employés</span>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+            *ngIf="isSelectCategory == 'Employés' || isSelectCategory == 'All'">
+            <mat-card class="single-stats-box tagus-card mb-25">
+                <div class="d-flex align-items-center">
+                    <div class="icon bg3">
+                        <i class="flaticon flaticon-user"></i>
+                    </div>
+                    <div class="title"> 
+                        <div *ngIf="isSelect == 'Mois'">
+                            <h3>{{totalEmployeFemmeMonth}}</h3>
+                        </div>
+                        <div *ngIf="isSelect == 'Année'">
+                            <h3>{{totalEmployeFemmeYear}}</h3>
+                        </div>
+                        <div *ngIf="isSelect == 'All'">
+                            <h3>{{totalEmployeFemmeAll}}</h3>
                         </div> 
+                        <span class="gray-color d-block">Total Femmes</span>
                     </div>
-                    <span class="gray-color d-block">Total Employés</span>
                 </div>
-            </div>
-        </mat-card>
-    </div>
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
-        <mat-card class="single-stats-box tagus-card mb-25">
-            <div class="d-flex align-items-center">
-                <div class="icon bg3">
-                    <i class="flaticon flaticon-user"></i>
-                </div>
-                <div class="title">
-                    <div *ngIf="isSelectCategory == 'Employés' || isSelectCategory == 'All'">
-                        <div *ngIf="isSelect == 'Mois'">
-                            <h3>100</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'Année'">
-                            <h3>450</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'All'">
-                            <h3>1700</h3>
-                        </div>
+            </mat-card>
+        </div>
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+                *ngIf="isSelectCategory == 'Employés' || isSelectCategory == 'All'">
+            <mat-card class="single-stats-box tagus-card mb-25">
+                <div class="d-flex align-items-center">
+                    <div class="icon bg4">
+                        <i class="flaticon flaticon-user"></i>
                     </div>
-                    <div *ngIf="isSelectCategory == 'Finances' || 
-                                isSelectCategory == 'Presences' || 
-                                isSelectCategory == 'Autres'">
-                        <div *ngIf="isSelect == 'Mois' || 
-                                isSelect == 'Année' || 
-                                isSelect == 'All' ">
-                            <h3>15000</h3>  
-                        </div>
-                       
+                    <div class="title"> 
+                            <div *ngIf="isSelect == 'Mois'">
+                                <h3>{{totalEmployeHommeMonth}}</h3>
+                            </div>
+                            <div *ngIf="isSelect == 'Année'">
+                                <h3>{{totalEmployeHommeYear}}</h3>
+                            </div>
+                            <div *ngIf="isSelect == 'All'">
+                                <h3>{{totalEmployeHommeAll}}</h3>
+                            </div> 
+                        <span class="gray-color d-block">Total Hommes</span>
                     </div>
-                    <span class="gray-color d-block">Total Femmes</span>
                 </div>
-            </div>
-        </mat-card>
-    </div>
-    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
-        <mat-card class="single-stats-box tagus-card mb-25">
-            <div class="d-flex align-items-center">
-                <div class="icon bg4">
-                    <i class="flaticon flaticon-user"></i>
-                </div>
-                <div class="title">
-                    <div *ngIf="isSelectCategory == 'Employés' || isSelectCategory == 'All'">
-                        <div *ngIf="isSelect == 'Mois'">
-                            <h3>50</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'Année'">
-                            <h3>800</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'All'">
-                            <h3>6420</h3>
-                        </div>
-                    </div> 
-                    <div *ngIf="isSelectCategory == 'Finances' || 
-                                isSelectCategory == 'Presences' || 
-                                isSelectCategory == 'Autres'">
-                        <div *ngIf="isSelect == 'Mois' || 
-                                isSelect == 'Année' || 
-                                isSelect == 'All' ">
-                            <h3>9000</h3>  
-                        </div>
+            </mat-card>
+        </div>
+
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+            *ngIf="isSelectCategory == 'Finances'">
+            <mat-card class="single-stats-box tagus-card mb-25">
+                <div class="d-flex justify-content-space-between">
+                    <span class="title gray-color fw-semibold">Net à payer</span>
+                    <div class="icon">
+                        <i class="ri-money-dollar-circle-line"></i>
                     </div>
-                    <span class="gray-color d-block">Total Hommes</span>
                 </div>
-            </div>
-        </mat-card>
-    </div>
-    <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
-        <mat-card class="single-stats-box tagus-card mb-25" style="background-color: aquamarine !important;">
-            <span class="gray-color d-block mb-10">FILTRER Par</span>
-            <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  
-                value="All"
-                (selectionChange)="onSelectCategoryChange($event)">
-                <mat-option *ngFor="let category of categoryList" [value]="category">{{category.toUpperCase()}}</mat-option>
-            </mat-select> 
-            <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"
-                        value="Mois"
-                    (selectionChange)="onSelectChange($event)">
-                <mat-option *ngFor="let select of dureeList" [value]="select">{{select.toUpperCase()}}</mat-option>
-            </mat-select> 
-        </mat-card>  
-    </div> 
-</div> 
+                <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'Mois'"> 
+                    <h3 class="text-center">{{ netAPayerMonth  | numberFormat:'fr-FR'}} FC</h3> 
+                </div>
+                <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'Année'">
+                    <h3 class="text-center">{{ netAPayerYear  | numberFormat:'fr-FR'}} FC</h3>  
+                </div>
+                <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'All'">
+                    <h3 class="text-center">{{ netAPayerAll  | numberFormat:'fr-FR'}} FC</h3>  
+                </div> 
+            </mat-card>
+        </div>
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+            *ngIf="isSelectCategory == 'Finances'">
+            <mat-card class="single-stats-box tagus-card mb-25">
+                <div class="d-flex justify-content-space-between">
+                    <span class="title gray-color fw-semibold">Total IPR</span>
+                    <div class="icon bg2">
+                        <i class="ri-swap-box-line"></i>
+                    </div>
+                </div>
+                <h3 class="text-center">$10,324</h3> 
+            </mat-card>
+        </div>
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+            *ngIf="isSelectCategory == 'Finances'">
+            <mat-card class="single-stats-box tagus-card mb-25">
+                <div class="d-flex justify-content-space-between">
+                    <span class="title gray-color fw-semibold">Total CNSS (QPO)</span>
+                    <div class="icon bg3">
+                        <i class="ri-safe-line"></i>
+                    </div>
+                </div>
+                <h3 class="text-center">103</h3> 
+            </mat-card>
+        </div> 
+ 
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
+            <mat-card class="single-stats-box tagus-card mb-25" style="background-color: aquamarine !important;">
+                <span class="gray-color d-block mb-10">FILTRER Par</span>
+                <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  
+                    value="All"
+                    (selectionChange)="onSelectCategoryChange($event)">
+                    <mat-option *ngFor="let category of categoryList" [value]="category">{{category.toUpperCase()}}</mat-option>
+                </mat-select> 
+                <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"
+                            value="All"
+                        (selectionChange)="onSelectChange($event)">
+                    <mat-option *ngFor="let select of dureeList" [value]="select">{{select.toUpperCase()}}</mat-option>
+                </mat-select> 
+            </mat-card>  
+        </div> 
+    </div>  
+
 
 
 

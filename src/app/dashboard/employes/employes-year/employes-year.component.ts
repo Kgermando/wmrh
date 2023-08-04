@@ -22,6 +22,7 @@ import { CustomizerSettingsService } from "src/app/customizer-settings/customize
 import { PerformencePieModel, PerformencePieYearModel } from "src/app/performences/models/performence-pie-model";
 import { DashAllService } from "../../all/dash-all.service";
 import { PersonnelModel } from "src/app/personnels/models/personnel-model";
+import { EmployeService } from "../employe.service";
 
 export type ChartOptions = {
     series: ApexAxisChartSeries;
@@ -110,11 +111,26 @@ export class EmployesYearComponent  implements OnInit{
 
   currentUser: PersonnelModel | any;
 
+  ageParContratList = [];
+  ageParEmployeList = [];
+  sexeList = [];
+  employeParDepartement = []; 
+
+  depList: [];
+  depTotal = 0;
+  syndicatList: [];
+  syndicatTotal = 0;
+  siteLocationList: [];
+  siteLocationTotal = 0;
+  compteActifList: [];
+  compteActifTotal = 0;
+
   constructor(
     public themeService: CustomizerSettingsService,
     private router: Router,
     private authService: AuthService,
-    private dashAllService: DashAllService
+    private dashAllService: DashAllService,
+    private employeService: EmployeService
   ) {
       
   }
@@ -128,7 +144,8 @@ export class EmployesYearComponent  implements OnInit{
         this.getAgeParEmploye();
         this.getPieSexe();
         this.getPerformence();
-        this.getDepartementNbre();
+        this.getEmployeparDepartement();
+        this.getTotal();
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -138,237 +155,247 @@ export class EmployesYearComponent  implements OnInit{
   }  
 
   getAgeParContrat() {
-    this.chartOptions = {
-      series: [
-          {
-              name: "Revenue Summary",
-              data: [2.3, 3, 4.0, 10.5, 5.6, 5, 4, 2.8, 2, 1.3, 0.8, 0.3]
-          }
-      ],
-      chart: {
-          height: 360,
-          type: "bar",
-          toolbar: {
-              show: false
-          }
-      },
-      plotOptions: {
-          bar: {
-              borderRadius: 9,
-              columnWidth: "60%",
-              borderRadiusWhenStacked: 'last',
-              borderRadiusApplication: 'around',
-              dataLabels: {
-                  position: "top"
-              }
-          }
-      },
-      dataLabels: {
-          enabled: true,
-          formatter: function(val) {
-              return val + "%";
-          },
-          offsetY: -28,
-          style: {
-              colors: ["#5B5B98"]
-          }
-      },
-      colors: [
-          "#757fef"
-      ],
-      fill: {
-          opacity: 1
-      },
-      xaxis: {
-          categories: [
-              "Jan",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec"
-          ],
-          position: "top",
-          labels: {
-              style: {
-                  colors: "#a9a9c8",
-                  fontSize: "14px"
-              }
-          },
-          axisBorder: {
-              show: false
-          },
-          axisTicks: {
-              show: false
-          }
-      },
-      yaxis: {
-          axisBorder: {
-              show: false
-          },
-          axisTicks: {
-              show: false
-          },
-          labels: {
-              show: false,
-              formatter: function(val) {
-                  return val + "%";
-              }
-          }
-      },
-      grid: {
-          show: true,
-          strokeDashArray: 5,
-          borderColor: "#EDEFF5"
-      }
-  };
+    this.employeService.ageContratEmployeYear(this.currentUser.code_entreprise).subscribe(
+        res => {
+            this.ageParContratList = res;
+            this.chartOptions = {
+                series: [
+                    {
+                        name: "Durée de contrats",
+                        data: this.ageParContratList.map((item: any) => parseFloat(item.age)),
+                    }
+                ],
+                chart: {
+                    height: 360,
+                    type: "bar",
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 9,
+                        columnWidth: "60%",
+                        borderRadiusWhenStacked: 'last',
+                        borderRadiusApplication: 'around',
+                        dataLabels: {
+                            position: "top"
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val) {
+                        return val + " ans";
+                    },
+                    offsetY: -28,
+                    style: {
+                        colors: ["#5B5B98"]
+                    }
+                },
+                colors: [
+                    "#757fef"
+                ],
+                fill: {
+                    opacity: 1
+                },
+                xaxis: {
+                    categories: this.ageParContratList.map((item: any) => parseFloat(item.age)),
+                    position: "top",
+                    labels: {
+                        style: {
+                            colors: "#a9a9c8",
+                            fontSize: "14px"
+                        }
+                    },
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        show: false,
+                        formatter: function(val) {
+                            return val + " ans";
+                        }
+                    }
+                },
+                grid: {
+                    show: true,
+                    strokeDashArray: 5,
+                    borderColor: "#EDEFF5"
+                }
+            };
+        }
+    )
+    
   }
 
 
   getAgeParEmploye() {
-    this.chartOptionAgeMoyenneEmployes = {
-      series: [
-          {
-              name: "Total Sessions:",
-              data: [1026, 1554, 497, 1126, 908, 1512, 604, 1047, 1354, 826],
-          }
-      ],
-      chart: {
-          type: "bar",
-          height: 480,
-          toolbar: {
-              show: false
-          }
-      },
-      plotOptions: {
-          bar: {
-              horizontal: true
-          }
-      },
-      dataLabels: {
-          enabled: false
-      },
-      colors: [
-          "#757FEF"
-      ],
-      stroke: {
-          width: 0,
-          show: true,
-          colors: ["transparent"]
-      },
-      xaxis: {
-          categories: [
-              "United State",
-              "China",
-              "Canada",
-              "Indonesia",
-              "Russia",
-              "Japan",
-              "Brazil",
-              "United Kingdom",
-              "Vietnam",
-              "France"
-          ],
-          labels: {
-              show: true,
-              style: {
-                  colors: "#a9a9c8",
-                  fontSize: "14px"
-              },
-          },
-          axisBorder: {
-              show: false,
-          },
-          axisTicks: {
-              show: false
-          }
-      },
-      yaxis: {
-          labels: {
-              style: {
-                  colors: "#a9a9c8",
-                  fontSize: "14px"
-              }
-          },
-          axisBorder: {
-              show: false
-          }
-      },
-      fill: {
-          opacity: 1
-      },
-      tooltip: {
-          y: {
-              formatter: function(val) {
-                  return val + " hours";
-              }
-          }
-      },
-      legend: {
-          offsetY: 5,
-          fontSize: "14px",
-          position: "bottom",
-          horizontalAlign: "center",
-          labels: {
-              colors: '#5B5B98'
-          }
-      },
-      grid: {
-          show: true,
-          borderColor: "#EDEFF5",
-          strokeDashArray: 5
-      }
-  };
+    this.employeService.ageEmployeYear(this.currentUser.code_entreprise).subscribe(
+        res => {
+            this.ageParEmployeList = res;
+            this.chartOptionAgeMoyenneEmployes = {
+                series: [
+                    {
+                        name: "Age moyenne par employés:",
+                        data: this.ageParEmployeList.map((item: any) => parseFloat(item.age)),
+                    }
+                ],
+                chart: {
+                    type: "bar",
+                    height: 480,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true
+                    }
+                }, 
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val) {
+                        return val + " ans";
+                    },
+                    offsetY: -30,
+                    style: {
+                        colors: ["#5B5B98"]
+                    }
+                },
+                colors: [
+                    "#757FEF"
+                ],
+                stroke: {
+                    width: 0,
+                    show: true,
+                    colors: ["transparent"]
+                },
+                xaxis: {
+                    categories: this.ageParEmployeList.map((item: any) => parseFloat(item.age)),
+                    labels: {
+                        show: true,
+                        style: {
+                            colors: "#a9a9c8",
+                            fontSize: "14px"
+                        },
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: "#a9a9c8",
+                            fontSize: "14px"
+                        }
+                    },
+                    axisBorder: {
+                        show: false
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return val + " ans";
+                        }
+                    }
+                },
+                legend: {
+                    offsetY: 5,
+                    fontSize: "14px",
+                    position: "bottom",
+                    horizontalAlign: "center",
+                    labels: {
+                        colors: '#5B5B98'
+                    }
+                },
+                grid: {
+                    show: true,
+                    borderColor: "#EDEFF5",
+                    strokeDashArray: 5
+                }
+            };
+        }
+    )
+
   }
 
 
   getPieSexe() {
-    this.chartOptionPieSexe = {
-      series: [59, 25],
-      chart: {
-          height: 315,
-          type: "pie"
-      },
-      stroke: {
-          width: 0,
-          show: true
-      },
-      colors: ["#757fef", "#ee368c"],
-      dataLabels: {
-          enabled: true,
-          style: {
-              fontSize: '14px',
-          },
-          dropShadow: {
-              enabled: false
-          }
-      },
-      tooltip: {
-          style: {
-              fontSize: '14px',
-          },
-          y: {
-              formatter: function(val:any) {
-                  return val + "%";
-              }
-          }
-      },
-      legend: {
-          offsetY: 5,
-          position: "bottom",
-          fontSize: "14px",
-          labels: {
-              colors: '#5B5B98',
-          },
-      },
-      labels: ["Courses Done", "On Progress", "To Do"]
-  };
+    this.employeService.getPieSexeYear(this.currentUser.code_entreprise).subscribe(
+        res => {
+            this.sexeList = res;
+            this.chartOptionPieSexe = {
+                series: this.sexeList.map((item: any) => parseFloat(item.count)),
+                chart: {
+                    height: 315,
+                    type: "pie"
+                },
+                stroke: {
+                    width: 0,
+                    show: true
+                },
+                colors: this.sexeList.map((item: any) => {
+                    if(item.sexe == "Homme") {
+                        return "#757fef";
+                    } else if(item.sexe == "Femme") {
+                        return "#ee368c";
+                    } else {
+                        return "";
+                    }
+                }), // ["#757fef", "#ee368c"],
+                dataLabels: {
+                    enabled: true,
+                    style: {
+                        fontSize: '14px',
+                    },
+                    dropShadow: {
+                        enabled: false
+                    }
+                },
+                tooltip: {
+                    style: {
+                        fontSize: '14px',
+                    },
+                    y: {
+                        formatter: function(val:any) {
+                            return val + "%";
+                        }
+                    }
+                },
+                legend: {
+                    offsetY: 5,
+                    position: "bottom",
+                    fontSize: "14px",
+                    labels: {
+                        colors: '#5B5B98',
+                    },
+                },
+                labels: this.sexeList.map((item: any) => item.sexe)
+            };
+        }
+        
+    )
+    
   }
 
 
@@ -412,7 +439,35 @@ export class EmployesYearComponent  implements OnInit{
                     axisBorder: {
                         show: false,
                     },
-                    categories: this.prerformencePieList.map((item: PerformencePieModel) => item.month), 
+                    categories: this.prerformencePieList.map((item: PerformencePieModel) => {
+                        if (item.month == 1) {
+                            return "Jan";
+                        } else if(item.month == 2) {
+                            return "Feb";
+                        } else if(item.month == 3) {
+                            return "Mar";
+                        } else if(item.month == 4) {
+                            return "Avr";
+                        } else if(item.month == 5) {
+                            return "Mai";
+                        } else if(item.month == 6) {
+                            return "Jui";
+                        } else if(item.month == 7) {
+                            return "Jul";
+                        } else if(item.month == 8) {
+                            return "Aou";
+                        } else if(item.month == 9) {
+                            return "Sep";
+                        } else if(item.month == 10) {
+                            return "Oct";
+                        } else if(item.month == 11) {
+                            return "Nov";
+                        } else if(item.month == 12) {
+                            return "Dec";
+                        } else {
+                            return "";
+                        }
+                    }), 
                     labels: {
                         style: {
                             colors: "#a9a9c8",
@@ -457,55 +512,88 @@ export class EmployesYearComponent  implements OnInit{
   }
   
 
-  getDepartementNbre() {
-    this.chartOptionDepartement = {
-      series: [100, 90, 80, 70],
-      chart: {
-          height: 300,
-          type: "radialBar"
-      },
-      plotOptions: {
-          radialBar: {
-              offsetY: 0,
-              startAngle: 0,
-              endAngle: 270,
-              hollow: {
-                  margin: 10,
-                  size: "30%",
-                  image: undefined,
-                  background: "transparent"
-              },
-              dataLabels: {
-                  name: {
-                      show: false
-                  },
-                  value: {
-                      show: false
-                  }
-              }
-          }
-      },
-      colors: [
-          "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD"
-      ],
-      labels: [
-          "Completed", "Active", "Assigned", "Pending"
-      ],
-      legend: {
-          show: true,
-          offsetY: 0,
-          offsetX: -20,
-          floating: true,
-          position: "left",
-          fontSize: "14px",
-          labels: {
-              colors: '#5B5B98'
-          },
-          formatter: function(seriesName, opts) {
-              return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
-          }
-      }
-  };
+  getEmployeparDepartement() {
+    this.employeService.employeDepartementYear(this.currentUser.code_entreprise).subscribe(
+        res => {
+            this.employeParDepartement = res;
+            this.chartOptionDepartement = {
+                series: this.employeParDepartement.map((item: any) => parseFloat(item.count)),
+                chart: {
+                    height: 300,
+                    type: "radialBar"
+                },
+                plotOptions: {
+                    radialBar: {
+                        offsetY: 0,
+                        startAngle: 0,
+                        endAngle: 270,
+                        hollow: {
+                            margin: 10,
+                            size: "30%",
+                            image: undefined,
+                            background: "transparent"
+                        },
+                        dataLabels: {
+                            name: {
+                                show: false
+                            },
+                            value: {
+                                show: false
+                            }
+                        }
+                    }
+                },
+                colors: [
+                    "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD", "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD",
+                ],
+                labels: this.employeParDepartement.map((item: any) => item.departement),
+                legend: {
+                    show: true,
+                    offsetY: 0,
+                    offsetX: -20,
+                    floating: true,
+                    position: "left",
+                    fontSize: "14px",
+                    labels: {
+                        colors: '#5B5B98'
+                    },
+                    formatter: function(seriesName, opts) {
+                        return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
+                    }
+                }
+            }; 
+        }
+    )
+
   }
+
+
+  getTotal() {
+    this.employeService.departementYear(this.currentUser.code_entreprise).subscribe(
+        res =>  {
+            this.depList = res;
+            this.depList.map((item: any) => this.depTotal = parseFloat(item.count));
+        }
+    );
+    this.employeService.syndicatYear(this.currentUser.code_entreprise).subscribe(
+        res =>  {
+            this.syndicatList = res;
+            this.syndicatList.map((item: any) => this.syndicatTotal = parseFloat(item.count));
+        }
+    );
+    this.employeService.siteLocationYear(this.currentUser.code_entreprise).subscribe(
+        res =>  {
+            this.siteLocationList = res;
+            this.siteLocationList.map((item: any) => this.siteLocationTotal = parseFloat(item.count));
+        }
+    );
+    this.employeService.compteActifYear(this.currentUser.code_entreprise).subscribe(
+        res =>  {
+            this.compteActifList = res;
+            this.compteActifList.map((item: any) => this.compteActifTotal = parseFloat(item.count));
+        }
+    ); 
+   }
+
 
 } 
