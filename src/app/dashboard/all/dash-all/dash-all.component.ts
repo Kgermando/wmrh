@@ -267,9 +267,9 @@ export class DashAllComponent implements OnInit{
                 series: this.statutPaieList.map((item: any) => parseFloat(item.count)),
                 colors: this.statutPaieList.map((item: any) => {
                     if (item.statut == "Disponible") {
-                        return "#0D8F55";
-                    } else if(item.statut == "Traitement") {
                         return "#FAAA0C";
+                    } else if(item.statut == "Traitement") {
+                        return "#0D8F55";
                     } else {
                         return '#FFFFFF'
                     }

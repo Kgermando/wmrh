@@ -270,9 +270,9 @@ export class DashAllMoisComponent implements OnInit {
                 series: this.statutPaieList.map((item: any) => parseFloat(item.count)),
                 colors: this.statutPaieList.map((item: any) => {
                     if (item.statut == "Disponible") {
-                        return "#0D8F55";
-                    } else if(item.statut == "Traitement") {
                         return "#FAAA0C";
+                    } else if(item.statut == "Traitement") {
+                        return "#0D8F55";
                     } else {
                         return '#FFFFFF'
                     }
@@ -351,35 +351,7 @@ export class DashAllMoisComponent implements OnInit {
                     colors: ["transparent"]
                 },
                 xaxis: { 
-                    categories: this.allocationList.map((item: any) => {
-                        if (item.month == 1) {
-                            return "Jan";
-                        } else if(item.month == 2) {
-                            return "Feb";
-                        } else if(item.month == 3) {
-                            return "Mar";
-                        } else if(item.month == 4) {
-                            return "Avr";
-                        } else if(item.month == 5) {
-                            return "Mai";
-                        } else if(item.month == 6) {
-                            return "Jui";
-                        } else if(item.month == 7) {
-                            return "Jul";
-                        } else if(item.month == 8) {
-                            return "Aou";
-                        } else if(item.month == 9) {
-                            return "Sep";
-                        } else if(item.month == 10) {
-                            return "Oct";
-                        } else if(item.month == 11) {
-                            return "Nov";
-                        } else if(item.month == 12) {
-                            return "Dec";
-                        } else {
-                            return "";
-                        }
-                    }), 
+                    categories: this.allocationList.map((item: any) => item.day), 
                     labels: {
                         style: {
                             colors: "#a9a9c8",

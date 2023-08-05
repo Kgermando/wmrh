@@ -21,9 +21,9 @@ export class RelevePaieComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['numero', 'matricule', 'fullname', 'departement', 'net_a_payer', 'compte', 'frais_bancaire', 'banque'];
   
-  ELEMENT_DATA: SalaireModel[] = [];
+  ELEMENT_DATA: SalaireModel[] = []; 
 
-  salaireList: SalaireModel[] = []; 
+  releveList: SalaireModel[] = [];
   
   dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<SalaireModel>(true, []);
@@ -41,6 +41,9 @@ export class RelevePaieComponent implements AfterViewInit {
   cnss = 0;
   frais_bancaire = 0;
 
+  dateNow = new Date();
+  dateMonth = 0; 
+
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
     public themeService: CustomizerSettingsService,
@@ -55,32 +58,32 @@ export class RelevePaieComponent implements AfterViewInit {
   }
 
   ngOnInit(): void {
-    const dateNow = new Date();
-    const dateMonth = dateNow.getMonth() + 1; 
+    this.dateNow = new Date();
+    this.dateMonth = this.dateNow.getMonth() + 1; 
 
-    if (dateMonth === 1) {
+    if (this.dateMonth === 1) {
         this.mois = 'Janvier';
-    } else if(dateMonth === 2) {
+    } else if(this.dateMonth === 2) {
         this.mois = 'Fevrier';
-    } else if(dateMonth === 3) {
+    } else if(this.dateMonth === 3) {
         this.mois = 'Mars';
-    } else if(dateMonth === 4) {
+    } else if(this.dateMonth === 4) {
         this.mois = 'Avril';
-    } else if(dateMonth === 5) {
+    } else if(this.dateMonth === 5) {
         this.mois = 'Mai';
-    } else if(dateMonth === 6) {
+    } else if(this.dateMonth === 6) {
         this.mois = 'Juin';
-    } else if(dateMonth === 7) {
+    } else if(this.dateMonth === 7) {
         this.mois = 'Juillet';
-    } else if(dateMonth === 8) {
+    } else if(this.dateMonth === 8) {
         this.mois = 'Aôut';
-    } else if(dateMonth === 9) {
+    } else if(this.dateMonth === 9) {
         this.mois = 'Septembre';
-    } else if(dateMonth === 10) {
+    } else if(this.dateMonth === 10) {
         this.mois = 'Octobre';
-    } else if(dateMonth === 11) {
+    } else if(this.dateMonth === 11) {
         this.mois = 'Novembre';
-    } else if(dateMonth === 12) {
+    } else if(this.dateMonth === 12) {
         this.mois = 'Décembre';
     } else {
         ''
@@ -93,14 +96,17 @@ export class RelevePaieComponent implements AfterViewInit {
     this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user;
-            this.salaireService.getAll(this.currentUser.code_entreprise).subscribe({
+            this.salaireService.relevePaie(this.currentUser.code_entreprise).subscribe({
                 next: res => { 
-                    this.salaireList = res;
-                    this.ELEMENT_DATA = this.salaireList.filter(v => v.statut == 'Disponible');
+                    this.releveList = res; 
+                    this.ELEMENT_DATA = this.releveList.filter(v => {
+                      var created = new Date(v.created); 
+                      return created.getMonth() + 1 == this.dateMonth;
+                    });
                     this.dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
                     this.dataSource.sort = this.sort;
                     this.dataSource.paginator = this.paginator;
-                    this.isLoading = false;
+                    this.isLoading = false; 
                 },
                 error: (err) => {
                     this.isLoading = false;

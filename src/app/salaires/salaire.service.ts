@@ -9,6 +9,11 @@ import { Observable } from 'rxjs';
 export class SalaireService extends ApiService {
   endpoint: string = `${environment.apiURL}/salaires`;
 
+
+  relevePaie(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-releve-paie/${code_entreprise}`);
+  }
+
   getJrPrestE(code_entreprise: string, matricule: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-jrs-preste/${code_entreprise}/${matricule}`);
   }

@@ -1,1 +1,170 @@
-<p>finance-all works!</p>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayoutGap.sm="0" fxLayoutGap.md="0">
+    <div fxFlex="66.666666%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
+
+        <mat-card class="mb-25 tagus-card audienceOverview-box">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Total des allocations sur 10 ans</h5>
+                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+                    ALL
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="chart audienceOverviewChart">
+                    <apx-chart
+                        [series]="chartOptionAllocations.series!"
+                        [chart]="chartOptionAllocations.chart!"
+                        [dataLabels]="chartOptionAllocations.dataLabels!"
+                        [plotOptions]="chartOptionAllocations.plotOptions!"
+                        [yaxis]="chartOptionAllocations.yaxis!"
+                        [legend]="chartOptionAllocations.legend!"
+                        [fill]="chartOptionAllocations.fill!"
+                        [stroke]="chartOptionAllocations.stroke!"
+                        [tooltip]="chartOptionAllocations.tooltip!"
+                        [xaxis]="chartOptionAllocations.xaxis!"
+                        [colors]="chartOptionAllocations.colors!"
+                        [grid]="chartOptionAllocations.grid!"
+                    ></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mb-25 tagus-card audienceOverview-box">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Dépenses et déductions</h5>
+                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+                    ALL
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="chart yourProgressChart">
+                    <apx-chart
+                        [series]="chartOptionNetApayerIPRCNSS.series!"
+                        [chart]="chartOptionNetApayerIPRCNSS.chart!"
+                        [xaxis]="chartOptionNetApayerIPRCNSS.xaxis!"
+                        [stroke]="chartOptionNetApayerIPRCNSS.stroke!"
+                        [tooltip]="chartOptionNetApayerIPRCNSS.tooltip!"
+                        [dataLabels]="chartOptionNetApayerIPRCNSS.dataLabels!"
+                        [legend]="chartOptionNetApayerIPRCNSS.legend!"
+                        [grid]="chartOptionNetApayerIPRCNSS.grid!"
+                        [yaxis]="chartOptionNetApayerIPRCNSS.yaxis!"
+                        [title]="chartOptionNetApayerIPRCNSS.title!"
+                        [colors]="chartOptionNetApayerIPRCNSS.colors!"
+                    ></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex="33.333333%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
+
+        <mat-card class="mb-25 tagus-card  my-profile-box">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Statuts de paie</h5> 
+                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+                    ALL
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="myProfileChart position-relative">
+                    <div class="chart">
+                        <apx-chart
+                            [series]="chartOptionsSTatutPaie.series!"
+                            [chart]="chartOptionsSTatutPaie.chart!"
+                            [labels]="chartOptionsSTatutPaie.labels!"
+                            [tooltip]="chartOptionsSTatutPaie.tooltip!"
+                            [colors]="chartOptionsSTatutPaie.colors!"
+                            [legend]="chartOptionsSTatutPaie.legend!"
+                            [stroke]="chartOptionsSTatutPaie.stroke!"
+                        ></apx-chart>
+                    </div>
+                </div>
+                <ul class="ps-0 list-unstyled mb-25">
+                    <li class="d-flex align-items-center justify-content-space-between">
+                        <div class="title d-flex align-items-center"> 
+                            <div class="box-1"></div>
+                            <div class="ms-12">
+                                <h5 class="fw-semibold">Primes enciennetés</h5> 
+                            </div>
+                        </div>
+                        <div class="info text-end"> 
+                            <span>{{ primeAnciennete  | numberFormat:'fr-FR'}} FC</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center justify-content-space-between">
+                        <div class="title d-flex align-items-center">
+                            <div class="box-2"></div>
+                            <div class="ms-12">
+                                <h5 class="fw-semibold">Primes divers</h5> 
+                            </div>
+                        </div>
+                        <div class="info text-end"> 
+                            <span>{{ primes  | numberFormat:'fr-FR'}} FC</span>
+                        </div>
+                    </li> 
+                    <li class="d-flex align-items-center justify-content-space-between">
+                        <div class="title d-flex align-items-center">
+                            <div class="box-3"></div>
+                            <div class="ms-12">
+                                <h5 class="fw-semibold">Heures Supp.</h5> 
+                            </div>
+                        </div>
+                        <div class="info text-end"> 
+                            <span>{{ heureSupp  | numberFormat:'fr-FR'}} FC</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center justify-content-space-between">
+                        <div class="title d-flex align-items-center">
+                            <div class="box-4"></div>
+                            <div class="ms-12">
+                                <h5 class="fw-semibold">Avances salaires</h5> 
+                            </div>
+                        </div>
+                        <div class="info text-end"> 
+                            <span>{{ avanceSalaire  | numberFormat:'fr-FR'}} FC</span>
+                        </div>
+                    </li> 
+                    <li class="d-flex align-items-center justify-content-space-between">
+                        <div class="title d-flex align-items-center">
+                            <div class="box-5"></div>
+                            <div class="ms-12">
+                                <h5 class="fw-semibold">Pénalités</h5> 
+                            </div>
+                        </div>
+                        <div class="info text-end"> 
+                            <span>{{ penalite  | numberFormat:'fr-FR'}} FC</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center justify-content-space-between">
+                        <div class="title d-flex align-items-center">
+                            <div class="box-5"></div>
+                            <div class="ms-12">
+                                <h5 class="fw-semibold">Syndicats</h5> 
+                            </div>
+                        </div>
+                        <div class="info text-end"> 
+                            <span>{{ syndicat  | numberFormat:'fr-FR'}} FC</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center justify-content-space-between">
+                        <div class="title d-flex align-items-center">
+                            <div class="box-6"></div>
+                            <div class="ms-12">
+                                <h5 class="fw-semibold">Près entreprise</h5> 
+                            </div>
+                        </div>
+                        <div class="info text-end"> 
+                            <span>{{ presEntreprise  | numberFormat:'fr-FR'}} FC</span>
+                        </div>
+                    </li> 
+                </ul>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+</div>
+
+
+ 

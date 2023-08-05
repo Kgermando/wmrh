@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { DashAllService } from './all/dash-all.service';
 import { PersonnelModel } from '../personnels/models/personnel-model';
+import { FinanceService } from './finances/finance.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -57,13 +58,28 @@ export class DashboardComponent {
   netAPayerMonthList: [];
   netAPayerAll = 0;
   netAPayerYear = 0;
-  netAPayerMonth = 0;
+  netAPayerMonth = 0; 
+
+  iprAllList: []; 
+  iprYearList: [];
+  iprMonthList: [];
+  iprAll = 0;
+  iprYear = 0;
+  iprMonth = 0;
+
+  cnssQPOAllList: [];
+  cnssQPOYearList: [];
+  cnssQPOMonthList: [];
+  cnssQPOAll = 0;
+  cnssQPOYear = 0;
+  cnssQPOMonth = 0;
 
   constructor(
     public themeService: CustomizerSettingsService,
     private router: Router,
     private authService: AuthService,
     private dashAllService: DashAllService,
+    private financeService: FinanceService
   ) {
       
   }
@@ -169,7 +185,7 @@ export class DashboardComponent {
 
 
 
-     getTotalFinance() {
+    getTotalFinance() {
       this.dashAllService.masseSalarialAll(this.currentUser.code_entreprise).subscribe(
           res =>  {
               this.netAPayerAllList = res;
@@ -185,11 +201,53 @@ export class DashboardComponent {
       this.dashAllService.masseSalarialMonth(this.currentUser.code_entreprise).subscribe(
         res =>  {
             this.netAPayerMonthList = res;
-            this.netAPayerMonthList.map((item: any) => this.netAPayerMonth = parseFloat(item.net_a_payer));
+              this.netAPayerMonthList.map((item: any) => this.netAPayerMonth = parseFloat(item.net_a_payer));
+          }
+      );
+
+
+        // IPR
+      this.financeService.iprAll(this.currentUser.code_entreprise).subscribe(
+        res =>  {
+            this.iprAllList = res;
+            this.iprAllList.map((item: any) => this.iprAll = parseFloat(item.total));
         }
-    );
+      );
+      this.financeService.iprYear(this.currentUser.code_entreprise).subscribe(
+        res =>  {
+              this.iprYearList = res;
+              this.iprYearList.map((item: any) => this.iprYear = parseFloat(item.total));
+          }
+      ); 
+      this.financeService.iprMonth(this.currentUser.code_entreprise).subscribe(
+        res =>  {
+            this.iprMonthList = res;
+              this.iprMonthList.map((item: any) => this.iprMonth = parseFloat(item.total));
+          }
+      );
+
+         // CNSS QQPO
+         this.financeService.cnssQPOAll(this.currentUser.code_entreprise).subscribe(
+          res =>  {
+              this.cnssQPOAllList = res;
+              this.cnssQPOAllList.map((item: any) => this.cnssQPOAll = parseFloat(item.total));
+          }
+        );
+        this.financeService.cnssQPOYear(this.currentUser.code_entreprise).subscribe(
+          res =>  {
+                this.cnssQPOYearList = res;
+                this.cnssQPOYearList.map((item: any) => this.cnssQPOYear = parseFloat(item.total));
+            }
+        ); 
+        this.financeService.cnssQPOMonth(this.currentUser.code_entreprise).subscribe(
+          res =>  {
+              this.cnssQPOMonthList = res;
+                this.cnssQPOMonthList.map((item: any) => this.cnssQPOMonth = parseFloat(item.total));
+            }
+        );
+
       
-     }
+    }
   
   
 }
