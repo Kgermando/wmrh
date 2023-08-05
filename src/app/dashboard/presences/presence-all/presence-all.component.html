@@ -1,30 +1,86 @@
-<p>presence-all works!</p>
-
-
-<app-presence-stats></app-presence-stats>
-
 <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayoutGap.sm="0" fxLayoutGap.md="0">
     <div fxFlex="66.666666%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
-
-        <app-presence-status></app-presence-status> 
-
-        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayoutGap.sm="0" fxLayoutGap.md="0">
-            <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
-         
-                
-            </div>
-            <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
-        
-                <!-- <app-support-status></app-support-status> -->
-        
-            </div>
-        </div>
+        <mat-card class="mb-25 tagus-card audienceOverview-box">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Presences</h5>
+                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+                    ALL
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="chart activeCoursesChart">
+                    <apx-chart
+                    [series]="chartOptionMultiLine.series!"
+                    [chart]="chartOptionMultiLine.chart!"
+                    [colors]="chartOptionMultiLine.colors"
+                    [xaxis]="chartOptionMultiLine.xaxis!"
+                    [markers]="chartOptionMultiLine.markers!"
+                    [stroke]="chartOptionMultiLine.stroke!"
+                    [yaxis]="chartOptionMultiLine.yaxis!"
+                    [dataLabels]="chartOptionMultiLine.dataLabels!"
+                    [title]="chartOptionMultiLine.title!"
+                    [grid]="chartOptionMultiLine.grid!"
+                    [fill]="chartOptionMultiLine.fill!"
+                    [tooltip]="chartOptionMultiLine.tooltip!"
+                    [legend]="chartOptionMultiLine.legend!"
+                    ></apx-chart>
+                </div> 
+            </mat-card-content>
+        </mat-card> 
     </div>
     <div fxFlex="33.333333%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
 
-        <app-progression-paie></app-progression-paie>
-
-        <!-- <app-hd-activity></app-hd-activity> -->
+        <mat-card class="mb-25 tagus-card audienceOverview-box">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Taux de presences</h5>
+                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+                    ALL
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="chart activeCoursesChart" *ngIf="presencePieList.length > 0">
+                    <apx-chart
+                        [series]="chartOptionPresence.series!"
+                        [chart]="chartOptionPresence.chart!"
+                        [colors]="chartOptionPresence.colors!"
+                        [tooltip]="chartOptionPresence.tooltip!"
+                        [stroke]="chartOptionPresence.stroke!"
+                        [dataLabels]="chartOptionPresence.dataLabels!"
+                        [legend]="chartOptionPresence.legend!"
+                        [labels]="chartOptionPresence.labels!"
+                    ></apx-chart>
+                </div> 
+            </mat-card-content>
+        </mat-card>
 
     </div>
 </div>
+
+<mat-card class="mb-25 tagus-card">
+    <mat-card-header class="border-bottom">
+        <h5 class="mb-0">Courbe de Presence</h5>
+        <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+            ALL
+        </button>
+        <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="chart audienceOverviewChart">
+            <apx-chart
+                [series]="chartOptionCourbePresence.series!"
+                [chart]="chartOptionCourbePresence.chart!"
+                [xaxis]="chartOptionCourbePresence.xaxis!"
+                [yaxis]="chartOptionCourbePresence.yaxis!"
+                [stroke]="chartOptionCourbePresence.stroke!"
+                [tooltip]="chartOptionCourbePresence.tooltip!"
+                [dataLabels]="chartOptionCourbePresence.dataLabels!"
+                [legend]="chartOptionCourbePresence.legend!"
+                [grid]="chartOptionCourbePresence.grid!"
+                [colors]="chartOptionCourbePresence.colors!"
+            ></apx-chart>
+        </div>
+    </mat-card-content>
+</mat-card>
+

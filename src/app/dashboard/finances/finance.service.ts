@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class FinanceService  extends ApiService {
+export class FinanceService extends ApiService {
   endpoint: string = `${environment.apiURL}/dashboard-finances`;
 
   iprMonth(code_entreprise: string): Observable<any> {

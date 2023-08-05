@@ -48,7 +48,7 @@ export class PointageSidebarComponent implements OnInit {
   numberCO: number = 0;
   numberS: number = 0;
   numberO: number = 0;
-  numberM: number = 0;
+  numberM: number = 0; 
  
     constructor(
       public themeService: CustomizerSettingsService,

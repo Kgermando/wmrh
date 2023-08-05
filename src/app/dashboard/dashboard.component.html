@@ -129,6 +129,133 @@
                 </div> 
             </mat-card>
         </div> 
+
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+            *ngIf="isSelectCategory == 'Presences'">
+            <mat-card
+                class="mb-25 tagus-card user-activities-box"
+                [class.component-dark-theme]="themeService.isDark()"
+            >
+                <mat-card-content>
+                    <ul class="list-unstyled ps-0 mb-0">
+                        <li class="d-flex align-items-center justify-content-space-between">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-user-line present"></i>
+                                <div class="ms-12">
+                                    <h5>{{numberP}}</h5>
+                                    <span class="d-block present">Presents</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center justify-content-space-between">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-user-line absence-autorisee"></i>
+                                <div class="ms-12">
+                                    <h5>{{numberAA}}</h5>
+                                    <span class="d-block absence-autorisee">Absences autorisées</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </mat-card-content>
+            </mat-card> 
+        </div> 
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+            *ngIf="isSelectCategory == 'Presences'">
+            <mat-card
+                class="mb-25 tagus-card user-activities-box"
+                [class.component-dark-theme]="themeService.isDark()"
+            >
+                <mat-card-content>
+                    <ul class="list-unstyled ps-0 mb-0">
+                        <li class="d-flex align-items-center justify-content-space-between">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-user-line absence-sans-autorisation"></i>
+                                <div class="ms-12">
+                                    <h5>{{numberA}}</h5>
+                                    <span class="d-block absence-sans-autorisation">Absences sans autorisations</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center justify-content-space-between">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-user-line absent-maladie"></i>
+                                <div class="ms-12">
+                                    <h5>{{numberAM}}</h5>
+                                    <span class="d-block absent-maladie">Absenses maladies</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </mat-card-content>
+            </mat-card> 
+        </div> 
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+        *ngIf="isSelectCategory == 'Presences'">
+        <mat-card
+            class="mb-25 tagus-card user-activities-box"
+            [class.component-dark-theme]="themeService.isDark()"
+        >
+            <mat-card-content>
+                <ul class="list-unstyled ps-0 mb-0">
+                    <li class="d-flex align-items-center justify-content-space-between">
+                        <div class="d-flex align-items-center">
+                            <i class="ri-user-line conge-circonstanciel"></i>
+                            <div class="ms-12">
+                                <h5>{{numberCC}}</h5>
+                                <span class="d-block conge-circonstanciel">Congés circonstanciels</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center justify-content-space-between">
+                        <div class="d-flex align-items-center">
+                            <i class="ri-user-line conge-annuel"></i>
+                            <div class="ms-12">
+                                <h5>{{numberCA}}</h5>
+                                <span class="d-block conge-annuel">Congés annuel</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </mat-card-content>
+        </mat-card> 
+            </div> 
+        <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+                 *ngIf="isSelectCategory == 'Presences'">
+            <mat-card
+                class="mb-25 tagus-card user-activities-box"
+                [class.component-dark-theme]="themeService.isDark()"
+            >
+                <mat-card-content>
+                    <ul class="list-unstyled ps-0 mb-0">
+                        <li class="d-flex align-items-center justify-content-space-between">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-user-line suspension"></i>
+                                <div class="ms-12">
+                                    <h5>{{numberS}}</h5>
+                                    <span class="d-block suspension">Suspensions</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center justify-content-space-between">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-user-line service-off"></i>
+                                <div class="ms-12">
+                                    <h5>{{numberO}}</h5>
+                                    <span class="d-block service-off">Service-off</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </mat-card-content>
+            </mat-card> 
+        </div> 
+
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
+            *ngIf="isSelectCategory == 'Autres'">
+             
+            
+        </div> 
  
         <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
             <mat-card class="single-stats-box tagus-card mb-25" style="background-color: aquamarine !important;">
@@ -144,6 +271,28 @@
                     <mat-option *ngFor="let select of dureeList" [value]="select">{{select.toUpperCase()}}</mat-option>
                 </mat-select> 
             </mat-card>  
+
+            <div 
+                 *ngIf="isSelectCategory == 'Presences'">
+            <mat-card
+                class="mb-25 tagus-card user-activities-box"
+                [class.component-dark-theme]="themeService.isDark()"
+            >
+                <mat-card-content>
+                    <ul class="list-unstyled ps-0 mb-0">
+                        <li class="d-flex align-items-center justify-content-space-between">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-user-line mission"></i>
+                                <div class="ms-12">
+                                    <h5>{{numberM}}</h5>
+                                    <span class="d-block mission">Missions</span>
+                                </div>
+                            </div>
+                        </li> 
+                    </ul>
+                </mat-card-content>
+            </mat-card> 
+        </div> 
         </div> 
     </div>  
 

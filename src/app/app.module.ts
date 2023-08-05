@@ -37,13 +37,6 @@ import { CustomizerSettingsComponent } from './customizer-settings/customizer-se
 import { InfoProfileComponent } from './auth/profile/info-profile/info-profile.component'; 
 import { ProfilePaieComponent } from './auth/profile/profile-paie/profile-paie.component';
 import { ProfileEditComponent } from './auth/profile/profile-edit/profile-edit.component';
-import { PresenceStatusComponent } from './dashboard/presence-status/presence-status.component';
-import { ProgressionPaieComponent } from './dashboard/progression-paie/progression-paie.component';
-import { PrimeStatsComponent } from './dashboard/prime-stats/prime-stats.component';
-import { PenaliteStatsComponent } from './dashboard/penalite-stats/penalite-stats.component';
-import { ImpotStatsComponent } from './dashboard/impot-stats/impot-stats.component';
-import { SyndicatStatsComponent } from './dashboard/syndicat-stats/syndicat-stats.component';
-import { PresenceStatsComponent } from './dashboard/presence-stats/presence-stats.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CredentialInterceptor } from './interceptors/credential.interceptor'; 
 import { InboxComponent } from './mail/inbox/inbox.component';
@@ -157,13 +150,6 @@ import { AutreYearComponent } from './dashboard/autres/autre-year/autre-year.com
     ProfilePaieComponent, 
     ProfileEditComponent, 
     ChangePasswordDialogBox,
-    PresenceStatusComponent, 
-    ProgressionPaieComponent, 
-    PrimeStatsComponent, 
-    PenaliteStatsComponent, 
-    ImpotStatsComponent, 
-    SyndicatStatsComponent, 
-    PresenceStatsComponent,
     ChangePhotoDialogBox, 
     InboxComponent,
     ComposeComponent,
