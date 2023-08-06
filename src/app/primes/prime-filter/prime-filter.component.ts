@@ -8,8 +8,7 @@ import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-mod
   styleUrls: ['./prime-filter.component.scss']
 })
 export class PrimeFilterComponent implements OnInit { 
-  @Input('element') element: PrimeModel;
-  @Input('preference') preference: PreferenceModel;
+  @Input('element') element: PrimeModel; 
  
 
   isValid = false; 

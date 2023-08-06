@@ -7,23 +7,6 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="tagus-form-group">
-                    <label class="d-block mb-12 fw-semibold gray-color">Personnel <span>*</span></label>
-                    <mat-form-field appearance="fill">
-                        <i class="ri-edit-2-line"></i>
-                        <mat-label>Select agent</mat-label>
-                        <mat-select formControlName="personnel">
-                            <mat-option *ngFor="let personne of personneList" [value]="personne.id">
-                                {{personne.prenom}} {{personne.nom}}  <<{{personne.matricule}}>> 
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="formGroup.controls['personnel'].hasError('required')">
-                            Ce champs est obligatoire
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="tagus-form-group">
                     <label class="d-block mb-12 fw-semibold gray-color">Intitulé </label>
                     <mat-form-field appearance="fill">
                         <i class="ri-edit-2-line"></i>
@@ -35,7 +18,21 @@
                     </mat-form-field> 
                 </div> 
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">Monnaie</label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Entrer la monnaie</mat-label>
+                        <mat-select formControlName="monnaie">
+                            <mat-option *ngFor="let monnaie of monnaieList" [value]="monnaie">
+                                {{monnaie}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="tagus-form-group">
                     <label class="d-block mb-12 fw-semibold gray-color">Montant </label>
                     <mat-form-field appearance="fill">

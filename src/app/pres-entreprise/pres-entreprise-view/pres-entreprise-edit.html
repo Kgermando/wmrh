@@ -1,11 +1,10 @@
 <div class="create-dialog-box scrollable-dialog">
     <div class="title d-flex align-items-center justify-content-space-between">
-        <h4 class="mb-0">Modifcation de la Prime</h4>
+        <h4 class="mb-0">Modifier le près entreprise</h4>
         <button class="close-btn bg-transparent p-0 border-none" (click)="close()"><i class="flaticon-close"></i></button>
     </div>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
         <div class="row">
-             
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="tagus-form-group">
                     <label class="d-block mb-12 fw-semibold gray-color">Intitulé </label>
@@ -35,17 +34,42 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="tagus-form-group">
-                    <label class="d-block mb-12 fw-semibold gray-color">Montant </label>
+                    <label class="d-block mb-12 fw-semibold gray-color">Montant total preté</label>
                     <mat-form-field appearance="fill">
                         <i class="ri-edit-2-line"></i>
-                        <mat-label>Entrer le montant de la prime </mat-label>
-                        <input matInput type="number" formControlName="montant" name="montant">
-                        <mat-error *ngIf="formGroup.controls['montant'].hasError('required')">
+                        <mat-label>Entrer le montant preté </mat-label>
+                        <input matInput type="number" formControlName="total_empreints" name="total_empreints">
+                        <mat-error *ngIf="formGroup.controls['total_empreints'].hasError('required')">
                             Ce champs est obligatoire
                         </mat-error>
                     </mat-form-field> 
                 </div> 
-            </div> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">Montant à debourser </label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Entrer le montant à debourser </mat-label>
+                        <input matInput type="number" formControlName="deboursement" name="deboursement">
+                        <mat-error *ngIf="formGroup.controls['deboursement'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
+                    </mat-form-field> 
+                </div> 
+            </div>  
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">Date d'échéance </label>
+                    <mat-form-field appearance="fill" class="date-input">
+                        <mat-label>MM/DD/YYYY</mat-label>
+                        <input matInput [matDatepicker]="pickerDebut" id="date_limit" 
+                                formControlName="date_limit" required>
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerDebut"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerDebut></mat-datepicker> 
+                    </mat-form-field> 
+                </div>
+            </div>
         </div>
         <div class="text-end">
             <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>

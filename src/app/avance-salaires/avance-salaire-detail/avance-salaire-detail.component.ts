@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
+import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
 
 @Component({
   selector: 'app-avance-salaire-detail',
@@ -56,8 +57,9 @@ export class AvanceSalaireDetailComponent implements OnInit {
         const annee = created.getFullYear();
         this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
         this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
-        this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
-        this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
+        
+        this.isValid = created.getMonth() === this.dateMonth && annee === this.dateAN
+        this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!   
 
         this.isLoading = false; 
       });
@@ -124,6 +126,8 @@ export class EditAvanceSalaireDialogBox implements OnInit{
 
   personneList: PersonnelModel[] = [];
 
+  monnaieList = monnaieDataList;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialogRef<EditAvanceSalaireDialogBox>,
@@ -150,9 +154,9 @@ export class EditAvanceSalaireDialogBox implements OnInit{
         console.log(error);
       }
     });
-    this.formGroup = this.formBuilder.group({ 
-      personnel: ['', Validators.required],
+    this.formGroup = this.formBuilder.group({
       intitule: ['', Validators.required],
+      monnaie: ['', Validators.required],
       montant: ['', Validators.required],
       observation: ['', Validators.required]
     }); 
@@ -161,6 +165,7 @@ export class EditAvanceSalaireDialogBox implements OnInit{
       this.formGroup.patchValue({
         personnel: item.personnel,
         intitule: item.intitule,
+        monnaie: item.monnaie,
         montant: item.montant,
         observation: item.observation,
         signature: this.currentUser.matricule, 

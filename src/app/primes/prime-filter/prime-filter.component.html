@@ -1,11 +1,11 @@
 <span class="badge text-soft-success" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
-    {{ element.montant }} <span *ngIf="preference">{{ preference.monnaie }}</span> <sup>+1</sup>
+    {{ element.montant | numberFormat:'fr-FR' }} {{ element.monnaie }} <sup>+1</sup>
 </span>
 
 <span class="badge text-soft-success" *ngIf="!isMoisSuivantValid && isValid">
-    {{ element.montant }} <span *ngIf="preference">{{ preference.monnaie }}</span>
+    {{ element.montant | numberFormat:'fr-FR' }} {{ element.monnaie }}
 </span>
 
 <span *ngIf="isMoisPrecedentValid && !isValid">
-   <del>{{ element.montant }} <span *ngIf="preference">{{ preference.monnaie }}</span></del> 
+   <del>{{ element.montant | numberFormat:'fr-FR' }} {{ element.monnaie }}</del> 
 </span>

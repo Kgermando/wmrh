@@ -342,7 +342,7 @@ export class DashAllYearComponent implements OnInit{
 
     
        getAllocations() {
-        this.dashAllService.allocationMonth(this.currentUser.code_entreprise).subscribe(
+        this.dashAllService.allocationYear(this.currentUser.code_entreprise).subscribe(
             res => {
                 this.allocationList = res;
                 this.chartOptionAllocations = {

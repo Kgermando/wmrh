@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PersonnelService } from '../personnels/personnel.service';
 import { PrimeModel } from './models/prime-model';
 import { PrimeService } from './prime.service';
+import { monnaieDataList } from '../shared/tools/monnaie-list';
 
 @Component({
   selector: 'app-primes',
@@ -128,6 +129,8 @@ export class PrimeAddDialogBox implements OnInit {
 
   personneList: PersonnelModel[] = [];
 
+  monnaieList = monnaieDataList;
+
   constructor( 
       public dialogRef: MatDialogRef<PrimeAddDialogBox>,
       private formBuilder: FormBuilder,
@@ -156,6 +159,7 @@ export class PrimeAddDialogBox implements OnInit {
     this.formGroup = this.formBuilder.group({ 
       personnel: ['', Validators.required],
       intitule: ['', Validators.required],
+      monnaie: ['', Validators.required],
       montant: ['', Validators.required], 
     }); 
  
@@ -169,6 +173,7 @@ export class PrimeAddDialogBox implements OnInit {
         var body = {
           personnel: this.formGroup.value.personnel,
           intitule: this.formGroup.value.intitule,
+          monnaie: this.formGroup.value.monnaie,
           montant: this.formGroup.value.montant,
           signature: this.currentUser.matricule,
           created: new Date(),

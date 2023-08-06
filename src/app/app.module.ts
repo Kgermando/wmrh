@@ -108,7 +108,7 @@ import { EditPerformenceDialogBox, PerformenceTableComponent } from './performen
 import { PerformencePieComponent } from './performences/performence-view/performence-pie/performence-pie.component'; 
 import { PerformencePieYearComponent } from './performences/performence-view/performence-pie/performence-pie-year/performence-pie-year.component';
 import { PerformencePieAllComponent } from './performences/performence-view/performence-pie/performence-pie-all/performence-pie-all.component';
-import { PresEntrepriseComponent } from './salaires/pres-entreprise/pres-entreprise.component';
+import { PresEntrepriseAddDialogBox, PresEntrepriseComponent } from './pres-entreprise/pres-entreprise.component';
 import { DashAllMoisComponent } from './dashboard/all/dash-all-mois/dash-all-mois.component';
 import { DashAllYearComponent } from './dashboard/all/dash-all-year/dash-all-year.component';
 import { DashAllComponent } from './dashboard/all/dash-all/dash-all.component';
@@ -124,6 +124,7 @@ import { PresenceAllComponent } from './dashboard/presences/presence-all/presenc
 import { AutreAllComponent } from './dashboard/autres/autre-all/autre-all.component';
 import { AutreMonthComponent } from './dashboard/autres/autre-month/autre-month.component';
 import { AutreYearComponent } from './dashboard/autres/autre-year/autre-year.component';
+import { EditPresEntrepriseDialogBox, PresEntrepriseViewComponent } from './pres-entreprise/pres-entreprise-view/pres-entreprise-view.component';
 
 @NgModule({
   declarations: [
@@ -253,6 +254,9 @@ import { AutreYearComponent } from './dashboard/autres/autre-year/autre-year.com
     AutreAllComponent,
     AutreMonthComponent,
     AutreYearComponent,
+    PresEntrepriseAddDialogBox,
+    PresEntrepriseViewComponent,
+    EditPresEntrepriseDialogBox,
   ],
   imports: [
     BrowserModule,

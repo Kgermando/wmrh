@@ -16,6 +16,7 @@ import { CustomizerSettingsService } from 'src/app/customizer-settings/customize
 import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
 import { PenaliteModel } from './models/penalite-model';
 import { PenaliteService } from './penalite.service';
+import { monnaieDataList } from '../shared/tools/monnaie-list';
 
 
 @Component({
@@ -130,6 +131,8 @@ export class PenaliteAddDialogBox implements OnInit {
 
   personneList: PersonnelModel[] = [];
 
+  monnaieList = monnaieDataList;
+
   constructor( 
       public dialogRef: MatDialogRef<PenaliteAddDialogBox>,
       private formBuilder: FormBuilder,
@@ -158,6 +161,7 @@ export class PenaliteAddDialogBox implements OnInit {
     this.formGroup = this.formBuilder.group({ 
       personnel: ['', Validators.required],
       intitule: ['', Validators.required],
+      monnaie: ['', Validators.required],
       montant: ['', Validators.required], 
     }); 
  
@@ -171,6 +175,7 @@ export class PenaliteAddDialogBox implements OnInit {
         var body = {
           personnel: this.formGroup.value.personnel,
           intitule: this.formGroup.value.intitule,
+          monnaie: this.formGroup.value.monnaie,
           montant: this.formGroup.value.montant,
           signature: this.currentUser.matricule,
           created: new Date(),

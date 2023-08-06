@@ -3,18 +3,18 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
 </div>
 <div *ngIf="!isLoading">
-    <div class="row" *ngIf="penalite">
+    <div class="row" *ngIf="presEntreprise">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
-                    <h4 class="mb-0">Penalités</h4>
+                    <h4 class="mb-0">Près entreprise</h4>
                     <div> 
                         <button mat-icon-button color="accent" 
-                            (click)="openEditDialog('300ms', '100ms', penalite.id)">
+                            (click)="openEditDialog('300ms', '100ms', presEntreprise.id)">
                                 <mat-icon>edit</mat-icon>
                         </button> 
                         <button mat-icon-button color="warn" 
-                                (click)="delete(penalite.id)">
+                                (click)="delete(presEntreprise.id)">
                                 <mat-icon>delete</mat-icon>
                         </button>
                     </div>
@@ -25,14 +25,14 @@
                             <ul class="list ps-0 mb-0">
                                 <li>
                                     <span class="fw-semibold d-inline-block">Identifiant: </span>
-                                    <span class="gray-color">{{ penalite.personnel.matricule.toUpperCase() }}</span>
+                                    <span class="gray-color">{{ presEntreprise.personnel.matricule.toUpperCase() }}</span>
                                 </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Nom complet: </span>
                                     <span class="gray-color">
-                                        {{ penalite.personnel.nom }}
-                                        {{ penalite.personnel.postnom }}
-                                        {{ penalite.personnel.prenom }}
+                                        {{ presEntreprise.personnel.nom }}
+                                        {{ presEntreprise.personnel.postnom }}
+                                        {{ presEntreprise.personnel.prenom }}
                                     </span>
                                 </li> 
                             </ul>
@@ -41,11 +41,11 @@
                             <ul class="list ps-0 mb-0">
                                 <li>
                                     <span class="fw-semibold d-inline-block">Date: </span>
-                                    <span class="gray-color">{{penalite.created | date: 'dd/MM/yyyy HH:mm'}}</span>
+                                    <span class="gray-color">{{presEntreprise.created | date: 'dd/MM/yyyy HH:mm'}}</span>
                                 </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Mise à jour: </span>
-                                    <span class="gray-color">{{penalite.update_created | date: 'dd/MM/yyyy HH:mm'}}</span>
+                                    <span class="gray-color">{{presEntreprise.update_created | date: 'dd/MM/yyyy HH:mm'}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -57,27 +57,29 @@
                             <ul class="list ps-0 mb-0">
                                 <li>
                                     <span class="fw-semibold d-inline-block">Intitule: </span>
-                                    <span class="gray-color">{{ penalite.intitule }}</span>
+                                    <span class="gray-color">{{ presEntreprise.intitule }}</span>
                                 </li>
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Montant: </span>
+                                    <span class="fw-semibold d-inline-block">Total empreints: </span>
                                     <span class="gray-color">
-                                        <span class="badge text-soft-danger" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
-                                            {{ penalite.montant | numberFormat:'fr-FR' }} {{ penalite.monnaie }} <sup>+1</sup>
-                                        </span>
-                                        
-                                        <span class="badge text-soft-danger" *ngIf="!isMoisSuivantValid && isValid">
-                                            {{ penalite.montant | numberFormat:'fr-FR' }} {{ penalite.monnaie }}
-                                        </span>
-                                        
-                                        <span *ngIf="isMoisPrecedentValid && !isValid">
-                                           <del>{{ penalite.montant | numberFormat:'fr-FR' }} {{ penalite.monnaie }}</del> 
-                                        </span>
+                                        {{ presEntreprise.total_empreints | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
                                     </span>
                                 </li>
                                 <li>
+                                    <span class="fw-semibold d-inline-block">Montant à debourser par mois: </span>
+                                    <span class="gray-color">
+                                        {{ presEntreprise.deboursement | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
+                                    </span>
+                                </li> 
+                                <!-- <li>
+                                    <span class="fw-semibold d-inline-block">Total rembourser: </span>
+                                    <span class="gray-color">
+                                        {{ presEntreprise.remboursement | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
+                                    </span>
+                                </li>  -->
+                                <li>
                                     <span class="fw-semibold d-inline-block">Signature: </span>
-                                    <span class="gray-color">{{ penalite.signature }}</span>
+                                    <span class="gray-color">{{ presEntreprise.signature }}</span>
                                 </li>
                             </ul>
                         </div> 
@@ -85,8 +87,10 @@
                 </mat-card-content>
             </mat-card> 
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-12"> 
-            <app-penalite-table [penalite]="penalite" [preference]="preference"></app-penalite-table>
-        </div> 
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <!-- <app-presEntreprise-table [presEntreprise]="presEntreprise" [preference]="preference"></app-presEntreprise-table> -->
+        </div>
+
+         
     </div>
 </div>

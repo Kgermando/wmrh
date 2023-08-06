@@ -8,8 +8,8 @@
                 <mat-card-header>
                     <h4 class="mb-0">Fiche employé</h4>
                     <div> 
-                        <button [disabled]="personne.is_paie === dateMonth" mat-flat-button class="default-btn tagus" 
-                            (click)="onSubmit()" >
+                        <button [disabled]="personne.is_paie === dateMonth" mat-flat-button class="default-btn tagus"  
+                        color="warn" (click)="onSubmit()" >
                             <div class="d-flex justify-content-center" *ngIf="!isLoadingSubmit">
                                 <span><i class="ri-add-fill"></i> Génerer la fiche de paie </span>
                             </div> 

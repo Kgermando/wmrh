@@ -3,6 +3,7 @@ import { PersonnelModel } from "src/app/personnels/models/personnel-model";
 export interface AvanceSalaireModel {
     id: number;
     intitule: string;
+    monnaie: string;
     montant: number; 
     observation: string; 
     personnel: PersonnelModel; 

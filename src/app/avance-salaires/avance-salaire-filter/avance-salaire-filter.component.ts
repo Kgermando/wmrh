@@ -27,7 +27,9 @@ export class AvanceSalaireFilterComponent implements OnInit {
     const annee = created.getFullYear();
     this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
     this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
-    this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
+    // this.isValid = moisSuivant === this.dateMonth && annee === this.dateAN; // Mois actual pour payer
+
+    this.isValid = created.getMonth() === this.dateMonth && annee === this.dateAN
     this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
   }
 }

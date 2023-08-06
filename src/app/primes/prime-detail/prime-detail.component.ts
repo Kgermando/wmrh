@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { PrimeModel } from '../models/prime-model';
 import { PrimeService } from '../prime.service';
+import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
 
 @Component({
   selector: 'app-prime-detail',
@@ -123,6 +124,9 @@ export class EditPrimeDialogBox implements OnInit{
 
   personneList: PersonnelModel[] = [];
 
+
+  monnaieList = monnaieDataList;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialogRef<EditPrimeDialogBox>,
@@ -150,8 +154,9 @@ export class EditPrimeDialogBox implements OnInit{
       }
     });
     this.formGroup = this.formBuilder.group({ 
-      personnel: [''],
+      // personnel: [''],  // On ne modifie pas l'employé
       intitule: [''],
+      monnaie: [''],
       montant: [''],
     }); 
     
@@ -159,6 +164,7 @@ export class EditPrimeDialogBox implements OnInit{
       this.formGroup.patchValue({
         personnel: item.personnel,
         intitule: item.intitule,
+        monnaie: item.monnaie,
         montant: item.montant,
         signature: this.currentUser.matricule, 
         update_created: new Date(),

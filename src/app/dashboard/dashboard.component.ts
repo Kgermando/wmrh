@@ -23,7 +23,7 @@ export class DashboardComponent {
     'Presences',  
   ]; //    'Autres', 
 
-  dureeList = ['All', 'Mois', 'Année'];
+  dureeList = ['All', 'Année', 'Mois'];
 
 
   isSelectCategory = 'All';

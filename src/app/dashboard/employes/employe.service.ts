@@ -74,7 +74,6 @@ export class EmployeService extends ApiService {
   }
  
 
-
 // Employés par departement
 
   employeDepartementMonth(code_entreprise: string): Observable<any> {
