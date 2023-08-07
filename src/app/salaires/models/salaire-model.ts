@@ -18,6 +18,7 @@ export class SalaireModel {
     heureSupplementaireMonnaie: string;
     conge_paye: number;
     nbre_jrs_preste: number; // Nombre de jours presents
+    nbre_jrs_ferie: number;
     rbi: string;  // Remuneration brute imposable
     cnss_qpo: string; // Impôt de 5% => 0.05
     rni: string;  // Remuneration Nette Imposable
@@ -27,6 +28,7 @@ export class SalaireModel {
     penalites: string;  // Sanctions sur le salaire net à payer
     avance_slaire: string;
     prise_en_charge_frais_bancaire: string;
+    pres_entreprise: string;
     net_a_payer: string;
     statut: string; // Genereted, Traitement, Disponible
     signature: string;

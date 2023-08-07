@@ -49,7 +49,7 @@ export class FichePaieComponent implements OnInit {
   cnss_qpo = 0;
   penalites = 0;
   avance_slaire = 0;
-  prise_en_charge_frais_bancaire = 0;
+  prise_en_charge_frais_bancaire = 0; 
   net_a_payer = 0;
 
 
@@ -167,7 +167,7 @@ export class FichePaieComponent implements OnInit {
 
       // Variables 
       this.salaire_base = +val.salaire_base;
-      this.soins_medicaux = +val.soins_medicaux;
+      this.soins_medicaux = +val.soins_medicaux; 
 
       // Aciennetés
       if (this.salaire.anciennete_nbr_age >=5) {

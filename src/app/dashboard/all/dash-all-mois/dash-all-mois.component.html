@@ -12,7 +12,7 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart audienceOverviewChart">
+                <div class="chart audienceOverviewChart" *ngIf="allocationList.length > 0">
                     <apx-chart
                         [series]="chartOptionAllocations.series!"
                         [chart]="chartOptionAllocations.chart!"
@@ -146,7 +146,7 @@
             </mat-card-header>
             <mat-card-content>
                 <div class="myProfileChart position-relative">
-                    <div class="chart">
+                    <div class="chart" *ngIf="statutPaieList.length > 0">
                         <apx-chart
                             [series]="chartOptionsSTatutPaie.series!"
                             [chart]="chartOptionsSTatutPaie.chart!"

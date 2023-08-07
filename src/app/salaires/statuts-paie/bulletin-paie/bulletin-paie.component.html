@@ -91,6 +91,12 @@
                                     </td>
                                     <td class="gray-color text-start">{{ salaire.monnaie }}</td> 
                                 </tr>
+                                <tr>
+                                    <td class="text-start">
+                                        Taux de conversion:
+                                    </td>
+                                    <td class="gray-color text-start">1$ = {{ salaire.taux_dollard }}</td> 
+                                </tr>
                             </tbody>
                         </table>
                         <ul class="list ps-0 mb-0 mt-25">
@@ -108,6 +114,12 @@
                                                 Jours prestés :
                                             </td> 
                                             <td class="gray-color text-end">{{ salaire.nbre_jrs_preste }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Jours feriés :
+                                            </td> 
+                                            <td class="gray-color text-end">{{ salaire.nbre_jrs_ferie }}</td>
                                         </tr>
                                         <tr>
                                             <td class="text-start">
@@ -295,6 +307,12 @@
                                             </td> 
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.prise_en_charge_frais_bancaire | numberFormat:'fr-FR' }} FC</td>  
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ prise_en_charge_frais_bancaireUSD | numberFormat:'fr-FR' }} $</td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Près entreprise
+                                            </td> 
+                                            <td class="gray-color text-end">{{ salaire.pres_entreprise | numberFormat:'fr-FR' }} FC</td>  
                                         </tr>
                                     </tbody>
                                 </table>

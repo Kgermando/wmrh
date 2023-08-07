@@ -28,10 +28,15 @@ export class PaieViewComponent implements OnInit {
   nbreJrsPreste = 0;
   congepayeNbr = 0;
   nbrHeureSupp = 0;
-  primeNbr = 0;
+  primeUSD = 0;
+  primeCDF = 0;
   primeAncennete = 0;
-  penaliteNbr = 0;
-  avanceSalaireNbr = 0;
+  penaliteCDF = 0;
+  penaliteUSD = 0;
+  avanceSalaireUSD = 0;
+  avanceSalaireCDF = 0;
+  presEntrepriseUSD = 0;
+  presEntrepriseCDF = 0;
   allocLogement = 0;
   allocTransport = 0;
   allocFamilliale = 0;
@@ -41,7 +46,7 @@ export class PaieViewComponent implements OnInit {
   ipr = 0;
 
   dateNow = new Date();
-  dateMonth = this.dateNow.getMonth() + 1;
+  dateMonth = 0; 
  
 
   constructor(
@@ -60,19 +65,30 @@ export class PaieViewComponent implements OnInit {
       this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user;
+          const dateNow = new Date();
+          this.dateMonth = dateNow.getMonth() + 1;
+
           let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
           this.personnelService.get(Number(id)).subscribe(res => {
             this.personne = res;
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
               this.preference = res; 
             });
-            this.salaireService.primeTotal(this.currentUser.code_entreprise, this.personne.id).subscribe(prime => {
+            this.salaireService.primeTotalUSD(this.currentUser.code_entreprise, this.personne.id).subscribe(prime => {
               var primes  = prime;
-              primes.map((item: any) => this.primeNbr = parseFloat(item.sum)); 
+              primes.map((item: any) => this.primeUSD = parseFloat(item.sum)); 
             });
-            this.salaireService.penaliteTotal(this.currentUser.code_entreprise, this.personne.id).subscribe(penalite => {
+            this.salaireService.primeTotalCDF(this.currentUser.code_entreprise, this.personne.id).subscribe(prime => {
+              var primes  = prime;
+              primes.map((item: any) => this.primeCDF = parseFloat(item.sum)); 
+            });
+            this.salaireService.penaliteTotalUSD(this.currentUser.code_entreprise, this.personne.id).subscribe(penalite => {
               var penalites  = penalite;
-              penalites.map((item: any) => this.penaliteNbr = parseFloat(item.sum)); 
+              penalites.map((item: any) => this.penaliteUSD = parseFloat(item.sum)); 
+            });
+            this.salaireService.penaliteTotalCDF(this.currentUser.code_entreprise, this.personne.id).subscribe(penalite => {
+              var penalites  = penalite;
+              penalites.map((item: any) => this.penaliteCDF = parseFloat(item.sum)); 
             });
             this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.personne.id).subscribe(
               heureSup => {
@@ -80,10 +96,28 @@ export class PaieViewComponent implements OnInit {
                 heureSupp.map((item: any) => this.nbrHeureSupp = parseFloat(item.sum));  
               }
             );
-            this.salaireService.avanceSalaireTotal(this.currentUser.code_entreprise, this.personne.id).subscribe(
+            this.salaireService.avanceSalaireTotalUSD(this.currentUser.code_entreprise, this.personne.id).subscribe(
               avanceSalaire => {
                 var avanceSalaires = avanceSalaire; 
-                avanceSalaires.map((item: any) => this.avanceSalaireNbr = parseFloat(item.sum)); 
+                avanceSalaires.map((item: any) => this.avanceSalaireUSD = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.avanceSalaireTotalCDF(this.currentUser.code_entreprise, this.personne.id).subscribe(
+              avanceSalaire => {
+                var avanceSalaires = avanceSalaire; 
+                avanceSalaires.map((item: any) => this.avanceSalaireCDF = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.preEntrepriseUSD(this.currentUser.code_entreprise, this.personne.id).subscribe(
+              presEntreprise => {
+                var preEntrepriseUSDs = presEntreprise; 
+                preEntrepriseUSDs.map((item: any) => this.presEntrepriseUSD = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.preEntrepriseCDF(this.currentUser.code_entreprise, this.personne.id).subscribe(
+              presEntreprise => {
+                var preEntrepriseUSD = presEntreprise; 
+                preEntrepriseUSD.map((item: any) => this.presEntrepriseCDF = parseFloat(item.sum)); 
               }
             );
             this.salaireService.getJrPrestE(this.currentUser.code_entreprise, this.personne.matricule).subscribe(
@@ -106,7 +140,6 @@ export class PaieViewComponent implements OnInit {
               }
             );
           });
-          
         },
         error: (error) => {
           this.router.navigate(['/auth/login']);
@@ -126,46 +159,72 @@ export class PaieViewComponent implements OnInit {
         var alloc_transportMonnaie = 0;
         var alloc_logementMonnaie = 0;
         var soins_medicauxMonnaie = 0;
-        var primeMonnaie = 0;
-        var penaliteMonnaie = 0;
-        var avanceSalaireMonnaie = 0;
+        var prime = (this.primeUSD * this.preference.taux_dollard) + this.primeCDF;
+        var penalite = (this.penaliteUSD * this.preference.taux_dollard) + this.penaliteCDF;
+        var avanceSalaire = (this.avanceSalaireUSD * this.preference.taux_dollard) + this.avanceSalaireCDF;
+        var pres_entreprise = (this.presEntrepriseUSD * this.preference.taux_dollard) + this.presEntrepriseCDF;
 
         if (this.personne.monnaie == 'USD') {
           salaire = parseFloat(this.personne.salaire_base) * this.preference.taux_dollard;
             alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale) * this.preference.taux_dollard;
             alloc_transportMonnaie = parseFloat(this.personne.alloc_transport) * this.preference.taux_dollard;
             alloc_logementMonnaie = parseFloat(this.personne.alloc_logement) * this.preference.taux_dollard;
-            soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux) * this.preference.taux_dollard;
-            primeMonnaie = this.primeNbr * this.preference.taux_dollard;
-            penaliteMonnaie = this.penaliteNbr * this.preference.taux_dollard;
-            avanceSalaireMonnaie = this.avanceSalaireNbr * this.preference.taux_dollard;
+            soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux) * this.preference.taux_dollard; 
         } else if (this.personne.monnaie == 'CDF'){
           if (this.preference.monnaie == 'USD') {
             salaire = parseFloat(this.personne.salaire_base) * this.preference.taux_dollard;
             alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale) * this.preference.taux_dollard;
             alloc_transportMonnaie = parseFloat(this.personne.alloc_transport) * this.preference.taux_dollard;
             alloc_logementMonnaie = parseFloat(this.personne.alloc_logement) * this.preference.taux_dollard;
-            soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux) * this.preference.taux_dollard;
-            primeMonnaie = this.primeNbr * this.preference.taux_dollard;
-            penaliteMonnaie = this.penaliteNbr * this.preference.taux_dollard;
-            avanceSalaireMonnaie = this.avanceSalaireNbr * this.preference.taux_dollard; 
+            soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux) * this.preference.taux_dollard; 
           }
           salaire =  parseFloat(this.personne.salaire_base);
           alloc_famillialeMonnaie = parseFloat(this.personne.alloc_familliale);
           alloc_transportMonnaie = parseFloat(this.personne.alloc_transport);
           alloc_logementMonnaie = parseFloat(this.personne.alloc_logement);
-          soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux);
-          primeMonnaie = this.primeNbr;
-          penaliteMonnaie = this.penaliteNbr;
-          avanceSalaireMonnaie = this.avanceSalaireNbr;
+          soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux); 
         }
+
+
+        var totalJrsPreste = 0;
+        var nbre_jrs_ferie = 0;
+
+        var new_year = new Date(this.preference.new_year);
+        var martyr_day = new Date(this.preference.martyr_day);
+        var lumumba_day = new Date(this.preference.lumumba_day);
+        var kabila_day = new Date(this.preference.kabila_day);
+        var kimbangu_day = new Date(this.preference.kimbangu_day);
+        var liberation_day = new Date(this.preference.liberation_day);
+        var parent_day = new Date(this.preference.parent_day);
+        var labour_day = new Date(this.preference.labour_day);
+        var indepence_day = new Date(this.preference.indepence_day);
+        
+
+        if (this.dateMonth == new_year.getMonth() || 
+            this.dateMonth == martyr_day.getMonth() || 
+            this.dateMonth == lumumba_day.getMonth() || 
+            this.dateMonth == kabila_day.getMonth()) { 
+            nbre_jrs_ferie = 4;
+        } else if (this.dateMonth == kimbangu_day.getMonth()) {
+          nbre_jrs_ferie = 1;
+        } else if (this.dateMonth == liberation_day.getMonth()) {
+          nbre_jrs_ferie = 1;
+        }  else if (this.dateMonth == parent_day.getMonth()) {
+          nbre_jrs_ferie = 1;
+        }  else if (this.dateMonth == labour_day.getMonth()) {
+          nbre_jrs_ferie = 1;
+        }  else if (this.dateMonth == indepence_day.getMonth()) {
+          nbre_jrs_ferie = 1;
+        }
+
+        totalJrsPreste = this.nbreJrsPreste + nbre_jrs_ferie;
 
         var salaire_base = 0;
         
         if (this.congepayeNbr >= 1) {
-          salaire_base = (salaire * this.nbreJrsPreste) * 2/3;
+          salaire_base = (salaire * totalJrsPreste) * 2/3;
         } else {
-          salaire_base = salaire * this.nbreJrsPreste;
+          salaire_base = salaire * totalJrsPreste;
         }
 
         var ancennete = 0;
@@ -191,25 +250,25 @@ export class PaieViewComponent implements OnInit {
           heureSupplementaireMonnaie = salaire_base * 100 / 100;
         }
 
-        var alloc_familliale = alloc_famillialeMonnaie * this.personne.nbr_dependants * this.nbreJrsPreste;
-        var alloc_famillialeSurPlus = alloc_familliale - (parseFloat(this.preference.smig) * this.personne.nbr_dependants * this.nbreJrsPreste);
+        var alloc_familliale = alloc_famillialeMonnaie * this.personne.nbr_dependants * totalJrsPreste;
+        var alloc_famillialeSurPlus = alloc_familliale - (parseFloat(this.preference.smig) * this.personne.nbr_dependants * totalJrsPreste);
 
-        var alloc_transport = alloc_transportMonnaie * this.nbreJrsPreste;
+        var alloc_transport = alloc_transportMonnaie * totalJrsPreste;
 
         var alloc_transportSurplus = 0;
         if (this.personne.category === 'Cadres supérieurs' || this.personne.category === 'Cadres subalternes') {
-          alloc_transportSurplus = alloc_transport - (this.preference.courses_transport * parseFloat(this.preference.montant_travailler_quadre) * this.nbreJrsPreste);
+          alloc_transportSurplus = alloc_transport - (this.preference.courses_transport * parseFloat(this.preference.montant_travailler_quadre) * totalJrsPreste);
         } else {
-          alloc_transportSurplus = alloc_transport - (this.preference.courses_transport * parseFloat(this.preference.montant_travailler_non_quadre) * this.nbreJrsPreste);
+          alloc_transportSurplus = alloc_transport - (this.preference.courses_transport * parseFloat(this.preference.montant_travailler_non_quadre) * totalJrsPreste);
         }
        
  
 
         // Remuneration Brute impôsable
         var rbi = salaire_base + 
-            primeMonnaie + ancennete + heureSupplementaireMonnaie; 
+            prime + ancennete + heureSupplementaireMonnaie; 
           console.log('rbi', salaire_base + 
-            primeMonnaie + ancennete + heureSupplementaireMonnaie);
+            prime + ancennete + heureSupplementaireMonnaie);
 
         var alloc_logementSurPlus = alloc_logementMonnaie - (30 * rbi / 100); // Le logement ne depasse le 30% de rbi
 
@@ -289,11 +348,11 @@ export class PaieViewComponent implements OnInit {
         }
         
 
-        var deductions = iprApeyE + penaliteMonnaie + avanceSalaireMonnaie + syndicat;
+        var deductions = iprApeyE + penalite + avanceSalaire + syndicat + pres_entreprise;
 
         var avantageSocials = alloc_logementMonnaie + 
           alloc_transport + alloc_familliale +
-          primeMonnaie + ancennete + heureSupplementaireMonnaie + prise_en_charge_frais_bancaireMonnaie;
+          prime + ancennete + heureSupplementaireMonnaie + prise_en_charge_frais_bancaireMonnaie;
         
 
         var net_a_payer = rni + avantageSocials - deductions;
@@ -308,22 +367,24 @@ export class PaieViewComponent implements OnInit {
           alloc_familliale: alloc_familliale,
           soins_medicaux: soins_medicauxMonnaie,
           salaire_base: salaire_base,  // Par jour * 26
-          primes: primeMonnaie,
+          primes: prime,
           anciennete_nbr_age: this.primeAncennete, //Nombre d'age d'ancienneté
           prime_anciennete: ancennete, // Cumul de prime d'ancienneté
           heures_supp: this.nbrHeureSupp,
           heureSupplementaireMonnaie: heureSupplementaireMonnaie,
           conge_paye: this.congepayeNbr,
-          nbre_jrs_preste: this.nbreJrsPreste, // Nombre de jours presents
+          nbre_jrs_preste: totalJrsPreste, // Nombre de jours presents
+          nbre_jrs_ferie: nbre_jrs_ferie,
           rbi: rbi,  // Remuneration brute imposable
           cnss_qpo: cnss_qpo, // Impôt de 5% => 0.05
           rni: rni,  // Remuneration Nette Imposable
           ipr: iprApeyE,  // Impôt Professionnel sur les Rémunérations (IPR)
           impot_elide: impotElide,
           syndicat: syndicat,  // 1 %
-          penalites: penaliteMonnaie,  // Sanctions sur le salaire net à payer
-          avance_slaire: avanceSalaireMonnaie,
+          penalites: penalite,  // Sanctions sur le salaire net à payer
+          avance_slaire: avanceSalaire,
           prise_en_charge_frais_bancaire: prise_en_charge_frais_bancaireMonnaie,
+          pres_entreprise: pres_entreprise,
           net_a_payer: net_a_payer,
           statut: 'Traitement',
           signature: this.currentUser.matricule,
@@ -334,10 +395,9 @@ export class PaieViewComponent implements OnInit {
         };
         this.salaireService.create(body).subscribe({
           next: (res) => { 
-            const dateNow = new Date();
-            const dateMonth = dateNow.getMonth() + 1;
+           
             var personnel = { 
-              is_paie: dateMonth,
+              is_paie: this.dateMonth,
               signature: this.currentUser.matricule,
               update_created: new Date(),
               entreprise: this.currentUser.entreprise,

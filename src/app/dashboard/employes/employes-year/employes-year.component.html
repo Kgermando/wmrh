@@ -10,7 +10,7 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart activeCoursesChart">
+                <div class="chart activeCoursesChart" *ngIf="sexeList.length > 0">
                     <apx-chart
                         [series]="chartOptionPieSexe.series!"
                         [chart]="chartOptionPieSexe.chart!"
@@ -34,7 +34,7 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart revenueSummaryChart">
+                <div class="chart revenueSummaryChart" *ngIf="ageParContratList.length > 0">
                     <apx-chart
                         [series]="chartOptions.series!"
                         [chart]="chartOptions.chart!"
@@ -155,7 +155,7 @@
         <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
     </mat-card-header>
     <mat-card-content>
-        <div class="chart tasksPerformanceChart">
+        <div class="chart tasksPerformanceChart" *ngIf="employeParDepartement.length > 0">
             <apx-chart
                 [series]="chartOptionDepartement.series!"
                 [chart]="chartOptionDepartement.chart!"
@@ -177,7 +177,7 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart sessionsByCountriesChart">
+                <div class="chart sessionsByCountriesChart" *ngIf="ageParEmployeList.length > 0">
                     <apx-chart
                         [series]="chartOptionAgeMoyenneEmployes.series!"
                         [chart]="chartOptionAgeMoyenneEmployes.chart!"

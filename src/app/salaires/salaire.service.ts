@@ -26,16 +26,33 @@ export class SalaireService extends ApiService {
     return this.http.get(`${this.endpoint}/get-nbr-heures-supp/${code_entreprise}/${id}`);
   }
 
-  primeTotal(code_entreprise: string, id: number): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-prime-total/${code_entreprise}/${id}`);
+  primeTotalCDF(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-prime-total-cdf/${code_entreprise}/${id}`);
+  }
+  primeTotalUSD(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-prime-total-usd/${code_entreprise}/${id}`);
   }
 
-  penaliteTotal(code_entreprise: string, id: number): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-penalite-total/${code_entreprise}/${id}`);
+  penaliteTotalCDF(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-penalite-total-cdf/${code_entreprise}/${id}`);
+  }
+  penaliteTotalUSD(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-penalite-total-usd/${code_entreprise}/${id}`);
   }
 
-  avanceSalaireTotal(code_entreprise: string, id: number): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-avance-salaire-total/${code_entreprise}/${id}`);
+  avanceSalaireTotalCDF(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-avance-salaire-total-cdf/${code_entreprise}/${id}`);
+  }
+  avanceSalaireTotalUSD(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-avance-salaire-total-usd/${code_entreprise}/${id}`);
+  }
+
+  preEntrepriseCDF(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/pres-entreprise-cdf/${code_entreprise}/${id}`);
+  }
+
+  preEntrepriseUSD(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/pres-entreprise-usd/${code_entreprise}/${id}`);
   }
 
   getAnciennete(code_entreprise: string, id: number, date_debut_contrat: string): Observable<any> {

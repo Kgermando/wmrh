@@ -175,6 +175,7 @@ export class PresEntrepriseAddDialogBox implements OnInit {
         var body = {
           personnel: this.formGroup.value.personnel,
           intitule: this.formGroup.value.intitule,
+          monnaie: this.formGroup.value.monnaie,
           total_empreints: this.formGroup.value.total_empreints,
           deboursement: this.formGroup.value.deboursement,
           remboursement: '0',

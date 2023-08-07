@@ -96,6 +96,12 @@
                                     </td>
                                     <td class="gray-color text-start">{{ salaire.monnaie }}</td> 
                                 </tr>
+                                <tr>
+                                    <td class="text-start">
+                                        Taux de conversion:
+                                    </td>
+                                    <td class="gray-color text-start">1$ = {{ salaire.taux_dollard }}</td> 
+                                </tr>
                             </tbody>
                         </table>
                         <ul class="list ps-0 mb-0 mt-25">
@@ -113,6 +119,12 @@
                                                 Jours prestés :
                                             </td> 
                                             <td class="gray-color text-end">{{ salaire.nbre_jrs_preste }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Jours feriés :
+                                            </td> 
+                                            <td class="gray-color text-end">{{ salaire.nbre_jrs_ferie }}</td>
                                         </tr>
                                         <tr>
                                             <td class="text-start">
@@ -232,7 +244,16 @@
                                             <td class="text-start">
                                                 Contre-valeur logement :
                                             </td> 
-                                            <td class="gray-color text-end" *ngIf="(this.alloc_logement > this.alloc_logementPlafond)">
+                                            <!-- <td class="gray-color text-end" *ngIf="(this.alloc_logement > this.alloc_logementPlafond)">
+                                                <input type="text" class="form-control" 
+                                                type="number"
+                                                   aria-label="Sizing example input" 
+                                                   aria-describedby="inputGroup-sizing-sm"
+                                                   formControlName="alloc_logement" 
+                                                   >
+                                                   / {{ alloc_logementPlafond | numberFormat:'fr-FR' }} FC
+                                              </td> -->
+                                              <td class="gray-color text-end">
                                                 <input type="text" class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
@@ -241,16 +262,26 @@
                                                    >
                                                    / {{ alloc_logementPlafond | numberFormat:'fr-FR' }} FC
                                               </td>
-                                              <td class="gray-color text-end" *ngIf="this.alloc_logement <= this.alloc_logementPlafond"
+                                            <!-- <td class="gray-color text-end" *ngIf="this.alloc_logement <= this.alloc_logementPlafond"
                                               >{{ alloc_logement | numberFormat:'fr-FR' }} FC
                                               / {{ alloc_logementPlafond | numberFormat:'fr-FR' }} FC
-                                          </td>
+                                          </td> -->
                                         </tr> 
                                         <tr>
                                             <td class="text-start">
                                                 Allocation transport : 
                                             </td>
-                                            <td class="gray-color text-end" *ngIf="this.alloc_transport > this.alloc_transportPlafond">
+                                            <td class="gray-color text-end">
+                                                <input type="text" class="form-control" 
+                                                type="number"
+                                                   aria-label="Sizing example input" 
+                                                   aria-describedby="inputGroup-sizing-sm"
+                                                   formControlName="alloc_transport"
+                                                   >
+                                                   / {{ alloc_transportPlafond | numberFormat:'fr-FR' }} FC
+                                              </td> 
+
+                                            <!-- <td class="gray-color text-end" *ngIf="this.alloc_transport > this.alloc_transportPlafond">
                                                 <input type="text" class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
@@ -262,13 +293,23 @@
                                               <td class="gray-color text-end" *ngIf="this.alloc_transport <= this.alloc_transportPlafond"
                                               >{{ alloc_transport | numberFormat:'fr-FR' }} FC 
                                               / {{ alloc_transportPlafond | numberFormat:'fr-FR' }} FC
-                                          </td> 
+                                            </td>  -->
                                         </tr>
                                         <tr>
                                             <td class="text-start">
                                                 Allocation familliale : 
                                             </td>
-                                            <td class="gray-color text-end"  *ngIf="this.alloc_familliale > this.alloc_famillialePlafond">
+                                            <td class="gray-color text-end">
+                                                <input type="text" class="form-control" 
+                                                type="number"
+                                                   aria-label="Sizing example input" 
+                                                   aria-describedby="inputGroup-sizing-sm"
+                                                   formControlName="alloc_familliale" 
+                                                   > 
+                                                   / {{ alloc_famillialePlafond | numberFormat:'fr-FR' }} FC
+                                              </td>
+
+                                            <!-- <td class="gray-color text-end"  *ngIf="this.alloc_familliale > this.alloc_famillialePlafond">
                                                 <input type="text" class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
@@ -280,7 +321,7 @@
                                               <td class="gray-color text-end" *ngIf="this.alloc_familliale <= this.alloc_famillialePlafond"
                                                 >{{ alloc_familliale | numberFormat:'fr-FR' }} FC
                                                 / {{ alloc_famillialePlafond | numberFormat:'fr-FR' }} FC
-                                            </td> 
+                                            </td>  -->
                                         </tr>
                                         <tr>
                                             <td class="text-start">
@@ -387,6 +428,12 @@
                                                 Prise en charge des frais bancaires
                                             </td> 
                                             <td class="gray-color text-end">{{ prise_en_charge_frais_bancaire | numberFormat:'fr-FR' }} FC</td>  
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Près entreprise
+                                            </td> 
+                                            <td class="gray-color text-end">{{ salaire.pres_entreprise | numberFormat:'fr-FR' }} FC</td>  
                                         </tr>
                                     </tbody>
                                 </table>
