@@ -125,6 +125,11 @@ import { AutreAllComponent } from './dashboard/autres/autre-all/autre-all.compon
 import { AutreMonthComponent } from './dashboard/autres/autre-month/autre-month.component';
 import { AutreYearComponent } from './dashboard/autres/autre-year/autre-year.component';
 import { EditPresEntrepriseDialogBox, PresEntrepriseViewComponent } from './pres-entreprise/pres-entreprise-view/pres-entreprise-view.component';
+import { DepViewComponent } from './preferences/departements/dep-view/dep-view.component';
+import { FonctionViewComponent } from './preferences/fonction/fonction-view/fonction-view.component';
+import { ServViewComponent } from './preferences/services/serv-view/serv-view.component';
+import { SiteLocationViewComponent } from './preferences/site-location/site-location-view/site-location-view.component';
+import { TitleViewComponent } from './preferences/titles/title-view/title-view.component';
 
 @NgModule({
   declarations: [
@@ -257,6 +262,11 @@ import { EditPresEntrepriseDialogBox, PresEntrepriseViewComponent } from './pres
     PresEntrepriseAddDialogBox,
     PresEntrepriseViewComponent,
     EditPresEntrepriseDialogBox,
+    DepViewComponent,
+    FonctionViewComponent,
+    ServViewComponent,
+    SiteLocationViewComponent,
+    TitleViewComponent,
   ],
   imports: [
     BrowserModule,

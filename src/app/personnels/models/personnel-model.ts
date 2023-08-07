@@ -2,6 +2,11 @@ import { AvanceSalaireModel } from "src/app/avance-salaires/models/avance-salair
 import { HeureSuppModel } from "src/app/heures-supp/models/heure-supp-model";
 import { PenaliteModel } from "src/app/penalites/models/penalite-model";
 import { PerformenceModel } from "src/app/performences/models/performence-model";
+import { DepartementModel } from "src/app/preferences/departements/model/departement-model";
+import { FonctionModel } from "src/app/preferences/fonction/models/fonction-model";
+import { ServicePrefModel } from "src/app/preferences/services/models/service-models";
+import { SiteLocationModel } from "src/app/preferences/site-location/models/site-location-model";
+import { TitleModel } from "src/app/preferences/titles/models/title-model";
 import { ApointementModel } from "src/app/presences/models/presence-model";
 import { PrimeModel } from "src/app/primes/models/prime-model";
 import { SalaireModel } from "src/app/salaires/models/salaire-model";
@@ -29,12 +34,13 @@ export interface PersonnelModel {
     nationalite: string;
     etat_civile: string;
     nbr_dependants: number;
-    
-    departement: string;
-    title: string;
-    fonction: string;
-    services: string;
-    site_location: string;
+
+    departements: DepartementModel;
+    titles: TitleModel;
+    fonctions: FonctionModel;
+    services: ServicePrefModel;
+    site_locations: SiteLocationModel; 
+
     type_contrat: string;
     date_debut_contrat: Date;
     date_fin_contrat: Date;

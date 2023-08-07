@@ -94,7 +94,7 @@ export class FichePaieComponent implements OnInit {
           this.currentUser = user;
           let id = this.route.snapshot.paramMap.get('id');
           this.salaireService.get(Number(id)).subscribe(res => {
-            this.salaire = res;
+            this.salaire = res; 
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
               this.preference = reglage;
               if (this.salaire.personnel.monnaie == 'USD') {
@@ -106,7 +106,7 @@ export class FichePaieComponent implements OnInit {
                   salaire_base: parseFloat(this.salaire.salaire_base) * this.preference.taux_dollard,
                   primes: parseFloat(this.salaire.primes) * this.preference.taux_dollard,
                   prime_anciennete: parseFloat(this.salaire.prime_anciennete) * this.preference.taux_dollard,
-                  heureSupplementaireMonnaie: parseFloat(this.salaire.heureSupplementaireMonnaie) * this.preference.taux_dollard,
+                  heure_supplementaire_monnaie: parseFloat(this.salaire.heure_supplementaire_monnaie) * this.preference.taux_dollard,
                   rbi: parseFloat(this.salaire.rbi) * this.preference.taux_dollard,  // Remuneration brute imposable
                   rni: parseFloat(this.salaire.rni) * this.preference.taux_dollard,  // Remuneration Nette Imposable
                   ipr: parseFloat(this.salaire.ipr) * this.preference.taux_dollard,  // Impôt Professionnel sur les Rémunérations (IPR)
@@ -131,7 +131,7 @@ export class FichePaieComponent implements OnInit {
                   salaire_base: parseFloat(this.salaire.salaire_base),
                   primes: parseFloat(this.salaire.primes),
                   prime_anciennete: parseFloat(this.salaire.prime_anciennete),
-                  heureSupplementaireMonnaie: parseFloat(this.salaire.heureSupplementaireMonnaie),
+                  heure_supplementaire_monnaie: parseFloat(this.salaire.heure_supplementaire_monnaie),
                   rbi: this.rbi,  // Remuneration brute imposable
                   rni: parseFloat(this.salaire.rni),  // Remuneration Nette Imposable
                   ipr: parseFloat(this.salaire.ipr),  // Impôt Professionnel sur les Rémunérations (IPR)

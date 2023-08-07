@@ -371,7 +371,7 @@ export class PaieViewComponent implements OnInit {
           anciennete_nbr_age: this.primeAncennete, //Nombre d'age d'ancienneté
           prime_anciennete: ancennete, // Cumul de prime d'ancienneté
           heures_supp: this.nbrHeureSupp,
-          heureSupplementaireMonnaie: heureSupplementaireMonnaie,
+          heure_supplementaire_monnaie: heureSupplementaireMonnaie,
           conge_paye: this.congepayeNbr,
           nbre_jrs_preste: totalJrsPreste, // Nombre de jours presents
           nbre_jrs_ferie: nbre_jrs_ferie,

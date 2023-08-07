@@ -85,10 +85,10 @@
 
 
                 <td class="gray-color fw-semibold" *ngIf="fiche.monnaie == 'CDF'">
-                    {{ fiche.heureSupplementaireMonnaie | numberFormat:'fr-FR' }} FC
+                    {{ fiche.heure_supplementaire_monnaie | numberFormat:'fr-FR' }} FC
                 </td>
                 <td class="gray-color fw-semibold" *ngIf="fiche.monnaie == 'USD'">
-                    {{ +fiche.heureSupplementaireMonnaie / +fiche.taux_dollard | numberFormat:'fr-FR' }} $
+                    {{ +fiche.heure_supplementaire_monnaie / +fiche.taux_dollard | numberFormat:'fr-FR' }} $
                 </td>
 
 

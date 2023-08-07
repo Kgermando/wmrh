@@ -195,7 +195,7 @@
                 </form>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel>Fonction</ng-template>
+                <ng-template matStepLabel>Fonctions</ng-template>
                 <form class="mb-25" [formGroup]="formGroup3" (ngSubmit)="onSubmit3()">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -204,8 +204,8 @@
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select departement</mat-label>
-                                    <mat-select formControlName="departement">
-                                        <mat-option *ngFor="let departement of departementList" [value]="departement.departement">
+                                    <mat-select formControlName="departements">
+                                        <mat-option *ngFor="let departement of departementList" [value]="departement.id">
                                             {{departement.departement}}
                                         </mat-option>
                                     </mat-select>
@@ -218,8 +218,8 @@
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select titre</mat-label>
-                                    <mat-select formControlName="title">
-                                        <mat-option *ngFor="let title of titleList" [value]="title.title">
+                                    <mat-select formControlName="titles">
+                                        <mat-option *ngFor="let title of titleList" [value]="title.id">
                                             {{title.title}}
                                         </mat-option>
                                     </mat-select>
@@ -232,8 +232,8 @@
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select fonction</mat-label>
-                                    <mat-select formControlName="fonction">
-                                        <mat-option *ngFor="let fonction of fonctionList" [value]="fonction.fonction">
+                                    <mat-select formControlName="fonctions">
+                                        <mat-option *ngFor="let fonction of fonctionList" [value]="fonction.id">
                                             {{fonction.fonction}}
                                         </mat-option>
                                     </mat-select>
@@ -242,13 +242,13 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Service <span>*</span></label>
+                                <label class="d-block mb-12 fw-semibold gray-color">Service d'affection <span>*</span></label>
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select service</mat-label>
                                     <mat-select formControlName="services">
-                                        <mat-option *ngFor="let services of serviceList" [value]="services.services">
-                                            {{services.services}}
+                                        <mat-option *ngFor="let services of serviceList" [value]="services.id">
+                                            {{services.service}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -256,13 +256,13 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Site de location <span>*</span></label>
+                                <label class="d-block mb-12 fw-semibold gray-color">Site de travail <span>*</span></label>
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select de site location</mat-label>
-                                    <mat-select formControlName="site_location">
-                                        <mat-option *ngFor="let site_location of siteLocationList" [value]="site_location.name">
-                                            {{site_location.name}}
+                                    <mat-select formControlName="site_locations">
+                                        <mat-option *ngFor="let site_location of siteLocationList" [value]="site_location.id">
+                                            {{site_location.site_location }}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>

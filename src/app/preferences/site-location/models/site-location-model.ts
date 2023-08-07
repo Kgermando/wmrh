@@ -1,8 +1,11 @@
+import { PersonnelModel } from "src/app/personnels/models/personnel-model";
+
 export class SiteLocationModel {
     id: number;
-    name: string;
+    site_location: string;
     manager: string;
     adresse: string;
+    personnels: PersonnelModel[];
     signature: string;
     created: Date;
     update_created : Date;

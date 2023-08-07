@@ -1,6 +1,9 @@
+import { PersonnelModel } from "src/app/personnels/models/personnel-model";
+
 export interface ServicePrefModel { 
     id: number; 
-    services: string; 
+    service: string;
+    personnels: PersonnelModel[];
     signature: string;
     created: Date;
     update_created : Date;

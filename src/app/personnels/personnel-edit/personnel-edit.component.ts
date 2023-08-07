@@ -138,11 +138,11 @@ export class PersonnelEditComponent implements OnInit {
     }); 
 
     this.formGroup3 = this._formBuilder.group({
-      departement: [''],
-      title: [''],
-      fonction: [''],
+      departements: [''],
+      titles: [''],
+      fonctions: [''],
       services: [''],
-      site_location: [''],
+      site_locations: [''],
       type_contrat: [''],
       date_debut_contrat: [''],
       date_fin_contrat: ['2099-06-27 15:45:59.632'],
@@ -195,12 +195,12 @@ export class PersonnelEditComponent implements OnInit {
           signature: this.currentUser.matricule, 
           update_created: new Date()
         });
-        this.formGroup3.patchValue({ 
-          departement: item.departement,
-          title: item.title,
-          fonction: item.fonction,
+        this.formGroup3.patchValue({
+          departements: item.departements,
+          titles: item.titles,
+          fonctions: item.fonctions,
           services: item.services,
-          site_location: item.site_location,
+          site_locations: item.site_locations,
           type_contrat: item.type_contrat,
           date_debut_contrat: item.date_debut_contrat,
           date_fin_contrat: this.typeContrat === 'CDI' ? '2099-01-01' : item.date_fin_contrat,

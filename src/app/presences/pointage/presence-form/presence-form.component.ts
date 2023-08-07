@@ -11,6 +11,7 @@ import { ApointementModel } from '../../models/presence-model';
 import { formatDate } from '@angular/common';
 import { PenaliteAddDialogBox } from 'src/app/penalites/penalites.component';
 import { PenaliteService } from 'src/app/penalites/penalite.service';
+import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
 
 @Component({
   selector: 'app-presence-form',
@@ -275,6 +276,8 @@ export class PenaliteSAddDialogBox implements OnInit {
 
   currentUser: PersonnelModel | any; 
 
+  monnaieList = monnaieDataList;
+
   constructor( 
     @Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialogRef<PenaliteAddDialogBox>,
@@ -299,6 +302,7 @@ export class PenaliteSAddDialogBox implements OnInit {
     }); 
     this.formGroup = this.formBuilder.group({  
       intitule: ['', Validators.required],
+      monnaie: ['', Validators.required],
       montant: ['', Validators.required], 
     }); 
   } 
@@ -311,6 +315,7 @@ export class PenaliteSAddDialogBox implements OnInit {
         var body = {
           personnel: this.data['personnel'],
           intitule: this.formGroup.value.intitule,
+          monnaie: this.formGroup.value.monnaie,
           montant: this.formGroup.value.montant,
           signature: this.currentUser.matricule,
           created: new Date(),

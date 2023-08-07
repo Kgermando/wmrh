@@ -17,7 +17,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./statuts-paie.component.scss']
 })
 export class StatutsPaieComponent {
-  displayedColumns: string[] = ['statut', 'matricule', 'fullname', 'departement', 'services', 'site_location', 'created'];
+  displayedColumns: string[] = ['statut', 'matricule', 'fullname', 'departements', 'services', 'site_locations', 'created'];
   
   ELEMENT_DATA: SalaireModel[] = [];
   

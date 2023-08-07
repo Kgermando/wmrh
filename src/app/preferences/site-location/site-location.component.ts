@@ -50,7 +50,7 @@ export class SiteLocationComponent implements OnInit{
     });
 
     this.formGroup = this._formBuilder.group({
-      name: ['', Validators.required],
+      site_location: ['', Validators.required],
       manager: ['', Validators.required],
       adresse: ['', Validators.required],
     });
@@ -62,7 +62,7 @@ export class SiteLocationComponent implements OnInit{
       this.isLoading = true; 
       if (this.formGroup.valid) {
         var body = {
-          name: this.formGroup.value.name,
+          site_location: this.formGroup.value.site_location,
           manager: this.formGroup.value.manager,
           adresse: this.formGroup.value.adresse,
           signature: this.currentUser.matricule,
@@ -163,14 +163,14 @@ export class EditSiteLocationDialogBox implements OnInit{
     });
     console.log(this.data['id']);
     this.formGroup = this.formBuilder.group({  
-      name: '',
+      site_location: '',
       manager: '',
       adresse: '',
     });
 
     this.siteLocationService.get(parseInt(this.data['id'])).subscribe(item => {
       this.formGroup.patchValue({
-        name: item.name,
+        site_location: item.site_location,
         manager: item.manager,
         adresse: item.adresse,
         signature: this.currentUser.matricule, 

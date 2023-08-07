@@ -15,7 +15,7 @@ export class SalaireModel {
     anciennete_nbr_age: number;
     prime_anciennete: string;
     heures_supp: number;
-    heureSupplementaireMonnaie: string;
+    heure_supplementaire_monnaie: string;
     conge_paye: number;
     nbre_jrs_preste: number; // Nombre de jours presents
     nbre_jrs_ferie: number;

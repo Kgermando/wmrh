@@ -50,7 +50,7 @@ export class ServicesComponent implements OnInit {
     });
 
     this.formGroup = this._formBuilder.group({
-      services: ['', Validators.required], 
+      service: ['', Validators.required], 
     });
   }
 
@@ -60,7 +60,7 @@ export class ServicesComponent implements OnInit {
       this.isLoading = true; 
       if (this.formGroup.valid) {
         var body = {
-          services: this.formGroup.value.services, 
+          service: this.formGroup.value.service, 
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
@@ -160,12 +160,12 @@ export class EditServiceDialogBox implements OnInit{
     });
     console.log(this.data['id']);
     this.formGroup = this.formBuilder.group({  
-      services: ''
+      service: ''
     });
 
     this.serviceService.get(parseInt(this.data['id'])).subscribe(item => {
       this.formGroup.patchValue({
-        services: item.services, 
+        service: item.service, 
         signature: this.currentUser.matricule, 
         update_created: new Date(),
       });

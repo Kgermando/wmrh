@@ -8,11 +8,9 @@
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h4 class="mb-0">Performences</h4>
-                    <div> 
-                        <button mat-flat-button class="default-btn tagus" (click)="openAddDialog('300ms', '100ms', personne.id)">
-                            <i class="ri-add-fill"></i> Ajouter des Performences
-                        </button> 
-                    </div>
+                    <button mat-flat-button class="default-btn tagus" (click)="openAddDialog('300ms', '100ms', personne.id)">
+                        <i class="ri-add-fill"></i> Ajouter des Performences
+                    </button> 
                 </mat-card-header>
                 <mat-card-content> 
                     <div class="row">
@@ -44,25 +42,31 @@
                                 <li>
                                     <span class="fw-semibold d-inline-block">Departement: </span>
                                     <span class="gray-color">
-                                        {{ personne.departement }}
+                                        {{ personne.departements.departement }}
                                     </span>
                                 </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Fonction: </span>
                                     <span class="gray-color">
-                                        {{ personne.fonction }}
+                                        {{ personne.fonctions.fonction }}
                                     </span>
                                 </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Titre: </span>
                                     <span class="gray-color">
-                                        {{ personne.title }}
+                                        {{ personne.titles.title }}
                                     </span>
                                 </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Service: </span>
                                     <span class="gray-color">
-                                        {{ personne.services }}
+                                        {{ personne.services.service }}
+                                    </span>
+                                </li> 
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Site de travail: </span>
+                                    <span class="gray-color">
+                                        {{ personne.site_locations.site_location }}
                                     </span>
                                 </li> 
                             </ul>

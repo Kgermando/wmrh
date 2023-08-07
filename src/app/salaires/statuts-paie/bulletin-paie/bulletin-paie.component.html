@@ -71,7 +71,7 @@
                                     <td class="text-start">
                                         Département
                                     </td>
-                                    <td class="gray-color text-start">{{ salaire.personnel.departement}} </td> 
+                                    <td class="gray-color text-start">{{ salaire.personnel.departements.departement }} </td> 
                                 </tr>
                                 <tr>
                                     <td class="text-start">
@@ -183,7 +183,7 @@
                                                 Heures supplementaires :
                                             </td> 
                                             <td class="gray-color text-end"> 
-                                                <span *ngIf="salaire.monnaie == 'CDF'">{{ salaire.heureSupplementaireMonnaie | numberFormat:'fr-FR' }} FC</span>
+                                                <span *ngIf="salaire.monnaie == 'CDF'">{{ salaire.heure_supplementaire_monnaie | numberFormat:'fr-FR' }} FC</span>
                                                 <span *ngIf="salaire.monnaie == 'USD'">{{ heureSupplementaireMonnaieUSD | numberFormat:'fr-FR' }} $</span>
                                             </td>
                                         </tr>

@@ -56,6 +56,11 @@ import { RelevePaieComponent } from './salaires/releve-paie/releve-paie.componen
 import { PerformenceViewComponent } from './performences/performence-view/performence-view.component';
 import { PresEntrepriseComponent } from './pres-entreprise/pres-entreprise.component';
 import { PresEntrepriseViewComponent } from './pres-entreprise/pres-entreprise-view/pres-entreprise-view.component';
+import { DepViewComponent } from './preferences/departements/dep-view/dep-view.component';
+import { FonctionViewComponent } from './preferences/fonction/fonction-view/fonction-view.component';
+import { ServViewComponent } from './preferences/services/serv-view/serv-view.component';
+import { TitleViewComponent } from './preferences/titles/title-view/title-view.component';
+import { SiteLocationViewComponent } from './preferences/site-location/site-location-view/site-location-view.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -76,10 +81,15 @@ const routes: Routes = [
 
     { path: 'preferences/reglages', component: ReglagesComponent },
     { path: 'preferences/fonction', component: FonctionComponent },
+    { path: 'preferences/fonction/:id/detail', component: FonctionViewComponent },
     { path: 'preferences/departement', component: DepartementsComponent },
+    { path: 'preferences/departement/:id/detail', component: DepViewComponent },
     { path: 'preferences/services', component: ServicesComponent },
+    { path: 'preferences/services/:id/detail', component: ServViewComponent },
     { path: 'preferences/titles', component: TitlesComponent },
+    { path: 'preferences/titles/:id/detail', component: TitleViewComponent },
     { path: 'preferences/site-location', component: SiteLocationComponent },
+    { path: 'preferences/site-location/:id/detail', component: SiteLocationViewComponent },
 
     { path: 'presences/pointage', component: PointageComponent },
     { path: 'presences/pointage/:id', component: PointageMatriculeComponent },

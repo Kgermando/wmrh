@@ -1,16 +1,3 @@
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
-    <h5 class="mb-0">Service d'affectation</h5>
-    <ol class="breadcrumb mb-0 ps-0">
-        <li class="breadcrumb-item">
-            <a routerLink="/">
-                <i class="ri-home-8-line"></i>
-                Dashboard
-            </a>
-        </li>
-        <li class="breadcrumb-item fw-semibold">Preferences</li>
-        <li class="breadcrumb-item fw-semibold">Service</li>
-    </ol>
-</div>
 
 <div
     class="row justify-content-center"
@@ -30,8 +17,8 @@
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Entrer le Service</mat-label>
-                                    <input matInput type="text" formControlName="services" name="services">
-                                    <mat-error *ngIf="formGroup.controls['services'].hasError('required')">
+                                    <input matInput type="text" formControlName="service" name="service">
+                                    <mat-error *ngIf="formGroup.controls['service'].hasError('required')">
                                         Ce champs est obligatoire
                                     </mat-error>
                                 </mat-form-field> 
@@ -68,8 +55,8 @@
                             <tr *ngFor="let item of serviceList; index as i">
                                 <td class="gray-color">{{i + 1}}. </td> 
                                 <td class="text-start">
-                                    <a class="d-flex align-items-center product-info"> 
-                                        <h5 class="fw-semibold mb-5">{{item.services}}</h5> 
+                                    <a [routerLink]="['/layouts/preferences/services', item.id, 'detail']" class="d-flex align-items-center product-info"> 
+                                        <h5 class="fw-semibold mb-5">{{item.service}}</h5> 
                                     </a>
                                 </td>  
                                 <td class="gray-color">{{item.signature}}</td> 
