@@ -88,5 +88,9 @@ export class PersonnelListComponent implements AfterViewInit {
     this.router.navigate(['/layouts/personnels', id, 'personnel-edit'])
   }
 
+  download() {
+    return "assets/template/personnels_model.xlsx";
+  }
+
 }
  

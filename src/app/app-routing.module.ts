@@ -12,7 +12,6 @@ import { PersonnelListComponent } from './personnels/personnel-list/personnel-li
 import { PersonnelEditComponent } from './personnels/personnel-edit/personnel-edit.component';
 import { PersonnelAddComponent } from './personnels/personnel-add/personnel-add.component';
 import { PersonnelViewComponent } from './personnels/personnel-view/personnel-view.component';
-import { ProfileEditComponent } from './auth/profile/profile-edit/profile-edit.component';
 import { InboxComponent } from './mail/inbox/inbox.component';
 import { ComposeComponent } from './mail/compose/compose.component';
 import { ReadComponent } from './mail/read/read.component';
@@ -72,7 +71,6 @@ const routes: Routes = [
   { path: 'layouts', component: LayoutsComponent, children: [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'profile', component: ProfileComponent },
-    { path: 'profile/edit', component: ProfileEditComponent },
     { path: 'reset-password', component: ResetPasswordComponent },
     { path: 'personnels/personnel-list', component: PersonnelListComponent },
     { path: 'personnels/personnel-add', component: PersonnelAddComponent },

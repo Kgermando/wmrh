@@ -19,7 +19,7 @@ import { SalaireService } from '../salaire.service';
 })
 export class RelevePaieComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['numero', 'matricule', 'fullname', 'departement', 'net_a_payer', 'compte', 'frais_bancaire', 'banque'];
+  displayedColumns: string[] = ['numero', 'matricule', 'fullname', 'departement', 'ipr', 'net_a_payer', 'compte', 'frais_bancaire', 'banque'];
   
   ELEMENT_DATA: SalaireModel[] = []; 
 

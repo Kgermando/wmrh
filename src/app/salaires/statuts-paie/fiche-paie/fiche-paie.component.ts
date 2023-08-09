@@ -40,7 +40,7 @@ export class FichePaieComponent implements OnInit {
   salaire_base = 0;
   primes = 0;
   prime_anciennete = 0;
-  heureSupplementaireMonnaie = 0;
+  heure_supplementaire_monnaie = 0;
   rbi = 0;
   rni = 0;
   ipr = 0;
@@ -78,15 +78,39 @@ export class FichePaieComponent implements OnInit {
     ngOnInit(): void {
       this.isLoading = true;
       this.formGroup = this._formBuilder.group({
-        salaire_base: ['', Validators.required],
         alloc_logement: ['', Validators.required],
         alloc_transport: ['', Validators.required],
         alloc_familliale: ['', Validators.required],
         soins_medicaux: ['', Validators.required],
+        salaire_base: ['', Validators.required],
         primes: ['', Validators.required],
         prime_anciennete: ['', Validators.required],
-        heureSupplementaireMonnaie: ['', Validators.required],
+        heure_supplementaire_monnaie: ['', Validators.required],
+        rbi: ['', Validators.required],
+        rni: ['', Validators.required],
+        ipr: ['', Validators.required],
+        impot_elide: ['', Validators.required],
+        syndicat: ['', Validators.required],
+        cnss_qpo: ['', Validators.required],
+        penalites: ['', Validators.required],
+        avance_slaire: ['', Validators.required],
+        prise_en_charge_frais_bancaire: ['', Validators.required],
+        net_a_payer: ['', Validators.required],
         statut: this.isPublie ? 'Disponible' : 'Traitement', 
+
+
+
+        // salaire_base: ['', Validators.required],
+        // alloc_logement: ['', Validators.required],
+        // alloc_transport: ['', Validators.required],
+        // alloc_familliale: ['', Validators.required],
+        // soins_medicaux: ['', Validators.required],
+        // primes: ['', Validators.required], 
+        // rni: ['', Validators.required], 
+        // ipr: ['', Validators.required],
+        // prime_anciennete: ['', Validators.required],
+        // heure_supplementaire_monnaie: ['', Validators.required],
+        
       });
 
       this.authService.user().subscribe({
@@ -184,16 +208,16 @@ export class FichePaieComponent implements OnInit {
 
       // Se refère dans les donnés de heures pour les conditions
       if (this.salaire.heures_supp === 2) {
-        this.heureSupplementaireMonnaie = this.salaire_base * 30 / 100;
+        this.heure_supplementaire_monnaie = this.salaire_base * 30 / 100;
       } else if(this.salaire.heures_supp > 2) {
-        this.heureSupplementaireMonnaie = this.salaire_base * 60 / 100;
+        this.heure_supplementaire_monnaie = this.salaire_base * 60 / 100;
       } else if(this.salaire.heures_supp >= 8) {
-        this.heureSupplementaireMonnaie = this.salaire_base * 100 / 100;
+        this.heure_supplementaire_monnaie = this.salaire_base * 100 / 100;
       }
  
 
       // Remuneration Brute impôsable
-      this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heureSupplementaireMonnaie;
+      this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heure_supplementaire_monnaie;
 
 
       // Avantages sociaux
@@ -299,7 +323,7 @@ export class FichePaieComponent implements OnInit {
       var deductions = this.ipr + this.penalites + this.avance_slaire + this.syndicat;
 
       var avantageSocials = +this.alloc_logement + +this.alloc_familliale  +  +val.primes +
-        +this.prime_anciennete + +this.heureSupplementaireMonnaie + 
+        +this.prime_anciennete + +this.heure_supplementaire_monnaie + 
           +this.prise_en_charge_frais_bancaire + +val.soins_medicaux;
  
 
@@ -312,15 +336,33 @@ export class FichePaieComponent implements OnInit {
         
   
 
-    onSubmit() {
+    onSubmit() { 
       try {
         this.isLoading = true;
         this.formGroup.patchValue({
+          alloc_logement: this.alloc_logement,
+          alloc_transport: this.alloc_transport,
+          alloc_familliale: this.alloc_familliale,
+          soins_medicaux: this.soins_medicaux,
+          salaire_base: this.salaire_base,
+          primes: this.primes,
+          prime_anciennete: this.prime_anciennete,
+          heure_supplementaire_monnaie: this.heure_supplementaire_monnaie,
+          rbi: this.rbi,
+          rni: this.rni,
+          ipr: this.ipr,
           impot_elide: this.impot_elide,
-          statut: this.isPublie ? 'Disponible' : 'Traitement',
+          syndicat: this.syndicat,
+          cnss_qpo: this.cnss_qpo,
+          penalites: this.penalites,
+          avance_slaire: this.avance_slaire,
+          prise_en_charge_frais_bancaire: this.prise_en_charge_frais_bancaire,
+          net_a_payer: this.net_a_payer,
+          statut: this.isPublie ? 'Disponible' : 'Traitement', 
           signature: this.currentUser.matricule, 
           update_created: new Date(),
         });
+        console.log('formGroup', this.formGroup.getRawValue());
         this.salaireService.update(this.salaire.id, this.formGroup.getRawValue())
         .subscribe({
           next: () => {
@@ -347,7 +389,7 @@ export class FichePaieComponent implements OnInit {
       if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
         const dateNow = new Date();
         const dateMonth = dateNow.getMonth();
-        var personnel = { 
+        var personnel = {  
           is_paie: dateMonth,
           signature: this.currentUser.matricule,
           update_created: new Date(),

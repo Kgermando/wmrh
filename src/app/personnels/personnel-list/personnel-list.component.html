@@ -1,14 +1,27 @@
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
-        <h5 class="mb-0">Liste des Employés</h5>
+        <h4 class="mb-0">Liste des Employés</h4>
         <div>
-            <button mat-flat-button class="default-btn tagus" routerLink="/layouts/personnels/personnel-add">
+            <button mat-flat-button class="default-btn tagus m-0 margin" routerLink="/layouts/personnels/personnel-add">
                 <i class="ri-add-fill"></i> Ajouter un employé
+            </button> 
+            <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="iconMenu">
+                <i class="ri-printer-line"></i>
             </button>
-            <button mat-icon-button class="tagus">
-                <mat-icon>print</mat-icon>
-            </button>
-        </div> 
+            <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu" xPosition="before">
+                <button mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                    <a href="assets/files/personnels_model.xlsx" download> 
+                        <i class="ri-file-download-line"></i> Modèle 
+                    </a>
+                </button>
+                <button mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                    <i class="ri-upload-2-line"></i> Importer
+                </button>
+                <button mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                    <i class="ri-download-2-line"></i> Exporter
+                </button>
+            </mat-menu>
+        </div>
     </mat-card-header>
     <mat-card-content> 
         <div class="tagus-form-group">

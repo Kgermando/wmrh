@@ -138,11 +138,11 @@
                             <span class="fw-semibold">Statut du personnel: </span> 
                             <span class="gray-color" *ngIf="personne.statut_personnel"> Actif</span>
                             <span class="gray-color" *ngIf="!personne.statut_personnel"> Inactif</span>
-                        </li> 
+                        </li>
                         <li>
                             <span class="fw-semibold">Accreditation: </span>
                             <span class="gray-color">Niveau {{ personne.role }}</span>
-                        </li> 
+                        </li>
                         <li>
                             <span class="fw-semibold">Permission: </span>
                             <span class="gray-color">{{ personne.permission }}</span>
@@ -155,7 +155,7 @@
         <div class="col-lg-4 col-md-12"> 
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
-                    <h5 class="mb-0">Fonction</h5>
+                    <h5 class="mb-0">Fonctions</h5>
                 </mat-card-header>
                 <mat-card-content>
                     <ul class="list ps-0 mb-0">
@@ -190,16 +190,20 @@
                         <li *ngIf="personne.type_contrat === 'CDD'">
                             <span class="fw-semibold">Date de fin du contrat: </span>
                             <span class="gray-color">{{ personne.date_fin_contrat | date: 'dd/MM/yyyy' }}</span>
-                        </li> 
+                        </li>
                     </ul>
                 </mat-card-content>
             </mat-card>
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
-                    <h5 class="mb-0">Salaire</h5>
+                    <h5 class="mb-0">Finances</h5>
                 </mat-card-header>
                 <mat-card-content>
                     <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold">Monnaie: </span>
+                            <span class="gray-color">{{ personne.monnaie }} </span>
+                        </li>
                         <li>
                             <span class="fw-semibold">Salaire de base: </span>
                             <span class="gray-color">{{ personne.salaire_base | numberFormat:'fr-FR' }} {{ personne.monnaie }} </span>
@@ -232,9 +236,7 @@
                             <span class="fw-semibold">Frais de la banque: </span>
                             <span class="gray-color">{{ personne.frais_bancaire }} %</span>
                         </li>
-                        
-                        
-                    </ul>   
+                    </ul>
                 </mat-card-content>
             </mat-card>
         </div>

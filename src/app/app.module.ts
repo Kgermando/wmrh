@@ -36,7 +36,6 @@ import { SharedModule } from './shared/shared.module';
 import { CustomizerSettingsComponent } from './customizer-settings/customizer-settings.component';
 import { InfoProfileComponent } from './auth/profile/info-profile/info-profile.component'; 
 import { ProfilePaieComponent } from './auth/profile/profile-paie/profile-paie.component';
-import { ProfileEditComponent } from './auth/profile/profile-edit/profile-edit.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CredentialInterceptor } from './interceptors/credential.interceptor'; 
 import { InboxComponent } from './mail/inbox/inbox.component';
@@ -154,7 +153,6 @@ import { TitleViewComponent } from './preferences/titles/title-view/title-view.c
     PersonnelViewComponent,
     InfoProfileComponent, 
     ProfilePaieComponent, 
-    ProfileEditComponent, 
     ChangePasswordDialogBox,
     ChangePhotoDialogBox, 
     InboxComponent,
