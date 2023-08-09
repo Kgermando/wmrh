@@ -187,6 +187,7 @@ export class PrimeAddDialogBox implements OnInit {
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!'); 
             window.location.reload();
+            // this.close();
           },
           error: (err) => {
             this.isLoading = false;

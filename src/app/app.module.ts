@@ -20,7 +20,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { ChangePasswordDialogBox, ChangePhotoDialogBox, ProfileComponent } from './auth/profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutsComponent } from './layouts/layouts.component';
-import { PersonnelListComponent } from './personnels/personnel-list/personnel-list.component';
+import { PersonnelExportXLSXDialogBox, PersonnelListComponent, PersonnelUploadCSVDialogBox } from './personnels/personnel-list/personnel-list.component';
 import { PersonnelAddComponent } from './personnels/personnel-add/personnel-add.component';
 import { PersonnelEditComponent } from './personnels/personnel-edit/personnel-edit.component';
 import { PersonnelViewComponent } from './personnels/personnel-view/personnel-view.component'; 
@@ -265,6 +265,8 @@ import { TitleViewComponent } from './preferences/titles/title-view/title-view.c
     ServViewComponent,
     SiteLocationViewComponent,
     TitleViewComponent,
+    PersonnelUploadCSVDialogBox,
+    PersonnelExportXLSXDialogBox,
   ],
   imports: [
     BrowserModule,

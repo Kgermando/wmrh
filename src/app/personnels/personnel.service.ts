@@ -13,4 +13,12 @@ export class PersonnelService extends ApiService {
   getSyndicat(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-syndicat/${code_entreprise}`);
   }
+
+  uploadCSV(data: any): Observable<any> {
+    return this.http.post(`${this.endpoint}/upload-csv`, data);
+  }
+
+  downloadReport(code_entreprise: string, start_date: string, end_date: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/download-xlsx/${code_entreprise}/${start_date}/${end_date}`);
+  }
 }

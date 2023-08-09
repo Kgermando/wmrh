@@ -18,7 +18,7 @@ import { AuthService } from '../../auth.service';
 export class ProfilePaieComponent {
   @Input() currentUser: PersonnelModel;
 
-  displayedColumns: string[] = ['numero', 'statut', 'ipr', 'net_a_payer', 'created'];
+  displayedColumns: string[] = ['numero', 'statut', 'ipr', 'net_a_payer', 'created', 'update'];
   
   ELEMENT_DATA: SalaireModel[] = [];
   

@@ -14,10 +14,14 @@
                         <i class="ri-file-download-line"></i> Modèle 
                     </a>
                 </button>
-                <button mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                <button mat-menu-item type="button" 
+                    class="bg-transparent border-none position-relative" 
+                    (click)="openEditDialog('300ms', '100ms')">
                     <i class="ri-upload-2-line"></i> Importer
                 </button>
-                <button mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                <button mat-menu-item type="button" 
+                class="bg-transparent border-none position-relative"
+                (click)="openExportDialog('300ms', '100ms')">
                     <i class="ri-download-2-line"></i> Exporter
                 </button>
             </mat-menu>

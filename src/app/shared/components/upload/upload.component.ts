@@ -13,9 +13,6 @@ export class UploadComponent {
   constructor(private http: HttpClient) {
   }
 
-  ngOnInit(): void {
-  }
-
   upload(event: Event) {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
