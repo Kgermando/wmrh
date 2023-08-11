@@ -39,12 +39,18 @@ export class PresenceService extends ApiService {
     return this.http.get(`${this.endpoint}/get-last-item/${code_entreprise}/${matricule}`);
   }
 
-  getItemsPAAA(code_entreprise: string): Observable<any> {
+  getItemsPAAAALL(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-item-p-a-aa/${code_entreprise}`);
   }
+  getItemsPAAA(code_entreprise: string, site_location: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-item-p-a-aa/${code_entreprise}/${site_location}`);
+  }
 
-  getItemsCongE(code_entreprise: string): Observable<any> {
+  getItemsCongEALL(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-item-conge/${code_entreprise}`);
+  }
+  getItemsCongE(code_entreprise: string, site_location: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-item-conge/${code_entreprise}/${site_location}`);
   }
 
   downloadReport(code_entreprise: string, site_location: string, start_date: string, end_date: string): Observable<any> {

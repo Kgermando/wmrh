@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   ApexChart, 
@@ -13,8 +13,7 @@ import {
   ApexYAxis,
   ApexTitleSubtitle,
   ApexFill
-} from "ng-apexcharts";   
-import { BaseChartDirective } from 'ng2-charts';
+} from "ng-apexcharts";
 
 import { AuthService } from 'src/app/auth/auth.service';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';

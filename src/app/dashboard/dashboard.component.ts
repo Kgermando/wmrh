@@ -117,8 +117,8 @@ export class DashboardComponent {
       next: (user) => {
         this.currentUser = user;
         this.getTotal(); 
-        this.getTotalFinance();
-        this.presenceService.getItemsPAAA(this.currentUser.code_entreprise).subscribe(res => {
+        this.getTotalFinance(); 
+        this.presenceService.getItemsPAAAALL(this.currentUser.code_entreprise).subscribe(res => { 
           this.itemsPAAAList = res;
           this.itemsPList = this.itemsPAAAList.filter(v => v.apointement === 'P');
           this.itemsAList = this.itemsPAAAList.filter(v => v.apointement === 'A');
@@ -128,7 +128,7 @@ export class DashboardComponent {
           this.itemsAList.map((item: any) => this.numberA = item.count);
           this.itemsAAList.map((item: any) => this.numberAA = item.count); 
         });
-        this.presenceService.getItemsCongE(this.currentUser.code_entreprise).subscribe(res => {
+        this.presenceService.getItemsCongEALL(this.currentUser.code_entreprise).subscribe(res => {
           this.itemsCongeList = res;
           this.itemsAMList = this.itemsCongeList.filter(v => v.apointement === 'AM');
           this.itemsCCList = this.itemsCongeList.filter(v => v.apointement === 'CC');
