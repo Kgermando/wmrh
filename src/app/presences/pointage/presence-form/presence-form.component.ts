@@ -219,7 +219,7 @@ export class PresenceFormComponent {
   onSubmit() {
     try {
       this.isLoadingForm = true;
-      if (this.formGroup.valid) {
+      if (this.formGroup.valid) { 
         var body = { 
           matricule: this.personne.matricule,
           apointement: this.formGroup.value.apointement,
@@ -228,6 +228,7 @@ export class PresenceFormComponent {
           observation: this.formGroup.value.observation,
           date_entree: new Date(),
           date_sortie: this.isAbsense ? this.formGroup.value.date_sortie : new Date(),
+          site_location: this.currentUser.site_locations.site_location,
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),

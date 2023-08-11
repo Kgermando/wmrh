@@ -55,7 +55,8 @@ export class HeaderComponent {
     logOut() {
         this.authService.logout().subscribe(res => {
            console.log(res);
-        }); 
+           localStorage.removeItem('jwt');
+        });
     }
 
 

@@ -4,7 +4,7 @@
     <mat-card-header>
         <h4 class="mb-0">Statuts des paies de {{mois}}</h4>
         <div> 
-            <button mat-icon-button class="tagus">
+            <button mat-icon-button class="tagus" (click)="openExportDialog('300ms', '100ms')">
                 <mat-icon>print</mat-icon>
             </button>
         </div> 

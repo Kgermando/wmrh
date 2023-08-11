@@ -10,6 +10,8 @@ import { SalaireService } from '../salaire.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SalaireExportXLSXDialogBox } from '../releve-paie/releve-paie.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-statuts-paie',
@@ -38,7 +40,8 @@ export class StatutsPaieComponent {
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService,
-      private salaireService: SalaireService
+      private salaireService: SalaireService,
+      public dialog: MatDialog,
   ) {}
 
 
@@ -124,6 +127,12 @@ export class StatutsPaieComponent {
   }
 
  
-
+  openExportDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(SalaireExportXLSXDialogBox, {
+      width: '600px',
+      enterAnimationDuration,
+      exitAnimationDuration, 
+    }); 
+  } 
 
 }

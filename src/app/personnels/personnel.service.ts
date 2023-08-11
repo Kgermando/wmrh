@@ -19,6 +19,6 @@ export class PersonnelService extends ApiService {
   }
 
   downloadReport(code_entreprise: string, start_date: string, end_date: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/download-xlsx/${code_entreprise}/${start_date}/${end_date}`);
-  }
+    return this.http.post(`${this.endpoint}/download-xlsx/${code_entreprise}/${start_date}/${end_date}`, {}, {responseType: 'blob'});
+  } 
 }

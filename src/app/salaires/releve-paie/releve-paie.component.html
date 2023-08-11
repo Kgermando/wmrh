@@ -7,7 +7,7 @@
     <h2 class="mb-0">Relevé de paies de {{mois}}</h2>
     <div class="row bg-light-gray border-radius text-center pl-10">
         <div class="d-md-flex align-items-end justify-content-end">
-            <button mat-icon-button class="tagus">
+            <button mat-icon-button class="tagus" (click)="openExportDialog('300ms', '100ms')">
                 <mat-icon>print</mat-icon>
             </button>
         </div> 

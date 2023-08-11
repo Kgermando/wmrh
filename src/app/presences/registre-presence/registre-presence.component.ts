@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,6 +10,12 @@ import { Router } from '@angular/router';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { ApointementModel } from '../models/presence-model';
 import { PresenceService } from '../presence.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { formatDate } from '@angular/common';
+import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
+import { SiteLocationService } from 'src/app/preferences/site-location/site-location.service';
 
 @Component({
   selector: 'app-registre-presence',
@@ -19,7 +25,7 @@ import { PresenceService } from '../presence.service';
 export class RegistrePresenceComponent implements AfterViewInit {
   @Input('personne') personne: PersonnelModel; 
   
-  displayedColumns: string[] = ['matricule','apointement', 'date_entree', 'date_sortie', 'observation'];
+  displayedColumns: string[] = ['site_location', 'matricule', 'apointement', 'date_entree', 'date_sortie', 'observation'];
   
   ELEMENT_DATA: ApointementModel[] = []; 
   
@@ -35,6 +41,7 @@ export class RegistrePresenceComponent implements AfterViewInit {
       private router: Router,
       private authService: AuthService,
       private presenceService: PresenceService,
+      public dialog: MatDialog,
   ) {}
 
   toggleTheme() {
@@ -93,5 +100,101 @@ export class RegistrePresenceComponent implements AfterViewInit {
         .subscribe(() => this.ELEMENT_DATA = this.ELEMENT_DATA.filter(item => item.id !== id));
     }
   }
+
+
+  openExportDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(PresenceExportXLSXDialogBox, {
+      width: '600px',
+      enterAnimationDuration,
+      exitAnimationDuration, 
+    }); 
+  }
+
+}
+
+
+
+@Component({
+  selector: 'presence-export-xlsx-dialog',
+  templateUrl: './presence-export-xlsx.html',
+})
+export class PresenceExportXLSXDialogBox implements OnInit {
+  isLoading = false;
+  currentUser: PersonnelModel | any;
+
+  siteLocationList: SiteLocationModel[] = [];
+
+  dateRange = new FormGroup({
+    site_location: new FormControl(),
+    start: new FormControl(),
+    end: new FormControl()
+  });
+
+  constructor( 
+      public dialogRef: MatDialogRef<PresenceExportXLSXDialogBox>, 
+      private toastr: ToastrService,
+      private presenceService: PresenceService,
+      private router: Router,
+      private authService: AuthService,
+      private siteLocation: SiteLocationService,
+  ) {}
+
+
+  ngOnInit(): void {
+    this.authService.user().subscribe({
+      next: (user) => {
+          this.currentUser = user;
+          this.siteLocation.getAll(this.currentUser.code_entreprise).subscribe(res => {
+            this.siteLocationList = res;
+          });
+      },
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
+    }); 
+  }
+
+  
+
+  onSubmit() {
+    this.isLoading = true; 
+    var dateNow = new Date();
+    var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
+    var start_date = formatDate(this.dateRange.value.start, 'yyyy-MM-dd', 'en-US');
+    var end_date = formatDate(this.dateRange.value.end, 'yyyy-MM-dd', 'en-US') ;
+    this.presenceService.downloadReport(
+        this.currentUser.code_entreprise,
+        this.dateRange.value.site_location,
+        start_date,
+        end_date
+      ).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        const blob = new Blob([res], {type: 'text/xlsx'});
+        const downloadUrl = window.URL.createObjectURL(res);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = `Presences-${dateNowFormat}.xlsx`;
+        link.click();
+
+
+        this.toastr.success('Success!', 'Extraction effectuée!');
+        // window.location.reload();
+        this.close();
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+        console.log(err);
+        this.close();
+      }
+    });
+  } 
+
+
+  close(){
+      this.dialogRef.close(true);
+  } 
 
 }

@@ -12,6 +12,20 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">Site de travail <span>*</span></label>
+                    <mat-form-field appearance="fill">
+                        <i class="ri-edit-2-line"></i>
+                        <mat-label>Select de site location</mat-label>
+                        <mat-select formControlName="site_locations">
+                            <mat-option *ngFor="let site_location of siteLocationList" [value]="site_location.id">
+                                {{site_location.site_location }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="tagus-form-group">
                     <mat-form-field>
                         <mat-label>Choisir la plage de Date</mat-label>
                         <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRange">

@@ -201,6 +201,8 @@ export class PersonnelExportXLSXDialogBox implements OnInit {
 
   onSubmit() {
     this.isLoading = true; 
+    var dateNow = new Date();
+    var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
     var start_date = formatDate(this.dateRange.value.start, 'yyyy-MM-dd', 'en-US');
     var end_date = formatDate(this.dateRange.value.end, 'yyyy-MM-dd', 'en-US') ;
     this.personnelService.downloadReport(
@@ -208,8 +210,16 @@ export class PersonnelExportXLSXDialogBox implements OnInit {
         start_date,
         end_date
       ).subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading = false;
+        const blob = new Blob([res], {type: 'text/xlsx'});
+        const downloadUrl = window.URL.createObjectURL(res);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = `Employes-${dateNowFormat}.xlsx`;
+        link.click();
+
+
         this.toastr.success('Success!', 'Extraction effectuée!');
         // window.location.reload();
         this.close();

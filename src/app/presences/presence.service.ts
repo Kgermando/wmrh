@@ -40,4 +40,8 @@ export class PresenceService extends ApiService {
   getItemsCongE(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-item-conge/${code_entreprise}`);
   }
+
+  downloadReport(code_entreprise: string, site_location: string, start_date: string, end_date: string): Observable<any> {
+    return this.http.post(`${this.endpoint}/download-xlsx/${code_entreprise}/${site_location}/${start_date}/${end_date}`, {}, {responseType: 'blob'});
+  } 
 }

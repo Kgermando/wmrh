@@ -60,7 +60,7 @@ import { PresencePieYearComponent } from './presences/pointage/presences-pie/pre
 import { PresencePieAllComponent } from './presences/pointage/presences-pie/presence-pie-all/presence-pie-all.component';
 import { PresencesPieComponent } from './presences/pointage/presences-pie/presences-pie.component'; 
 import { EditPresenceDialogBox, PointageTableComponent } from './presences/pointage/pointage-table/pointage-table.component';
-import { RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
+import { PresenceExportXLSXDialogBox, RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
 import { SyndicatsComponent } from './syndicats/syndicats.component';
 import { CandidaturesComponent } from './recrutements/candidatures/candidatures.component';
 import { PostesComponent } from './recrutements/postes/postes.component';
@@ -98,7 +98,7 @@ import { RelevePaieTableComponent } from './salaires/list-paiments/paie-view/rel
 import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
 import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component';
 import { NumberFormatPipe } from './pipes/number-format.pipe'; 
-import { RelevePaieComponent } from './salaires/releve-paie/releve-paie.component'; 
+import { RelevePaieComponent, SalaireExportXLSXDialogBox } from './salaires/releve-paie/releve-paie.component'; 
 import { PerformenceAddDialogBox, PerformenceViewComponent } from './performences/performence-view/performence-view.component';
 import { HospitaliteComponent } from './performences/hospitalite/hospitalite.component';
 import { TravailComponent } from './performences/travail/travail.component';
@@ -267,6 +267,8 @@ import { TitleViewComponent } from './preferences/titles/title-view/title-view.c
     TitleViewComponent,
     PersonnelUploadCSVDialogBox,
     PersonnelExportXLSXDialogBox,
+    SalaireExportXLSXDialogBox,
+    PresenceExportXLSXDialogBox,
   ],
   imports: [
     BrowserModule,
