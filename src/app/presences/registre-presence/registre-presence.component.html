@@ -1,14 +1,14 @@
 
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
-        <h4 class="mb-0">Registre de presences pour ce mois</h4> 
+        <h4 class="mb-0">Registre de presences pour {{mois}}</h4> 
         <div class="d-md-flex align-items-end justify-content-end">
             <button mat-icon-button class="tagus" (click)="openExportDialog('300ms', '100ms')">
                 <mat-icon>print</mat-icon>
             </button>
-        </div> 
+        </div>
     </mat-card-header>
-    <mat-card-content> 
+    <mat-card-content>
         <div class="tagus-form-group">
             <mat-form-field appearance="fill">
                 <i class="ri-search-line"></i>

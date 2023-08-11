@@ -22,11 +22,11 @@ import { SiteLocationService } from 'src/app/preferences/site-location/site-loca
   templateUrl: './registre-presence.component.html',
   styleUrls: ['./registre-presence.component.scss']
 })
-export class RegistrePresenceComponent implements AfterViewInit {
+export class RegistrePresenceComponent implements OnInit, AfterViewInit {
   @Input('personne') personne: PersonnelModel; 
   
   displayedColumns: string[] = ['site_location', 'matricule', 'apointement', 'date_entree', 'date_sortie', 'observation'];
-  
+   
   ELEMENT_DATA: ApointementModel[] = []; 
   
   dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
@@ -34,6 +34,15 @@ export class RegistrePresenceComponent implements AfterViewInit {
 
   isLoading = false;
   currentUser: PersonnelModel;
+
+  mois = '';
+  dateNow = new Date();
+  dateMonth = 0; 
+
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
+
  
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
@@ -48,15 +57,47 @@ export class RegistrePresenceComponent implements AfterViewInit {
       this.themeService.toggleTheme();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
+  ngOnInit(): void {
+    this.dateNow = new Date();
+    this.dateMonth = this.dateNow.getMonth() + 1; 
+
+    if (this.dateMonth === 1) {
+        this.mois = 'Janvier';
+    } else if(this.dateMonth === 2) {
+        this.mois = 'Fevrier';
+    } else if(this.dateMonth === 3) {
+        this.mois = 'Mars';
+    } else if(this.dateMonth === 4) {
+        this.mois = 'Avril';
+    } else if(this.dateMonth === 5) {
+        this.mois = 'Mai';
+    } else if(this.dateMonth === 6) {
+        this.mois = 'Juin';
+    } else if(this.dateMonth === 7) {
+        this.mois = 'Juillet';
+    } else if(this.dateMonth === 8) {
+        this.mois = 'Aôut';
+    } else if(this.dateMonth === 9) {
+        this.mois = 'Septembre';
+    } else if(this.dateMonth === 10) {
+        this.mois = 'Octobre';
+    } else if(this.dateMonth === 11) {
+        this.mois = 'Novembre';
+    } else if(this.dateMonth === 12) {
+        this.mois = 'Décembre';
+    } else {
+        ''
+    }
+  }
 
     ngAfterViewInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.presenceService.getRegisterPresence(this.currentUser.code_entreprise).subscribe({
+                if(this.currentUser.site_locations.site_location.toUpperCase() === 'ALL') {
+                  this.presenceService.getRegisterPresenceAll(
+                    this.currentUser.code_entreprise).subscribe({
                     next: res => {
                         this.ELEMENT_DATA = res;
                         this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
@@ -69,6 +110,24 @@ export class RegistrePresenceComponent implements AfterViewInit {
                         console.log(err);
                     }
                 });
+                } else {
+                  this.presenceService.getRegisterPresence(
+                    this.currentUser.code_entreprise, 
+                    this.currentUser.site_locations.site_location).subscribe({
+                    next: res => {
+                        this.ELEMENT_DATA = res;
+                        this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
+                        this.dataSource.sort = this.sort;
+                        this.dataSource.paginator = this.paginator;
+                        this.isLoading = false;
+                    },
+                    error: (err) => {
+                        this.isLoading = false;
+                        console.log(err);
+                    }
+                });
+                }
+                
             },
             error: (error) => {
               this.router.navigate(['/auth/login']);
