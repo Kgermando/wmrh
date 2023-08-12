@@ -1,9 +1,9 @@
 <div class="d-flex justify-content-center" *ngIf="isLoading">
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-5">Patientez-svp...</p>
 </div>
-<div class="mb-25"  *ngIf="!isLoading">
+<div class="mb-25" *ngIf="!isLoading">
     <div class="row justify-content-center" *ngIf="salaire && preference">
-        <div class="col-lg-8 col-md-8 col-md-12 .offset-md-4 .offset-sm-0">  
+        <div class="col-lg-8 col-md-8 col-md-12"  id="htmlData" #htmlData>  
                 <mat-card class="mb-25 tagus-card">
                     <mat-card-header class="mb-10 d-flex justify-content-center">
                         <h4 class="mb-0 text-center">{{ title.toUpperCase()}} </h4>
@@ -11,13 +11,13 @@
                     <mat-card-header>
                         <h6>Bulletin N°{{salaire.id}} du {{salaire.created | date: 'dd/MM/yyyy'}}</h6>
                         <div> 
-                            <button mat-icon-button class="tagus">
-                                <mat-icon>print</mat-icon>
+                            <button mat-icon-button class="tagus" (click)="generatePDF()">
+                                    <mat-icon>print</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" 
+                                    (click)="delete(salaire.id)">
+                                    <mat-icon>delete</mat-icon>
                             </button>
-                            <button mat-icon-button color="warn" 
-                                (click)="delete(salaire.id)">
-                                <mat-icon>delete</mat-icon>
-                        </button>
                         </div>
                     </mat-card-header>
                     <mat-card-content class="example-buttons">
@@ -168,11 +168,11 @@
                                             </td> 
                                            <td class="gray-color text-end">
                                             {{ salaire.personnel.salaire_base | numberFormat:'fr-FR' }} |
-                                             <input type="text" class="form-control" 
-                                             type="number"
+                                             <input class="form-control" 
+                                             type="number" 
                                                 aria-label="Sizing example input" 
                                                 aria-describedby="inputGroup-sizing-sm"
-                                                formControlName="salaire_base" 
+                                                formControlName="salaire_base"
                                                 > FC
                                            </td>  
                                         </tr> 
@@ -189,7 +189,7 @@
                                                 Primes divers :
                                             </td>
                                             <td class="gray-color text-end">
-                                                <input type="text" class="form-control" 
+                                                <input class="form-control" 
                                                     type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
@@ -202,7 +202,7 @@
                                                 Primes Heures supp. :
                                             </td>
                                             <td class="gray-color text-end"  *ngIf="this.salaire.heures_supp >= 2">
-                                                <input type="text" class="form-control" 
+                                                <input class="form-control" 
                                                     type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
@@ -237,7 +237,7 @@
                                                 Contre-valeur logement :
                                             </td> 
                                             <!-- <td class="gray-color text-end" *ngIf="(this.alloc_logement > this.alloc_logementPlafond)">
-                                                <input type="text" class="form-control" 
+                                                <input class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
@@ -246,7 +246,7 @@
                                                    / {{ alloc_logementPlafond | numberFormat:'fr-FR' }} FC
                                               </td> -->
                                               <td class="gray-color text-end">
-                                                <input type="text" class="form-control" 
+                                                <input class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
@@ -264,7 +264,7 @@
                                                 Allocation transport : 
                                             </td>
                                             <td class="gray-color text-end">
-                                                <input type="text" class="form-control" 
+                                                <input class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
@@ -274,7 +274,7 @@
                                               </td> 
 
                                             <!-- <td class="gray-color text-end" *ngIf="this.alloc_transport > this.alloc_transportPlafond">
-                                                <input type="text" class="form-control" 
+                                                <input class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
@@ -292,7 +292,7 @@
                                                 Allocation familliale : 
                                             </td>
                                             <td class="gray-color text-end">
-                                                <input type="text" class="form-control" 
+                                                <input class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
@@ -302,7 +302,7 @@
                                               </td>
 
                                             <!-- <td class="gray-color text-end"  *ngIf="this.alloc_familliale > this.alloc_famillialePlafond">
-                                                <input type="text" class="form-control" 
+                                                <input class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
@@ -320,7 +320,7 @@
                                                 Soins medicaux :
                                             </td>
                                             <td class="gray-color text-end">
-                                                <input type="text" class="form-control" 
+                                                <input class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"

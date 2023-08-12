@@ -7,8 +7,8 @@
     </div>
     <div class="d-flex justify-content-center" *ngIf="isLoading">
         <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
-    </div>
-    <form *ngIf="!isLoading">
+    </div> 
+    <form [formGroup]="dateRange" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="tagus-form-group">
@@ -16,11 +16,14 @@
                     <mat-form-field appearance="fill">
                         <i class="ri-edit-2-line"></i>
                         <mat-label>Select de site location</mat-label>
-                        <mat-select formControlName="site_locations">
-                            <mat-option *ngFor="let site_location of siteLocationList" [value]="site_location.id">
+                        <mat-select formControlName="site_location">
+                            <mat-option *ngFor="let site_location of siteLocationList" [value]="site_location.site_location">
                                 {{site_location.site_location }}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="dateRange.controls['site_location'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -28,23 +31,23 @@
                 <div class="tagus-form-group">
                     <mat-form-field>
                         <mat-label>Choisir la plage de Date</mat-label>
-                        <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRange">
+                        <mat-date-range-input [rangePicker]="picker">
                           <input matStartDate formControlName="start" placeholder="Start Date">
                           <input matEndDate formControlName="end" placeholder="End Date">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker></mat-date-range-picker>
+                        <mat-error *ngIf="dateRange.controls['start'].hasError('required')">
+                            Ce champs est obligatoire
+                        </mat-error>
                       </mat-form-field> 
-                      <h2>
-                        Start: {{dateRange.value.start | date}}
-                        End: {{dateRange.value.end | date}}
-                      </h2>
+                      
                 </div> 
             </div>
         </div>
         <div class="text-end mt-25">
             <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
-            <button type="submit" (click)="onSubmit()"> 
+            <button type="submit"> 
                 <i class="ri-download-2-line"></i>
                 Exporter
             </button>

@@ -1,3 +1,17 @@
+
+// .page[size="A4"] {  
+//     width: 21cm;
+//     height: 29.7cm;
+// }
+// @media print {
+//     .page {width: auto !important;min-width:21cm;}
+//     @media print and (orientation: landscape) {
+//         .page {
+//             min-width: 29.7cm;
+//         }
+//     }
+// }
+
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;

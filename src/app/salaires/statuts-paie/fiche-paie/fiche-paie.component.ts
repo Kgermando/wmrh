@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SalaireModel } from '../../models/salaire-model';
 import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
@@ -11,6 +11,14 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import jsPDF from "jspdf";
+import html2canvas from 'html2canvas';
+import { formatDate } from '@angular/common';
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+ 
 
 @Component({
   selector: 'app-fiche-paie',
@@ -21,6 +29,8 @@ export class FichePaieComponent implements OnInit {
   isLoading = false;
 
   title = 'Traitement de la Fiche de paie';
+
+  @ViewChild('htmlData', { static: false}) htmlData!: ElementRef;
 
   isPublie = false;
 
@@ -413,6 +423,46 @@ export class FichePaieComponent implements OnInit {
         
       }
     } 
+
+ 
+
+    // public openPDF(): void {
+    //   let DATA: any = document.getElementById('htmlData');
+    //   var dateNow = new Date();
+    //   var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
+    //   html2canvas(DATA).then((canvas) => {
+    //     let fileWidth = 210;
+    //     let fileHeight = (canvas.height * fileWidth) / canvas.width;
+    //     const FILEURI = canvas.toDataURL('image/png');
+    //     let PDF = new jsPDF('p', 'mm', 'a4');
+    //     let position = 0;
+    //     PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+    //     PDF.save(`Bulletin-${dateNowFormat}.pdf`);
+    //   });
+    // }
+    
+
+    public openPDF(): void {
+      let pdf = new jsPDF("p", "pt", "a4");
+      var dateNow = new Date();
+      var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
+      pdf.html(this.htmlData.nativeElement, {
+        callback: (pdf) => {
+          pdf.addPage("a4", "p")
+          pdf.save(`Bulletin-${dateNowFormat}.pdf`)
+        }
+      }) 
+    }
+
+    generatePDF() {  
+      let docDefinition = {  
+        header: 'C#Corner PDF Header',  
+        content: this.htmlData.nativeElement
+      };  
+     
+      // this.figureTwoChart = document.getElementById('figureTwo').innerHTML;
+      pdfMake.createPdf(docDefinition).open();  
+    }  
   
     toggleTheme() {
       this.themeService.toggleTheme();

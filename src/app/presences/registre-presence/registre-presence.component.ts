@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { ApointementModel } from '../models/presence-model';
 import { PresenceService } from '../presence.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
@@ -183,15 +183,17 @@ export class PresenceExportXLSXDialogBox implements OnInit {
 
   siteLocationList: SiteLocationModel[] = [];
 
-  dateRange = new FormGroup({
-    site_location: new FormControl(),
-    start: new FormControl(),
-    end: new FormControl()
-  });
+  // dateRange = new FormGroup({
+  //   site_location: new FormControl(),
+  //   start: new FormControl(),
+  //   end: new FormControl()
+  // });
+  dateRange!: FormGroup;
 
   constructor( 
       public dialogRef: MatDialogRef<PresenceExportXLSXDialogBox>, 
       private toastr: ToastrService,
+      private _formBuilder: FormBuilder,
       private presenceService: PresenceService,
       private router: Router,
       private authService: AuthService,
@@ -212,43 +214,50 @@ export class PresenceExportXLSXDialogBox implements OnInit {
         console.log(error);
       }
     }); 
+    this.dateRange = this._formBuilder.group({
+      site_location: ['', Validators.required],
+      start: ['', Validators.required],
+      end: ['-', Validators.required]
+    });
   }
 
   
 
   onSubmit() {
     this.isLoading = true; 
-    var dateNow = new Date();
-    var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
-    var start_date = formatDate(this.dateRange.value.start, 'yyyy-MM-dd', 'en-US');
-    var end_date = formatDate(this.dateRange.value.end, 'yyyy-MM-dd', 'en-US') ;
-    this.presenceService.downloadReport(
-        this.currentUser.code_entreprise,
-        this.dateRange.value.site_location,
-        start_date,
-        end_date
-      ).subscribe({
-      next: (res) => {
-        this.isLoading = false;
-        const blob = new Blob([res], {type: 'text/xlsx'});
-        const downloadUrl = window.URL.createObjectURL(res);
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = `Presences-${dateNowFormat}.xlsx`;
-        link.click();
-
-
-        this.toastr.success('Success!', 'Extraction effectuée!');
-        // window.location.reload();
-        this.close();
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-        console.log(err);
-        this.close();
-      }
-    });
+    if (this.dateRange.valid) {
+      var dateNow = new Date();
+      var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
+      var start_date = formatDate(this.dateRange.value.start, 'yyyy-MM-dd', 'en-US');
+      var end_date = formatDate(this.dateRange.value.end, 'yyyy-MM-dd', 'en-US'); 
+      this.presenceService.downloadReport(
+          this.currentUser.code_entreprise,
+          this.dateRange.value.site_location,
+          start_date,
+          end_date
+        ).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          const blob = new Blob([res], {type: 'text/xlsx'});
+          const downloadUrl = window.URL.createObjectURL(res);
+          const link = document.createElement('a');
+          link.href = downloadUrl;
+          link.download = `Presences-${dateNowFormat}.xlsx`;
+          link.click();
+  
+  
+          this.toastr.success('Success!', 'Extraction effectuée!');
+          // window.location.reload();
+          this.close();
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+          console.log(err);
+          this.close();
+        }
+      });
+    } 
   } 
 
 
