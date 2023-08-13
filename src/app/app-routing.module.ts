@@ -15,7 +15,6 @@ import { PersonnelViewComponent } from './personnels/personnel-view/personnel-vi
 import { InboxComponent } from './mail/inbox/inbox.component';
 import { ComposeComponent } from './mail/compose/compose.component';
 import { ReadComponent } from './mail/read/read.component';
-import { BrouillonComponent } from './mail/brouillon/brouillon.component';
 import { ReglagesComponent } from './preferences/reglages/reglages.component';
 import { FonctionComponent } from './preferences/fonction/fonction.component';
 import { DepartementsComponent } from './preferences/departements/departements.component';
@@ -61,6 +60,7 @@ import { ServViewComponent } from './preferences/services/serv-view/serv-view.co
 import { TitleViewComponent } from './preferences/titles/title-view/title-view.component';
 import { SiteLocationViewComponent } from './preferences/site-location/site-location-view/site-location-view.component';
 import { archivesGuard, avanceSalaireGuard, candidaturesGuard, dashboardGuard, departementsGuard, emailsGuard, fonctionGuard, heureSuppGuard, horaireGuard, listePaiementGuard, penealiteGuard, performenceGuard, personnelsGuard, pointagesGuard, postesGuard, presEntrepriseGuard, primeDiversGuard, registrePresenceGuard, reglagesGuard, relevePaieGuard, serviceGuard, siteLocationGuard, statutPaieGuard, syndicatGuard, titresGuard } from './guard/role.guard';
+import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -134,7 +134,7 @@ const routes: Routes = [
     { path: 'mail/inbox', component: InboxComponent, canActivate: [emailsGuard] },
     { path: 'mail/compose', component: ComposeComponent, canActivate: [emailsGuard] },
     { path: 'mail/read-mail', component: ReadComponent, canActivate: [emailsGuard] },
-    { path: 'mail/brouillon', component: BrouillonComponent, canActivate: [emailsGuard] },
+    { path: 'mail/mail-sent', component: MailSentComponent, canActivate: [emailsGuard] },
     
     { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   ]},

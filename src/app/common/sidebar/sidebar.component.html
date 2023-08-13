@@ -143,38 +143,13 @@
                             </li>
                         </ul>
                     </mat-expansion-panel>
-                    <mat-expansion-panel (opened)="panelOpenState = true" 
-                        (closed)="panelOpenState = true"
+                    <a routerLink="/layouts/mail/inbox" 
+                        class="sidebar-menu-link" routerLinkActive="active" 
+                        [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Emails')">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <i class="flaticon-envelope"></i>
-                                <span class="title">Email</span>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <ul class="sidebar-sub-menu">
-                            <li class="sidemenu-item">
-                                <a routerLink="/layouts/mail/inbox" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Reception
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/layouts/mail/compose" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Nouveau mail
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/layouts/mail/read-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Read Email
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/layouts/mail/brouillon" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Brouillon
-                                </a>
-                            </li>
-                        </ul>
-                    </mat-expansion-panel> 
+                        <i class="ri-group-line"></i>
+                        <span class="title">Mails</span>
+                    </a> 
                     <span class="sub-title gray-color">Configurations</span>
                     <mat-expansion-panel (opened)="panelOpenState = true" 
                         (closed)="panelOpenState = true"

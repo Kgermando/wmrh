@@ -41,7 +41,6 @@ import { CredentialInterceptor } from './interceptors/credential.interceptor';
 import { InboxComponent } from './mail/inbox/inbox.component';
 import { ComposeComponent } from './mail/compose/compose.component';
 import { ReadComponent } from './mail/read/read.component';
-import { BrouillonComponent } from './mail/brouillon/brouillon.component';
 import { EmailSidebarComponent } from './mail/email-sidebar/email-sidebar.component'; 
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { DepartementsComponent, EditDepartementDialogBox } from './preferences/departements/departements.component';
@@ -129,6 +128,7 @@ import { FonctionViewComponent } from './preferences/fonction/fonction-view/fonc
 import { ServViewComponent } from './preferences/services/serv-view/serv-view.component';
 import { SiteLocationViewComponent } from './preferences/site-location/site-location-view/site-location-view.component';
 import { TitleViewComponent } from './preferences/titles/title-view/title-view.component';
+import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
 
 @NgModule({
   declarations: [
@@ -158,7 +158,6 @@ import { TitleViewComponent } from './preferences/titles/title-view/title-view.c
     InboxComponent,
     ComposeComponent,
     ReadComponent,
-    BrouillonComponent,
     EmailSidebarComponent,
     DepartementsComponent,
     ReglagesComponent,
@@ -269,6 +268,7 @@ import { TitleViewComponent } from './preferences/titles/title-view/title-view.c
     PersonnelExportXLSXDialogBox,
     SalaireExportXLSXDialogBox,
     PresenceExportXLSXDialogBox,
+    MailSentComponent,
   ],
   imports: [
     BrowserModule,
