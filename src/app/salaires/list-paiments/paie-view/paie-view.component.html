@@ -7,7 +7,10 @@
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header>
                     <h4 class="mb-0">Fiche employé</h4>
-                    <div> 
+                    <div *ngIf="currentUser.permission === 'C' || 
+                    currentUser.permission === 'CR' ||
+                    currentUser.permission === 'CRU' ||
+                    currentUser.permission === 'CRUD'"> 
                         <button [disabled]="personne.is_paie === dateMonth" mat-flat-button class="default-btn tagus"  
                         color="warn" (click)="onSubmit()" >
                             <div class="d-flex justify-content-center" *ngIf="!isLoadingSubmit">

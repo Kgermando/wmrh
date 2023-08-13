@@ -10,11 +10,21 @@
                 <mat-card-header class="border-bottom">
                     <h4 class="mb-0">Avance-salaires</h4>
                     <div> 
-                        <button mat-icon-button color="accent" (click)="openEditDialog('300ms', '100ms', avanceSalaire.id)">
+                        <button mat-icon-button color="accent" 
+                            (click)="openEditDialog('300ms', '100ms', avanceSalaire.id)"
+                            *ngIf="currentUser.permission === 'U' || 
+                            currentUser.permission === 'RU' ||
+                            currentUser.permission === 'CRU' ||
+                            currentUser.permission === 'RUD' ||
+                            currentUser.permission === 'CRUD'">
                                 <mat-icon>edit</mat-icon>
                         </button> 
                         <button mat-icon-button color="warn" 
-                                (click)="delete(avanceSalaire.id)">
+                                (click)="delete(avanceSalaire.id)"
+                                *ngIf="currentUser.permission === 'D' || 
+                                currentUser.permission === 'RD' ||
+                                currentUser.permission === 'RUD' || 
+                                currentUser.permission === 'CRUD'">
                                 <mat-icon>delete</mat-icon>
                         </button>
                     </div>

@@ -6,7 +6,7 @@ export const permissionDataList: string[] = [
     'CR',  
     'RU', 
     'RD', 
-    'CRU', 
+    'CRU', // CU
     'RUD', 
     'CRUD',
   ]

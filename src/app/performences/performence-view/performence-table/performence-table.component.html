@@ -72,11 +72,20 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
                     <td mat-cell *matCellDef="let element"> 
                         <button mat-icon-button color="accent" 
-                            (click)="openEditDialog('300ms', '100ms', element.id)">
+                            (click)="openEditDialog('300ms', '100ms', element.id)"
+                            *ngIf="currentUser.permission === 'U' || 
+                            currentUser.permission === 'RU' ||
+                            currentUser.permission === 'CRU' ||
+                            currentUser.permission === 'RUD' ||
+                            currentUser.permission === 'CRUD'">
                                 <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button color="warn" 
-                                (click)="delete(element.id)">
+                                (click)="delete(element.id)"
+                            *ngIf="currentUser.permission === 'D' ||
+                                currentUser.permission === 'RD' ||
+                                currentUser.permission === 'RUD' || 
+                                currentUser.permission === 'CRUD'">
                                 <mat-icon>delete</mat-icon>
                         </button>
                     </td>

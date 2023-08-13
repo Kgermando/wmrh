@@ -4,6 +4,8 @@ import { CustomizerSettingsService } from 'src/app/customizer-settings/customize
 import { ActivatedRoute, Router } from '@angular/router';
 import { CandidaturesService } from '../../candidatures.service';
 import { ToastrService } from 'ngx-toastr';
+import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-candidature-view',
@@ -13,12 +15,15 @@ import { ToastrService } from 'ngx-toastr';
 export class CandidatureViewComponent implements OnInit {
   isLoading = false;
 
+  currentUser: PersonnelModel | any;
+
   candidature: CandidatureModel;
 
   constructor(
     public themeService: CustomizerSettingsService,
     private route: ActivatedRoute,
     private router: Router,
+    private authService: AuthService,
     private candidaturesService: CandidaturesService,
     private toastr: ToastrService) {}
 
@@ -26,6 +31,15 @@ export class CandidatureViewComponent implements OnInit {
     ngOnInit(): void {
       this.isLoading = true;
       let id = this.route.snapshot.paramMap.get('id'); 
+      this.authService.user().subscribe({
+        next: (user) => {
+            this.currentUser = user; 
+        },
+        error: (error) => {
+          this.router.navigate(['/auth/login']);
+          console.log(error);
+        }
+      }); 
       this.candidaturesService.get(Number(id)).subscribe(res => {
         this.candidature = res;
         this.isLoading = false; 

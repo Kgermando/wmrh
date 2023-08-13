@@ -16,7 +16,12 @@
                             <i class="ri-add-fill"></i> Add nouveau candidat
                         </button>
                         <button mat-icon-button color="accent"  
-                        [routerLink]="['/layouts/recrutements/postes', poste.id, 'poste-edit']">
+                        [routerLink]="['/layouts/recrutements/postes', poste.id, 'poste-edit']"
+                        *ngIf="currentUser.permission === 'U' || 
+                                currentUser.permission === 'RU' ||
+                                currentUser.permission === 'CRU' ||
+                                currentUser.permission === 'RUD' ||
+                                currentUser.permission === 'CRUD'">
                                 <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button color="warn" 

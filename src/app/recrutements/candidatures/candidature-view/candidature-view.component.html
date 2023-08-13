@@ -11,11 +11,20 @@
                     </h4>
                     <div> 
                         <button mat-icon-button color="accent"  
-                        [routerLink]="['/layouts/recrutements/candidatures', candidature.id, 'candidature-edit']">
+                        [routerLink]="['/layouts/recrutements/candidatures', candidature.id, 'candidature-edit']"
+                        *ngIf="currentUser.permission === 'U' || 
+                        currentUser.permission === 'RU' ||
+                        currentUser.permission === 'CRU' ||
+                        currentUser.permission === 'RUD' ||
+                        currentUser.permission === 'CRUD'">
                                 <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button color="warn" 
-                                (click)="delete(candidature.id)">
+                                (click)="delete(candidature.id)"
+                                *ngIf="currentUser.permission === 'D' || 
+                                currentUser.permission === 'RD' ||
+                                currentUser.permission === 'RUD' || 
+                                currentUser.permission === 'CRUD'">
                                 <mat-icon>delete</mat-icon>
                         </button>
                     </div>

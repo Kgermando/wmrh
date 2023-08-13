@@ -28,7 +28,10 @@
                         <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
                     </div>
                     <div *ngIf="!isLoading">
-                        <button mat-flat-button class="tagus d-block">Soumettre</button> 
+                        <button mat-flat-button class="tagus d-block" *ngIf="currentUser.permission === 'C' || 
+                        currentUser.permission === 'CR' ||
+                        currentUser.permission === 'CRU' ||
+                        currentUser.permission === 'CRUD'">Soumettre</button> 
                     </div> 
                 </form> 
             </mat-card-content>
@@ -60,10 +63,21 @@
                                 </td>  
                                 <td class="gray-color">{{item.signature}}</td> 
                                 <td class="gray-color">
-                                    <button mat-icon-button color="primary" (click)="openEditDialog('300ms', '100ms', item.id)">
+                                    <button mat-icon-button color="primary" 
+                                    (click)="openEditDialog('300ms', '100ms', item.id)"
+                                    *ngIf="currentUser.permission === 'U' || 
+                                    currentUser.permission === 'RU' ||
+                                    currentUser.permission === 'CRU' ||
+                                    currentUser.permission === 'RUD' ||
+                                    currentUser.permission === 'CRUD'">
                                         <mat-icon>edit</mat-icon>
                                     </button>
-                                    <button mat-icon-button color="accent" (click)="delete(item.id)">
+                                    <button mat-icon-button color="accent" 
+                                    (click)="delete(item.id)"
+                                    *ngIf="currentUser.permission === 'D' || 
+                                        currentUser.permission === 'RD' ||
+                                        currentUser.permission === 'RUD' || 
+                                        currentUser.permission === 'CRUD'">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </td> 

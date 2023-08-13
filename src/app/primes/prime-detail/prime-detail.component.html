@@ -10,11 +10,20 @@
                     <h4 class="mb-0">Primes</h4>
                     <div> 
                         <button mat-icon-button color="accent" 
-                            (click)="openEditDialog('300ms', '100ms', prime.id)">
+                            (click)="openEditDialog('300ms', '100ms', prime.id)"
+                            *ngIf="currentUser.permission === 'U' || 
+                            currentUser.permission === 'RU' ||
+                            currentUser.permission === 'CRU' ||
+                            currentUser.permission === 'RUD' ||
+                            currentUser.permission === 'CRUD'">
                                 <mat-icon>edit</mat-icon>
                         </button> 
                         <button mat-icon-button color="warn" 
-                                (click)="delete(prime.id)">
+                                (click)="delete(prime.id)"
+                            *ngIf="currentUser.permission === 'D' || 
+                                currentUser.permission === 'RD' ||
+                                currentUser.permission === 'RUD' || 
+                                currentUser.permission === 'CRUD'">
                                 <mat-icon>delete</mat-icon>
                         </button>
                     </div>

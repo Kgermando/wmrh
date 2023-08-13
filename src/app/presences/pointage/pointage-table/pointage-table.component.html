@@ -67,10 +67,20 @@
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="primary" (click)="openEditDialog('300ms', '100ms', element.id)">
+                        <button mat-icon-button color="primary"
+                         (click)="openEditDialog('300ms', '100ms', element.id)"
+                         *ngIf="currentUser.permission === 'U' || 
+                         currentUser.permission === 'RU' ||
+                         currentUser.permission === 'CRU' ||
+                         currentUser.permission === 'RUD' ||
+                         currentUser.permission === 'CRUD'">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="accent" (click)="delete(element.id)">
+                        <button mat-icon-button color="accent" (click)="delete(element.id)"
+                            *ngIf="currentUser.permission === 'D' || 
+                            currentUser.permission === 'RD' ||
+                            currentUser.permission === 'RUD' || 
+                            currentUser.permission === 'CRUD'">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
