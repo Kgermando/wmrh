@@ -11,6 +11,8 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 import jsPDF from "jspdf";
 import html2canvas from 'html2canvas'; 
 
@@ -78,6 +80,7 @@ export class FichePaieComponent implements OnInit {
     private salaireService: SalaireService,
     private reglageService: ReglageService,
     private personnelService: PersonnelService,
+    public dialog: MatDialog,
     private toastr: ToastrService) {} 
 
     public toggle(event: MatSlideToggleChange) {
@@ -454,9 +457,40 @@ export class FichePaieComponent implements OnInit {
       }) 
     }
 
-  
+    
+
+    openNewTab() {
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree(['/layouts/salaires/calculate'])
+      );
+      window.open(url, '_blank');
+    }
+
+    openDialog() {
+        this.dialog.open(CalculateDialog, { disableClose: true });
+    }
+
+
     toggleTheme() {
       this.themeService.toggleTheme();
     }
   
+}
+
+
+@Component({
+  selector: 'calculate-dialog',
+  templateUrl: './calculate-dialog.html',
+  styleUrls: ['./fiche-paie.component.scss']
+})
+export class CalculateDialog {
+
+  constructor(
+      public dialogRef: MatDialogRef<CalculateDialog>
+  ) {}
+
+  close(){
+    this.dialogRef.close(true);
+  }
+
 }

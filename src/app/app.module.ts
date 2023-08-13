@@ -94,7 +94,7 @@ import { StatutsPaieComponent } from './salaires/statuts-paie/statuts-paie.compo
 import { ListPaimentsComponent } from './salaires/list-paiments/list-paiments.component';
 import { PaieViewComponent } from './salaires/list-paiments/paie-view/paie-view.component';
 import { RelevePaieTableComponent } from './salaires/list-paiments/paie-view/releve-paie-table/releve-paie-table.component';
-import { FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
+import { CalculateDialog, FichePaieComponent } from './salaires/statuts-paie/fiche-paie/fiche-paie.component';
 import { BulletinPaieComponent } from './salaires/statuts-paie/bulletin-paie/bulletin-paie.component';
 import { NumberFormatPipe } from './pipes/number-format.pipe'; 
 import { RelevePaieComponent, SalaireExportXLSXDialogBox } from './salaires/releve-paie/releve-paie.component'; 
@@ -129,6 +129,8 @@ import { ServViewComponent } from './preferences/services/serv-view/serv-view.co
 import { SiteLocationViewComponent } from './preferences/site-location/site-location-view/site-location-view.component';
 import { TitleViewComponent } from './preferences/titles/title-view/title-view.component';
 import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
+import { CalculateComponent } from './salaires/calculate/calculate.component';
+
 
 @NgModule({
   declarations: [
@@ -269,6 +271,8 @@ import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
     SalaireExportXLSXDialogBox,
     PresenceExportXLSXDialogBox,
     MailSentComponent,
+    CalculateComponent, 
+    CalculateDialog,
   ],
   imports: [
     BrowserModule,

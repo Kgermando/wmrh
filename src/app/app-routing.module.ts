@@ -61,6 +61,7 @@ import { TitleViewComponent } from './preferences/titles/title-view/title-view.c
 import { SiteLocationViewComponent } from './preferences/site-location/site-location-view/site-location-view.component';
 import { archivesGuard, avanceSalaireGuard, candidaturesGuard, dashboardGuard, departementsGuard, emailsGuard, fonctionGuard, heureSuppGuard, horaireGuard, listePaiementGuard, penealiteGuard, performenceGuard, personnelsGuard, pointagesGuard, postesGuard, presEntrepriseGuard, primeDiversGuard, registrePresenceGuard, reglagesGuard, relevePaieGuard, serviceGuard, siteLocationGuard, statutPaieGuard, syndicatGuard, titresGuard } from './guard/role.guard';
 import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
+import { CalculateComponent } from './salaires/calculate/calculate.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -122,7 +123,7 @@ const routes: Routes = [
     { path: 'salaires/releve-paie', component: RelevePaieComponent , canActivate: [relevePaieGuard]},
     { path: 'salaires/pres-entreprise', component: PresEntrepriseComponent, canActivate: [presEntrepriseGuard] },
     { path: 'salaires/pres-entreprise/:id/detail', component: PresEntrepriseViewComponent, canActivate: [presEntrepriseGuard] },
-    
+    { path: 'salaires/calculate', component: CalculateComponent },
 
     { path: 'horaire', component: HoraireComponent, canActivate: [horaireGuard] },
 

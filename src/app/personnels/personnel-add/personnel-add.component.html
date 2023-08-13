@@ -105,19 +105,6 @@
                     </mat-form-field>
                 </div> 
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                    <label class="d-block mb-12 fw-semibold gray-color">Acreditation </label>
-                    <mat-form-field appearance="fill">
-                        <i class="ri-group-line"></i>
-                        <mat-label>Select niveau d'acreditation</mat-label>
-                        <mat-select formControlName="role">
-                            <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="formGroup.controls['role'].hasError('required')">
-                            Ce champs est obligatoire
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="tagus-form-group">
                         <label class="d-block mb-12 fw-semibold gray-color">Categorie employé</label>
                         <mat-form-field appearance="fill">
@@ -128,7 +115,7 @@
                             </mat-select>
                         </mat-form-field>
                     </div> 
-                </div>
+                </div> 
             </div>
             <div class="d-flex justify-content-center" *ngIf="isLoading">
                 <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>

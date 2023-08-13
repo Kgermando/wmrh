@@ -182,7 +182,7 @@ export class PersonnelEditComponent implements OnInit {
           telephone: item.telephone,
           sexe: item.sexe,
           adresse: item.adresse,
-          category: this.formGroup.value.category,
+          category: item.category,
           signature: this.currentUser.matricule, 
           update_created: new Date()
         });

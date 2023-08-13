@@ -64,8 +64,7 @@ export class PersonnelAddComponent implements OnInit {
       telephone: ['', Validators.required],
       sexe: ['', Validators.required],
       adresse: ['', Validators.required],
-      matricule: ['', Validators.required], 
-      role: ['', Validators.required],
+      matricule: ['', Validators.required],  
       category: ['', Validators.required], 
     });
   }
@@ -86,8 +85,7 @@ export class PersonnelAddComponent implements OnInit {
           telephone: this.formGroup.value.telephone,
           sexe: this.formGroup.value.sexe,
           adresse: this.formGroup.value.adresse, 
-          matricule: identifiant.toLowerCase(), 
-          role: this.formGroup.value.role,
+          matricule: identifiant.toLowerCase(),  
           category: this.formGroup.value.category,
           signature: this.currentUser.matricule,
           created: new Date(),
