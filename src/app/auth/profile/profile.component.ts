@@ -88,13 +88,7 @@ export class ProfileComponent implements OnInit {
         console.log(error);
       }
     });
-    Auth.userEmitter.subscribe(
-      user => {
-        this.currentUser = user; 
-        console.log(this.currentUser);
-      }
-    );
-    this.isLoading = false;  
+    this.isLoading = false;
   } 
 
 

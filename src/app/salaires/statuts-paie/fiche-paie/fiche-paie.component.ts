@@ -12,11 +12,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import jsPDF from "jspdf";
-import html2canvas from 'html2canvas';
-import { formatDate } from '@angular/common';
+import html2canvas from 'html2canvas'; 
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { formatDate } from '@angular/common';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
  
 
@@ -454,15 +454,6 @@ export class FichePaieComponent implements OnInit {
       }) 
     }
 
-    generatePDF() {  
-      let docDefinition = {  
-        header: 'C#Corner PDF Header',  
-        content: this.htmlData.nativeElement
-      };  
-     
-      // this.figureTwoChart = document.getElementById('figureTwo').innerHTML;
-      pdfMake.createPdf(docDefinition).open();  
-    }  
   
     toggleTheme() {
       this.themeService.toggleTheme();

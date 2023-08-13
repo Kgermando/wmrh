@@ -23,11 +23,20 @@
                     <h5 class="mb-0">Identité</h5>
                     <div> 
                         <button mat-icon-button color="accent"  
-                        [routerLink]="['/layouts/personnels', personne.id, 'personnel-edit']">
+                            [routerLink]="['/layouts/personnels', personne.id, 'personnel-edit']"
+                            *ngIf="currentUser.permission === 'U' || 
+                                currentUser.permission === 'RU' ||
+                                currentUser.permission === 'CRU' || 
+                                currentUser.permission === 'RUD' || 
+                                currentUser.permission === 'CRUD'">
                                 <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button color="warn" 
-                                (click)="delete(personne.id)">
+                                (click)="delete(personne.id)"
+                            *ngIf="currentUser.permission === 'D' || 
+                                currentUser.permission === 'RD' ||
+                                currentUser.permission === 'RUD' ||
+                                currentUser.permission === 'CRUD'">
                                 <mat-icon>delete</mat-icon>
                         </button>
                     </div>
@@ -38,10 +47,10 @@
                             <img [src]="personne.photo" width="57" class="rounded-circle" alt="user" *ngIf="personne.photo">
                             <img src="assets/img/user/user22.jpg" width="57" class="rounded-circle" alt="user"  *ngIf="!personne.photo">
                             <div class="ms-15">
-                                <h5 class="mb-5">{{ personne.matricule }}</h5>
-                                <span class="d-block gray-color text-success" *ngIf="personne.statut_personnel">Actif</span>
-                                <span class="d-block gray-color" *ngIf="!personne.statut_personnel">Inactif</span>
-                            </div>
+                                <h5 class="mb-5">{{ personne.matricule.toUpperCase() }}</h5>
+                                <span class="d-block gray-color success" *ngIf="personne.statut_personnel">Actif</span>
+                                <span class="d-block gray-color danger" *ngIf="!personne.statut_personnel">Inactif</span>
+                            </div> 
                         </div>
                     </mat-card-header>
                     <ul class="list ps-0 mb-0">
@@ -148,14 +157,15 @@
                             <span class="gray-color" *ngIf="!personne.statut_personnel"> Inactif</span>
                         </li>
                         <li>
-                            <span class="fw-semibold">Accreditation: </span>
-                            <span class="gray-color">Niveau {{ personne.role }}</span>
-                        </li>
-                        <li>
                             <span class="fw-semibold">Permission: </span>
                             <span class="gray-color">{{ personne.permission }}</span>
                         </li> 
-                         
+                        <li>
+                            <span class="fw-semibold">Vous avez accès à: </span>
+                            <div *ngFor="let role of personne.roles; index as i">
+                                <span class="gray-color">{{ i + 1 }}. {{ role }}</span>
+                            </div> 
+                        </li> 
                     </ul>   
                 </mat-card-content>
             </mat-card>

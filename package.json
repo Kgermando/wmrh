@@ -25,6 +25,7 @@
     "@fullcalendar/angular": "^6.1.4",
     "@fullcalendar/core": "^6.1.4",
     "@fullcalendar/daygrid": "^6.1.4",
+    "@palmabit/htmltopdfmake": "^1.1.0",
     "angular-calendar": "^0.31.0",
     "angular-gauge": "^5.0.0",
     "angularx-qrcode": "^16.0.0",

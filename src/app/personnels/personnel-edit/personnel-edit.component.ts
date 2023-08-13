@@ -19,6 +19,7 @@ import { SiteLocationModel } from 'src/app/preferences/site-location/models/site
 import { permissionDataList } from 'src/app/shared/tools/permission-list';
 import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
 import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel';
+import { RoleDataList } from 'src/app/shared/tools/role-list';
 
 @Component({
   selector: 'app-personnel-edit',
@@ -47,9 +48,9 @@ export class PersonnelEditComponent implements OnInit {
   etatCivileList: string[] = [
     'Marié(e)', 'Celibataire'
   ];
-  roleList: number[] = [
-    1,2,3,4,5
-  ];
+
+  roleList: string[] = RoleDataList;
+
   typeContratList: string[] = [
     'CDD', 'CDI'
   ];
@@ -164,7 +165,7 @@ export class PersonnelEditComponent implements OnInit {
 
     this.formGroup5 = this._formBuilder.group({
       statut_personnel: [''],
-      role: [''],
+      roles: [''],
       permission: [''],
     });
 
@@ -224,7 +225,7 @@ export class PersonnelEditComponent implements OnInit {
         });
         this.formGroup5.patchValue({ 
           statut_personnel: item.statut_personnel,
-          role: item.role, 
+          roles: item.roles, 
           permission: item.permission,
           signature: this.currentUser.matricule,
           update_created: new Date()

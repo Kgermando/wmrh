@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SalaireModel } from '../../models/salaire-model';
 import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
@@ -8,6 +8,13 @@ import { SalaireService } from '../../salaire.service';
 import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
 import { ToastrService } from 'ngx-toastr';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
+import jsPDF from "jspdf";
+import { formatDate } from '@angular/common';
+
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
@@ -16,7 +23,7 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
   styleUrls: ['./bulletin-paie.component.scss']
 })
 export class BulletinPaieComponent implements OnInit {
-  title = 'Bulletin de paie';
+  title = 'Bulletin de paie'; 
 
   isLoading = false;
 
@@ -44,6 +51,8 @@ export class BulletinPaieComponent implements OnInit {
   cnss_qpoUSD = 0;
   soins_medicauxUSD = 0;
   impot_elideUSD = 0;
+
+  @ViewChild('htmlData', { static: false}) htmlData!: ElementRef;
     
 
   constructor(
@@ -140,5 +149,57 @@ export class BulletinPaieComponent implements OnInit {
     toggleTheme() {
       this.themeService.toggleTheme();
     }
+
+
+    public openPDF(): void {
+      let pdf = new jsPDF("p", "pt", "a4");
+      var dateNow = new Date();
+      var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
+      pdf.html(this.htmlData.nativeElement, {
+        callback: (pdf) => {
+          // pdf.addPage("a4", "p")
+          pdf.save(`Bulletin-${dateNowFormat}.pdf`)
+        }
+      }) 
+    }
+
+ 
+
+
+    generatePDF() {
+      let docDefinition = {   
+        content: [
+          { text: ` <h4 class="mb-0 text-center">{{ title.toUpperCase()}} </h4>`, style: "header" },
+          "Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.",
+          {
+            text:
+              "A simple table (no headers, no width specified, no spans, no styling)",
+            style: "subheader"
+          },
+          "The following table has nothing more than a body array",
+          {
+            style: "tableExample",
+            table: {
+              body: [
+                ["Column 1", "Column 2", "Column 3"],
+                ["One value goes here", "Another one here", "OK?"]
+              ]
+            }
+          }
+        ],
+        styles: {
+          header: {
+            fontSize: 22,
+            bold: true,
+          },
+         content: {
+          italics: true, 
+         }
+        },
+  
+      }; 
+      pdfMake.createPdf(docDefinition).open();  
+    }  
+
   
 }

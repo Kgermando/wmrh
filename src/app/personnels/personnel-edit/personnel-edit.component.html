@@ -115,7 +115,12 @@
                         <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
                     </div>
                     <div class="mt-5" *ngIf="!isLoading">
-                        <button mat-flat-button matStepperNext class="tagus">Suivant</button>
+                        <button mat-flat-button matStepperNext class="tagus"
+                            *ngIf="currentUser.permission === 'U' || 
+                            currentUser.permission === 'RU' ||
+                            currentUser.permission === 'CRU' || 
+                            currentUser.permission === 'RUD' || 
+                            currentUser.permission === 'CRUD'">Suivant</button>
                     </div>
                 </form>
             </mat-step>
@@ -190,7 +195,12 @@
                     </div>
                     <div class="mt-5">
                         <button mat-flat-button matStepperPrevious class="gray me-15">Retour</button>
-                        <button mat-flat-button matStepperNext class="tagus">Suivant</button>
+                        <button mat-flat-button matStepperNext class="tagus"
+                        *ngIf="currentUser.permission === 'U' || 
+                            currentUser.permission === 'RU' ||
+                            currentUser.permission === 'CRU' || 
+                            currentUser.permission === 'RUD' || 
+                            currentUser.permission === 'CRUD'">Suivant</button>
                     </div>
                 </form>
             </mat-step>
@@ -309,7 +319,12 @@
                     </div>
                     <div class="mt-5">
                         <button mat-flat-button matStepperPrevious class="gray me-15">Retour</button>
-                        <button mat-flat-button matStepperNext class="tagus">Suivant</button>
+                        <button mat-flat-button matStepperNext class="tagus"
+                            *ngIf="currentUser.permission === 'U' || 
+                                currentUser.permission === 'RU' ||
+                                currentUser.permission === 'CRU' || 
+                                currentUser.permission === 'RUD' || 
+                                currentUser.permission === 'CRUD'">Suivant</button>
                     </div>
                 </form>
             </mat-step>
@@ -428,7 +443,12 @@
                     </div>
                     <div class="mt-5">
                         <button mat-flat-button matStepperPrevious class="gray me-15">Retour</button>
-                        <button mat-flat-button matStepperNext class="tagus">Suivant</button>
+                        <button mat-flat-button matStepperNext class="tagus"
+                        *ngIf="currentUser.permission === 'U' || 
+                            currentUser.permission === 'RU' ||
+                            currentUser.permission === 'CRU' || 
+                            currentUser.permission === 'RUD' || 
+                            currentUser.permission === 'CRUD'">Suivant</button>
                     </div>
                 </form> 
             </mat-step>
@@ -444,15 +464,15 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Acreditation </label>
-                                    <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Select niveau d'acreditation</mat-label>
-                                    <mat-select formControlName="role">
+                                <label class="d-block mb-12 fw-semibold gray-color">Acreditation</label>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Select acreditation</mat-label>
+                                    <i class="ri-list-check"></i>
+                                    <mat-select formControlName="roles" multiple>
                                         <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                            </div>
+                            </div> 
                         </div> 
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
@@ -471,7 +491,12 @@
                     </div>
                     <div class="mt-5">
                         <button mat-flat-button matStepperPrevious class="gray me-15">Retour</button>
-                        <button mat-flat-button matStepperNext class="tagus">Terminer</button>
+                        <button mat-flat-button matStepperNext class="tagus"
+                            *ngIf="currentUser.permission === 'U' || 
+                                currentUser.permission === 'RU' ||
+                                currentUser.permission === 'CRU' || 
+                                currentUser.permission === 'RUD' || 
+                                currentUser.permission === 'CRUD'">Terminer</button> 
                     </div>
                 </form> 
             </mat-step>

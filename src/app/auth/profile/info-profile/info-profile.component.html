@@ -153,9 +153,11 @@
                             <span class="gray-color" *ngIf="!currentUser.statut_personnel"> Inactif</span>
                     </li>
                     <li>
-                        <span class="fw-semibold">Accreditation: </span>
-                        <span class="gray-color">Niveau {{ currentUser.role }}</span>
-                    </li>
+                        <span class="fw-semibold">Vous avez accès à: </span>
+                        <div *ngFor="let role of currentUser.roles; index as i">
+                            <span class="gray-color">{{ i + 1 }}. {{ role }}</span>
+                        </div> 
+                    </li> 
                     <li>
                         <span class="fw-semibold">Permission: </span> 
                             <span class="gray-color"> {{ currentUser.permission }}</span>

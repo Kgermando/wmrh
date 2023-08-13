@@ -3,7 +3,7 @@
 </div>
 <div class="mb-25"  *ngIf="!isLoading">
     <div class="row justify-content-center" *ngIf="salaire && preference">
-        <div class="col-md-8 .offset-md-4">
+        <div class="col-md-8 .offset-md-4" id="htmlData" #htmlData>
                 <mat-card class="mb-25 tagus-card">
                     <mat-card-header class="mb-10 d-flex justify-content-center">
                         <h4 class="mb-0 text-center">{{ title.toUpperCase()}} </h4>
@@ -11,7 +11,7 @@
                     <mat-card-header>
                         <h6>Bulletin N°{{salaire.id}} du {{salaire.created | date: 'dd/MM/yyyy'}}</h6>
                         <div> 
-                            <button mat-icon-button class="tagus">
+                            <button mat-icon-button class="tagus" (click)="openPDF()">
                                 <mat-icon>print</mat-icon>
                             </button>
                         </div>

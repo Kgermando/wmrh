@@ -34,7 +34,7 @@ export class HeaderComponent {
         private toggleService: ToggleService,
         private datePipe: DatePipe,
         public themeService: CustomizerSettingsService,
-        private authService: AuthService,
+        private authService: AuthService, 
     ) {
         this.toggleService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -56,6 +56,8 @@ export class HeaderComponent {
         this.authService.logout().subscribe(res => {
            console.log(res);
            localStorage.removeItem('jwt');
+           localStorage.removeItem('roles');
+        //    localStorage.clear();
         });
     }
 

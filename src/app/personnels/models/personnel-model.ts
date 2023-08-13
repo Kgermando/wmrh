@@ -24,8 +24,8 @@ export interface PersonnelModel {
     matricule: string;
     category: string; 
 
-    statut_personnel: boolean; 
-    role: number;
+    statut_personnel: boolean;
+    roles: string[];
     permission: string;
 
     numero_cnss: string;
