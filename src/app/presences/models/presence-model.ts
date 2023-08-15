@@ -4,8 +4,7 @@ export interface ApointementModel {
     id: number;
     matricule: string;
     apointement: string;
-    counter: boolean;
-    presence: boolean;
+    prestation: string;
     observation: string;
     date_entree: Date;
     date_sortie: Date;

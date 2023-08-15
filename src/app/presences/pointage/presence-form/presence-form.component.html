@@ -27,6 +27,11 @@
                     <span class="presence-form mission" *ngIf="apointementItem.apointement == 'M'">Mission</span>
                 </li>
                 <li>
+                    <span class="fw-semibold d-inline-block">Prestation: </span>
+                    <span class="gray-color" *ngIf="apointementItem.prestation == '1'">Journée entière</span>
+                    <span class="gray-color" *ngIf="apointementItem.prestation == '0.5'">Demi-journée</span>
+                </li>
+                <li>
                     <span class="fw-semibold d-inline-block">Date et Heure d'entrée: </span>
                     <span class="gray-color">{{ apointementItem.date_entree | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
                 </li>
@@ -78,6 +83,21 @@
                                     <mat-option *ngFor="let apointement of apointementList" [value]="apointement">{{apointement}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="formGroup.controls['apointement'].hasError('required')">
+                                    Ce champs est obligatoire
+                                </mat-error>
+                            </mat-form-field>
+                        </div> 
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="isPresence">
+                        <div class="tagus-form-group">
+                            <label class="d-block mb-12 fw-semibold gray-color">Prestation </label>
+                            <mat-form-field appearance="fill">
+                                <i class="ri-user-line"></i>
+                                <mat-label>Select la prestation de la journée</mat-label>
+                                <mat-select formControlName="prestation">
+                                    <mat-option *ngFor="let prestation of prestationList" [value]="prestation.cote">{{prestation.pres}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="formGroup.controls['prestation'].hasError('required')">
                                     Ce champs est obligatoire
                                 </mat-error>
                             </mat-form-field>
@@ -138,6 +158,21 @@
                                 <mat-option *ngFor="let apointement of apointementList" [value]="apointement">{{apointement}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="formGroup.controls['apointement'].hasError('required')">
+                                Ce champs est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+                    </div> 
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="isPresence">
+                    <div class="tagus-form-group">
+                        <label class="d-block mb-12 fw-semibold gray-color">Prestation </label>
+                        <mat-form-field appearance="fill">
+                            <i class="ri-user-line"></i>
+                            <mat-label>Select la prestation de la journée</mat-label>
+                            <mat-select formControlName="prestation">
+                                <mat-option *ngFor="let prestation of prestationList" [value]="prestation.cote">{{prestation.pres}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls['prestation'].hasError('required')">
                                 Ce champs est obligatoire
                             </mat-error>
                         </mat-form-field>

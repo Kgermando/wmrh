@@ -28,11 +28,14 @@ export class PresenceFormComponent {
 
   currentUser: PersonnelModel | any;
 
+  prestationList: any[] = []
+
  
   apointementLastItem: ApointementModel[] = [];
   apointementItem: ApointementModel;
 
-  isAbsense = false;
+  isAbsense = false; // Date de reprise pour les congés
+  isPresence = false; //Si la personne est presente ou absence autorisée 
 
   isDisable = true;
 
@@ -78,7 +81,12 @@ export class PresenceFormComponent {
       private presenceService: PresenceService,
       public dialog: MatDialog,
       private toastr: ToastrService
-  ) {}
+  ) {
+    this.prestationList = [
+      { pres:'Journée entière', cote: 1},
+      { pres:'Demi-journée', cote: 0.5},
+    ]
+  }
 
 
   ngOnInit(): void {
@@ -184,6 +192,7 @@ export class PresenceFormComponent {
     
     this.formGroup = this._formBuilder.group({
       apointement: ['', Validators.required],
+      prestation: ['', Validators.required],
       observation: ['Rien à signaler', Validators.required],
       date_sortie: ['-', Validators.required]
     });
@@ -195,13 +204,22 @@ export class PresenceFormComponent {
       event.value === 'AM' || event.value === 'CC' || 
       event.value === 'CA' || event.value === 'S' || 
       event.value === 'O' || event.value === 'M') { 
-      this.isAbsense = true; 
+      this.isAbsense = true;  //Date de reprise pour les congés
+      this.isPresence = false;
     } else if(event.value === 'P' || event.value === 'A' || 
       event.value === 'AA') {
+      this.isAbsense = false; 
+    } else {
       this.isAbsense = false;
-    } else if(event.value === 'S') {
+    } 
 
-    }
+    if(event.value === 'P' || event.value === 'AA') { 
+      this.isPresence = true;  //Prestation de la journée
+    } else {
+      this.isPresence = false;
+    }  
+
+    
   }
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, personnel: number): void {
@@ -222,9 +240,8 @@ export class PresenceFormComponent {
       if (this.formGroup.valid) { 
         var body = { 
           matricule: this.personne.matricule,
-          apointement: this.formGroup.value.apointement,
-          // counter: this.isAbsense ? false : true,  // Si la personne est absente le counter ne compte pas (False)
-          // presence: this.isAbsense ? false : true,
+          apointement: this.formGroup.value.apointement, 
+          prestation: this.isPresence ? this.formGroup.value.prestation: 0,
           observation: this.formGroup.value.observation,
           date_entree: new Date(),
           date_sortie: this.isAbsense ? this.formGroup.value.date_sortie : new Date(),
