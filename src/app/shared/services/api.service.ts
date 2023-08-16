@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -8,9 +8,15 @@ import { Observable } from 'rxjs';
 export abstract class ApiService {
   abstract get endpoint(): string;
 
+  private httpOptions: object; 
+  private token = '';
+
   constructor(protected http: HttpClient) { }
 
   preference(code_entreprise: string): Observable<any> {
+    // let headers: HttpHeaders = new HttpHeaders();
+    // headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    // headers.append('Authorization', token);
     return this.http.get(`${this.endpoint}/preference/${code_entreprise}`);
   }
 

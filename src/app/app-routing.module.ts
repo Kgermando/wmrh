@@ -67,7 +67,7 @@ const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
     { path: 'login', component: LoginComponent }, 
     { path: 'forgot-password', component: ForgotPasswordComponent }, 
-    { path: 'register', component: RegisterComponent }, 
+    { path: 'register/015', component: RegisterComponent }, 
     { path: '', redirectTo: 'login', pathMatch: 'full'},
   ]},
   { path: 'layouts', component: LayoutsComponent, children: [
