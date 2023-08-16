@@ -130,6 +130,9 @@ import { SiteLocationViewComponent } from './preferences/site-location/site-loca
 import { TitleViewComponent } from './preferences/titles/title-view/title-view.component';
 import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
 import { CalculateComponent } from './salaires/calculate/calculate.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
+import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
 
 
 @NgModule({
@@ -272,7 +275,7 @@ import { CalculateComponent } from './salaires/calculate/calculate.component';
     PresenceExportXLSXDialogBox,
     MailSentComponent,
     CalculateComponent, 
-    CalculateDialog,
+    CalculateDialog, AdminComponent, AdminSidebarComponent, AdminHeaderComponent,
   ],
   imports: [
     BrowserModule,
