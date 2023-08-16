@@ -17,7 +17,7 @@
     </ol>
 </div>
 
-<mat-card class="mb-25 tagus-card">
+<mat-card class="mb-25 tagus-card" *ngIf="currentUser">
     <mat-card-content>
         <mat-stepper #stepper class="tagus-wizard mb-25">
             <mat-step>

@@ -256,8 +256,7 @@ export class PresenceFormComponent {
         this.presenceService.create(body).subscribe({
           next: (res) => {
             this.isLoadingForm = false;
-            this.formGroup.reset();
-            console.log(res['personnel']);
+            this.formGroup.reset(); 
             this.toastr.success('Success!', 'Ajouté avec succès!');
             if(res['apointement'] === 'S') {
               this.openEditDialog('300ms', '100ms', res['personnel']);

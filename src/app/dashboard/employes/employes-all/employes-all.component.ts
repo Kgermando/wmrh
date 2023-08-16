@@ -161,6 +161,7 @@ export class EmployesAllComponent implements OnInit{
     this.employeService.ageContratEmployeAll(this.currentUser.code_entreprise).subscribe(
         res => {
             this.ageParContratList = res;
+            console.log("ageParContratList", this.ageParContratList);
             this.chartOptions = {
                 series: [
                     {
@@ -203,7 +204,7 @@ export class EmployesAllComponent implements OnInit{
                     opacity: 1
                 },
                 xaxis: {
-                    categories: this.ageParContratList.map((item: any) => parseFloat(item.age)),
+                    categories: this.ageParContratList.map((item: any) => item.date),
                     position: "top",
                     labels: {
                         style: {
@@ -491,6 +492,7 @@ export class EmployesAllComponent implements OnInit{
     this.employeService.employeDepartementAll(this.currentUser.code_entreprise).subscribe(
         res => {
             this.employeParDepartement = res;
+            console.log("employeParDepartement", this.employeParDepartement);
             this.chartOptionDepartement = {
                 series: this.employeParDepartement.map((item: any) => parseFloat(item.count)),
                 chart: {

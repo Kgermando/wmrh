@@ -200,7 +200,7 @@ export class EmployesMoisComponent  implements OnInit{
                     opacity: 1
                 },
                 xaxis: {
-                    categories: this.ageParContratList.map((item: any) => parseFloat(item.age)),
+                    categories: this.ageParContratList.map((item: any) => parseFloat(item.date)),
                     position: "top",
                     labels: {
                         style: {

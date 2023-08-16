@@ -91,11 +91,8 @@ export class PersonnelEditComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user().subscribe({
       next: (user) => {
-        this.currentUser = user;
-        // this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-        //   this.userList = res;
-        //   this.userID = this.userList.map(e => e.id);
-        // });
+        this.currentUser = user; 
+
         this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.departementList = res; 
         });
@@ -172,8 +169,7 @@ export class PersonnelEditComponent implements OnInit {
 
     this.id = this.route.snapshot.params['id']; 
     this.personnelService.get(this.id).subscribe(item => { 
-        this.personne = item;
-        console.log(this.personne);
+        this.personne = item; 
         this.formGroup.patchValue({
           nom: item.nom,
           postnom: item.postnom,
