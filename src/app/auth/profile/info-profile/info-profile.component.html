@@ -71,25 +71,35 @@
             <ng-template carouselSlide>
                 <ul class="list ps-0 mb-0">
                     <li>
-                        <span class="fw-semibold">Département: </span>
-                        <span class="gray-color">{{ currentUser.departements.departement }}</span>
+                        <span class="fw-semibold d-inline-block">Departement: </span>
+                        <span class="gray-color" *ngIf="currentUser.departements">
+                            {{ currentUser.departements.departement }}
+                        </span>
                     </li>
                     <li>
-                        <span class="fw-semibold">Titre: </span>
-                        <span class="gray-color">{{ currentUser.titles.title }}</span>
+                        <span class="fw-semibold d-inline-block">Fonction: </span>
+                        <span class="gray-color" *ngIf="currentUser.fonctions">
+                            {{ currentUser.fonctions.fonction }}
+                        </span>
                     </li>
                     <li>
-                        <span class="fw-semibold">Fonction: </span>
-                        <span class="gray-color">{{ currentUser.fonctions.fonction }}</span>
+                        <span class="fw-semibold d-inline-block">Titre: </span>
+                        <span class="gray-color" *ngIf="currentUser.titles">
+                            {{ currentUser.titles.title }}
+                        </span>
                     </li>
                     <li>
-                        <span class="fw-semibold">Services: </span>
-                        <span class="gray-color">{{ currentUser.services.service }}</span>
-                    </li>
+                        <span class="fw-semibold d-inline-block">Service: </span>
+                        <span class="gray-color" *ngIf="currentUser.services">
+                            {{ currentUser.services.service }}
+                        </span>
+                    </li> 
                     <li>
-                        <span class="fw-semibold">Site location: </span>
-                        <span class="gray-color">{{ currentUser.site_locations.site_location }}</span>
-                    </li>
+                        <span class="fw-semibold d-inline-block">Site de travail: </span>
+                        <span class="gray-color" *ngIf="currentUser.site_locations">
+                            {{ currentUser.site_locations.site_location }}
+                        </span>
+                    </li> 
                     <li>
                         <span class="fw-semibold">Type de contrat: </span>
                         <span class="gray-color">{{ currentUser.type_contrat }}</span>
