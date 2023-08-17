@@ -77,6 +77,13 @@
 
             </table>
             <mat-paginator [pageSizeOptions]="[15, 30, 45]" showFirstLastButtons></mat-paginator>
+            <div *ngIf="isLoading" 
+                            style="display: flex; justify-content: center; align-items: center; background: white;">
+                            <mat-progress-spinner 
+                                color="primary" 
+                                mode="indeterminate">
+                            </mat-progress-spinner>
+                        </div>
         </div>
     </mat-card-content>
 </mat-card>

@@ -193,7 +193,10 @@
                             </div>
                         </div> 
                     </div>
-                    <div class="mt-5">
+                    <div class="d-flex justify-content-center" *ngIf="isLoading">
+                        <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+                    </div>
+                    <div class="mt-5" *ngIf="!isLoading">
                         <button mat-flat-button matStepperPrevious class="gray me-15">Retour</button>
                         <button mat-flat-button matStepperNext class="tagus"
                         *ngIf="currentUser.permission === 'U' || 
@@ -317,7 +320,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-5">
+                    <div class="d-flex justify-content-center" *ngIf="isLoading">
+                        <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+                    </div>
+                    <div class="mt-5" *ngIf="!isLoading">
                         <button mat-flat-button matStepperPrevious class="gray me-15">Retour</button>
                         <button mat-flat-button matStepperNext class="tagus"
                             *ngIf="currentUser.permission === 'U' || 
@@ -441,7 +447,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-5">
+                    <div class="d-flex justify-content-center" *ngIf="isLoading">
+                        <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+                    </div>
+                    <div class="mt-5" *ngIf="!isLoading">
                         <button mat-flat-button matStepperPrevious class="gray me-15">Retour</button>
                         <button mat-flat-button matStepperNext class="tagus"
                         *ngIf="currentUser.permission === 'U' || 
@@ -489,7 +498,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-5">
+                    <div class="d-flex justify-content-center" *ngIf="isLoading">
+                        <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+                    </div>
+                    <div class="mt-5" *ngIf="!isLoading">
                         <button mat-flat-button matStepperPrevious class="gray me-15">Retour</button>
                         <button mat-flat-button matStepperNext class="tagus"
                             *ngIf="currentUser.permission === 'U' || 

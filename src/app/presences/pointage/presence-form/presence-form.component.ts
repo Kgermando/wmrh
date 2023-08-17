@@ -196,7 +196,7 @@ export class PresenceFormComponent {
     
     this.formGroup = this._formBuilder.group({
       apointement: ['', Validators.required],
-      prestation: ['', Validators.required],
+      prestation: ['0', Validators.required],
       observation: ['Rien à signaler', Validators.required],
       date_sortie: ['-', Validators.required]
     });
@@ -208,7 +208,7 @@ export class PresenceFormComponent {
       event.value === 'AM' || event.value === 'CC' || 
       event.value === 'CA' || event.value === 'S' || 
       event.value === 'O' || event.value === 'M') { 
-      this.isAbsense = true;  //Date de reprise pour les congés
+      this.isAbsense = true;  // Date de reprise pour les congés
       this.isPresence = false;
     } else if(event.value === 'P' || event.value === 'A' || 
       event.value === 'AA') {
@@ -218,12 +218,10 @@ export class PresenceFormComponent {
     } 
 
     if(event.value === 'P' || event.value === 'AA') { 
-      this.isPresence = true;  //Prestation de la journée
+      this.isPresence = true;  // Prestation de la journée
     } else {
       this.isPresence = false;
-    }  
-
-    
+    }
   }
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, personnel: number): void {

@@ -114,14 +114,13 @@
                 </div> 
             </div>  
         </div>
-        <div class="text-end">
+        <div class="text-end" *ngIf="currentUser">
             <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
-           
-            <div *ngIf="currentUser">
             <button type="submit" *ngIf="currentUser.permission === 'C' || 
-            currentUser.permission === 'CR' ||
-            currentUser.permission === 'CRU' ||
-            currentUser.permission === 'CRUD'"><i class="ri-edit-fill"></i> Soumettre</button>
-        </div></div>
+                currentUser.permission === 'CR' ||
+                currentUser.permission === 'CRU' ||
+                currentUser.permission === 'CRUD'"><i class="ri-edit-fill"></i> Soumettre</button>
+        </div>
     </form> 
 </div>
+ 

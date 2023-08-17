@@ -57,7 +57,7 @@ export class PersonnelListComponent implements AfterViewInit {
                   this.dataSource.sort = this.sort;
                   this.dataSource.paginator = this.paginator; 
               });
-                this.isLoading = false;
+              this.isLoading = false;
             },
             error: (error) => {
               this.isLoading = false;

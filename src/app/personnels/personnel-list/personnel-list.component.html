@@ -96,13 +96,20 @@
                             </button>
                         </mat-menu>
                     </td>
-                </ng-container>
+                </ng-container> 
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
-
+ 
             </table>
             <mat-paginator [pageSizeOptions]="[15, 30, 45]" showFirstLastButtons></mat-paginator>
+            <div *ngIf="isLoading" 
+                style="display: flex; justify-content: center; align-items: center; background: white;">
+                <mat-progress-spinner 
+                    color="primary" 
+                    mode="indeterminate">
+                </mat-progress-spinner>
+            </div>
         </div>
     </mat-card-content>
 </mat-card>

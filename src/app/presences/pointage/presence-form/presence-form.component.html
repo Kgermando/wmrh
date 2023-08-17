@@ -26,7 +26,7 @@
                     <span class="presence-form service-off" *ngIf="apointementItem.apointement == 'O'">Service OFF</span>
                     <span class="presence-form mission" *ngIf="apointementItem.apointement == 'M'">Mission</span>
                 </li>
-                <li>
+                <li *ngIf="apointementItem.prestation != '0'">
                     <span class="fw-semibold d-inline-block">Prestation: </span>
                     <span class="gray-color" *ngIf="apointementItem.prestation == '1'">Journée entière</span>
                     <span class="gray-color" *ngIf="apointementItem.prestation == '0.5'">Demi-journée</span>
