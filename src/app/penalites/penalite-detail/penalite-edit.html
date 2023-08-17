@@ -1,6 +1,6 @@
 <div class="create-dialog-box scrollable-dialog">
     <div class="title d-flex align-items-center justify-content-space-between">
-        <h4 class="mb-0">Modifcation de la Penalité</h4>
+        <h4 class="mb-0">Modifcation de la Penalité | Sanction</h4>
         <button class="close-btn bg-transparent p-0 border-none" (click)="close()"><i class="flaticon-close"></i></button>
     </div>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -48,7 +48,17 @@
         </div>
         <div class="text-end">
             <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
-            <button type="submit"><i class="ri-edit-fill"></i> Soumettre</button>
+            <div *ngIf="currentUser">
+                <button type="submit"
+                *ngIf="currentUser.permission === 'U' ||
+                currentUser.permission === 'RU' ||
+                currentUser.permission === 'CRU' ||
+                currentUser.permission === 'RUD' ||
+                currentUser.permission === 'CRUD'">
+                <i class="ri-edit-fill"></i> 
+                Modifier
+            </button>
+           </div>
         </div>
     </form> 
 </div>

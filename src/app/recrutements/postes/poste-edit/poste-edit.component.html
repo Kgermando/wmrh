@@ -79,9 +79,17 @@
                         <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
                     </div>
                     <div *ngIf="!isLoading">
-                        <button mat-button type="submit" class="default-btn mt-25">
-                            Soumettre
+                        <div *ngIf="currentUser">
+                            <button type="submit"
+                            *ngIf="currentUser.permission === 'U' ||
+                            currentUser.permission === 'RU' ||
+                            currentUser.permission === 'CRU' ||
+                            currentUser.permission === 'RUD' ||
+                            currentUser.permission === 'CRUD'">
+                            <i class="ri-edit-fill"></i> 
+                            Modifier
                         </button>
+                       </div>
                     </div>
                    
                 </form>

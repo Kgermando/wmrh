@@ -79,13 +79,14 @@
                         <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
                     </div>
                     <div *ngIf="!isLoading">
+                        <div *ngIf="currentUser">
                         <button mat-button type="submit" class="default-btn mt-25" *ngIf="currentUser.permission === 'C' || 
                             currentUser.permission === 'CR' ||
                             currentUser.permission === 'CRU' ||
                             currentUser.permission === 'CRUD'">
                             Soumettre
                         </button>
-                    </div>
+                    </div> </div>
                    
                 </form>
             </mat-card-content>
