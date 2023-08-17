@@ -40,7 +40,7 @@ export class SiteLocationComponent implements OnInit{
       next: (user) => {
         this.currentUser = user;
         this.siteLocationService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.siteLocationList = res; 
+          this.siteLocationList = res;
         });
       },
       error: (error) => {
@@ -152,33 +152,34 @@ export class EditSiteLocationDialogBox implements OnInit{
 
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({  
+      site_location: '',
+      manager: '',
+      adresse: '',
+    });
+    
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
+        this.siteLocationService.get(parseInt(this.data['id'])).subscribe(item => {
+          this.formGroup.patchValue({
+            site_location: item.site_location,
+            manager: item.manager,
+            adresse: item.adresse,
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
     });
-    console.log(this.data['id']);
-    this.formGroup = this.formBuilder.group({  
-      site_location: '',
-      manager: '',
-      adresse: '',
-    });
+  
 
-    this.siteLocationService.get(parseInt(this.data['id'])).subscribe(item => {
-      this.formGroup.patchValue({
-        site_location: item.site_location,
-        manager: item.manager,
-        adresse: item.adresse,
-        signature: this.currentUser.matricule, 
-        update_created: new Date(),
-      });
-    });
- 
-  } 
+  
+  }
 
 
   onSubmit() {

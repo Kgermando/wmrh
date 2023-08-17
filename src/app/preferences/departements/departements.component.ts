@@ -148,28 +148,26 @@ export class EditDepartementDialogBox implements OnInit{
 
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({  
+      departement: ''
+    });
+
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
+        this.departementService.get(parseInt(this.data['id'])).subscribe(item => {
+          this.formGroup.patchValue({
+            departement: item.departement, 
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    }); 
-    
-    this.formGroup = this.formBuilder.group({  
-      departement: ''
     });
-
-    this.departementService.get(parseInt(this.data['id'])).subscribe(item => {
-      this.formGroup.patchValue({
-        departement: item.departement, 
-        signature: this.currentUser.matricule, 
-        update_created: new Date(),
-      });
-    });
- 
   } 
 
 

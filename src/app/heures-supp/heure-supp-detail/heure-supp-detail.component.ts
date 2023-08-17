@@ -121,34 +121,33 @@ export class EditHeureSuppDialogBox implements OnInit{
 
 
   ngOnInit(): void {
-    this.authService.user().subscribe({
-      next: (user) => {
-        this.currentUser = user;
-        this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.personneList = res;
-        });
-      },
-      error: (error) => {
-        this.router.navigate(['/auth/login']);
-        console.log(error);
-      }
-    });
     this.formGroup = this.formBuilder.group({ 
       personnel: [''],
       motif: [''],
       nbr_heures: [''],
     }); 
     
-    this.heureSuppService.get(parseInt(this.data['id'])).subscribe(item => {
-      this.formGroup.patchValue({
-        personnel: item.personnel,
-        motif: item.motif,
-        nbr_heures: item.nbr_heures,
-        signature: this.currentUser.matricule, 
-        update_created: new Date(),
-      });
-    });
- 
+    this.authService.user().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+        this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.personneList = res;
+        });
+        this.heureSuppService.get(parseInt(this.data['id'])).subscribe(item => {
+          this.formGroup.patchValue({
+            personnel: item.personnel,
+            motif: item.motif,
+            nbr_heures: item.nbr_heures,
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        });
+      },
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
+    }); 
   } 
 
 

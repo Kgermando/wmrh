@@ -147,27 +147,26 @@ export class EditTitleDialogBox implements OnInit{
 
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({  
+      title: ''
+    });
+
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
+        this.titleService.get(parseInt(this.data['id'])).subscribe(item => {
+          this.formGroup.patchValue({
+            title: item.title, 
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    });
-    console.log(this.data['id']);
-    this.formGroup = this.formBuilder.group({  
-      title: ''
-    });
-
-    this.titleService.get(parseInt(this.data['id'])).subscribe(item => {
-      this.formGroup.patchValue({
-        title: item.title, 
-        signature: this.currentUser.matricule, 
-        update_created: new Date(),
-      });
-    });
+    });  
  
   } 
 

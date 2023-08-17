@@ -89,11 +89,7 @@ export class CandidatureEditComponent implements OnInit{
         signature: this.currentUser.matricule,
         update_created: new Date()
       }); 
-    });
-
-    
-
-    
+    }); 
   }
 
   onSubmit() {

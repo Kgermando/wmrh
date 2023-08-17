@@ -147,28 +147,26 @@ export class EditFonctionDialogBox implements OnInit{
 
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({  
+      fonction: ''
+    });
+
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
+        this.fonctionService.get(parseInt(this.data['id'])).subscribe(item => {
+          this.formGroup.patchValue({
+            fonction: item.fonction, 
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    });
-    
-    this.formGroup = this.formBuilder.group({  
-      fonction: ''
-    });
-
-    this.fonctionService.get(parseInt(this.data['id'])).subscribe(item => {
-      this.formGroup.patchValue({
-        fonction: item.fonction, 
-        signature: this.currentUser.matricule, 
-        update_created: new Date(),
-      });
-    });
- 
+    }); 
   } 
 
 

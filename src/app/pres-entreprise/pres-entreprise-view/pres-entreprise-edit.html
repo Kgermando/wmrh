@@ -71,19 +71,17 @@
                 </div>
             </div>
         </div>
-        <div class="text-end">
+        <div class="text-end" *ngIf="currentUser">
             <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
-            <div *ngIf="currentUser">
-                <button type="submit"
-                *ngIf="currentUser.permission === 'U' ||
-                currentUser.permission === 'RU' ||
-                currentUser.permission === 'CRU' ||
-                currentUser.permission === 'RUD' ||
-                currentUser.permission === 'CRUD'">
-                <i class="ri-edit-fill"></i> 
-                Modifier
-            </button>
-           </div>
+            <button type="submit"
+            *ngIf="currentUser.permission === 'U' ||
+            currentUser.permission === 'RU' ||
+            currentUser.permission === 'CRU' ||
+            currentUser.permission === 'RUD' ||
+            currentUser.permission === 'CRUD'">
+            <i class="ri-edit-fill"></i> 
+            Modifier
+        </button>
         </div>
     </form> 
 </div>

@@ -126,18 +126,6 @@ export class EditPresEntrepriseDialogBox implements OnInit{
 
 
   ngOnInit(): void {
-    this.authService.user().subscribe({
-      next: (user) => {
-        this.currentUser = user;
-        this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.personneList = res;
-        });
-      },
-      error: (error) => {
-        this.router.navigate(['/auth/login']);
-        console.log(error);
-      }
-    });
     this.formGroup = this.formBuilder.group({  
       intitule: [''],
       monnaie: [''],
@@ -145,18 +133,33 @@ export class EditPresEntrepriseDialogBox implements OnInit{
       deboursement: [''], 
       date_limit: [''], 
     }); 
-    
-    this.presEntrepriseService.get(parseInt(this.data['id'])).subscribe(item => {
-      this.formGroup.patchValue({
-        personnel: item.personnel,
-        intitule: item.intitule,
-        monnaie: item.monnaie,
-        total_empreints: item.total_empreints,
-        deboursement: item.deboursement,
-        signature: this.currentUser.matricule, 
-        update_created: new Date(),
-      });
+
+    this.authService.user().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+        this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.personneList = res;
+        });
+        this.presEntrepriseService.get(parseInt(this.data['id'])).subscribe(item => {
+          this.formGroup.patchValue({
+            personnel: item.personnel,
+            intitule: item.intitule,
+            monnaie: item.monnaie,
+            total_empreints: item.total_empreints,
+            deboursement: item.deboursement,
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        });
+      },
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
     });
+ 
+    
+  
  
   } 
 

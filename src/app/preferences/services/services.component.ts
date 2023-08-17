@@ -149,27 +149,27 @@ export class EditServiceDialogBox implements OnInit{
 
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({  
+      service: ''
+    });
+
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
+        this.serviceService.get(parseInt(this.data['id'])).subscribe(item => {
+          this.formGroup.patchValue({
+            service: item.service, 
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    });
-    console.log(this.data['id']);
-    this.formGroup = this.formBuilder.group({  
-      service: ''
-    });
-
-    this.serviceService.get(parseInt(this.data['id'])).subscribe(item => {
-      this.formGroup.patchValue({
-        service: item.service, 
-        signature: this.currentUser.matricule, 
-        update_created: new Date(),
-      });
-    });
+    }); 
+    
  
   } 
 

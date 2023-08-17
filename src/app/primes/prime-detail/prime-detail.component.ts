@@ -141,11 +141,27 @@ export class EditPrimeDialogBox implements OnInit{
 
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({ 
+      // personnel: [''],  // On ne modifie pas l'employé
+      intitule: [''],
+      monnaie: [''],
+      montant: [''],
+    }); 
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
         this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.personneList = res;
+        });
+        this.primeService.get(parseInt(this.data['id'])).subscribe(item => {
+          this.formGroup.patchValue({
+            personnel: item.personnel,
+            intitule: item.intitule,
+            monnaie: item.monnaie,
+            montant: item.montant,
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
         });
       },
       error: (error) => {
@@ -153,24 +169,6 @@ export class EditPrimeDialogBox implements OnInit{
         console.log(error);
       }
     });
-    this.formGroup = this.formBuilder.group({ 
-      // personnel: [''],  // On ne modifie pas l'employé
-      intitule: [''],
-      monnaie: [''],
-      montant: [''],
-    }); 
-    
-    this.primeService.get(parseInt(this.data['id'])).subscribe(item => {
-      this.formGroup.patchValue({
-        personnel: item.personnel,
-        intitule: item.intitule,
-        monnaie: item.monnaie,
-        montant: item.montant,
-        signature: this.currentUser.matricule, 
-        update_created: new Date(),
-      });
-    });
- 
   } 
 
 
