@@ -63,8 +63,7 @@ export class CandidatureAddComponent implements OnInit{
       next: (user) => {
         this.currentUser = user;
         this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.departementList = res; 
-          console.log(this.departementList);
+          this.departementList = res;  
         }); 
       },
       error: (error) => {
@@ -81,8 +80,7 @@ export class CandidatureAddComponent implements OnInit{
     });
     let id = this.route.snapshot.paramMap.get('id'); 
       this.postesService.get(Number(id)).subscribe(res => {
-        this.poste = res;
-        this.isLoading = false; 
+        this.poste = res; 
       });
 
       
@@ -119,9 +117,7 @@ export class CandidatureAddComponent implements OnInit{
             console.log(err);
           }
         });
-      }
-      
-      this.isLoading = false;
+      } 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

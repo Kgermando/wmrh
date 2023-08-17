@@ -107,13 +107,14 @@ export class PresenceMonthComponent implements OnInit{
             this.getPiePresence();
             this.getCourbepresence();
             this.getMultiPresence();
+            this.isLoading = false;
           },
           error: (error) => {
             this.router.navigate(['/auth/login']);
             console.log(error);
           }
         });  
-        this.isLoading = false;
+      
       } 
 
   getPiePresence() {

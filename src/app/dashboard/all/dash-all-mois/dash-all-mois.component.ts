@@ -153,13 +153,14 @@ export class DashAllMoisComponent implements OnInit {
         this.getTotal();
         this.getPiePresence();
         this.getRecrutement();
+        this.isLoading = false;
       },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
     });  
-    this.isLoading = false;
   } 
 
   getPie() {

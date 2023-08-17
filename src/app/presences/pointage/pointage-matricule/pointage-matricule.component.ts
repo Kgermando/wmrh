@@ -30,8 +30,7 @@ export class PointageMatriculeComponent implements OnInit {
     this.personnelService.get(id).subscribe(pers => {
       this.personne = pers;
       this.isLoading = false; 
-    });
-    this.isLoading = false; 
+    }); 
   }
  
   

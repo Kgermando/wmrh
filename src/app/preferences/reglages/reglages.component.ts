@@ -37,16 +37,16 @@ export class ReglagesComponent implements OnInit {
         next: (user) => {
           this.currentUser = user;
           this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-            this.preference = res;
-            this.isLoading = false;  
+            this.preference = res; 
           });
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      }); 
-      this.isLoading = false;
+      });  
     }
 
 
@@ -674,9 +674,7 @@ export class EditReglageDialogBox implements OnInit{
           this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
-      });
-
-      this.isLoading = false;
+      }); 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

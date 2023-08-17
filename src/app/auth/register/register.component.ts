@@ -92,9 +92,7 @@ export class RegisterComponent {
               console.log(err);
             }
           });
-        }
-        
-        this.isLoading = false;
+        } 
       } catch (error) {
         this.isLoading = false;
         console.log(error);

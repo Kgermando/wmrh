@@ -80,8 +80,7 @@ export class DepartementsComponent implements OnInit {
             console.log(err);
           }
         });
-      }
-      this.isLoading = false;
+      } 
     } catch (error) {
       this.isLoading = false;
       console.log(error);
@@ -186,9 +185,7 @@ export class EditDepartementDialogBox implements OnInit{
           this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
-      });
-
-      this.isLoading = false;
+      }); 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

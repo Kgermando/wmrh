@@ -50,32 +50,25 @@ export class PointageTableComponent implements AfterViewInit {
 
 
   ngAfterViewInit() { 
-        this.isLoading = true;
-        this.authService.user().subscribe({
-            next: (user) => {
-                this.currentUser = user;
-                this.presenceService.getMatricule(this.currentUser.code_entreprise, this.personne.matricule).subscribe({
-                    next: res => {
-                        this.ELEMENT_DATA = res;
-                        this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
-                        this.dataSource.sort = this.sort;
-                        this.dataSource.paginator = this.paginator;
-                        this.isLoading = false;
-                    },
-                    error: (err) => {
-                        this.isLoading = false;
-                        console.log(err);
-                    }
-                });
-            },
-            error: (error) => {
-              this.router.navigate(['/auth/login']);
-              console.log(error);
-            }
-          }); 
-        this.isLoading = false;
-
-    } 
+    this.isLoading = true;
+    this.authService.user().subscribe({
+        next: (user) => {
+            this.currentUser = user;
+            this.presenceService.getMatricule(this.currentUser.code_entreprise, this.personne.matricule).subscribe(res => {
+              this.ELEMENT_DATA = res;
+              this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator; 
+          });
+          this.isLoading = false;
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.router.navigate(['/auth/login']);
+          console.log(error);
+        }
+      });
+    }
  
   applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
@@ -232,9 +225,7 @@ export class EditPresenceDialogBox implements OnInit {
           this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
-      });
-
-      this.isLoading = false;
+      }); 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

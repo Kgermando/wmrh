@@ -34,14 +34,14 @@ export class InfoProfileComponent implements OnInit {
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
               this.preference = res; 
             });   
-          
+            this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      });  
-      this.isLoading = false;
+      });
   }
 
 

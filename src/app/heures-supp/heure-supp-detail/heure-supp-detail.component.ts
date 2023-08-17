@@ -53,11 +53,8 @@ export class HeureSuppDetailComponent implements OnInit {
         this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
         this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
         this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
-
-
         this.isLoading = false; 
-      });  
-      this.isLoading = false;
+      });   
     }
 
     delete(id: number): void {
@@ -119,13 +116,12 @@ export class EditHeureSuppDialogBox implements OnInit{
   ) {}
   
 
-
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({ 
       personnel: [''],
       motif: [''],
       nbr_heures: [''],
-    }); 
+    });
     
     this.authService.user().subscribe({
       next: (user) => {
@@ -167,8 +163,7 @@ export class EditHeureSuppDialogBox implements OnInit{
           this.isLoading = false;
         }
       });
-
-      this.isLoading = false;
+ 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

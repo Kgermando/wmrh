@@ -80,8 +80,7 @@ export class ServicesComponent implements OnInit {
             console.log(err);
           }
         });
-      }
-      this.isLoading = false;
+      } 
     } catch (error) {
       this.isLoading = false;
       console.log(error);
@@ -190,8 +189,7 @@ export class EditServiceDialogBox implements OnInit{
           this.isLoading = false;
         }
       });
-
-      this.isLoading = false;
+ 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

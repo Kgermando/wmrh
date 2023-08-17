@@ -97,8 +97,6 @@ export class PosteAddComponent implements OnInit {
           }
         });
       }
-      
-      this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
       console.log(error);

@@ -101,23 +101,16 @@ export class RelevePaieComponent implements AfterViewInit {
     this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user;
-            this.salaireService.relevePaie(this.currentUser.code_entreprise).subscribe({
-                next: res => { 
-                    this.releveList = res; 
-                    this.ELEMENT_DATA = this.releveList.filter(v => {
-                      var created = new Date(v.created); 
-                      return created.getMonth() + 1 == this.dateMonth;
-                    });
-                    this.dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
-                    this.dataSource.sort = this.sort;
-                    this.dataSource.paginator = this.paginator;
-                    this.isLoading = false; 
-                },
-                error: (err) => {
-                    this.isLoading = false;
-                    console.log(err);
-                }
-            });
+            this.salaireService.relevePaie(this.currentUser.code_entreprise).subscribe(res => { 
+              this.releveList = res; 
+              this.ELEMENT_DATA = this.releveList.filter(v => {
+                var created = new Date(v.created); 
+                return created.getMonth() + 1 == this.dateMonth;
+              });
+              this.dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator; 
+          });
 
             this.salaireService.netAPayerTotal(this.currentUser.code_entreprise).subscribe(
               net_a_payer => {
@@ -143,13 +136,15 @@ export class RelevePaieComponent implements AfterViewInit {
                 frais_bancaires.map((item: any) => this.frais_bancaire = parseFloat(item.sum));
               }
             );
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
       }); 
-    this.isLoading = false;
+    
   }
 
 

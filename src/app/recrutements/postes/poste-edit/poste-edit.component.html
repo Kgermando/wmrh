@@ -80,17 +80,15 @@
                     </div>
                     <div *ngIf="!isLoading">
                         <div *ngIf="currentUser">
-                            <button type="submit"
-                            *ngIf="currentUser.permission === 'U' ||
+                            <button mat-button type="submit" class="default-btn mt-25" *ngIf="currentUser.permission === 'U' ||
                             currentUser.permission === 'RU' ||
                             currentUser.permission === 'CRU' ||
                             currentUser.permission === 'RUD' ||
                             currentUser.permission === 'CRUD'">
-                            <i class="ri-edit-fill"></i> 
                             Modifier
-                        </button>
-                       </div>
-                    </div>
+                            </button>
+                        </div>
+                    </div> 
                    
                 </form>
             </mat-card-content>

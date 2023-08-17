@@ -89,13 +89,14 @@ export class PerformencePieYearComponent implements OnInit {
               }
             );
             this.getPie();
+            this.isLoading = false;
           },
           error: (error) => {
+            this.isLoading = false;
             this.router.navigate(['/auth/login']);
             console.log(error);
           }
-        });  
-        this.isLoading = false;
+        });   
     }
 
     getPie() {

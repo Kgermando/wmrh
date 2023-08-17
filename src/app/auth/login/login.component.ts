@@ -119,13 +119,9 @@ export class LoginComponent {
             // console.error(e);
             this.isLoggIn = true; 
             this.router.navigate(['/auth/login']);
-          },
-          complete: () => {
-            this.isLoading = false;
-          }
+          }, 
         }
-      );
-      this.isLoading = false; 
+      ); 
     }  
   } 
 

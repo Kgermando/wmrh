@@ -82,13 +82,16 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.authService.user().subscribe({
-      next: (user) => this.currentUser = user,
+      next: (user) => {
+        this.currentUser = user;
+        this.isLoading = false;
+      },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
     });
-    this.isLoading = false;
   } 
 
 

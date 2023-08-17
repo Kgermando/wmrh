@@ -33,18 +33,18 @@ export class PosteViewComponent implements OnInit {
       let id = this.route.snapshot.paramMap.get('id'); 
       this.authService.user().subscribe({
         next: (user) => {
-            this.currentUser = user; 
+          this.currentUser = user; 
+          this.postesService.get(Number(id)).subscribe(res => {
+            this.poste = res; 
+          });
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      }); 
-      this.postesService.get(Number(id)).subscribe(res => {
-        this.poste = res;
-        this.isLoading = false; 
-      });
-      this.isLoading = false;
+      });  
     }
 
     delete(id: number): void {

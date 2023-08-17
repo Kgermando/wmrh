@@ -109,20 +109,7 @@ export class FichePaieComponent implements OnInit {
         avance_slaire: ['', Validators.required],
         prise_en_charge_frais_bancaire: ['', Validators.required],
         net_a_payer: ['', Validators.required],
-        statut: this.isPublie ? 'Disponible' : 'Traitement', 
-
-
-
-        // salaire_base: ['', Validators.required],
-        // alloc_logement: ['', Validators.required],
-        // alloc_transport: ['', Validators.required],
-        // alloc_familliale: ['', Validators.required],
-        // soins_medicaux: ['', Validators.required],
-        // primes: ['', Validators.required], 
-        // rni: ['', Validators.required], 
-        // ipr: ['', Validators.required],
-        // prime_anciennete: ['', Validators.required],
-        // heure_supplementaire_monnaie: ['', Validators.required],
+        statut: this.isPublie ? 'Disponible' : 'Traitement',  
         
       });
 
@@ -188,15 +175,17 @@ export class FichePaieComponent implements OnInit {
             });
 
             this.onChanges();
-            this.isLoading = false;
+           
           });
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
       });
-      this.isLoading = false;
+     
     }
 
     onChanges(): void {
@@ -389,9 +378,7 @@ export class FichePaieComponent implements OnInit {
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             this.isLoading = false;
           }
-        });
-  
-        this.isLoading = false;
+        }); 
       } catch (error) {
         this.isLoading = false;
         console.log(error);

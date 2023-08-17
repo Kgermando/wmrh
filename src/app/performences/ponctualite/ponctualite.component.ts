@@ -39,13 +39,14 @@ export class PonctualiteComponent implements OnInit {
               ponctualites.map((item: any) => this.ponctualiteTotal = parseFloat(item.sum)); 
             }
           );  
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
       });  
-      this.isLoading = false;
   }
 
 }

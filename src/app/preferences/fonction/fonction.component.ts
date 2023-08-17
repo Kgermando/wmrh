@@ -81,8 +81,7 @@ export class FonctionComponent implements OnInit {
             console.log(err);
           }
         });
-      } 
-      this.isLoading = false;
+      }  
     } catch (error) {
       this.isLoading = false;
       console.log(error);
@@ -187,7 +186,7 @@ export class EditFonctionDialogBox implements OnInit{
         }
       });
 
-      this.isLoading = false;
+       // this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
       console.log(error);

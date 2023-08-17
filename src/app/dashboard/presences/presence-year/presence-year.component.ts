@@ -107,13 +107,15 @@ export class PresenceYearComponent implements OnInit{
             this.getPiePresence();
             this.getCourbepresence();
             this.getMultiPresence();
+            this.isLoading = false;
           },
           error: (error) => {
+            this.isLoading = false;
             this.router.navigate(['/auth/login']);
             console.log(error);
           }
         });  
-        this.isLoading = false;
+      
       } 
 
   getPiePresence() {

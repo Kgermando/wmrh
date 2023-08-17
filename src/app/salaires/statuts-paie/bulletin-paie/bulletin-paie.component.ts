@@ -131,18 +131,16 @@ export class BulletinPaieComponent implements OnInit {
             // Reglage
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
               this.preference = reglage; 
-            }); 
-            this.isLoading = false; 
+            });
           }); 
+          this.isLoading = false; 
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      });  
-      this.isLoading = false;
-
-      
+      });
     }
  
   

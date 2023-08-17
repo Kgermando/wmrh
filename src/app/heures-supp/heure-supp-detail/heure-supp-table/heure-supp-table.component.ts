@@ -51,27 +51,21 @@ toggleTheme() {
       this.authService.user().subscribe({
           next: (user) => {
               this.currentUser = user;
-              this.personnelService.get(this.heureSupp.personnel.id).subscribe({
-                  next: res => {
-                    this.personne = res;
-                      this.ELEMENT_DATA = this.personne.heures_supp; 
-                      this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
-                      this.dataSource.sort = this.sort;
-                      this.dataSource.paginator = this.paginator;
-                      this.isLoading = false; 
-                  },
-                  error: (err) => {
-                      this.isLoading = false;
-                      console.log(err);
-                  }
+              this.personnelService.get(this.heureSupp.personnel.id).subscribe(res => {
+                this.personne = res;
+                  this.ELEMENT_DATA = this.personne.heures_supp; 
+                  this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
+                  this.dataSource.sort = this.sort;
+                  this.dataSource.paginator = this.paginator;
               }); 
+              this.isLoading = false; 
           },
           error: (error) => {
+            this.isLoading = false; 
             this.router.navigate(['/auth/login']);
             console.log(error);
           }
-        }); 
-      this.isLoading = false;
+        });
   }
 
 

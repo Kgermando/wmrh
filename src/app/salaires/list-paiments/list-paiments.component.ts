@@ -89,27 +89,22 @@ export class ListPaimentsComponent implements AfterViewInit, OnInit {
                 this.currentUser = user;
                 this.personnelService.getAll(this.currentUser.code_entreprise)
                 .pipe(finalize(() => this.loading$.next(false)))
-                .subscribe({
-                    next: res => {  
-                        this.personnelFilter = res;
-                        this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < this.dateMonth && parseFloat(v.salaire_base) > 0);
-                        this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-                        this.dataSource.sort = this.sort;
-                        this.dataSource.paginator = this.paginator; 
-                        this.isLoading = false; 
-                    },
-                    error: (err) => {
-                        this.isLoading = false;
-                        console.log(err);
-                    }
+                .subscribe(res => {  
+                    this.personnelFilter = res;
+                    this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < this.dateMonth && parseFloat(v.salaire_base) > 0);
+                    this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+                    this.dataSource.sort = this.sort;
+                    this.dataSource.paginator = this.paginator;  
                 });
+                this.isLoading = false;
             },
             error: (error) => {
+                this.isLoading = false;
               this.router.navigate(['/auth/login']);
               console.log(error);
             }
           }); 
-        this.isLoading = false;
+       
     }
 
  

@@ -140,13 +140,15 @@ export class PaieViewComponent implements OnInit {
               }
             );
           });
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
       });  
-      this.isLoading = false;
+      
     } 
 
 
@@ -424,7 +426,7 @@ export class PaieViewComponent implements OnInit {
           }
         });
         
-        this.isLoadingSubmit = false;
+        // this.isLoadingSubmit = false;
       } catch (error) {
         this.isLoadingSubmit = false;
         console.log(error);

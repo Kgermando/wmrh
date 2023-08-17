@@ -100,9 +100,7 @@ export class PosteEditComponent implements OnInit{
           this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
-      });
-
-      this.isLoading = false;
+      }); 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

@@ -97,44 +97,31 @@ export class RegistrePresenceComponent implements OnInit, AfterViewInit {
                 this.currentUser = user;
                 if(this.currentUser.site_locations.site_location.toUpperCase() === 'ALL') {
                   this.presenceService.getRegisterPresenceAll(
-                    this.currentUser.code_entreprise).subscribe({
-                    next: res => {
-                        this.ELEMENT_DATA = res;
-                        this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
-                        this.dataSource.sort = this.sort;
-                        this.dataSource.paginator = this.paginator;
-                        this.isLoading = false;
-                    },
-                    error: (err) => {
-                        this.isLoading = false;
-                        console.log(err);
-                    }
+                    this.currentUser.code_entreprise).subscribe(res => {
+                    this.ELEMENT_DATA = res;
+                    this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
+                    this.dataSource.sort = this.sort;
+                    this.dataSource.paginator = this.paginator;
                 });
                 } else {
                   this.presenceService.getRegisterPresence(
                     this.currentUser.code_entreprise, 
-                    this.currentUser.site_locations.site_location).subscribe({
-                    next: res => {
-                        this.ELEMENT_DATA = res;
-                        this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
-                        this.dataSource.sort = this.sort;
-                        this.dataSource.paginator = this.paginator;
-                        this.isLoading = false;
-                    },
-                    error: (err) => {
-                        this.isLoading = false;
-                        console.log(err);
-                    }
-                });
+                    this.currentUser.site_locations.site_location).subscribe(res => {
+                      this.ELEMENT_DATA = res;
+                      this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
+                      this.dataSource.sort = this.sort;
+                      this.dataSource.paginator = this.paginator; 
+                  });
                 }
-                
+              this.isLoading = false;
             },
             error: (error) => {
+              this.isLoading = false;
               this.router.navigate(['/auth/login']);
               console.log(error);
             }
           }); 
-        this.isLoading = false;
+        
     }
 
  
@@ -244,8 +231,6 @@ export class PresenceExportXLSXDialogBox implements OnInit {
           link.href = downloadUrl;
           link.download = `Presences-${dateNowFormat}.xlsx`;
           link.click();
-  
-  
           this.toastr.success('Success!', 'Extraction effectuée!');
           // window.location.reload();
           this.close();

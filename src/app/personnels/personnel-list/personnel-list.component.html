@@ -48,34 +48,14 @@
                 </ng-container>
 
                  <!-- Nom Column -->
-                 <ng-container matColumnDef="nom">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+                 <ng-container matColumnDef="fullname">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom complet</th>
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/personnels', element.id, 'personnel-view']">
-                            {{element.nom}}
+                            {{element.prenom}} {{element.nom}}  {{element.postnom}} 
                         </a>
                     </td>
-                </ng-container>
-
-                <!-- Postnom Column -->
-                <ng-container matColumnDef="postnom">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Postnom</th>
-                    <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['/layouts/personnels', element.id, 'personnel-view']">
-                            {{element.postnom}}
-                        </a> 
-                    </td>
-                </ng-container>
-
-                <!-- Prenom Column -->
-                <ng-container matColumnDef="prenom">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Prenom</th>
-                    <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['/layouts/personnels', element.id, 'personnel-view']">
-                            {{element.prenom}}
-                        </a> 
-                    </td>
-                </ng-container>
+                </ng-container> 
 
                 <!-- Email Column -->
                 <ng-container matColumnDef="email">

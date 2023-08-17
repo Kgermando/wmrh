@@ -84,8 +84,7 @@ export class SiteLocationComponent implements OnInit{
             console.log(err);
           }
         });
-      } 
-      this.isLoading = false;
+      }  
     } catch (error) {
       this.isLoading = false;
       console.log(error);
@@ -197,8 +196,7 @@ export class EditSiteLocationDialogBox implements OnInit{
           this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
-      }); 
-      this.isLoading = false;
+      });  
     } catch (error) {
       this.isLoading = false;
       console.log(error);

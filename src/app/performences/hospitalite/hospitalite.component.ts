@@ -38,13 +38,14 @@ export class HospitaliteComponent implements OnInit{
               var hospitalites = res; 
               hospitalites.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum)); 
             }
-          );  
+          );
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      });  
-      this.isLoading = false;
+      });   
   }
 }

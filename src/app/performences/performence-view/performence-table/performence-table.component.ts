@@ -56,27 +56,22 @@ toggleTheme() {
       this.authService.user().subscribe({
           next: (user) => {
               this.currentUser = user;
-              this.personnelService.get(this.personne.id).subscribe({
-                  next: res => {
-                    this.personne = res;
-                      this.ELEMENT_DATA = this.personne.performences;
-                      this.dataSource = new MatTableDataSource<PerformenceModel>(this.ELEMENT_DATA);
-                      this.dataSource.sort = this.sort;
-                      this.dataSource.paginator = this.paginator;
-                      this.isLoading = false;
-                  },
-                  error: (err) => {
-                      this.isLoading = false;
-                      console.log(err);
-                  }
+              this.personnelService.get(this.personne.id).subscribe(res => {
+                this.personne = res;
+                  this.ELEMENT_DATA = this.personne.performences;
+                  this.dataSource = new MatTableDataSource<PerformenceModel>(this.ELEMENT_DATA);
+                  this.dataSource.sort = this.sort;
+                  this.dataSource.paginator = this.paginator; 
               }); 
+              this.isLoading = false;
           },
           error: (error) => {
+            this.isLoading = false;
             this.router.navigate(['/auth/login']);
             console.log(error);
           }
         }); 
-      this.isLoading = false;
+   
   }
 
 
@@ -236,9 +231,7 @@ export class EditPerformenceDialogBox implements OnInit{
           this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
-      });
-
-      this.isLoading = false;
+      });  
     } catch (error) {
       this.isLoading = false;
       console.log(error);

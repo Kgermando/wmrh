@@ -11,8 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PersonnelService } from 'src/app/personnels/personnel.service'; 
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';  
-import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
-import { ReglageService } from 'src/app/preferences/reglages/reglage.service'; 
+import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service'; 
 import { HeureSuppModel } from './models/heure-supp-model';
 import { HeureSuppService } from './heure-supp.service';
 
@@ -53,27 +52,20 @@ export class HeuresSuppComponent implements AfterViewInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.heureSuppService.getAll(this.currentUser.code_entreprise).subscribe({
-                    next: res => {
-                        this.ELEMENT_DATA = res; 
-                        this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
-                        this.dataSource.sort = this.sort;
-                        this.dataSource.paginator = this.paginator;
-        
-                        this.isLoading = false;
-                    },
-                    error: (err) => {
-                        this.isLoading = false;
-                        console.log(err);
-                    }
-                }); 
+                this.heureSuppService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+                  this.ELEMENT_DATA = res; 
+                  this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
+                  this.dataSource.sort = this.sort;
+                  this.dataSource.paginator = this.paginator; 
+              }); 
+              this.isLoading = false;
             },
             error: (error) => {
+              this.isLoading = false;
               this.router.navigate(['/auth/login']);
               console.log(error);
             }
-          }); 
-        this.isLoading = false;
+          });
     }
 
  
@@ -181,8 +173,7 @@ export class HeureSuppAddDialogBox implements OnInit {
             console.log(err);
           }
         });
-      }
-      this.isLoading = false;
+      } 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

@@ -108,8 +108,6 @@ export class CandidatureEditComponent implements OnInit{
           this.isLoading = false;
         }
       });
-
-      this.isLoading = false;
     } catch (error) {
       this.isLoading = false;
       console.log(error);

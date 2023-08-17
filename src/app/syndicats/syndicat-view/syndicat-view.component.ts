@@ -27,7 +27,6 @@ export class SyndicatViewComponent implements OnInit {
         this.personne = res;
         this.isLoading = false; 
       });
-      this.isLoading = false;
     }
   
     toggleTheme() {

@@ -51,32 +51,32 @@ export class PenaliteDetailComponent implements OnInit {
     ngOnInit(): void {
       this.isLoading = true;
       let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
-      this.penaliteService.get(Number(id)).subscribe(res => {
-        this.penalite = res;
-        const created = new Date(this.penalite.created);
-        const moisSuivant = created.getMonth() + 1;
-        const annee = created.getFullYear();
-        this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
-        this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
-        this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
-        this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
-
-        this.isLoading = false; 
-      });
       this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user; 
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-              this.preference = res;
-              this.isLoading = false;  
+              this.preference = res; 
             });
+            this.penaliteService.get(Number(id)).subscribe(res => {
+              this.penalite = res;
+              const created = new Date(this.penalite.created);
+              const moisSuivant = created.getMonth() + 1;
+              const annee = created.getFullYear();
+              this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
+              this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
+              this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
+              this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
+            });
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false; 
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      });  
-      this.isLoading = false;
+      }); 
+     
+       
     }
 
     delete(id: number): void {
@@ -183,13 +183,12 @@ export class EditPenaliteDialogBox implements OnInit{
           window.location.reload(); 
         },
         error: err => {
+          this.isLoading = false;
           console.log(err);
           this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-          this.isLoading = false;
+         
         }
-      });
-
-      this.isLoading = false;
+      }); 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

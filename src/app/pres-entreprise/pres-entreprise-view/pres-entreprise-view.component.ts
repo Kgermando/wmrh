@@ -41,24 +41,26 @@ export class PresEntrepriseViewComponent implements OnInit {
     ngOnInit(): void {
       this.isLoading = true;
       let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
-      this.presEntrepriseService.get(Number(id)).subscribe(res => {
-        this.presEntreprise = res; 
-        this.isLoading = false; 
-      });
+      
       this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user; 
-            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-              this.preference = res;
-              this.isLoading = false;  
+            this.presEntrepriseService.get(Number(id)).subscribe(res => {
+              this.presEntreprise = res;  
             });
+            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
+              this.preference = res; 
+            });
+        
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
       });  
-      this.isLoading = false;
+     
     }
 
     delete(id: number): void {
@@ -179,9 +181,7 @@ export class EditPresEntrepriseDialogBox implements OnInit{
           this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
-      });
-
-      this.isLoading = false;
+      }); 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

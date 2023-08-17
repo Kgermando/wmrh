@@ -58,16 +58,16 @@ export class SiteLocationViewComponent implements AfterViewInit {
                   this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
                   this.dataSource.sort = this.sort;
                   this.dataSource.paginator = this.paginator;
-
-                  this.isLoading = false; 
                 });  
+                this.isLoading = false;
               },
               error: (error) => {
+                this.isLoading = false;
                 this.router.navigate(['/auth/login']);
                 console.log(error);
               }
             }); 
-          this.isLoading = false;
+         
       }
   
    

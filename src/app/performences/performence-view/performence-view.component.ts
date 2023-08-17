@@ -38,16 +38,16 @@ export class PerformenceViewComponent implements OnInit {
         next: (user) => {
           this.currentUser = user;
           this.personnelService.get(Number(id)).subscribe(res => {
-            this.personne = res; 
-            this.isLoading = false; 
+            this.personne = res;  
           });
+          this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
       });  
-      this.isLoading = false;
     }
 
  
@@ -182,8 +182,7 @@ export class PerformenceAddDialogBox implements OnInit {
             console.log(err);
           }
         });
-      }
-      this.isLoading = false;
+      } 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

@@ -34,17 +34,17 @@ export class CandidatureViewComponent implements OnInit {
       this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user; 
+            this.candidaturesService.get(Number(id)).subscribe(res => {
+              this.candidature = res; 
+            });
+            this.isLoading = false;
         },
         error: (error) => {
+          this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      }); 
-      this.candidaturesService.get(Number(id)).subscribe(res => {
-        this.candidature = res;
-        this.isLoading = false; 
-      });
-      this.isLoading = false;
+      });  
     }
 
     delete(id: number): void {

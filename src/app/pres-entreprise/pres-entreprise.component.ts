@@ -58,31 +58,24 @@ export class PresEntrepriseComponent implements AfterViewInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.presEntrepriseService.getAll(this.currentUser.code_entreprise).subscribe({
-                    next: res => {
-                        this.ELEMENT_DATA = res; 
-                        this.dataSource = new MatTableDataSource<PresentrepriseModel>(this.ELEMENT_DATA);
-                        this.dataSource.sort = this.sort;
-                        this.dataSource.paginator = this.paginator;
-        
-                        this.isLoading = false;
-                    },
-                    error: (err) => {
-                        this.isLoading = false;
-                        console.log(err);
-                    }
-                });
-                this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-                  this.preference = res;
-                  this.isLoading = false;  
-                });
+                this.presEntrepriseService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+                  this.ELEMENT_DATA = res; 
+                  this.dataSource = new MatTableDataSource<PresentrepriseModel>(this.ELEMENT_DATA);
+                  this.dataSource.sort = this.sort;
+                  this.dataSource.paginator = this.paginator; 
+              });
+              this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
+                this.preference = res; 
+              });
+              this.isLoading = false;
             },
             error: (error) => {
+              this.isLoading = false;
               this.router.navigate(['/auth/login']);
               console.log(error);
             }
           }); 
-        this.isLoading = false;
+        
     }
 
  
@@ -199,8 +192,7 @@ export class PresEntrepriseAddDialogBox implements OnInit {
             console.log(err);
           }
         });
-      }
-      this.isLoading = false;
+      } 
     } catch (error) {
       this.isLoading = false;
       console.log(error);
