@@ -20,7 +20,6 @@
         <div class="sidebar-inner" *ngIf="currentUser"> 
             <div class="sidebar-menu">
                 <mat-accordion>
-                    
                     <a routerLink="/layouts/dashboard" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Dashboard')">

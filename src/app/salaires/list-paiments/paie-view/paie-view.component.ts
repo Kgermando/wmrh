@@ -359,6 +359,8 @@ export class PaieViewComponent implements OnInit {
 
         var net_a_payer = rni + avantageSocials - deductions;
 
+        console.log("alloc_transport", alloc_transport);
+
         var body = {
           personnel: this.personne.id,
           monnaie: this.personne.monnaie,
@@ -397,7 +399,6 @@ export class PaieViewComponent implements OnInit {
         };
         this.salaireService.create(body).subscribe({
           next: (res) => { 
-           
             var personnel = { 
               is_paie: this.dateMonth,
               signature: this.currentUser.matricule,
@@ -409,7 +410,7 @@ export class PaieViewComponent implements OnInit {
               next: personne => {
                 this.isLoadingSubmit = false;
                 console.log(personne);
-                this.toastr.success('Success!', 'Genéré avec succès!');
+                this.toastr.success('Genéré avec succès!', 'Success!'); 
                 this.router.navigate(['/layouts/salaires/traitement', res['id'], 'fiche-paie']);
               },
               error: err => {
@@ -424,9 +425,7 @@ export class PaieViewComponent implements OnInit {
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
-        });
-        
-        // this.isLoadingSubmit = false;
+        }); 
       } catch (error) {
         this.isLoadingSubmit = false;
         console.log(error);

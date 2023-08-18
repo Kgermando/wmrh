@@ -40,13 +40,7 @@
                         </div>
                         <div class="d-flex justify-content-center" *ngIf="isLoading">
                             <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
-                        </div> 
-                        <div class="alert alert-danger d-flex justify-content-space-between align-items-center" role="alert" *ngIf="isLoggIn">
-                            Votre matricule ou le mot de passe n'est pas correct!
-                            <button type="button" class="close bg-transparent p-0 border-none" data-dismiss="alert" aria-label="Close" (click)="dismissAlert()">
-                                <i class="ri-close-line"></i>
-                            </button>
-                        </div> 
+                        </div>  
                         <div *ngIf="!isLoading">
                             <button mat-flat-button class="tagus d-block fw-semibold" [disabled]="!form.valid">Se connecter</button>  
                         </div>

@@ -77,7 +77,7 @@
                                     </button>
                                     <button mat-icon-button color="accent" 
                                         (click)="delete(item.id)"
-                                        *ngIf="currentUser.permission === 'D' || 
+                                        *ngIf="item.personnels.length > 0 && currentUser.permission === 'D' || 
                                         currentUser.permission === 'RD' ||
                                         currentUser.permission === 'RUD' || 
                                         currentUser.permission === 'CRUD'">

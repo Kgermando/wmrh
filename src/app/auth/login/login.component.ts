@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +16,7 @@ export class LoginComponent {
 
   hide = true;
 
-  isLoading = false;
-
-  isLoggIn = false;
+  isLoading = false; 
 
   form : FormGroup | any
 
@@ -25,7 +24,8 @@ export class LoginComponent {
     public themeService: CustomizerSettingsService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService, 
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
 
 
@@ -112,12 +112,13 @@ export class LoginComponent {
               this.router.navigate(['/auth/login']);
             }
             
+            this.toastr.success(`Bienvenue ${user.prenom}!`, 'Success!');
             this.isLoading = false;
           },
           error: (e) => {
             this.isLoading = false;
             // console.error(e);
-            this.isLoggIn = true; 
+            this.toastr.error('Votre matricule ou le mot de passe ou encore les deux ne sont pas correct !', 'Oupss!');
             this.router.navigate(['/auth/login']);
           }, 
         }
@@ -125,13 +126,11 @@ export class LoginComponent {
     }  
   } 
 
-  dismissAlert() {
-    this.isLoggIn = false;
-  }
+ 
 
  
 
-  toggleTheme() {
+  toggleTheme() { 
       this.themeService.toggleTheme();
   }
 

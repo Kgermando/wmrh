@@ -256,14 +256,14 @@ export class PresenceFormComponent {
           personnel: this.personne.id
         };
         this.presenceService.create(body).subscribe({
-          next: (res) => {
-            this.isLoadingForm = false;
+          next: (res) => { 
             this.formGroup.reset(); 
             this.toastr.success('Success!', 'Ajouté avec succès!');
             if(res['apointement'] === 'S') {
               this.openEditDialog('300ms', '100ms', res['personnel']);
             } 
             this.router.navigate(['/layouts/presences/pointage']);
+            this.isLoadingForm = false;
           },
           error: (err) => {
             this.isLoadingForm = false;

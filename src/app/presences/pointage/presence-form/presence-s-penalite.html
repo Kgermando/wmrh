@@ -49,16 +49,13 @@
                 </div> 
             </div> 
         </div>
-        <div class="text-end">
+        <div class="text-end" *ngIf="currentUser">
             <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
-            <div *ngIf="currentUser">
-                <button mat-flat-button class="tagus d-block"
-                    *ngIf="currentUser.permission === 'C' || 
-                            currentUser.permission === 'CR' ||
-                            currentUser.permission === 'CRU' ||
-                            currentUser.permission === 'CRUD'"
-            >Soumettre</button>     
-            </div> 
+            <button mat-flat-button class="tagus d-block"
+            *ngIf="currentUser.permission === 'C' || 
+                    currentUser.permission === 'CR' ||
+                    currentUser.permission === 'CRU' ||
+                    currentUser.permission === 'CRUD'" >Soumettre</button> 
         </div>
     </form> 
 </div>

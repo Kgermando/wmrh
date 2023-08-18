@@ -169,7 +169,7 @@ export class EditPresenceDialogBox implements OnInit {
     }); 
     this.formGroup = this.formBuilder.group({
       apointement: [''],
-      date_entree: [''],
+      // date_entree: [''],
       date_sortie: [''],
       observation: [''] 
     });

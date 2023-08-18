@@ -37,6 +37,7 @@ export class PersonnelListComponent implements AfterViewInit {
       private authService: AuthService,
       private personnelService: PersonnelService,
       public dialog: MatDialog,
+      private toastr: ToastrService,
   ) {}
 
   toggleTheme() {
@@ -102,6 +103,31 @@ export class PersonnelListComponent implements AfterViewInit {
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 
+  } 
+
+  downloadModelReport() {
+    this.isLoading = true; 
+    var dateNow = new Date();
+    var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US'); 
+    this.personnelService.downloadModelReport().subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        const blob = new Blob([res], {type: 'text/xlsx'});
+        const downloadUrl = window.URL.createObjectURL(res);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = `Models-Employes-${dateNowFormat}.xlsx`;
+        link.click();
+
+
+        this.toastr.success('Success!', 'Extraction effectuée!');
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+        console.log(err); 
+      }
+    });
   } 
 
 }

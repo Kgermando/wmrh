@@ -43,8 +43,7 @@ export class PersonnelViewComponent implements OnInit {
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      });  
-
+      });
     }
 
     delete(id: number): void {
