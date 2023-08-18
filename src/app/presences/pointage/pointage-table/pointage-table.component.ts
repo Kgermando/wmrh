@@ -166,7 +166,7 @@ export class EditPresenceDialogBox implements OnInit {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    }); 
+    });
     this.formGroup = this.formBuilder.group({
       apointement: [''],
       // date_entree: [''],
