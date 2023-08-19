@@ -1,11 +1,14 @@
 <div class="p-30" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
-    <h2 mat-dialog-title>Calculatrice</h2>
+    <h2 mat-dialog-title  class="text-center">CALCULATRICE</h2>
     <p mat-dialog-content>
         <app-calculate></app-calculate>
     </p> 
 
     
-    <div mat-dialog-actions class="text-end">
-        <button mat-button mat-dialog-close (click)="close()" class="border-none fw-semibold ps-30 pe-30 pt-12 pb-12 cursor-pointer">Close</button>
+    <div class="text-end mt-25">
+        <button mat-button mat-dialog-close 
+            (click)="close()" 
+            class="border-none fw-semibold ps-30 pe-30 
+            pt-12 pb-12 cursor-pointer">Fermer</button>
     </div>
 </div>

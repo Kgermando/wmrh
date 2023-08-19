@@ -136,10 +136,15 @@ export class PaieViewComponent implements OnInit {
             this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_debut).subscribe(
               date_debut_contrat => {
                 var date_debut_contrats = date_debut_contrat;  
-                date_debut_contrats.map((item: any) => this.primeAncennete = parseFloat(item.age['years'])); 
+                date_debut_contrats.map((item: any) => this.primeAncennete = parseFloat(item.age['years']));
+                 if (Number.isNaN(this.primeAncennete)) {
+                  this.primeAncennete = 0;
+                 }
               }
             );
           });
+
+          
           this.isLoading = false;
         },
         error: (error) => {
@@ -147,8 +152,7 @@ export class PaieViewComponent implements OnInit {
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      });  
-      
+      });
     } 
 
 
@@ -229,6 +233,15 @@ export class PaieViewComponent implements OnInit {
           salaire_base = salaire * totalJrsPreste;
         }
 
+        console.log("totalJrsPreste", totalJrsPreste);
+        console.log("nbreJrsPreste", this.nbreJrsPreste);
+        console.log("nbre_jrs_ferie", nbre_jrs_ferie);
+        console.log("salaire", salaire);
+
+        console.log("primeAncennete",  this.primeAncennete);
+
+       
+
         var ancennete = 0;
         if (this.primeAncennete >=5) {
           ancennete = salaire_base * this.preference.prime_ancien_5 / 100;
@@ -271,6 +284,10 @@ export class PaieViewComponent implements OnInit {
             prime + ancennete + heureSupplementaireMonnaie; 
           console.log('rbi', salaire_base + 
             prime + ancennete + heureSupplementaireMonnaie);
+          console.log('salaire_base', salaire_base);
+          console.log('prime', prime);
+            console.log('ancennete', ancennete);
+            console.log('heureSupplementaireMonnaie',heureSupplementaireMonnaie);
 
         var alloc_logementSurPlus = alloc_logementMonnaie - (30 * rbi / 100); // Le logement ne depasse le 30% de rbi
 
@@ -359,7 +376,7 @@ export class PaieViewComponent implements OnInit {
 
         var net_a_payer = rni + avantageSocials - deductions;
 
-        console.log("alloc_transport", alloc_transport);
+        console.log("this.primeAncennete", this.primeAncennete);
 
         var body = {
           personnel: this.personne.id,
