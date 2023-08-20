@@ -57,8 +57,8 @@ export class ServicesComponent implements OnInit {
 
   onSubmit() {
     try {
-      this.isLoading = true; 
       if (this.formGroup.valid) {
+        this.isLoading = true;
         var body = {
           service: this.formGroup.value.service, 
           signature: this.currentUser.matricule,

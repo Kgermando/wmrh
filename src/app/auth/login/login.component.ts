@@ -117,9 +117,10 @@ export class LoginComponent {
           },
           error: (e) => {
             this.isLoading = false;
-            // console.error(e);
-            this.toastr.error('Votre matricule ou le mot de passe ou encore les deux ne sont pas correct !', 'Oupss!');
-            this.router.navigate(['/auth/login']);
+            console.error(e);
+            // this.toastr.error('Votre matricule ou le mot de passe ou encore les deux ne sont pas correct !', 'Oupss!');
+            this.toastr.error(`${e.error.message}`, 'Oupss!');
+            this.router.navigate(['/auth/login']); 
           }, 
         }
       ); 

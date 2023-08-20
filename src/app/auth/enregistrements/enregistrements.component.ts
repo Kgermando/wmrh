@@ -1,52 +1,43 @@
 import { Component, OnInit } from '@angular/core'; 
 import { AuthService } from 'src/app/auth/auth.service';
-import { PersonnelService } from '../personnel.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PersonnelModel } from '../models/personnel-model';
 import { ToastrService } from 'ngx-toastr';
 import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel';
+import { RegisterModel } from './models/register-model';
+import { RoleDataList, RoleSupportDataList } from 'src/app/shared/tools/role-list';
+import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 
 @Component({
-  selector: 'app-personnel-add',
-  templateUrl: './personnel-add.component.html',
-  styleUrls: ['./personnel-add.component.scss']
+  selector: 'app-enregistrements',
+  templateUrl: './enregistrements.component.html',
+  styleUrls: ['./enregistrements.component.scss']
 })
-export class PersonnelAddComponent implements OnInit {
+export class EnregistrementsComponent implements OnInit {
+
   isLoading: boolean = false; 
   formGroup!: FormGroup;
 
-  currentUser: PersonnelModel | any; 
+  currentUser: RegisterModel | any; 
 
  
   sexeList: string[] = [
     'Femme', 'Homme'
   ];
-  roleList: number[] = [
-    1,2,3,4,5
-  ];
+  
+  roleList: string[] = RoleSupportDataList;
 
   categoriList = CategoriepersonnelDataList;
 
 
-  constructor(private router: Router,
+  constructor( public themeService: CustomizerSettingsService, 
     private _formBuilder: FormBuilder,
-    private authService: AuthService, 
-    private personnelService: PersonnelService,
+    private authService: AuthService,
     private toastr: ToastrService) {}
 
 
 
   ngOnInit(): void {
-    this.authService.user().subscribe({
-      next: (user) => {
-        this.currentUser = user;
-      },
-      error: (error) => {
-        this.router.navigate(['/auth/login']);
-        console.log(error);
-      }
-    });
 
     this.formGroup = this._formBuilder.group({
       nom: ['', Validators.required],
@@ -56,20 +47,23 @@ export class PersonnelAddComponent implements OnInit {
       telephone: ['', Validators.required],
       sexe: ['', Validators.required],
       adresse: ['', Validators.required],
-      matricule: ['', Validators.required],  
-      category: ['', Validators.required], 
+      matricule: ['admin', Validators.required],
+      category: ['', Validators.required],
+      roles: ['', Validators.required],
+      entreprise: ['', Validators.required], 
     });
   }
   
   
   onSubmit() {
     try {
-      
+      this.isLoading = true;
+      var val = Math.floor(1000 + Math.random() * 9000);
+      console.log(val);
+      var codeEntreprise = val;
+      var mat = this.formGroup.value.matricule;
+      var identifiant = `${mat}-${codeEntreprise}`
       if (this.formGroup.valid) {
-        this.isLoading = true;
-        var codeEntreprise = this.currentUser.code_entreprise;
-        var mat = this.formGroup.value.matricule;
-        var identifiant = `${mat}-${codeEntreprise}`;
         var body = {
           nom: this.formGroup.value.nom,
           postnom: this.formGroup.value.postnom,
@@ -78,20 +72,24 @@ export class PersonnelAddComponent implements OnInit {
           telephone: this.formGroup.value.telephone,
           sexe: this.formGroup.value.sexe,
           adresse: this.formGroup.value.adresse, 
-          matricule: identifiant.toLowerCase(),  
+          matricule: identifiant.toLowerCase(),
           category: this.formGroup.value.category,
-          signature: this.currentUser.matricule,
+          roles: this.formGroup.value.roles,
+          permission: 'CRUD',
+          signature: '-',
           created: new Date(),
           update_created: new Date(),
-          entreprise: this.currentUser.entreprise,
-          code_entreprise: this.currentUser.code_entreprise
+          password: '1234',
+          password_confirm: '1234',
+          entreprise: this.formGroup.value.entreprise,
+          code_entreprise: codeEntreprise
         };
-        this.personnelService.create(body).subscribe({
+        this.authService.register(body).subscribe({
           next: () => {
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Ajouter avec succès!', 'Success!');
-            this.router.navigate(['/layouts/personnels/personnel-list']);
+            // this.router.navigate(['/layouts/personnels/personnel-list']);
           },
           error: (err) => {
             this.isLoading = false;
@@ -107,3 +105,4 @@ export class PersonnelAddComponent implements OnInit {
   } 
 
 }
+

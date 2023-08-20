@@ -57,8 +57,8 @@ export class TitlesComponent implements OnInit{
 
   onSubmit() {
     try {
-      this.isLoading = true; 
       if (this.formGroup.valid) {
+        this.isLoading = true;
         var body = {
           title: this.formGroup.value.title, 
           signature: this.currentUser.matricule,

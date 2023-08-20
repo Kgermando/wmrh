@@ -146,7 +146,7 @@
                         class="sidebar-menu-link" routerLinkActive="active" 
                         [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Emails')">
-                        <i class="ri-group-line"></i>
+                        <i class="ri-mail-line"></i>
                         <span class="title">Mails</span>
                     </a> 
                     <span class="sub-title gray-color">Configurations</span>
@@ -172,7 +172,7 @@
                             </li>
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Sites location')">
                                 <a routerLink="/layouts/preferences/site-location" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Site locations
+                                    Sites de travail
                                 </a>
                             </li>
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Fonctions')">
@@ -198,6 +198,33 @@
                         <i class="ri-archive-line"></i>
                         <span class="title">Archives</span>
                     </a>
+                    <mat-expansion-panel (opened)="panelOpenState = true" 
+                        (closed)="panelOpenState = true"
+                        *ngIf="currentUser.roles.includes('Support')">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="ri-admin-line"></i>
+                                <span class="title">Support</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/support/enregistrements" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Enregistrements clients
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/support/reglages-admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Reglage admin
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/layouts/support/abonnements" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Abonnements clients
+                                </a>
+                            </li> 
+                        </ul>
+                    </mat-expansion-panel>
                 </mat-accordion>
             </div>
         </div>

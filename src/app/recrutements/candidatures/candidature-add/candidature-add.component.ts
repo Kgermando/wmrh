@@ -88,8 +88,8 @@ export class CandidatureAddComponent implements OnInit{
 
   onSubmit() {
     try {
-      this.isLoading = true; 
       if (this.formGroup.valid) {
+        this.isLoading = true;
         var body = {
           search_profil: this.poste.search_profil,
           scan_url: this.formGroup.value.scan_url,
@@ -108,7 +108,7 @@ export class CandidatureAddComponent implements OnInit{
           next: () => {
             this.isLoading = false;
             this.formGroup.reset();
-            this.toastr.success('Success!', 'Ajouter avec succès!');
+            this.toastr.success('Ajouter avec succès!', 'Success!');
             this.router.navigate(['/layouts/recrutements/candidatures']);
           },
           error: (err) => {

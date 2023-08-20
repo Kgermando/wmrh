@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ProfileComponent } from './auth/profile/profile.component';
@@ -62,12 +61,17 @@ import { SiteLocationViewComponent } from './preferences/site-location/site-loca
 import { archivesGuard, avanceSalaireGuard, candidaturesGuard, dashboardGuard, departementsGuard, emailsGuard, fonctionGuard, heureSuppGuard, horaireGuard, listePaiementGuard, penealiteGuard, performenceGuard, personnelsGuard, pointagesGuard, postesGuard, presEntrepriseGuard, primeDiversGuard, registrePresenceGuard, reglagesGuard, relevePaieGuard, serviceGuard, siteLocationGuard, statutPaieGuard, syndicatGuard, titresGuard } from './guard/role.guard';
 import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
 import { CalculateComponent } from './salaires/calculate/calculate.component';
+import { ReglageAdminAddComponent } from './admin/reglage-admin/reglage-admin-add/reglage-admin-add.component';
+import { AbonnementAdminComponent } from './admin/abonnement-admin/abonnement-admin.component';
+import { ReglageAdminComponent } from './admin/reglage-admin/reglage-admin.component';
+import { AbonnementComponent } from './abonnements/abonnement/abonnement.component';
+import { EnregistrementsComponent } from './auth/enregistrements/enregistrements.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
     { path: 'login', component: LoginComponent }, 
     { path: 'forgot-password', component: ForgotPasswordComponent }, 
-    { path: 'register/015', component: RegisterComponent }, 
+    { path: 'record/et015', component: EnregistrementsComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full'},
   ]},
   { path: 'layouts', component: LayoutsComponent, children: [
@@ -136,6 +140,14 @@ const routes: Routes = [
     { path: 'mail/compose', component: ComposeComponent, canActivate: [emailsGuard] },
     { path: 'mail/read-mail', component: ReadComponent, canActivate: [emailsGuard] },
     { path: 'mail/mail-sent', component: MailSentComponent, canActivate: [emailsGuard] },
+
+
+    { path: 'abonnements', component: AbonnementComponent },
+
+
+    { path: 'support/reglages-admin', component: ReglageAdminComponent },
+    { path: 'support/reglages-admin-add', component: ReglageAdminAddComponent },
+    { path: 'support/abonnements', component: AbonnementAdminComponent },
     
     { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   ]},

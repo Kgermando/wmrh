@@ -163,8 +163,8 @@ export class AvanceSalaireAddDialogBox implements OnInit {
 
   onSubmit() {
     try {
-      this.isLoading = true; 
       if (this.formGroup.valid) {
+        this.isLoading = true;
         var body = {
           personnel: this.formGroup.value.personnel,
           intitule: this.formGroup.value.intitule,

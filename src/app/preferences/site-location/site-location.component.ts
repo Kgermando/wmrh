@@ -59,8 +59,8 @@ export class SiteLocationComponent implements OnInit{
 
   onSubmit() {
     try {
-      this.isLoading = true; 
       if (this.formGroup.valid) {
+        this.isLoading = true;
         var body = {
           site_location: this.formGroup.value.site_location,
           manager: this.formGroup.value.manager,

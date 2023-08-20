@@ -14,7 +14,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { ChangePasswordDialogBox, ChangePhotoDialogBox, ProfileComponent } from './auth/profile/profile.component';
@@ -129,10 +128,12 @@ import { ServViewComponent } from './preferences/services/serv-view/serv-view.co
 import { SiteLocationViewComponent } from './preferences/site-location/site-location-view/site-location-view.component';
 import { TitleViewComponent } from './preferences/titles/title-view/title-view.component';
 import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
-import { CalculateComponent } from './salaires/calculate/calculate.component';
-import { AdminComponent } from './admin/admin.component';
-import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
-import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
+import { CalculateComponent } from './salaires/calculate/calculate.component'; 
+import { EnregistrementsComponent } from './auth/enregistrements/enregistrements.component';
+import { ReglageAdminComponent } from './admin/reglage-admin/reglage-admin.component';
+import { ReglageAdminAddComponent } from './admin/reglage-admin/reglage-admin-add/reglage-admin-add.component';
+import { AbonnementAdminComponent } from './admin/abonnement-admin/abonnement-admin.component';
+import { AbonnementComponent } from './abonnements/abonnement/abonnement.component';
 
 
 @NgModule({
@@ -146,7 +147,6 @@ import { AdminHeaderComponent } from './admin/admin-header/admin-header.componen
     CustomizerSettingsComponent,
     AuthComponent,
     LoginComponent,
-    RegisterComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ProfileComponent,
@@ -275,7 +275,12 @@ import { AdminHeaderComponent } from './admin/admin-header/admin-header.componen
     PresenceExportXLSXDialogBox,
     MailSentComponent,
     CalculateComponent, 
-    CalculateDialog, AdminComponent, AdminSidebarComponent, AdminHeaderComponent,
+    CalculateDialog, 
+    EnregistrementsComponent, 
+    ReglageAdminComponent, 
+    ReglageAdminAddComponent, 
+    AbonnementAdminComponent, 
+    AbonnementComponent,
   ],
   imports: [
     BrowserModule,

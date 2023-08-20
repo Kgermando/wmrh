@@ -57,8 +57,8 @@ export class DepartementsComponent implements OnInit {
 
   onSubmit() {
     try {
-      this.isLoading = true; 
       if (this.formGroup.valid) {
+        this.isLoading = true;
         var body = {
           departement: this.formGroup.value.departement, 
           signature: this.currentUser.matricule,

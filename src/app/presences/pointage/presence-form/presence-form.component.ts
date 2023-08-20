@@ -329,8 +329,8 @@ export class PenaliteSAddDialogBox implements OnInit {
 
   onSubmit() {
     try {
-      this.isLoading = true; 
       if (this.formGroup.valid) {
+        this.isLoading = true;
         var body = {
           personnel: this.data['personnel'],
           intitule: this.formGroup.value.intitule,

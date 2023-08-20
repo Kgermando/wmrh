@@ -262,18 +262,19 @@ export class DashAllComponent implements OnInit{
    getStatutPaie() {
     this.dashAllService.statutPaieAll(this.currentUser.code_entreprise).subscribe(
         res => {
-            this.statutPaieList = res;
+            this.statutPaieList = res; 
             this.chartOptionsSTatutPaie = {
                 series: this.statutPaieList.map((item: any) => parseFloat(item.count)),
                 colors: this.statutPaieList.map((item: any) => {
                     if (item.statut == "Disponible") {
-                        return "#FAAA0C";
-                    } else if(item.statut == "Traitement") {
                         return "#0D8F55";
+                    } else if(item.statut == "Traitement") {
+                        return "#FAAA0C";
                     } else {
                         return '#FFFFFF'
                     }
-                }), 
+                }),
+                // colors: ["#0D8F55", "#FAAA0C"],
                 chart: {
                     height: 365,
                     type: "donut"
@@ -295,7 +296,7 @@ export class DashAllComponent implements OnInit{
                     position: "bottom",
                     horizontalAlign: "center"
                 },
-                labels: ["Disponible", "Traitement"]
+                labels: this.statutPaieList.map((item: any) => item.statut),
             };
         }
     )
