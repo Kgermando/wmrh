@@ -96,19 +96,19 @@
                                 <td class="gray-color">{{item.manager}}</td>
                                 <td class="gray-color">{{item.adresse}}</td>
                                 <td class="gray-color">{{item.signature}}</td>
-                                <td class="gray-color">
+                                <td class="gray-color" *ngIf="item.personnels.length == 0">
                                     <button mat-icon-button color="primary" 
                                     (click)="openEditDialog('300ms', '100ms', item.id)"
                                     *ngIf="currentUser.permission === 'U' || 
-                                        currentUser.permission === 'RU' ||
-                                        currentUser.permission === 'CRU' ||
-                                        currentUser.permission === 'RUD' ||
-                                        currentUser.permission === 'CRUD'">
+                                                currentUser.permission === 'RU' ||
+                                                currentUser.permission === 'CRU' ||
+                                                currentUser.permission === 'RUD' ||
+                                                currentUser.permission === 'CRUD'">
                                         <mat-icon>edit</mat-icon>
-                                    </button>
+                                    </button> 
                                     <button mat-icon-button color="accent" 
                                         (click)="delete(item.id)"
-                                        *ngIf="item.personnels.length > 0 && currentUser.permission === 'D' || 
+                                        *ngIf="currentUser.permission === 'D' || 
                                         currentUser.permission === 'RD' ||
                                         currentUser.permission === 'RUD' || 
                                         currentUser.permission === 'CRUD'">

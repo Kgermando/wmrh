@@ -10,7 +10,14 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart activeCoursesChart" *ngIf="sexeList.length > 0">
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="30"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div> 
+                <div class="chart activeCoursesChart" *ngIf="!isLoading && sexeList.length > 0">
                     <apx-chart
                         [series]="chartOptionPieSexe.series!"
                         [chart]="chartOptionPieSexe.chart!"
@@ -34,7 +41,14 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart revenueSummaryChart" *ngIf="ageParContratList.length > 0">
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="30"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div> 
+                <div class="chart revenueSummaryChart" *ngIf="!isLoading && ageParContratList.length > 0">
                     <apx-chart
                         [series]="chartOptions.series!"
                         [chart]="chartOptions.chart!"
@@ -61,7 +75,14 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart salesAnalyticsChart" *ngIf="prerformencePieList.length > 0">
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="30"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div> 
+                <div class="chart salesAnalyticsChart" *ngIf="!isLoading && prerformencePieList.length > 0">
                     <apx-chart
                         [series]="chartOptionPerformence.series!"
                         [chart]="chartOptionPerformence.chart!"
@@ -90,7 +111,14 @@
                     <div class="d-flex justify-content-space-between align-items-center">
                         <div class="title">
                             <span class="d-block gray-color">Départements</span>
-                            <h3>{{depTotal}}</h3>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <h3 *ngIf="isLoading">{{depTotal}}</h3>
                         </div>
                         <div class="icon">
                             <i class="ri-stack-line"></i>
@@ -103,7 +131,14 @@
                     <div class="d-flex justify-content-space-between align-items-center">
                         <div class="title">
                             <span class="d-block gray-color">Syndicats</span>
-                            <h3>{{syndicatTotal}}</h3>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <h3 *ngIf="isLoading">{{syndicatTotal}}</h3>
                         </div>
                         <div class="icon">
                             <i class="ri-pie-chart-line"></i>
@@ -119,7 +154,14 @@
                     <div class="d-flex justify-content-space-between align-items-center">
                         <div class="title">
                             <span class="d-block gray-color">Sites de travail</span>
-                            <h3>{{siteLocationTotal}}</h3>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <h3 *ngIf="isLoading">{{siteLocationTotal}}</h3>
                         </div>
                         <div class="icon">
                             <i class="ri-stack-line"></i>
@@ -132,7 +174,14 @@
                     <div class="d-flex justify-content-space-between align-items-center">
                         <div class="title">
                             <span class="d-block gray-color">Comptes actifs </span>
-                            <h3>{{compteActifTotal}}</h3>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <h3 *ngIf="isLoading">{{compteActifTotal}}</h3>
                         </div>
                         <div class="icon">
                             <i class="ri-pie-chart-line"></i>
@@ -153,7 +202,14 @@
         <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
     </mat-card-header>
     <mat-card-content>
-        <div class="chart tasksPerformanceChart" *ngIf="employeParDepartement.length > 0">
+        <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="30"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div> 
+        <div class="chart tasksPerformanceChart" *ngIf="!isLoading && employeParDepartement.length > 0">
             <apx-chart
                 [series]="chartOptionDepartement.series!"
                 [chart]="chartOptionDepartement.chart!"
@@ -175,7 +231,14 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart sessionsByCountriesChart" *ngIf="ageParEmployeList.length > 0">
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="30"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div> 
+                <div class="chart sessionsByCountriesChart" *ngIf="!isLoading && ageParEmployeList.length > 0">
                     <apx-chart
                         [series]="chartOptionAgeMoyenneEmployes.series!"
                         [chart]="chartOptionAgeMoyenneEmployes.chart!"

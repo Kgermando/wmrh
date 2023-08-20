@@ -17,6 +17,10 @@ export class FinanceService extends ApiService {
     return this.http.get(`${this.endpoint}/total-cnss-qpo-month/${code_entreprise}`);
   }
 
+  totalRBIMonth(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/total-rbi-month/${code_entreprise}`);
+  }
+
   iprYear(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/total-ipr-year/${code_entreprise}`);
   }
@@ -25,12 +29,20 @@ export class FinanceService extends ApiService {
     return this.http.get(`${this.endpoint}/total-cnss-qpo-year/${code_entreprise}`);
   }
 
+  totalRBIYear(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/total-rbi-year/${code_entreprise}`);
+  } 
+
   iprAll(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/total-ipr-all/${code_entreprise}`);
   }
 
   cnssQPOAll(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/total-cnss-qpo-all/${code_entreprise}`);
+  }
+
+  totalRBIAll(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/total-rbi-all/${code_entreprise}`);
   }
  
 

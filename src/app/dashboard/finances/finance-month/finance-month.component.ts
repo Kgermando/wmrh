@@ -20,6 +20,8 @@ import { CustomizerSettingsService } from 'src/app/customizer-settings/customize
 import { DashAllService } from '../../all/dash-all.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { FinanceService } from '../finance.service';
+import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
+import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
 
 export type ChartOptionAllocations = {
   series: ApexAxisChartSeries;
@@ -68,8 +70,11 @@ export type ChartOptionNetApayerIPRCNSS = {
 })
 export class FinanceMonthComponent implements OnInit{
 
+    isLoading = false;
 
   currentUser: PersonnelModel | any;
+
+  preference: PreferenceModel;
 
   public chartOptionAllocations: Partial<ChartOptionAllocations>;
 
@@ -86,20 +91,27 @@ export class FinanceMonthComponent implements OnInit{
   depensePayEList = [];
 
 
-  primesList: [];
+  primesList = [];
   primes = 0;
-  primeAncienneteList: [];
+  primeAncienneteList = [];
   primeAnciennete = 0;
-  penaliteList: [];
+  penaliteList = [];
   penalite = 0;
-  avanceSalaireList: [];
+  avanceSalaireList = [];
   avanceSalaire = 0;
-  presEntrepriseList: [];
+  presEntrepriseList = [];
   presEntreprise = 0;
-  heureSuppList: [];
+  heureSuppList = [];
   heureSupp = 0;
-  syndicatList: [];
+  syndicatList = [];
   syndicat = 0;
+
+  totalRBIList = [];
+  totalRBI = 0; 
+  totalCNSSQPP = 0; 
+  totalONEM = 0; 
+  totalINPP = 0;
+
 
 
   constructor(
@@ -107,12 +119,14 @@ export class FinanceMonthComponent implements OnInit{
     private router: Router,
     private authService: AuthService,
     private dashAllService: DashAllService,
-    private financeService: FinanceService
+    private financeService: FinanceService,
+    private reglageService: ReglageService,
   ) {
       
   }
 
   ngOnInit(): void { 
+    this.isLoading =true;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -120,8 +134,23 @@ export class FinanceMonthComponent implements OnInit{
         this.getStatutPaie();
         this.getNetAPayerCCNSSQPO();
         this.getTotal();
+        this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
+            this.preference = res; 
+            this.financeService.totalRBIMonth(this.currentUser.code_entreprise).subscribe(
+                res =>  {
+                    this.totalRBIList = res;
+                    this.totalRBIList.map((item: any) => this.totalRBI = parseFloat(item.total));
+        
+                    this.totalCNSSQPP = this.totalRBI / parseFloat(this.preference.cnss_qpp) * 100;
+                    this.totalINPP = this.totalRBI / parseFloat(this.preference.inpp) * 100;
+                    this.totalONEM = this.totalRBI / parseFloat(this.preference.onem) * 100;
+                }
+            );
+        });
+        this.isLoading = false;
       },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
@@ -229,18 +258,19 @@ export class FinanceMonthComponent implements OnInit{
    getStatutPaie() {
     this.dashAllService.statutPaieMonth(this.currentUser.code_entreprise).subscribe(
         res => {
-            this.statutPaieList = res;
+            this.statutPaieList = res; 
             this.chartOptionsSTatutPaie = {
                 series: this.statutPaieList.map((item: any) => parseFloat(item.count)),
                 colors: this.statutPaieList.map((item: any) => {
                     if (item.statut == "Disponible") {
-                        return "#FAAA0C";
-                    } else if(item.statut == "Traitement") {
                         return "#0D8F55";
+                    } else if(item.statut == "Traitement") {
+                        return "#FAAA0C";
                     } else {
                         return '#FFFFFF'
                     }
-                }), 
+                }),
+                // colors: ["#0D8F55", "#FAAA0C"],
                 chart: {
                     height: 365,
                     type: "donut"
@@ -262,7 +292,7 @@ export class FinanceMonthComponent implements OnInit{
                     position: "bottom",
                     horizontalAlign: "center"
                 },
-                labels: ["Disponible", "Traitement"]
+                labels: this.statutPaieList.map((item: any) => item.statut),
             };
         }
     )

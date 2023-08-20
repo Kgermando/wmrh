@@ -158,6 +158,7 @@ export class DashAllComponent implements OnInit{
         this.isLoading = false;
       },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }

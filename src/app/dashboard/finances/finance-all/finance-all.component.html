@@ -1,7 +1,91 @@
 
 <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayoutGap.sm="0" fxLayoutGap.md="0">
-    <div fxFlex="66.666666%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
+        <mat-card class="single-stats-box tagus-card mb-25">
+            <div class="d-flex justify-content-space-between">
+                <span class="title gray-color fw-semibold">Total RBI</span>
+                <!-- <div class="icon">
+                    <i class="ri-money-dollar-circle-line"></i>
+                </div> -->
+            </div>
+            <div class="d-flex align-items-center justify-content-space-between">
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="10"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div>
+                <h3 class="text-center" *ngIf="!isLoading">{{ totalRBI  | numberFormat:'fr-FR'}} FC</h3> 
+            </div>
+        </mat-card>
+    </div>
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col" >
+        <mat-card class="single-stats-box tagus-card mb-25">
+            <div class="d-flex justify-content-space-between">
+                <span class="title gray-color fw-semibold">Total CNSS (QPP)</span>
+                <!-- <div class="icon bg3">
+                    <i class="ri-safe-line"></i>
+                </div> -->
+            </div>
+            <div class="d-flex align-items-center justify-content-space-between"> 
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="10"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div>
+                <h3 class="text-center" *ngIf="!isLoading">{{ totalCNSSQPP  | numberFormat:'fr-FR'}} FC</h3> 
+            </div>
+        </mat-card>
+    </div> 
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
+        <mat-card class="single-stats-box tagus-card mb-25">
+            <div class="d-flex justify-content-space-between">
+                <span class="title gray-color fw-semibold">Total ONEM</span>
+                <!-- <div class="icon bg2">
+                    <i class="ri-swap-box-line"></i>
+                </div> -->
+            </div>
+            <div class="d-flex align-items-center justify-content-space-between"> 
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="10"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div>
+                <h3 class="text-center" *ngIf="!isLoading">{{ totalONEM  | numberFormat:'fr-FR'}} FC</h3> 
+            </div>
+        </mat-card>
+    </div>
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col" >
+        <mat-card class="single-stats-box tagus-card mb-25">
+            <div class="d-flex justify-content-space-between">
+                <span class="title gray-color fw-semibold">Total INPP</span>
+                <!-- <div class="icon bg3">
+                    <i class="ri-safe-line"></i>
+                </div> -->
+            </div>
+            <div class="d-flex align-items-center justify-content-space-between"> 
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="10"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div>
+                <h3 class="text-center" *ngIf="!isLoading">{{ totalINPP  | numberFormat:'fr-FR'}} FC</h3> 
+            </div>
+        </mat-card>
+    </div> 
+</div>
 
+
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayoutGap.sm="0" fxLayoutGap.md="0">
+  
+    <div fxFlex="66.666666%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
         <mat-card class="mb-25 tagus-card audienceOverview-box">
             <mat-card-header class="border-bottom">
                 <h5 class="mb-0">Total des allocations sur 10 ans</h5>
@@ -11,22 +95,32 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart audienceOverviewChart">
-                    <apx-chart
-                        [series]="chartOptionAllocations.series!"
-                        [chart]="chartOptionAllocations.chart!"
-                        [dataLabels]="chartOptionAllocations.dataLabels!"
-                        [plotOptions]="chartOptionAllocations.plotOptions!"
-                        [yaxis]="chartOptionAllocations.yaxis!"
-                        [legend]="chartOptionAllocations.legend!"
-                        [fill]="chartOptionAllocations.fill!"
-                        [stroke]="chartOptionAllocations.stroke!"
-                        [tooltip]="chartOptionAllocations.tooltip!"
-                        [xaxis]="chartOptionAllocations.xaxis!"
-                        [colors]="chartOptionAllocations.colors!"
-                        [grid]="chartOptionAllocations.grid!"
-                    ></apx-chart>
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="30"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div> 
+                <div  *ngIf="!isLoading">
+                    <div class="chart audienceOverviewChart" *ngIf="!isLoading && allocationList.length > 0">
+                        <apx-chart
+                            [series]="chartOptionAllocations.series!"
+                            [chart]="chartOptionAllocations.chart!"
+                            [dataLabels]="chartOptionAllocations.dataLabels!"
+                            [plotOptions]="chartOptionAllocations.plotOptions!"
+                            [yaxis]="chartOptionAllocations.yaxis!"
+                            [legend]="chartOptionAllocations.legend!"
+                            [fill]="chartOptionAllocations.fill!"
+                            [stroke]="chartOptionAllocations.stroke!"
+                            [tooltip]="chartOptionAllocations.tooltip!"
+                            [xaxis]="chartOptionAllocations.xaxis!"
+                            [colors]="chartOptionAllocations.colors!"
+                            [grid]="chartOptionAllocations.grid!"
+                        ></apx-chart>
+                    </div>
                 </div>
+                
             </mat-card-content>
         </mat-card>
 
@@ -39,21 +133,28 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
-                <div class="chart yourProgressChart">
-                    <apx-chart
-                        [series]="chartOptionNetApayerIPRCNSS.series!"
-                        [chart]="chartOptionNetApayerIPRCNSS.chart!"
-                        [xaxis]="chartOptionNetApayerIPRCNSS.xaxis!"
-                        [stroke]="chartOptionNetApayerIPRCNSS.stroke!"
-                        [tooltip]="chartOptionNetApayerIPRCNSS.tooltip!"
-                        [dataLabels]="chartOptionNetApayerIPRCNSS.dataLabels!"
-                        [legend]="chartOptionNetApayerIPRCNSS.legend!"
-                        [grid]="chartOptionNetApayerIPRCNSS.grid!"
-                        [yaxis]="chartOptionNetApayerIPRCNSS.yaxis!"
-                        [title]="chartOptionNetApayerIPRCNSS.title!"
-                        [colors]="chartOptionNetApayerIPRCNSS.colors!"
-                    ></apx-chart>
-                </div>
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="30"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div> 
+            <div class="chart yourProgressChart" *ngIf="!isLoading && depensePayEList.length > 0">
+                <apx-chart
+                    [series]="chartOptionNetApayerIPRCNSS.series!"
+                    [chart]="chartOptionNetApayerIPRCNSS.chart!"
+                    [xaxis]="chartOptionNetApayerIPRCNSS.xaxis!"
+                    [stroke]="chartOptionNetApayerIPRCNSS.stroke!"
+                    [tooltip]="chartOptionNetApayerIPRCNSS.tooltip!"
+                    [dataLabels]="chartOptionNetApayerIPRCNSS.dataLabels!"
+                    [legend]="chartOptionNetApayerIPRCNSS.legend!"
+                    [grid]="chartOptionNetApayerIPRCNSS.grid!"
+                    [yaxis]="chartOptionNetApayerIPRCNSS.yaxis!"
+                    [title]="chartOptionNetApayerIPRCNSS.title!"
+                    [colors]="chartOptionNetApayerIPRCNSS.colors!"
+                ></apx-chart>
+            </div>
             </mat-card-content>
         </mat-card>
     </div>
@@ -68,8 +169,15 @@
                 <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
             </mat-card-header>
             <mat-card-content>
+                <div *ngIf="isLoading" 
+                    style="display: flex; justify-content: center; align-items: center; background: white;">
+                    <mat-progress-spinner [diameter]="30"
+                        color="primary" 
+                        mode="indeterminate">
+                    </mat-progress-spinner>
+                </div> 
                 <div class="myProfileChart position-relative">
-                    <div class="chart">
+                    <div class="chart" *ngIf="!isLoading && statutPaieList.length > 0">
                         <apx-chart
                             [series]="chartOptionsSTatutPaie.series!"
                             [chart]="chartOptionsSTatutPaie.chart!"
@@ -85,12 +193,19 @@
                     <li class="d-flex align-items-center justify-content-space-between">
                         <div class="title d-flex align-items-center"> 
                             <div class="box-1"></div>
-                            <div class="ms-12">
+                            <div class="ms-12"> 
                                 <h5 class="fw-semibold">Primes enciennetés</h5> 
                             </div>
                         </div>
                         <div class="info text-end"> 
-                            <span>{{ primeAnciennete  | numberFormat:'fr-FR'}} FC</span>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <span *ngIf="!isLoading">{{ primeAnciennete  | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li>
                     <li class="d-flex align-items-center justify-content-space-between">
@@ -101,7 +216,14 @@
                             </div>
                         </div>
                         <div class="info text-end"> 
-                            <span>{{ primes  | numberFormat:'fr-FR'}} FC</span>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <span *ngIf="!isLoading">{{ primes  | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li> 
                     <li class="d-flex align-items-center justify-content-space-between">
@@ -112,7 +234,14 @@
                             </div>
                         </div>
                         <div class="info text-end"> 
-                            <span>{{ heureSupp  | numberFormat:'fr-FR'}} FC</span>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <span *ngIf="!isLoading">{{ heureSupp  | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li>
                     <li class="d-flex align-items-center justify-content-space-between">
@@ -123,7 +252,14 @@
                             </div>
                         </div>
                         <div class="info text-end"> 
-                            <span>{{ avanceSalaire  | numberFormat:'fr-FR'}} FC</span>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <span *ngIf="!isLoading">{{ avanceSalaire  | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li> 
                     <li class="d-flex align-items-center justify-content-space-between">
@@ -134,7 +270,14 @@
                             </div>
                         </div>
                         <div class="info text-end"> 
-                            <span>{{ penalite  | numberFormat:'fr-FR'}} FC</span>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <span *ngIf="!isLoading">{{ penalite  | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li>
                     <li class="d-flex align-items-center justify-content-space-between">
@@ -145,7 +288,14 @@
                             </div>
                         </div>
                         <div class="info text-end"> 
-                            <span>{{ syndicat  | numberFormat:'fr-FR'}} FC</span>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <span *ngIf="!isLoading">{{ syndicat  | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li>
                     <li class="d-flex align-items-center justify-content-space-between">
@@ -156,7 +306,14 @@
                             </div>
                         </div>
                         <div class="info text-end"> 
-                            <span>{{ presEntreprise  | numberFormat:'fr-FR'}} FC</span>
+                            <div *ngIf="isLoading" 
+                                style="display: flex; justify-content: center; align-items: center; background: white;">
+                                <mat-progress-spinner [diameter]="10"
+                                    color="primary" 
+                                    mode="indeterminate">
+                                </mat-progress-spinner>
+                            </div> 
+                            <span *ngIf="!isLoading">{{ presEntreprise  | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li> 
                 </ul>

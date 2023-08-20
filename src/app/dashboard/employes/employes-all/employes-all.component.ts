@@ -108,6 +108,8 @@ export class EmployesAllComponent implements OnInit{
 
   public chartOptionDepartement: Partial<ChartOptionDepartement>;
 
+  isLoading = false;
+
   prerformencePieList: PerformencePieYearModel[] = [];
 
   currentUser: PersonnelModel | any;
@@ -139,7 +141,8 @@ export class EmployesAllComponent implements OnInit{
   }
 
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+    this.isLoading = true;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -149,8 +152,10 @@ export class EmployesAllComponent implements OnInit{
         this.getPerformence();
         this.getEmployeparDepartement();
         this.getTotal();
+        this.isLoading = false;
       },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
