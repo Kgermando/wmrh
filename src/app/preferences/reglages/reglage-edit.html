@@ -5,6 +5,15 @@
     </div>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
         <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Votre logo'">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>
+                    <div class="tagus-form-group ms-20"> 
+                        <input formControlName="logo" hidden type="hidden" name="logo"> 
+                        <app-upload (uploadedUrl)="formGroup.patchValue({'logo': $event})"></app-upload>  
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="data['reglage'] == 'Nom de l\'entreprise'">
                 <div class="tagus-form-group">
                     <label class="d-block mb-12 fw-semibold gray-color">{{data['reglage']}} </label>

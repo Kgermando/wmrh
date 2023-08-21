@@ -58,7 +58,10 @@
                                 </table>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center">
-                                <qrcode [qrdata]="salaire.personnel.matricule" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+                                <img src="assets/img/user/user13.jpg" class="border-radius logo" *ngIf="preference.logo === '-'">
+                                <!-- <qrcode [qrdata]="salaire.personnel.matricule" [width]="100" [errorCorrectionLevel]="'M'"
+                                *ngIf="preference.logo == '-'"></qrcode> -->
+                                <img [src]="preference.logo" class="border-radius logo" *ngIf="preference.logo != '-'">
                             </div>
                         </div>
                         <mat-divider class="mb-25" ></mat-divider>

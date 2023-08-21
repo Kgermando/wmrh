@@ -262,7 +262,7 @@
                         </li>
                         <li>
                             <span class="fw-semibold">Frais de la banque: </span>
-                            <span class="gray-color">{{ personne.frais_bancaire }} %</span>
+                            <span class="gray-color">{{ personne.frais_bancaire | numberFormat:'fr-FR' }} {{ personne.monnaie }}</span>
                         </li>
                     </ul>
                 </mat-card-content>

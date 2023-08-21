@@ -16,9 +16,7 @@ import { CustomizerSettingsService } from 'src/app/customizer-settings/customize
 export class EnregistrementsComponent implements OnInit {
 
   isLoading: boolean = false; 
-  formGroup!: FormGroup;
-
-  currentUser: RegisterModel | any; 
+  formGroup!: FormGroup; 
 
  
   sexeList: string[] = [
@@ -38,7 +36,6 @@ export class EnregistrementsComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     this.formGroup = this._formBuilder.group({
       nom: ['', Validators.required],
       postnom: ['', Validators.required],
@@ -57,13 +54,13 @@ export class EnregistrementsComponent implements OnInit {
   
   onSubmit() {
     try {
-      this.isLoading = true;
-      var val = Math.floor(1000 + Math.random() * 9000);
-      console.log(val);
-      var codeEntreprise = val;
-      var mat = this.formGroup.value.matricule;
-      var identifiant = `${mat}-${codeEntreprise}`
       if (this.formGroup.valid) {
+        this.isLoading = true;
+        var val = Math.floor(1000 + Math.random() * 9000);
+        console.log(val);
+        var codeEntreprise = val;
+        var mat = this.formGroup.value.matricule;
+        var identifiant = `${mat}-${codeEntreprise}`;
         var body = {
           nom: this.formGroup.value.nom,
           postnom: this.formGroup.value.postnom,

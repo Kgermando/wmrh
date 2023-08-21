@@ -13,5 +13,10 @@ export class ReglageService extends ApiService {
     return this.http.put(`${this.endpoint}/${code_entreprise}`, data);
   }
 
+
+  getAllReglage(): Observable<any> {
+    return this.http.get(`${this.endpoint}}`);
+  }
+
   
 }

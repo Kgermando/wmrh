@@ -228,17 +228,14 @@ export class PaieViewComponent implements OnInit {
         var salaire_base = 0;
         
         if (this.congepayeNbr >= 1) {
-          salaire_base = (salaire * totalJrsPreste) * 2/3;
+          if (totalJrsPreste >= 1) {
+            salaire_base = (salaire * totalJrsPreste) * 2/3;
+          } else {
+            salaire_base = (salaire * 26) * 2/3;
+          }
         } else {
           salaire_base = salaire * totalJrsPreste;
-        }
-
-        console.log("totalJrsPreste", totalJrsPreste);
-        console.log("nbreJrsPreste", this.nbreJrsPreste);
-        console.log("nbre_jrs_ferie", nbre_jrs_ferie);
-        console.log("salaire", salaire);
-
-        console.log("primeAncennete",  this.primeAncennete);
+        } 
 
        
 
@@ -281,13 +278,7 @@ export class PaieViewComponent implements OnInit {
 
         // Remuneration Brute impôsable
         var rbi = salaire_base + 
-            prime + ancennete + heureSupplementaireMonnaie; 
-          console.log('rbi', salaire_base + 
-            prime + ancennete + heureSupplementaireMonnaie);
-          console.log('salaire_base', salaire_base);
-          console.log('prime', prime);
-            console.log('ancennete', ancennete);
-            console.log('heureSupplementaireMonnaie',heureSupplementaireMonnaie);
+            prime + ancennete + heureSupplementaireMonnaie;  
 
         var alloc_logementSurPlus = alloc_logementMonnaie - (30 * rbi / 100); // Le logement ne depasse le 30% de rbi
 
@@ -346,8 +337,7 @@ export class PaieViewComponent implements OnInit {
 
         // Impôt Elide
         var impotElide = iprRetenu - (alloc_famillialeExces + alloc_transportExces + alloc_logementExces);
-
-        console.log("impotElide", impotElide);
+ 
 
 
         // IPR à payé
@@ -374,9 +364,7 @@ export class PaieViewComponent implements OnInit {
           prime + ancennete + heureSupplementaireMonnaie + prise_en_charge_frais_bancaireMonnaie;
         
 
-        var net_a_payer = rni + avantageSocials - deductions;
-
-        console.log("this.primeAncennete", this.primeAncennete);
+        var net_a_payer = rni + avantageSocials - deductions; 
 
         var body = {
           personnel: this.personne.id,

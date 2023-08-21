@@ -2,10 +2,10 @@ export interface PreferenceModel {
     id: number;  
     
     // Infos entreprise
+    logo: string;
     company_name: string;
     nbr_employe: number;
-    cnss: string;
-    numero_taxe: string;
+    cnss: string; 
     rccm: string;
     id_nat: string;
     numero_impot: string;
@@ -27,9 +27,9 @@ export interface PreferenceModel {
     smig: string;
 
     // Taux
-    monnaie : string;
-    nbre_heure_travail : number;
-    taux_dollard : number;
+    monnaie: string;
+    nbre_heure_travail: number;
+    taux_dollard: number;
     prise_en_charge_frais_bancaire : boolean;
     courses_transport : number;
 

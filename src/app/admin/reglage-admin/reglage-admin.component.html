@@ -1,1 +1,124 @@
-<p>reglage-admin works!</p>
+<div
+    class="justify-content-center"
+    [class.component-dark-theme]="themeService.isDark()" 
+> 
+    <mat-card class="mb-25 tagus-card">
+        <mat-card-header>
+            <h4 class="mb-0">Liste des reglages</h4>
+            <button mat-flat-button class="default-btn tagus m-0 margin" 
+                routerLink="/layouts/support/reglages-admin-add">
+                <i class="ri-add-fill"></i> Ajouter le reglage
+            </button> 
+        </mat-card-header>
+        <mat-card-content>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="fw-semibold gray-color">ID </th> 
+                            <th class="fw-semibold gray-color text-start">company_name </th>
+                            <th class="fw-semibold gray-color text-start">nbr_employe </th>
+                            <th class="fw-semibold gray-color text-start">cnss </th>
+                            <th class="fw-semibold gray-color text-start">rccm </th>
+                            <th class="fw-semibold gray-color text-start">id_nat </th>
+                            <th class="fw-semibold gray-color text-start">numero_impot </th>
+                            <th class="fw-semibold gray-color text-start">email </th>
+                            <th class="fw-semibold gray-color text-start">telephone </th>
+                            <th class="fw-semibold gray-color text-start">adresse </th>
+                            <th class="fw-semibold gray-color text-start">date_paie </th>
+                            <th class="fw-semibold gray-color text-start">cnss_qpp </th> 
+                            <th class="fw-semibold gray-color text-start">inpp </th>
+                            <th class="fw-semibold gray-color text-start">onem </th>
+                            <th class="fw-semibold gray-color text-start">cotisation_syndicale </th>
+                            <th class="fw-semibold gray-color text-start">cnss_qpo </th>
+                            <th class="fw-semibold gray-color text-start">smig </th>
+                            <th class="fw-semibold gray-color text-start">monnaie </th>
+                            <th class="fw-semibold gray-color text-start">nbre_heure_travail </th>
+                            <th class="fw-semibold gray-color text-start">taux_dollard </th>
+                            <th class="fw-semibold gray-color text-start">prise_en_charge_frais_bancaire </th>
+                            <th class="fw-semibold gray-color text-start">courses_transport </th>
+                            <th class="fw-semibold gray-color text-start">montant_travailler_quadre </th>
+                            <th class="fw-semibold gray-color text-start">montant_travailler_non_quadre </th>
+                            <th class="fw-semibold gray-color text-start">new_year </th>
+                            <th class="fw-semibold gray-color text-start">noel </th>
+                            <th class="fw-semibold gray-color text-start">martyr_day </th>
+                            <th class="fw-semibold gray-color text-start">kabila_day </th>
+                            <th class="fw-semibold gray-color text-start">lumumba_day </th>
+                            <th class="fw-semibold gray-color text-start">labour_day </th>
+                            <th class="fw-semibold gray-color text-start">liberation_day </th>
+                            <th class="fw-semibold gray-color text-start">indepence_day </th>
+                            <th class="fw-semibold gray-color text-start">parent_day </th>
+                            <th class="fw-semibold gray-color text-start">kimbangu_day </th>
+                            <th class="fw-semibold gray-color text-start">prime_ancien_0 </th>
+                            <th class="fw-semibold gray-color text-start">prime_ancien_5 </th>
+                            <th class="fw-semibold gray-color text-start">prime_ancien_10 </th>
+                            <th class="fw-semibold gray-color text-start">prime_ancien_15 </th>
+                            <th class="fw-semibold gray-color text-start">prime_ancien_20 </th>
+                            <th class="fw-semibold gray-color text-start">prime_ancien_25 </th>
+                            <th class="fw-semibold gray-color text-start">bareme_3 </th>
+                            <th class="fw-semibold gray-color text-start">bareme_15 </th>
+                            <th class="fw-semibold gray-color text-start">bareme_30 </th>
+                            <th class="fw-semibold gray-color text-start">Signature </th>
+                            <th class="fw-semibold gray-color text-start">created </th>
+                            <th class="fw-semibold gray-color text-start">Update </th>
+                            <th class="fw-semibold gray-color text-start">Entreprise </th>
+                            <th class="fw-semibold gray-color text-start">Code entreprise </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of preferenceList">
+                            <td class="gray-color">{{item.id}} </td> 
+                            <td class="gray-color">{{item.company_name}}</td> 
+                            <td class="gray-color">{{item.nbr_employe}}</td>
+                            <td class="gray-color">{{item.cnss}}</td> 
+                            <td class="gray-color">{{item.rccm}}</td> 
+                            <td class="gray-color">{{item.id_nat}}</td> 
+                            <td class="gray-color">{{item.numero_impot}}</td> 
+                            <td class="gray-color">{{item.email}}</td> 
+                            <td class="gray-color">{{item.telephone}}</td> 
+                            <td class="gray-color">{{item.adresse}}</td> 
+                            <td class="gray-color">{{item.date_paie}}</td> 
+                            <td class="gray-color">{{item.cnss_qpp}}</td> 
+                            <td class="gray-color">{{item.inpp}}</td> 
+                            <td class="gray-color">{{item.onem}}</td> 
+                            <td class="gray-color">{{item.cotisation_syndicale}}</td> 
+                            <td class="gray-color">{{item.cnss_qpo}}</td> 
+                            <td class="gray-color">{{item.smig}}</td>
+                            <td class="gray-color">{{item.monnaie}}</td>
+                            <td class="gray-color">{{item.nbre_heure_travail}}</td>
+                            <td class="gray-color">{{item.taux_dollard}}</td>
+                            <td class="gray-color">{{item.prise_en_charge_frais_bancaire}}</td>
+                            <td class="gray-color">{{item.courses_transport}}</td>
+                            <td class="gray-color">{{item.montant_travailler_quadre}}</td>
+                            <td class="gray-color">{{item.montant_travailler_non_quadre}}</td>
+                            <td class="gray-color">{{item.new_year}}</td>
+                            <td class="gray-color">{{item.noel}}</td>
+                            <td class="gray-color">{{item.martyr_day}}</td>
+                            <td class="gray-color">{{item.kabila_day}}</td>
+                            <td class="gray-color">{{item.lumumba_day}}</td>
+                            <td class="gray-color">{{item.labour_day}}</td>
+                            <td class="gray-color">{{item.liberation_day}}</td>
+                            <td class="gray-color">{{item.indepence_day}}</td>
+                            <td class="gray-color">{{item.parent_day}}</td>
+                            <td class="gray-color">{{item.kimbangu_day}}</td>
+                            <td class="gray-color">{{item.prime_ancien_0}}</td>
+                            <td class="gray-color">{{item.prime_ancien_5}}</td>
+                            <td class="gray-color">{{item.prime_ancien_10}}</td>
+                            <td class="gray-color">{{item.prime_ancien_15}}</td>
+                            <td class="gray-color">{{item.prime_ancien_20}}</td>
+                            <td class="gray-color">{{item.prime_ancien_25}}</td>
+                            <td class="gray-color">{{item.bareme_3}}</td>
+                            <td class="gray-color">{{item.bareme_15}}</td>
+                            <td class="gray-color">{{item.bareme_30}}</td>
+                            <td class="gray-color">{{item.signature}}</td>
+                            <td class="gray-color">{{item.created}}</td>
+                            <td class="gray-color">{{item.update_created}}</td>
+                            <td class="gray-color">{{item.entreprise}}</td>
+                            <td class="gray-color">{{item.code_entreprise}}</td> 
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
+        </mat-card-content>
+    </mat-card> 
+</div>

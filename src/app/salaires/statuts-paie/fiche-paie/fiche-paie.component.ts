@@ -317,7 +317,7 @@ export class FichePaieComponent implements OnInit {
         this.syndicat = this.rni * parseFloat(this.preference.cotisation_syndicale) / 100;
       }
 
-      // prise_en_charge_frais_bancaire
+      // Prise_en_charge_frais_bancaire
       if(this.preference.prise_en_charge_frais_bancaire) {
         this.prise_en_charge_frais_bancaire = parseFloat(this.salaire.personnel.frais_bancaire);
       }

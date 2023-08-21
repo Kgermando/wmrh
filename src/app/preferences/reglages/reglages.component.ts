@@ -96,6 +96,11 @@ export class EditReglageDialogBox implements OnInit{
 
 
   ngOnInit(): void {
+    if (this.data['reglage'] == 'Votre logo') {
+      this.formGroup = this.formBuilder.group({  
+        logo: '',
+      });
+    }
     if (this.data['reglage'] == 'Nom de l\'entreprise') {
       this.formGroup = this.formBuilder.group({  
         company_name: '', 
@@ -332,7 +337,16 @@ export class EditReglageDialogBox implements OnInit{
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
+        if (this.data['reglage'] == 'Votre logo') {
+          console.log("signature", this.currentUser.matricule);
+          this.formGroup.patchValue({
+            logo: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
         if (this.data['reglage'] == 'Nom de l\'entreprise') {
+          console.log("signature", this.currentUser.matricule);
           this.formGroup.patchValue({
             company_name: this.data['valeur'],
             signature: this.currentUser.matricule, 

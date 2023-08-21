@@ -1,1 +1,107 @@
-<p>reglage-admin-add works!</p>
+<mat-card class="create-project-card tagus-card mb-25">
+    <mat-card-header>
+        <h4>Création des parametres de reglage</h4>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <div class=" border-radius">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="d-block mb-12 fw-semibold gray-color">Nom de l'entreprise </label>
+                        <mat-form-field appearance="fill">
+                            <i class="ri-edit-2-line"></i>
+                            <mat-label>Entrer le nom de l'entreprise</mat-label>
+                            <input matInput type="text" formControlName="company_name" name="company_name">
+                            <mat-error *ngIf="formGroup.controls['company_name'].hasError('required')">
+                                Ce champs est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+                    </div> 
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="d-block mb-12 fw-semibold gray-color">Nombre des employés </label>
+                        <mat-form-field appearance="fill">
+                            <i class="ri-edit-2-line"></i>
+                            <mat-label>Entrer le nbre des employés</mat-label>
+                            <input matInput type="text" id="nbr_employe" formControlName="nbr_employe" required>
+                            <mat-error *ngIf="formGroup.controls['nbr_employe'].hasError('required')">
+                                Ce champs est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="d-block mb-12 fw-semibold gray-color">Numéro CNSS </label>
+                        <mat-form-field appearance="fill">
+                            <i class="ri-edit-2-line"></i>
+                            <mat-label>Entrer le numéro cnss</mat-label>
+                            <input matInput type="text" formControlName="cnss" name="cnss">
+                            <mat-error *ngIf="formGroup.controls['cnss'].hasError('required')">
+                                Ce champs est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="d-block mb-12 fw-semibold gray-color">RCCM </label>
+                        <mat-form-field appearance="fill">
+                            <i class="ri-edit-2-line"></i>
+                            <mat-label>Entrer le rccm</mat-label>
+                            <input matInput type="text" formControlName="rccm" name="rccm">
+                            <mat-error *ngIf="formGroup.controls['rccm'].hasError('required')">
+                                Ce champs est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="d-block mb-12 fw-semibold gray-color">Numéro impôt </label>
+                        <mat-form-field appearance="fill">
+                            <i class="ri-edit-2-line"></i>
+                            <mat-label>Entrer le numero d'imp$ot</mat-label>
+                            <input matInput type="text" formControlName="numero_impot" name="numero_impot">
+                            <mat-error *ngIf="formGroup.controls['numero_impot'].hasError('required')">
+                                Ce champs est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="d-block mb-12 fw-semibold gray-color">Email </label>
+                        <mat-form-field appearance="fill">
+                            <i class="ri-edit-2-line"></i>
+                            <mat-label>Entrer l'adresse email</mat-label>
+                            <input matInput type="email" formControlName="email" name="email">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="d-block mb-12 fw-semibold gray-color">Telephone </label>
+                        <mat-form-field appearance="fill">
+                            <i class="ri-edit-2-line"></i>
+                            <mat-label>Entrer le Telephone</mat-label>
+                            <input matInput type="tel" formControlName="telephone" name="telephone">
+                            <mat-error *ngIf="formGroup.controls['telephone'].hasError('required')">
+                                Ce champs est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+                    </div> 
+                    <div class="col-lg-6 col-md-12 col-sm-12"> 
+                        <label class="d-block mb-12 fw-semibold gray-color">Adresse </label>
+                        <mat-form-field appearance="fill">
+                            <i class="ri-information-line"></i>
+                            <mat-label>Adresse...</mat-label>
+                            <textarea matInput rows="2" formControlName="adresse"></textarea>
+                            <mat-error *ngIf="formGroup.controls['adresse'].hasError('required')">
+                                Ce champs est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+                    </div> 
+                <div class="d-flex justify-content-center" *ngIf="isLoading">
+                    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+                </div>  
+                <div *ngIf="!isLoading">
+                    <button mat-flat-button class="tagus d-block fw-semibold">Crée le reglage</button>  
+                </div>
+            </div>
+         </div>
+            
+        </form>
+    </mat-card-content>
+</mat-card>
+
+ 

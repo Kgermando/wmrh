@@ -16,13 +16,10 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
 </div>
 <div *ngIf="!isLoading">
-    <div class="row" *ngIf="!preference">
-        <h4>La page de reglage n'est pas encore disponilble.</h4>
-    </div>
-    <div class="row" *ngIf="preference">
+    <div class="row" *ngIf="preference && currentUser">
         <div class="d-flex justify-content-space-between">
             <p>Denière mise à jour le: {{ preference.update_created | date: 'dd/MM/yyyy HH:mm:ss' }} </p>
-            <p>Par: {{ preference.signature }}</p>
+            <!-- <p>Par: {{ preference.signature }}</p> -->
         </div>
         
         <div class="col-lg-4 col-md-12">
@@ -36,6 +33,22 @@
                 </mat-card-header>
                 <mat-card-content> 
                     <ul class="list ps-0 mb-0">
+                        <li>
+                            <!-- <span class="fw-semibold">Logo: </span> -->
+                            <span>
+                                <img src="assets/img/user/user13.jpg" class="border-radius logo" *ngIf="preference.logo === '-'">
+                                <img [src]="preference.logo" class="border-radius logo" *ngIf="preference.logo != '-'">
+                            </span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Votre logo', preference.logo)"
+                                *ngIf="currentUser.permission === 'U' || 
+                                currentUser.permission === 'RU' ||
+                                currentUser.permission === 'CRU' ||
+                                currentUser.permission === 'RUD' ||
+                                currentUser.permission === 'CRUD'"> 
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
                         <li>
                             <span class="fw-semibold">Nom de l'entreprise: </span>
                             <span class="gray-color">{{ preference.company_name }}</span>
@@ -72,19 +85,7 @@
                                 currentUser.permission === 'CRUD'">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                        </li>
-                        <li>
-                            <span class="fw-semibold">Numéro de Taxe: </span>
-                            <span class="gray-color">{{ preference.numero_taxe }}</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Numéro de Taxe', preference.numero_taxe)" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                        </li>
+                        </li> 
                         <li>
                             <span class="fw-semibold">RCCM: </span>
                             <span class="gray-color">{{ preference.rccm }}</span>
