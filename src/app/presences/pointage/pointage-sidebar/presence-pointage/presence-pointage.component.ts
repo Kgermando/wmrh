@@ -21,7 +21,7 @@ export class PresencePointageComponent implements OnInit{
   isAToday = false;
   isAAToday = false; 
   isAMToday = false;
-  isCDToday = false;
+  isCCToday = false;
   isCAToday = false;
   isCOToday = false;
   isSToday = false;
@@ -74,7 +74,7 @@ export class PresencePointageComponent implements OnInit{
           }
         } else if(this.presence.apointement === 'CC'){
           if (datePresenceSortie > dateToday) {
-            this.isCDToday = true;
+            this.isCCToday = true;
           } 
         } else if(this.presence.apointement === 'CA'){
           if (datePresenceSortie > dateToday) {

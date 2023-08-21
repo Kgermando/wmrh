@@ -21,7 +21,7 @@
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0"> Heures supplementaires</h5>
-                    <div> 
+                    <div *ngIf="currentUser"> 
                         <button mat-icon-button color="accent" 
                             (click)="openEditDialog('300ms', '100ms', heureSupp.id)"
                             *ngIf="currentUser.permission === 'U' || 

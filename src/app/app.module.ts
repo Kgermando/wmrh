@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -134,6 +134,8 @@ import { ReglageAdminComponent } from './admin/reglage-admin/reglage-admin.compo
 import { ReglageAdminAddComponent } from './admin/reglage-admin/reglage-admin-add/reglage-admin-add.component';
 import { AbonnementAdminComponent } from './admin/abonnement-admin/abonnement-admin.component';
 import { AbonnementComponent } from './abonnements/abonnement/abonnement.component';
+import { NotificationComponent } from './notifications/notification/notification.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -280,7 +282,7 @@ import { AbonnementComponent } from './abonnements/abonnement/abonnement.compone
     ReglageAdminComponent, 
     ReglageAdminAddComponent, 
     AbonnementAdminComponent, 
-    AbonnementComponent,
+    AbonnementComponent, NotificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -296,7 +298,13 @@ import { AbonnementComponent } from './abonnements/abonnement/abonnement.compone
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    QRCodeModule
+    QRCodeModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     DatePipe,

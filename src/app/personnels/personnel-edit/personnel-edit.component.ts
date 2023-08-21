@@ -46,7 +46,7 @@ export class PersonnelEditComponent implements OnInit {
     'Femme', 'Homme'
   ];
   etatCivileList: string[] = [
-    'Marié(e)', 'Celibataire'
+    'Marié(e)', 'Celibataire', 'Divorcé(e)'
   ];
 
   roleList: string[] = RoleDataList;

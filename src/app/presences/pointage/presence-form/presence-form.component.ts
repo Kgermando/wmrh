@@ -238,8 +238,8 @@ export class PresenceFormComponent {
 
   onSubmit() {
     try {
-      this.isLoadingForm = true;
-      if (this.formGroup.valid) { 
+      if (this.formGroup.valid) {
+        this.isLoadingForm = true;
         var body = { 
           matricule: this.personne.matricule,
           apointement: this.formGroup.value.apointement, 

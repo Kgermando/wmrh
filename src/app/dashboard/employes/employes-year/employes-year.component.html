@@ -111,14 +111,7 @@
                     <div class="d-flex justify-content-space-between align-items-center">
                         <div class="title">
                             <span class="d-block gray-color">Départements</span>
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
-                            <h3 *ngIf="isLoading">{{depTotal}}</h3>
+                            <h3>{{depTotal}}</h3>
                         </div>
                         <div class="icon">
                             <i class="ri-stack-line"></i>
@@ -131,14 +124,7 @@
                     <div class="d-flex justify-content-space-between align-items-center">
                         <div class="title">
                             <span class="d-block gray-color">Syndicats</span>
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
-                            <h3 *ngIf="isLoading">{{syndicatTotal}}</h3>
+                            <h3>{{syndicatTotal}}</h3>
                         </div>
                         <div class="icon">
                             <i class="ri-pie-chart-line"></i>
@@ -154,14 +140,7 @@
                     <div class="d-flex justify-content-space-between align-items-center">
                         <div class="title">
                             <span class="d-block gray-color">Sites de travail</span>
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
-                            <h3 *ngIf="isLoading">{{siteLocationTotal}}</h3>
+                            <h3>{{siteLocationTotal}}</h3>
                         </div>
                         <div class="icon">
                             <i class="ri-stack-line"></i>
@@ -181,7 +160,7 @@
                                     mode="indeterminate">
                                 </mat-progress-spinner>
                             </div> 
-                            <h3 *ngIf="isLoading">{{compteActifTotal}}</h3>
+                            <h3>{{compteActifTotal}}</h3>
                         </div>
                         <div class="icon">
                             <i class="ri-pie-chart-line"></i>

@@ -45,7 +45,6 @@
                     <span class="fw-semibold d-inline-block">Date de reprise: </span>
                     <span class="gray-color">{{ apointementItem.date_sortie | date: 'dd/MM/yyyy' }}</span>
                 </li>
-                 
             </ul>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -209,8 +208,8 @@
             <div class="d-flex justify-content-center" *ngIf="isLoading">
                 <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
             </div>
-            <div *ngIf="!isLoading">
-                <div *ngIf="currentUser">
+            <div *ngIf="currentUser"> 
+                <div *ngIf="!isLoading"> 
                     <button mat-flat-button class="tagus d-block"
                         *ngIf="currentUser.permission === 'C' || 
                                 currentUser.permission === 'CR' ||

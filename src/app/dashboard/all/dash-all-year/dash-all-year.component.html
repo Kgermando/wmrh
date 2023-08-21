@@ -4,7 +4,7 @@
 
         <mat-card class="mb-25 tagus-card audienceOverview-box">
             <mat-card-header class="border-bottom">
-                <h5 class="mb-0">Total des allocations sur 10 ans</h5>
+                <h5 class="mb-0">Total des allocations</h5>
                 <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
                     Cette année
                 </button>
@@ -171,7 +171,7 @@
             class="mb-25 tagus-card impressions-box" 
             >
             <mat-card-content>
-                <h6>Net à Payer</h6>
+                <h6>Masse salariale</h6>
                 <div *ngIf="isLoading" 
                     style="display: flex; justify-content: center; align-items: center; background: white;">
                     <mat-progress-spinner [diameter]="10"
@@ -180,7 +180,7 @@
                     </mat-progress-spinner>
                 </div> 
                 <h3 *ngIf="!isLoading">{{ netAPayer  | numberFormat:'fr-FR'}} FC</h3> 
-                <p>Dépenses effectuée depuis 10 ans</p>
+                <p>Dépenses effectuée dans une année</p>
             </mat-card-content>
         </mat-card>
 
@@ -218,7 +218,7 @@
                         <div class="title d-flex align-items-center"> 
                             <div class="box-1"></div>
                             <div class="ms-12">
-                                <h5 class="fw-semibold">Primes enciennetés</h5> 
+                                <h5 class="fw-semibold">Primes anciennetés</h5> 
                             </div>
                         </div>
                         <div class="info text-end"> 
