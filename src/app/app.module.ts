@@ -136,6 +136,9 @@ import { AbonnementAdminComponent } from './admin/abonnement-admin/abonnement-ad
 import { AbonnementComponent } from './abonnements/abonnement/abonnement.component';
 import { NotificationComponent } from './notifications/notification/notification.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { UpdateComponent } from './update/update.component';
+import { ToasterComponent } from './toaster/toaster.component';
+import { CheckUpdateService } from './shared/services/check-update.service';
 
 
 @NgModule({
@@ -282,7 +285,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ReglageAdminComponent, 
     ReglageAdminAddComponent, 
     AbonnementAdminComponent, 
-    AbonnementComponent, NotificationComponent,
+    AbonnementComponent, NotificationComponent, UpdateComponent, ToasterComponent,
   ],
   imports: [
     BrowserModule,
@@ -317,6 +320,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     provideAnimations(), // required animations providers
     provideToastr(),
     NumberFormatPipe,
+    CheckUpdateService,
   ],
   bootstrap: [AppComponent],
 })

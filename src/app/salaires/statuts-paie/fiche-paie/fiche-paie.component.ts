@@ -19,6 +19,7 @@ import html2canvas from 'html2canvas';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { formatDate } from '@angular/common';
+import { NotificationService } from 'src/app/notifications/notification.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
  
 
@@ -81,7 +82,9 @@ export class FichePaieComponent implements OnInit {
     private reglageService: ReglageService,
     private personnelService: PersonnelService,
     public dialog: MatDialog,
-    private toastr: ToastrService) {} 
+    private toastr: ToastrService,
+    private notificationService: NotificationService
+    ) {} 
 
     public toggle(event: MatSlideToggleChange) {
       this.isPublie = event.checked;
@@ -369,6 +372,7 @@ export class FichePaieComponent implements OnInit {
         .subscribe({
           next: () => {
             this.toastr.success(this.isPublie ? 'Bulletin publié' : 'Traitement enregistré', 'Success!');
+            this.notificationService.subscribeToNotifications();
             this.formGroup.reset();
             this.router.navigate(['/layouts/salaires/statuts-paies']);
             this.isLoading = false;
