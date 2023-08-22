@@ -51,7 +51,7 @@ export class NotificationService {
   private saveSubscription(sub: PushSubscription): void {
     // Send the subscription object to your server for storing
     // You can make en HTTP request or use any other method to send the subscription data to your server
-    this.http.post(this.baseUrl, { payload : sub }).subscribe((res) => console.log('Sent'));
+    this.http.post(this.baseUrl, { payload : sub }).subscribe((res) => console.log('Sent', res));
   }
 
   private storeSubscription(sub: PushSubscription): void {
