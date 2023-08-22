@@ -13,9 +13,8 @@ export class NotificationService {
 
   constructor (private swPush: SwPush, private http: HttpClient,) {}
 
-
   subscribeToNotifications(): void {
-    if (this.swPush.isEnabled) {
+
       this.swPush.requestSubscription({
         serverPublicKey: vapidKeys.publicKey
       }).then((sub: PushSubscription) => {
@@ -28,8 +27,25 @@ export class NotificationService {
 
         console.log('Display', JSON.stringify(sub)); // This will be required for the Nest.js backend to send notifications
       }).catch((err: any) => console.log('could not subscription to notification', err));
-    }
+
   }
+
+  // subscribeToNotifications(): void {
+  //   if (this.swPush.isEnabled) {
+  //     this.swPush.requestSubscription({
+  //       serverPublicKey: vapidKeys.publicKey
+  //     }).then((sub: PushSubscription) => {
+
+  //       // Save the subscription object to your server
+  //       this.saveSubscription(sub);
+
+  //       // Store the subscription in local storage or any other storage mechanisme
+  //       this.storeSubscription(sub);
+
+  //       console.log('Display', JSON.stringify(sub)); // This will be required for the Nest.js backend to send notifications
+  //     }).catch((err: any) => console.log('could not subscription to notification', err));
+  //   }
+  // }
 
   unsubscribeFromPushNotification(): void {
     this.swPush.unsubscribe()
@@ -70,12 +86,16 @@ export class NotificationService {
               
               
   //   subscribeToNotification() {
+
   //     this.swPush.requestSubscription({
   //       serverPublicKey: this.VAPID_PUBLIC_KEY
   //   })
   //     .then(sub => this.sendToServer(sub))
   //     .catch(err => console.error('Could not subscribe to notifications', err));
   //   } 
+
+
+
   //  sendToServer(params: any) {
   //     this.http.post(this.baseUrl, { notification : params }).subscribe();
   //   }
