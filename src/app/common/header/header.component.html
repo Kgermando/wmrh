@@ -15,10 +15,9 @@
                 <span class="middle-bar"></span>
                 <span class="bottom-bar"></span>
             </div>
-             
         </div>
         <ul class="header-right-side d-flex align-items-center mt-0 mb-0"> 
-            <li>
+            <!-- <li>
                 <button mat-icon-button [matMenuTriggerFor]="emailMenu" class="btn p-0 border-none rounded-circle position-relative">
                     <i class="flaticon-envelope"></i>
                 </button>
@@ -43,53 +42,39 @@
                         <a routerLink="/layouts/mail/inbox" class="fw-medium position-relative">View All <i class="flaticon-chevron"></i></a>
                     </div>
                 </mat-menu>
-            </li>
+            </li> -->
             <li>
-                <button mat-icon-button [matMenuTriggerFor]="notificationMenu" class="btn p-0 border-none rounded-circle position-relative notification-btn">
+                <button mat-icon-button [matMenuTriggerFor]="notificationMenu" 
+                    class="btn p-0 border-none rounded-circle position-relative"
+                    [ngClass]="{'notification-btn': isNotify}"
+                    >
                     <i class="flaticon-bell-2"></i>
                 </button>
                 <mat-menu class="menu-dropdown" #notificationMenu="matMenu" xPosition="before">
                     <div class="menu-header d-flex align-items-center justify-content-space-between">
                         <h5 class="m-0">Notifications</h5>
-                        <button type="button" class="bg-transparent p-0 border-none">Mark all as read</button>
+                        <!-- <button type="button" class="bg-transparent p-0 border-none">Mark all as read</button> -->
                     </div>
                     <ul class="menu-body">
-                        <li class="position-relative">
+                        <li class="position-relative" *ngFor="let notify of notifyList">
                             <div class="d-flex">
                                 <i class="flaticon-file-1 icon"></i>
                                 <div class="title">
-                                    <h6>8 Invoices have been paid</h6>
-                                    <span><i class="flaticon-timer"></i> 14 mins ago</span>
+                                    <h6>{{ notify.title }}</h6>
+                                    <span><i class="flaticon-timer"></i> {{ notify.created | dateAgo }}</span>
                                 </div>
                             </div>
-                            <a routerLink="/notifications" class="link-btn"></a>
-                            <button class="close-btn bg-transparent border-none p-0"><i class="flaticon-close"></i></button>
-                        </li>
-                        <li class="position-relative">
-                            <div class="d-flex align-items-center">
-                                <i class="flaticon-pdf-file icon"></i>
-                                <div class="title">
-                                    <h6>Allow users to like products</h6>
-                                    <span><i class="flaticon-timer"></i> 30 mins ago</span>
-                                </div>
+                            <div class="d-flex justify-content-center" *ngIf="isLoading">
+                                <mat-spinner color="warn" [diameter]="5"></mat-spinner>
                             </div>
-                            <a routerLink="/notifications" class="link-btn"></a>
-                            <button class="close-btn bg-transparent border-none p-0"><i class="flaticon-close"></i></button>
-                        </li>
-                        <li class="position-relative">
-                            <div class="d-flex align-items-center">
-                                <i class="flaticon-to-do-list icon"></i>
-                                <div class="title">
-                                    <h6>Live visits on our site</h6>
-                                    <span><i class="flaticon-timer"></i> 5 hours ago</span>
-                                </div>
-                            </div>
-                            <a routerLink="/notifications" class="link-btn"></a>
-                            <button class="close-btn bg-transparent border-none p-0"><i class="flaticon-close"></i></button>
+                            <a [routerLink]="[notify.route]" class="link-btn" *ngIf="!isLoading"></a>
+                            <!-- <a [routerLink]="['/layouts/notify', notify.personnel.matricule, notify.id, 'notify-view']" class="link-btn"></a> -->
+                            <button class="close-btn bg-transparent border-none p-0"  (click)="isRead(notify.id)"
+                                *ngIf="!isLoading"><i class="flaticon-close"></i></button>
                         </li>
                     </ul>
                     <div class="menu-footer">
-                        <a routerLink="/notifications" class="fw-medium position-relative">View All <i class="flaticon-chevron"></i></a>
+                        <a routerLink="/layouts/notify" class="fw-medium position-relative">Voir plus <i class="flaticon-chevron"></i></a>
                     </div>
                 </mat-menu>
             </li>

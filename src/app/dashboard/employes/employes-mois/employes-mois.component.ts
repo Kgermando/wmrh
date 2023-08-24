@@ -19,7 +19,7 @@ import {
 } from "ng-apexcharts";
 import { AuthService } from "src/app/auth/auth.service";
 import { CustomizerSettingsService } from "src/app/customizer-settings/customizer-settings.service";
-import { PerformencePieDayModel, PerformencePieYearModel } from "src/app/performences/models/performence-pie-model";
+import { PerformencePieDayModel } from "src/app/performences/models/performence-pie-model";
 import { DashAllService } from "../../all/dash-all.service";
 import { PersonnelModel } from "src/app/personnels/models/personnel-model";
 import { EmployeService } from "../employe.service";

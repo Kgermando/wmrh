@@ -8,30 +8,31 @@ import { CheckUpdateService } from './shared/services/check-update.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent{
   title = 'wmrh';
-  updateAvailable = false;
+  // updateAvailable = false;
 
-  constructor(private swPush: SwPush, private notifactionService: NotificationService,
-    private updates: SwUpdate,
-    private checkForUpdateService: CheckUpdateService) {
-    this.swPush.notificationClicks.subscribe( event => {
-      console.log('Received notification: ', event);
-      const url = event.notification.data.url;
-      window.open(url, '_blank');
-    });
+  // constructor(private swPush: SwPush, private notifactionService: NotificationService,
+  //   private updates: SwUpdate,
+  //   private checkForUpdateService: CheckUpdateService) {
+  //   this.swPush.notificationClicks.subscribe( event => {
+  //     console.log('Received notification: ', event);
+  //     const url = event.notification.data.url;
+  //     window.open(url, '_blank');
+  //   });
 
-    this.updates.versionUpdates.subscribe((event) => {
-      this.updateAvailable = true;
-    });
-  }
+  //   this.updates.versionUpdates.subscribe((event) => {
+  //     this.updateAvailable = true;
+  //     console.log('versionUpdates', event);
+  //   });
+  // }
  
-  ngOnInit(): void {
-    // this.notifactionService.subscribeToNotifications();
-    this.notifactionService.subscribeMessage();
-  }
+  // ngOnInit(): void {
+  //   this.notifactionService.subscribeToNotifications();
+  //   this.notifactionService.subscribeMessage();
+  // }
 
-  ngOnDestroy(): void {
-    this.notifactionService.unsubscribeFromPushNotification();
-  }
+  // ngOnDestroy(): void {
+  //   this.notifactionService.unsubscribeFromPushNotification();
+  // }
 } 

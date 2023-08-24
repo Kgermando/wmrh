@@ -20,6 +20,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { formatDate } from '@angular/common';
 import { NotificationService } from 'src/app/notifications/notification.service';
+import { NotifyService } from 'src/app/notify/notify.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
  
 
@@ -72,6 +73,12 @@ export class FichePaieComponent implements OnInit {
   alloc_famillialePlafond = 0;
   redressement = 0;
 
+
+  mois = '';
+  dateNow = new Date();
+  dateMonth = 0; 
+ 
+
   constructor(
     public themeService: CustomizerSettingsService,
     private route: ActivatedRoute,
@@ -83,7 +90,8 @@ export class FichePaieComponent implements OnInit {
     private personnelService: PersonnelService,
     public dialog: MatDialog,
     private toastr: ToastrService,
-    private notificationService: NotificationService
+    private notifyService: NotifyService
+    // private notificationService: NotificationService
     ) {} 
 
     public toggle(event: MatSlideToggleChange) {
@@ -92,6 +100,36 @@ export class FichePaieComponent implements OnInit {
 
 
     ngOnInit(): void {
+      const dateNow = new Date();
+      this.dateMonth = dateNow.getMonth() + 1;
+      if (this.dateMonth === 1) {
+        this.mois = 'Janvier';
+      } else if(this.dateMonth === 2) {
+          this.mois = 'Fevrier';
+      } else if(this.dateMonth === 3) {
+          this.mois = 'Mars';
+      } else if(this.dateMonth === 4) {
+          this.mois = 'Avril';
+      } else if(this.dateMonth === 5) {
+          this.mois = 'Mai';
+      } else if(this.dateMonth === 6) {
+          this.mois = 'Juin';
+      } else if(this.dateMonth === 7) {
+          this.mois = 'Juillet';
+      } else if(this.dateMonth === 8) {
+          this.mois = 'Aôut';
+      } else if(this.dateMonth === 9) {
+          this.mois = 'Septembre';
+      } else if(this.dateMonth === 10) {
+          this.mois = 'Octobre';
+      } else if(this.dateMonth === 11) {
+          this.mois = 'Novembre';
+      } else if(this.dateMonth === 12) {
+          this.mois = 'Décembre';
+      } else {
+          ''
+      }
+
       this.isLoading = true;
       this.formGroup = this._formBuilder.group({
         alloc_logement: ['', Validators.required],
@@ -113,7 +151,6 @@ export class FichePaieComponent implements OnInit {
         prise_en_charge_frais_bancaire: ['', Validators.required],
         net_a_payer: ['', Validators.required],
         statut: this.isPublie ? 'Disponible' : 'Traitement',  
-        
       });
 
       this.authService.user().subscribe({
@@ -372,10 +409,55 @@ export class FichePaieComponent implements OnInit {
         .subscribe({
           next: () => {
             this.toastr.success(this.isPublie ? 'Bulletin publié' : 'Traitement enregistré', 'Success!');
-            this.notificationService.subscribeToNotifications();
-            this.formGroup.reset();
-            this.router.navigate(['/layouts/salaires/statuts-paies']);
-            this.isLoading = false;
+            if (this.isPublie) {
+              var bodyNotify = {
+                personnel: this.salaire.personnel.id,
+                isRead: false,
+                title: `Bulletin ${this.mois} disponible.`,
+                // title: (this.salaire.personnel.sexe == 'Homme') 
+                //   ? `Bonjour Monsieur ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est maintement disponible.`
+                //   : `Bonjour Madame ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est maintement disponible.`,
+                route: `/layouts/salaires/disponible/${this.salaire.id}/bulletin-paie`,
+                signature: this.currentUser.matricule,
+                created: new Date(),
+                update_created: new Date(),
+                entreprise: this.currentUser.entreprise,
+                code_entreprise: this.currentUser.code_entreprise
+              };
+              this.notifyService.create(bodyNotify).subscribe(
+                res => {
+                  // this.notificationService.subscribeToNotifications();
+                  this.formGroup.reset();
+                  this.router.navigate(['/layouts/salaires/statuts-paies']);
+                  this.isLoading = false;
+                }
+              )
+            } else if (!this.isPublie) {
+              var bodyNotifyN = {
+                personnel: this.salaire.personnel.id,
+                isRead: false,
+                title: `Bulletin ${this.mois} en traitement.`,
+                // title: (this.salaire.personnel.sexe == 'Homme') 
+                //   ? `Bonjour Monsieur ${this.salaire.personnel.prenom.toUpperCase()}${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est en traitement.`
+                //   : `Bonjour Madame ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est en traitement.`,
+                route: `/layouts/salaires/traitement/${this.salaire.id}/fiche-paie`, 
+                signature: this.currentUser.matricule,
+                created: new Date(),
+                update_created: new Date(),
+                entreprise: this.currentUser.entreprise,
+                code_entreprise: this.currentUser.code_entreprise
+              };
+              this.notifyService.create(bodyNotifyN).subscribe(
+                res => {
+                  // this.notificationService.subscribeToNotifications();
+                  this.formGroup.reset();
+                  this.router.navigate(['/layouts/salaires/statuts-paies']);
+                  this.isLoading = false;
+                }
+              )
+            }
+            
+           
           },
           error: err => {
             console.log(err);
@@ -418,6 +500,8 @@ export class FichePaieComponent implements OnInit {
       }
     } 
 
+
+   
  
 
     // public openPDF(): void {

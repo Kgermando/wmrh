@@ -139,6 +139,33 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { UpdateComponent } from './update/update.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { CheckUpdateService } from './shared/services/check-update.service';
+import { AbonnementService } from './abonnements/abonnement.service';
+import { AuthService } from './auth/auth.service';
+import { AvanceSalaireService } from './avance-salaires/avance-salaire.service';
+import { DashAllService } from './dashboard/all/dash-all.service';
+import { EmployeService } from './dashboard/employes/employe.service';
+import { FinanceService } from './dashboard/finances/finance.service';
+import { PresenceService } from './presences/presence.service';
+import { HeureSuppService } from './heures-supp/heure-supp.service';
+import { NotificationService } from './notifications/notification.service';
+import { PenaliteService } from './penalites/penalite.service';
+import { PerformenceService } from './performences/performence.service';
+import { PersonnelService } from './personnels/personnel.service';
+import { DepartementService } from './preferences/departements/departement.service';
+import { FonctionService } from './preferences/fonction/fonction.service';
+import { ReglageService } from './preferences/reglages/reglage.service';
+import { ServiceService } from './preferences/services/service.service';
+import { SiteLocationService } from './preferences/site-location/site-location.service';
+import { TitleService } from './preferences/titles/title.service';
+import { PresEntrepriseService } from './pres-entreprise/pres-entreprise.service';
+import { PresenceDashService } from './dashboard/presences/presence.service';
+import { PrimeService } from './primes/prime.service';
+import { CandidaturesService } from './recrutements/candidatures.service';
+import { PostesService } from './recrutements/postes.service';
+import { SalaireService } from './salaires/salaire.service';
+import { NotifyComponent } from './notify/notify.component';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { NotifyViewComponent } from './notify/notify-view/notify-view.component';
 
 
 @NgModule({
@@ -238,7 +265,8 @@ import { CheckUpdateService } from './shared/services/check-update.service';
     FichePaieComponent,
     BulletinPaieComponent,
     PenaliteSAddDialogBox,
-    NumberFormatPipe, 
+    NumberFormatPipe,
+    DateAgoPipe,
     RelevePaieComponent, 
     PerformenceViewComponent,
     PerformenceAddDialogBox,
@@ -285,7 +313,7 @@ import { CheckUpdateService } from './shared/services/check-update.service';
     ReglageAdminComponent, 
     ReglageAdminAddComponent, 
     AbonnementAdminComponent, 
-    AbonnementComponent, NotificationComponent, UpdateComponent, ToasterComponent,
+    AbonnementComponent, NotificationComponent, UpdateComponent, ToasterComponent, NotifyComponent, NotifyViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -320,7 +348,33 @@ import { CheckUpdateService } from './shared/services/check-update.service';
     provideAnimations(), // required animations providers
     provideToastr(),
     NumberFormatPipe,
+    DateAgoPipe,
     CheckUpdateService,
+
+    AbonnementService,
+    AuthService,
+    AvanceSalaireService,
+    DashAllService,
+    EmployeService,
+    FinanceService,
+    PresenceDashService,
+    HeureSuppService,
+    NotificationService,
+    PenaliteService,
+    PerformenceService,
+    PersonnelService,
+    DepartementService,
+    FonctionService,
+    ReglageService,
+    ServiceService,
+    SiteLocationService,
+    TitleService,
+    PresEntrepriseService,
+    PresenceService,
+    PrimeService,
+    CandidaturesService,
+    PostesService,
+    SalaireService,
   ],
   bootstrap: [AppComponent],
 })

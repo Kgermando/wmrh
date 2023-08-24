@@ -66,6 +66,8 @@ import { AbonnementAdminComponent } from './admin/abonnement-admin/abonnement-ad
 import { ReglageAdminComponent } from './admin/reglage-admin/reglage-admin.component';
 import { AbonnementComponent } from './abonnements/abonnement/abonnement.component';
 import { EnregistrementsComponent } from './auth/enregistrements/enregistrements.component';
+import { NotifyComponent } from './notify/notify.component';
+import { NotifyViewComponent } from './notify/notify-view/notify-view.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -148,6 +150,9 @@ const routes: Routes = [
     { path: 'support/reglages-admin', component: ReglageAdminComponent },
     { path: 'support/reglages-admin-add', component: ReglageAdminAddComponent },
     { path: 'support/abonnements', component: AbonnementAdminComponent },
+
+    { path: 'notify', component: NotifyComponent },
+    { path: 'notify/:matricule/:id/notify-view', component: NotifyViewComponent },
     
     { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   ]},

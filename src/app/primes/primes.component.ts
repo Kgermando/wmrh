@@ -56,25 +56,25 @@ export class PrimesComponent implements AfterViewInit {
     ngAfterViewInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
-            next: (user) => {
-                this.currentUser = user;
-                this.primeService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-                  this.ELEMENT_DATA = res; 
-                  this.dataSource = new MatTableDataSource<PrimeModel>(this.ELEMENT_DATA);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator; 
+          next: (user) => {
+              this.currentUser = user;
+              this.primeService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+                this.ELEMENT_DATA = res; 
+                this.dataSource = new MatTableDataSource<PrimeModel>(this.ELEMENT_DATA);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator; 
+            });
+              this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
+                this.preference = res; 
               });
-                this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-                  this.preference = res; 
-                });
-              this.isLoading = false;
-            },
-            error: (error) => {
-              this.isLoading = false;
-              this.router.navigate(['/auth/login']);
-              console.log(error);
-            }
-          }); 
+            this.isLoading = false;
+          },
+          error: (error) => {
+            this.isLoading = false;
+            this.router.navigate(['/auth/login']);
+            console.log(error);
+          }
+        }); 
         
     }
 

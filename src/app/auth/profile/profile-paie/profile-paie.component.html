@@ -40,35 +40,27 @@
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="ipr">
-                    <th mat-header-cell *matHeaderCellDef>IPR </th>
+                <ng-container matColumnDef="matricule">
+                    <th mat-header-cell *matHeaderCellDef>Matricule </th>
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/salaires/disponible',element.id, 'bulletin-paie']" 
                                                     *ngIf="element.statut == 'Disponible'">
-                            <span *ngIf="element.monnaie == 'CDF'">
-                                {{element.ipr | numberFormat:'fr-FR'}} FC
-                            </span>
-                            <span *ngIf="element.monnaie == 'USD'">
-                                {{ +element.ipr }} * {{ +element.ipr }} $
-                            </span> 
-                        </a> 
-                    </td>
-                </ng-container> 
-
-                <ng-container matColumnDef="net_a_payer">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Net à payer</th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <a [routerLink]="['/layouts/salaires/disponible',element.id, 'bulletin-paie']" 
-                                                    *ngIf="element.statut == 'Disponible'">
-                            <span *ngIf="element.monnaie == 'CDF'">
-                                {{element.net_a_payer | numberFormat:'fr-FR'}} FC
-                            </span>
-                            <span *ngIf="element.monnaie == 'USD'">
-                                {{ +element.net_a_payer }} * {{ +element.taux_echange }} $
-                            </span>
-                        </a> 
+                            {{ element.matricule}}
+                        </a>
+                        <span *ngIf="element.statut == 'Traitement'">{{ element.personnel.matricule }}</span> 
                     </td>
                 </ng-container>
+
+                <ng-container matColumnDef="nbre_jrs_preste">
+                    <th mat-header-cell *matHeaderCellDef>Jrs presté </th>
+                    <td mat-cell *matCellDef="let element">
+                        <a [routerLink]="['/layouts/salaires/disponible',element.id, 'bulletin-paie']" 
+                                                    *ngIf="element.statut == 'Disponible'">
+                            {{ element.nbre_jrs_preste}} jours
+                        </a> 
+                        <span *ngIf="element.statut == 'Traitement'">{{ element.nbre_jrs_preste}} jours</span> 
+                    </td>
+                </ng-container>  
 
                 <ng-container matColumnDef="created">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>

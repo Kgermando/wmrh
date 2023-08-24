@@ -6,6 +6,9 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
 import { Auth } from 'src/app/classes/auth';
+import { NotifyService } from 'src/app/notify/notify.service';
+import { NotifyModel } from 'src/app/notify/models/notify-model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-header',
@@ -17,7 +20,7 @@ export class HeaderComponent {
     isSticky: boolean = false;
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
-        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
         if (scrollPosition >= 50) {
             this.isSticky = true;
         } else {
@@ -29,12 +32,20 @@ export class HeaderComponent {
 
     loading = false;
     currentUser: PersonnelModel | any;
+
+    isNotify = false;
+    notifyList: NotifyModel[] = [];
+
+    formGroup!: FormGroup;
+    isLoading = false;
     
     constructor(
         private toggleService: ToggleService,
         private datePipe: DatePipe,
         public themeService: CustomizerSettingsService,
-        private authService: AuthService, 
+        private authService: AuthService,
+        private notifyService: NotifyService,
+        private formBuilder: FormBuilder,
     ) {
         this.toggleService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -47,9 +58,46 @@ export class HeaderComponent {
             user => {
               this.currentUser = user; 
               console.log(this.currentUser);
+              this.notifyService.getAllNotify(this.currentUser.code_entreprise, this.currentUser.matricule).subscribe(
+                res => {
+                    var dataList: NotifyModel[] = res;
+                    this.notifyList = dataList.filter(n => n.isRead === false);
+                    if (this.notifyList.length > 0) {
+                        this.isNotify = true;
+                    } else {
+                        this.isNotify = false;
+                    }
+                }
+              )
             }
           );
         this.loading = false;
+    }
+
+
+    isRead(id: number) {
+        try {
+            this.isLoading = true;
+            var body = {
+                isRead: true,
+                signature: this.currentUser.matricule, 
+                update_created: new Date(),
+            }
+            console.log('isRead', id);
+            this.notifyService.update(id, body).subscribe({
+                next: (res) => {
+                   
+                    this.isLoading = false;
+                },
+                error: err => {
+                    console.log('Notify', err); 
+                    this.isLoading = false;
+                }
+            });
+        } catch (error) {
+        this.isLoading = false;
+        console.log(error);
+        }
     }
   
     logOut() {

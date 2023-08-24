@@ -9,6 +9,7 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { PersonnelService } from 'src/app/personnels/personnel.service'; 
 import { SalaireService } from '../../salaire.service';
 import { formatDate } from '@angular/common';
+import { NotifyService } from 'src/app/notify/notify.service';
 
 @Component({
   selector: 'app-paie-view',
@@ -45,6 +46,7 @@ export class PaieViewComponent implements OnInit {
   rni = 0;
   ipr = 0;
 
+  mois = '';
   dateNow = new Date();
   dateMonth = 0; 
  
@@ -56,7 +58,8 @@ export class PaieViewComponent implements OnInit {
     private authService: AuthService,
     private personnelService: PersonnelService,
     private salaireService: SalaireService,
-    private reglageService: ReglageService, 
+    private reglageService: ReglageService,
+    private notifyService: NotifyService,
     private toastr: ToastrService) {}
 
 
@@ -67,6 +70,33 @@ export class PaieViewComponent implements OnInit {
           this.currentUser = user;
           const dateNow = new Date();
           this.dateMonth = dateNow.getMonth() + 1;
+          if (this.dateMonth === 1) {
+            this.mois = 'Janvier';
+          } else if(this.dateMonth === 2) {
+              this.mois = 'Fevrier';
+          } else if(this.dateMonth === 3) {
+              this.mois = 'Mars';
+          } else if(this.dateMonth === 4) {
+              this.mois = 'Avril';
+          } else if(this.dateMonth === 5) {
+              this.mois = 'Mai';
+          } else if(this.dateMonth === 6) {
+              this.mois = 'Juin';
+          } else if(this.dateMonth === 7) {
+              this.mois = 'Juillet';
+          } else if(this.dateMonth === 8) {
+              this.mois = 'Aôut';
+          } else if(this.dateMonth === 9) {
+              this.mois = 'Septembre';
+          } else if(this.dateMonth === 10) {
+              this.mois = 'Octobre';
+          } else if(this.dateMonth === 11) {
+              this.mois = 'Novembre';
+          } else if(this.dateMonth === 12) {
+              this.mois = 'Décembre';
+          } else {
+              ''
+          }
 
           let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
           this.personnelService.get(Number(id)).subscribe(res => {
@@ -412,13 +442,29 @@ export class PaieViewComponent implements OnInit {
               code_entreprise: this.currentUser.code_entreprise
             };
             this.personnelService.update(this.personne.id, personnel).subscribe({
-              next: personne => {
-                this.isLoadingSubmit = false;
-                console.log(personne);
-                this.toastr.success('Genéré avec succès!', 'Success!'); 
-                this.router.navigate(['/layouts/salaires/traitement', res['id'], 'fiche-paie']);
+              next: () => {
+                var bodyNotifyN = {
+                  personnel: this.personne.id,
+                  isRead: false,
+                  title: `Bulletin ${this.mois} en traitement.`,
+                  // title: (this.personne.sexe == 'Homme') ? `Bonjour Monsieur ${this.personne.prenom.toUpperCase()} ${this.personne.nom.toUpperCase()} votre bulletin de paie est en traitement.`
+                  //   : `Bonjour Madame ${this.personne.prenom.toUpperCase()} ${this.personne.nom.toUpperCase()} votre bulletin de paie est en traitement.`,
+                  route: `/layouts/salaires/traitement/${res['id']}/fiche-paie`, 
+                  signature: this.currentUser.matricule,
+                  created: new Date(),
+                  update_created: new Date(),
+                  entreprise: this.currentUser.entreprise,
+                  code_entreprise: this.currentUser.code_entreprise
+                };
+                this.notifyService.create(bodyNotifyN).subscribe(
+                  () => {  
+                    this.toastr.success('Genéré avec succès!', 'Success!'); 
+                    this.router.navigate(['/layouts/salaires/traitement', res['id'], 'fiche-paie']);
+                    this.isLoadingSubmit = false;
+                  }
+                ) 
               },
-              error: err => {
+              error: err => { 
                 this.isLoadingSubmit = false;
                 this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
                 console.log(err);
