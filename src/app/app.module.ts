@@ -58,7 +58,7 @@ import { PresencePieYearComponent } from './presences/pointage/presences-pie/pre
 import { PresencePieAllComponent } from './presences/pointage/presences-pie/presence-pie-all/presence-pie-all.component';
 import { PresencesPieComponent } from './presences/pointage/presences-pie/presences-pie.component'; 
 import { EditPresenceDialogBox, PointageTableComponent } from './presences/pointage/pointage-table/pointage-table.component';
-import { PresenceExportXLSXDialogBox, RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
+import { PresenceExportXLSXDialogBox, PresenceUploadCSVDialogBox, RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
 import { SyndicatsComponent } from './syndicats/syndicats.component';
 import { CandidaturesComponent } from './recrutements/candidatures/candidatures.component';
 import { PostesComponent } from './recrutements/postes/postes.component';
@@ -313,7 +313,13 @@ import { NotifyViewComponent } from './notify/notify-view/notify-view.component'
     ReglageAdminComponent, 
     ReglageAdminAddComponent, 
     AbonnementAdminComponent, 
-    AbonnementComponent, NotificationComponent, UpdateComponent, ToasterComponent, NotifyComponent, NotifyViewComponent,
+    AbonnementComponent, 
+    NotificationComponent, 
+    UpdateComponent, 
+    ToasterComponent, 
+    NotifyComponent, 
+    NotifyViewComponent,
+    PresenceUploadCSVDialogBox
   ],
   imports: [
     BrowserModule,

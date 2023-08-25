@@ -108,7 +108,7 @@
                         <span class="fw-semibold">Date de debut decontrat: </span>
                         <span class="gray-color">{{ currentUser.date_debut_contrat | date: 'dd/MM/yyyy' }}</span>
                     </li>
-                    <li>
+                    <li *ngIf="currentUser.date_fin_contrat">
                         <span class="fw-semibold">Date de fin de contrat: </span>
                         <span class="gray-color">{{ currentUser.date_fin_contrat | date: 'dd/MM/yyyy' }}</span>
                     </li> 

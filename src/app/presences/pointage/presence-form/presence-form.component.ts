@@ -141,42 +141,42 @@ export class PresenceFormComponent {
               if (dataSortie > dateToday) {
                 this.isAMToday = true;
               }
-              if (datePresenceSortie == dateAujourdui) {
+              if (datePresenceSortie <= dateAujourdui) { 
                 this.isAMTodayForm = true;
               }
             } else if(this.apointementItem.apointement === 'CC'){
               if (dataSortie > dateToday) {
                 this.isCDToday = true;
               }
-              if (datePresenceSortie == dateAujourdui) {
+              if (datePresenceSortie <= dateAujourdui) {
                 this.isCDTodayForm = true;
               }
             } else if(this.apointementItem.apointement === 'CA'){
               if (dataSortie > dateToday) {
                 this.isCAToday = true;
               }
-              if (datePresenceSortie == dateAujourdui) {
+              if (datePresenceSortie <= dateAujourdui) {
                 this.isCATodayForm = true;
               }
             } else if(this.apointementItem.apointement === 'S'){
               if (dataSortie > dateToday) {
                 this.isSToday = true;
               }
-              if (datePresenceSortie == dateAujourdui) {
+              if (datePresenceSortie <= dateAujourdui) {
                 this.isSTodayForm = true;
               }
             } else if(this.apointementItem.apointement === 'O'){
               if (dataSortie > dateToday) {
                 this.isOToday = true;
               }
-              if (datePresenceSortie == dateAujourdui) {
+              if (datePresenceSortie <= dateAujourdui) {
                 this.isOTodayForm = true;
               }
             } else if(this.apointementItem.apointement === 'M'){
               if (dataSortie > dateToday) {
                 this.isMToday = true;
               }
-              if (datePresenceSortie == dateAujourdui) {
+              if (datePresenceSortie <= dateAujourdui) {
                 this.isMTodayForm = true;
               }
             }

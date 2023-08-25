@@ -4,16 +4,13 @@
         <div>
             <button mat-flat-button class="default-btn tagus m-0 margin" routerLink="/layouts/personnels/personnel-add">
                 <i class="ri-add-fill"></i> Ajouter un employé
-            </button> 
+            </button>
             <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="iconMenu">
                 <i class="ri-printer-line"></i>
             </button>
             <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu" xPosition="before">
                 <button mat-menu-item type="button" (click)="downloadModelReport()"
-                class="bg-transparent border-none position-relative">
-                    <!-- <a href="assets/files/personnels_model.xlsx" download> 
-                        <i class="ri-file-download-line"></i> Modèle 
-                    </a> -->
+                class="bg-transparent border-none position-relative"> 
                     <i class="ri-file-download-line"></i> Modèle
                 </button>
                 <button mat-menu-item type="button" 

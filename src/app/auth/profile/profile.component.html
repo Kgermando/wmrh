@@ -12,7 +12,7 @@
 </div>
 
 <div class="d-flex justify-content-center" *ngIf="isLoading">
-    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
 </div>
 <ng-container *ngIf="!isLoading">
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayoutGap.sm="0" fxLayoutGap.md="0"  *ngIf="currentUser">

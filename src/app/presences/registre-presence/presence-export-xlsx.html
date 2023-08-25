@@ -6,7 +6,7 @@
         <button class="close-btn bg-transparent p-0 border-none" (click)="close()"><i class="flaticon-close"></i></button>
     </div>
     <div class="d-flex justify-content-center" *ngIf="isLoading">
-        <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2">Patientez-svp...</p>
+        <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
     </div> 
     <form [formGroup]="dateRange" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
         <div class="row">

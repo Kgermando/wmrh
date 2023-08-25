@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
 import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
 import { SiteLocationService } from 'src/app/preferences/site-location/site-location.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-registre-presence',
@@ -45,12 +46,14 @@ export class RegistrePresenceComponent implements OnInit, AfterViewInit {
 
  
   constructor(
+    private httpClient: HttpClient,
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService,
       private presenceService: PresenceService,
       public dialog: MatDialog,
+      private toastr: ToastrService,
   ) {}
 
   toggleTheme() {
@@ -95,24 +98,14 @@ export class RegistrePresenceComponent implements OnInit, AfterViewInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                if(this.currentUser.site_locations.site_location.toUpperCase() === 'ALL') {
-                  this.presenceService.getRegisterPresenceAll(
-                    this.currentUser.code_entreprise).subscribe(res => {
+                this.presenceService.getRegisterPresence(
+                  this.currentUser.code_entreprise, 
+                  this.currentUser.site_locations.site_location).subscribe(res => {
                     this.ELEMENT_DATA = res;
                     this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
                     this.dataSource.sort = this.sort;
-                    this.dataSource.paginator = this.paginator;
+                    this.dataSource.paginator = this.paginator; 
                 });
-                } else {
-                  this.presenceService.getRegisterPresence(
-                    this.currentUser.code_entreprise, 
-                    this.currentUser.site_locations.site_location).subscribe(res => {
-                      this.ELEMENT_DATA = res;
-                      this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
-                      this.dataSource.sort = this.sort;
-                      this.dataSource.paginator = this.paginator; 
-                  });
-                }
               this.isLoading = false;
             },
             error: (error) => {
@@ -147,6 +140,14 @@ export class RegistrePresenceComponent implements OnInit, AfterViewInit {
     }
   }
 
+  openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(PresenceUploadCSVDialogBox, {
+      width: '600px',
+      enterAnimationDuration,
+      exitAnimationDuration, 
+    }); 
+  } 
+
 
   openExportDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PresenceExportXLSXDialogBox, {
@@ -156,7 +157,87 @@ export class RegistrePresenceComponent implements OnInit, AfterViewInit {
     }); 
   }
 
+  downloadModelReport() {
+    this.isLoading = true;  
+    this.httpClient.get("assets/files/personnel.xlsx",{responseType: "blob"}).subscribe((res:any) => { 
+      const downloadUrl= window.URL.createObjectURL(res);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `Votre_model_employes.xlsx`;
+      link.click();
+      this.isLoading = false;
+    });
+    // this.presenceService.downloadModelReport().subscribe({
+    //   next: (res) => {
+    //     this.isLoading = false;
+    //     const blob = new Blob([res], {type: 'text/xlsx'});
+    //     const downloadUrl = window.URL.createObjectURL(res);
+    //     const link = document.createElement('a');
+    //     link.href = downloadUrl;
+    //     link.download = `Models-Employes-${dateNowFormat}.xlsx`;
+    //     link.click();
+
+
+    //     this.toastr.success('Success!', 'Extraction effectuée!');
+    //   },
+    //   error: (err) => {
+    //     this.isLoading = false;
+    //     this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+    //     console.log(err); 
+    //   }
+    // });
+  } 
+
 }
+
+
+@Component({
+  selector: 'presence-upload-csv-dialog',
+  templateUrl: './presence-upload-csv.html',
+})
+export class PresenceUploadCSVDialogBox {
+  isLoading = false; 
+
+  constructor( 
+      public dialogRef: MatDialogRef<PresenceUploadCSVDialogBox>, 
+      private toastr: ToastrService,
+      private presenceService: PresenceService,
+  ) {}
+
+  upload(event: Event) {
+    this.isLoading = true;
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    console.log({files});
+
+    const file = files.item(0);
+    const data = new FormData();
+    // @ts-ignore
+    data.append('file', file); 
+
+    this.presenceService.uploadCSV(data).subscribe({
+      next: () => {
+        this.toastr.success('Success!', 'Ajouté avec succès!');
+        // window.location.reload();
+        this.isLoading = false; 
+        this.close();
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+        console.log(err);
+        this.close();
+      }
+    });
+  } 
+
+
+  close(){
+      this.dialogRef.close(true);
+  } 
+
+}
+
 
 
 

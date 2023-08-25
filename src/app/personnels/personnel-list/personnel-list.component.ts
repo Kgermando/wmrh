@@ -13,6 +13,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-personnel-list',
@@ -31,6 +32,7 @@ export class PersonnelListComponent implements AfterViewInit {
   currentUser: PersonnelModel | any;
  
   constructor(
+    private httpClient: HttpClient,
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
       private router: Router,
@@ -103,31 +105,39 @@ export class PersonnelListComponent implements AfterViewInit {
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 
-  } 
+  }
 
   downloadModelReport() {
-    this.isLoading = true; 
-    var dateNow = new Date();
-    var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US'); 
-    this.personnelService.downloadModelReport().subscribe({
-      next: (res) => {
-        this.isLoading = false;
-        const blob = new Blob([res], {type: 'text/xlsx'});
-        const downloadUrl = window.URL.createObjectURL(res);
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = `Models-Employes-${dateNowFormat}.xlsx`;
-        link.click();
-
-
-        this.toastr.success('Success!', 'Extraction effectuée!');
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-        console.log(err); 
-      }
+    this.isLoading = true;
+    this.httpClient.get("assets/files/personnel.xlsx",{responseType: "blob"}).subscribe((res:any) => { 
+      const downloadUrl= window.URL.createObjectURL(res);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `Votre_model_employes.xlsx`;
+      link.click();
+      this.isLoading = false;
     });
+    // var dateNow = new Date();
+    // var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
+    // this.personnelService.downloadModelReport().subscribe({
+    //   next: (res) => {
+    //     this.isLoading = false;
+    //     const blob = new Blob([res], {type: 'text/xlsx'});
+    //     const downloadUrl = window.URL.createObjectURL(res);
+    //     const link = document.createElement('a');
+    //     link.href = downloadUrl;
+    //     link.download = `Models-Employes-${dateNowFormat}.xlsx`;
+    //     link.click();
+
+
+    //     this.toastr.success('Success!', 'Extraction effectuée!');
+    //   },
+    //   error: (err) => {
+    //     this.isLoading = false;
+    //     this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+    //     console.log(err); 
+    //   }
+    // });
   } 
 
 }
@@ -161,10 +171,10 @@ export class PersonnelUploadCSVDialogBox {
 
     this.personnelService.uploadCSV(data).subscribe({
       next: () => {
-        this.isLoading = false; 
         this.toastr.success('Success!', 'Ajouté avec succès!');
-        window.location.reload();
-        // this.close();
+        // window.location.reload();
+        this.isLoading = false; 
+        this.close();
       },
       error: (err) => {
         this.isLoading = false;

@@ -7,15 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PresenceService extends ApiService {
-  endpoint: string = `${environment.apiURL}/apointements`; 
-
+  endpoint: string = `${environment.apiURL}/apointements`;
+ 
   getMatricule(code_entreprise: string, matricule: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-matricule/${code_entreprise}/${matricule}`);
-  }
-
-  getRegisterPresenceAll(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-registre/${code_entreprise}`);
-  }
+  } 
 
   getRegisterPresence(code_entreprise: string, site_location: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-registre/${code_entreprise}/${site_location}`);
@@ -55,5 +51,10 @@ export class PresenceService extends ApiService {
 
   downloadReport(code_entreprise: string, site_location: string, start_date: string, end_date: string): Observable<any> {
     return this.http.post(`${this.endpoint}/download-xlsx/${code_entreprise}/${site_location}/${start_date}/${end_date}`, {}, {responseType: 'blob'});
+  }
+
+  uploadCSV(data: any): Observable<any> {
+    return this.http.post(`${this.endpoint}/upload-csv`, data);
   } 
+ 
 }

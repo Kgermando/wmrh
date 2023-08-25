@@ -1,11 +1,31 @@
 
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
-        <h4 class="mb-0">Registre de presences pour {{mois}}</h4> 
-        <div class="d-md-flex align-items-end justify-content-end">
-            <button mat-icon-button class="tagus" (click)="openExportDialog('300ms', '100ms')">
-                <mat-icon>print</mat-icon>
+        <h4 class="mb-0">Registre de presences pour la journée</h4> 
+        <div class="d-md-flex align-items-center justify-content-center mb-0" *ngIf="currentUser">
+            <p class="position-relative" *ngIf="currentUser.site_locations">
+                Site: {{ currentUser.site_locations.site_location }}
+            </p>
+            <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" 
+                [matMenuTriggerFor]="iconMenu">
+                <i class="ri-printer-line"></i>
             </button>
+            <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu" xPosition="before">
+                <button mat-menu-item type="button" (click)="downloadModelReport()"
+                class="bg-transparent border-none position-relative"> 
+                    <i class="ri-file-download-line"></i> Modèle
+                </button>
+                <button mat-menu-item type="button" 
+                    class="bg-transparent border-none position-relative" 
+                    (click)="openEditDialog('300ms', '100ms')">
+                    <i class="ri-upload-2-line"></i> Importer
+                </button>
+                <button mat-menu-item type="button" 
+                    class="bg-transparent border-none position-relative"
+                    (click)="openExportDialog('300ms', '100ms')">
+                    <i class="ri-download-2-line"></i> Exporter
+                </button>
+            </mat-menu>
         </div>
     </mat-card-header>
     <mat-card-content>

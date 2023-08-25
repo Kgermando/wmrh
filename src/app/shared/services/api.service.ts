@@ -50,5 +50,5 @@ export abstract class ApiService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.endpoint}/${id}`);
-  }
+  } 
 }
