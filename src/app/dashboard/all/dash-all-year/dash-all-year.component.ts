@@ -305,10 +305,12 @@ export class DashAllYearComponent implements OnInit{
                 this.chartOptionsSTatutPaie = {
                     series: this.statutPaieList.map((item: any) => parseFloat(item.count)),
                     colors: this.statutPaieList.map((item: any) => {
-                        if (item.statut == "Disponible") {
+                        if (item.statut_paie == "Disponible") {
                             return "#0D8F55";
-                        } else if(item.statut == "Traitement") {
+                        } else if(item.statut_paie == "Traitement") {
                             return "#FAAA0C";
+                        } else if(item.statut_paie == "En attente") {
+                            return "#9DD2F6";
                         } else {
                             return '#FFFFFF'
                         }
@@ -335,7 +337,7 @@ export class DashAllYearComponent implements OnInit{
                         position: "bottom",
                         horizontalAlign: "center"
                     },
-                    labels: this.statutPaieList.map((item: any) => item.statut),
+                    labels: this.statutPaieList.map((item: any) => item.statut_paie),
                 };
             }
         )

@@ -138,9 +138,9 @@ export class FinanceYearComponent  implements OnInit{
                     this.totalRBIList = res;
                     this.totalRBIList.map((item: any) => this.totalRBI = parseFloat(item.total));
         
-                    this.totalCNSSQPP = this.totalRBI / parseFloat(this.preference.cnss_qpp) * 100;
-                    this.totalINPP = this.totalRBI / parseFloat(this.preference.inpp) * 100;
-                    this.totalONEM = this.totalRBI / parseFloat(this.preference.onem) * 100;
+                    this.totalCNSSQPP = this.totalRBI * parseFloat(this.preference.cnss_qpp) / 100;
+                    this.totalINPP = this.totalRBI * parseFloat(this.preference.inpp) / 100;
+                    this.totalONEM = this.totalRBI * parseFloat(this.preference.onem) / 100;
                 }
             );
         });
@@ -281,16 +281,18 @@ export class FinanceYearComponent  implements OnInit{
    }
 
    getStatutPaie() {
-    this.dashAllService.statutPaieAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.statutPaieYear(this.currentUser.code_entreprise).subscribe(
         res => {
             this.statutPaieList = res; 
             this.chartOptionsSTatutPaie = {
                 series: this.statutPaieList.map((item: any) => parseFloat(item.count)),
                 colors: this.statutPaieList.map((item: any) => {
-                    if (item.statut == "Disponible") {
+                    if (item.statut_paie == "Disponible") {
                         return "#0D8F55";
-                    } else if(item.statut == "Traitement") {
+                    } else if(item.statut_paie == "Traitement") {
                         return "#FAAA0C";
+                    } else if(item.statut_paie == "En attente") {
+                        return "#9DD2F6";
                     } else {
                         return '#FFFFFF'
                     }
@@ -317,15 +319,14 @@ export class FinanceYearComponent  implements OnInit{
                     position: "bottom",
                     horizontalAlign: "center"
                 },
-                labels: this.statutPaieList.map((item: any) => item.statut),
+                labels: this.statutPaieList.map((item: any) => item.statut_paie),
             };
         }
     )
-    
    }
 
    getNetAPayerCCNSSQPO() {
-    this.financeService.depensePayEALl(this.currentUser.code_entreprise).subscribe(
+    this.financeService.depensePayEYear(this.currentUser.code_entreprise).subscribe(
         res => {
             this.depensePayEList = res;
             this.chartOptionNetApayerIPRCNSS = {

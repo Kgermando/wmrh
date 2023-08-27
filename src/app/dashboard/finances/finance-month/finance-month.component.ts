@@ -113,6 +113,8 @@ export class FinanceMonthComponent implements OnInit{
   totalINPP = 0;
 
 
+  dateNow = new Date();
+  dateMonth: number = 0;
 
   constructor(
     public themeService: CustomizerSettingsService,
@@ -127,6 +129,7 @@ export class FinanceMonthComponent implements OnInit{
 
   ngOnInit(): void { 
     this.isLoading =true;
+    this.dateMonth = this.dateNow.getMonth() + 1;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -141,9 +144,9 @@ export class FinanceMonthComponent implements OnInit{
                     this.totalRBIList = res;
                     this.totalRBIList.map((item: any) => this.totalRBI = parseFloat(item.total));
         
-                    this.totalCNSSQPP = this.totalRBI / parseFloat(this.preference.cnss_qpp) * 100;
-                    this.totalINPP = this.totalRBI / parseFloat(this.preference.inpp) * 100;
-                    this.totalONEM = this.totalRBI / parseFloat(this.preference.onem) * 100;
+                    this.totalCNSSQPP = this.totalRBI * parseFloat(this.preference.cnss_qpp) / 100;
+                    this.totalINPP = this.totalRBI * parseFloat(this.preference.inpp) / 100;
+                    this.totalONEM = this.totalRBI * parseFloat(this.preference.onem) / 100;
                 }
             );
         });
@@ -262,10 +265,12 @@ export class FinanceMonthComponent implements OnInit{
             this.chartOptionsSTatutPaie = {
                 series: this.statutPaieList.map((item: any) => parseFloat(item.count)),
                 colors: this.statutPaieList.map((item: any) => {
-                    if (item.statut == "Disponible") {
+                    if (item.statut_paie == "Disponible") {
                         return "#0D8F55";
-                    } else if(item.statut == "Traitement") {
+                    } else if(item.statut_paie == "Traitement") {
                         return "#FAAA0C";
+                    } else if(item.statut_paie == "En attente") {
+                        return "#9DD2F6";
                     } else {
                         return '#FFFFFF'
                     }
@@ -292,7 +297,7 @@ export class FinanceMonthComponent implements OnInit{
                     position: "bottom",
                     horizontalAlign: "center"
                 },
-                labels: this.statutPaieList.map((item: any) => item.statut),
+                labels: this.statutPaieList.map((item: any) => item.statut_paie),
             };
         }
     )
@@ -368,7 +373,7 @@ export class FinanceMonthComponent implements OnInit{
                             fontSize: "14px",
                         }
                     },
-                    categories: this.depensePayEList.map((item: any) => item.day),
+                    categories: this.depensePayEList.map((item: any) => `${item.day}/${this.dateMonth}`),
                 },
                 grid: {
                     show: true,

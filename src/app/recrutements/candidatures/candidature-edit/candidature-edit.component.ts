@@ -81,6 +81,7 @@ export class CandidatureEditComponent implements OnInit{
     this.id = this.route.snapshot.params['id'];
     this.candidaturesService.get(this.id).subscribe(item => {
       this.formGroup.patchValue({
+        search_profil: item.search_profil,
         scan_url: item.scan_url,
         full_name: item.full_name,
         sexe: item.sexe,
@@ -88,8 +89,8 @@ export class CandidatureEditComponent implements OnInit{
         statut: item.statut,
         signature: this.currentUser.matricule,
         update_created: new Date()
-      }); 
-    }); 
+      });
+    });
   }
 
   onSubmit() {

@@ -86,7 +86,7 @@ export class EmployeService extends ApiService {
 
   employeDepartementAll(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/enmployes-dep-all/${code_entreprise}`);
-  } 
+  }
  
 
   // Age de contrat par employés
@@ -101,7 +101,7 @@ export class EmployeService extends ApiService {
 
   ageContratEmployeAll(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/enmployes-age-contrats-all/${code_entreprise}`);
-  } 
+  }
   
   // Age des employés
 

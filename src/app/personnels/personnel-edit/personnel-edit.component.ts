@@ -345,5 +345,22 @@ export class PersonnelEditComponent implements OnInit {
       this.isLoading = false;
       console.log(error);
     }
-  } 
+  }
+  
+  
+  compareFn(c1: DepartementModel, c2: DepartementModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+  compareFnSiteLocation(c1: SiteLocationModel, c2: SiteLocationModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+  compareFnServicePref(c1: ServicePrefModel, c2: ServicePrefModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+  compareFnFonction(c1: FonctionModel, c2: FonctionModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+  compareFnTitle(c1: TitleModel, c2: TitleModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
 }

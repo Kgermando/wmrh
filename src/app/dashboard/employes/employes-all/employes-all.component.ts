@@ -38,18 +38,16 @@ export type ChartOptions = {
 };
 
 export type ChartOptionAgeMoyenneEmploye = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
-  yaxis: ApexYAxis;
-  xaxis: ApexXAxis;
-  grid: ApexGrid;
-  fill: ApexFill;
-  tooltip: ApexTooltip;
-  stroke: ApexStroke;
-  legend: ApexLegend;
-  colors: any;
+    series: ApexAxisChartSeries;
+    chart: ApexChart;
+    dataLabels: ApexDataLabels;
+    plotOptions: ApexPlotOptions;
+    yaxis: ApexYAxis;
+    grid: ApexGrid;
+    colors: any;
+    xaxis: ApexXAxis;
+    fill: ApexFill;
+    title: ApexTitleSubtitle;
 };
 
 
@@ -115,18 +113,18 @@ export class EmployesAllComponent implements OnInit{
   currentUser: PersonnelModel | any;
 
 
-  ageParContratList = [];
-  ageParEmployeList = [];
-  sexeList = [];
-  employeParDepartement = []; 
+  ageParContratList: any[] = [];
+  ageParEmployeList: any[] = [];
+  sexeList: any = [];
+  employeParDepartement: any = []; 
 
-  depList: [];
+  depList: any[] = [];
   depTotal = 0;
-  syndicatList: [];
+  syndicatList: any[] = [];
   syndicatTotal = 0;
-  siteLocationList: [];
+  siteLocationList: any[] = [];
   siteLocationTotal = 0;
-  compteActifList: [];
+  compteActifList: any[] = [];
   compteActifTotal = 0;
 
 
@@ -166,14 +164,37 @@ export class EmployesAllComponent implements OnInit{
     this.employeService.ageContratEmployeAll(this.currentUser.code_entreprise).subscribe(
         res => {
             this.ageParContratList = res;
-            console.log("ageParContratList", this.ageParContratList);
             this.chartOptions = {
                 series: [
                     {
-                        name: "Durée de contrats",
-                        data: this.ageParContratList.map((item: any) => parseFloat(item.age)),
+                      data: [
+                        {
+                          x: "Moins de 5 ans",
+                          y: this.ageParContratList.map((item: any) => parseFloat(item['Moins de 5 ans'])),
+                        },
+                        {
+                          x: "Moins de 10 ans",
+                          y: this.ageParContratList.map((item: any) => parseFloat(item['Moins de 10 ans'])),
+                        },
+                        {
+                          x: "Moins de 15 ans",
+                          y: this.ageParContratList.map((item: any) => parseFloat(item['Moins de 15 ans'])),
+                        },
+                        {
+                          x: "Moins de 20 ans",
+                          y: this.ageParContratList.map((item: any) => parseFloat(item['Moins de 20 ans'])),
+                        },
+                        {
+                          x: "Moins de 25 ans",
+                          y: this.ageParContratList.map((item: any) => parseFloat(item['Moins de 25 ans'])),
+                        },
+                        {
+                          x: "Plus de 25 ans",
+                          y: this.ageParContratList.map((item: any) => parseFloat(item['Plus de 25 ans'])),
+                        }
+                      ]
                     }
-                ],
+                  ],
                 chart: {
                     height: 360,
                     type: "bar",
@@ -182,67 +203,13 @@ export class EmployesAllComponent implements OnInit{
                     }
                 },
                 plotOptions: {
-                    bar: {
-                        borderRadius: 9,
-                        columnWidth: "60%",
-                        borderRadiusWhenStacked: 'last',
-                        borderRadiusApplication: 'around',
-                        dataLabels: {
-                            position: "top"
-                        }
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    formatter: function(val) {
-                        return val + " ans";
-                    },
-                    offsetY: -28,
-                    style: {
-                        colors: ["#5B5B98"]
-                    }
-                },
-                colors: [
-                    "#757fef"
-                ],
-                fill: {
-                    opacity: 1
+                bar: {
+                    horizontal: true
+                }
                 },
                 xaxis: {
-                    categories: this.ageParContratList.map((item: any) => item.date),
-                    position: "top",
-                    labels: {
-                        style: {
-                            colors: "#a9a9c8",
-                            fontSize: "14px"
-                        }
-                    },
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    }
-                },
-                yaxis: {
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    labels: {
-                        show: false,
-                        formatter: function(val) {
-                            return val + " ans";
-                        }
-                    }
-                },
-                grid: {
-                    show: true,
-                    strokeDashArray: 5,
-                    borderColor: "#EDEFF5"
-                }
+                    type: "category"
+                },  
             };
         }
     )
@@ -257,91 +224,45 @@ export class EmployesAllComponent implements OnInit{
             this.chartOptionAgeMoyenneEmployes = {
                 series: [
                     {
-                        name: "Age moyenne par employés:",
-                        data: this.ageParEmployeList.map((item: any) => parseFloat(item.age)),
+                      data: [
+                        {
+                          x: "De 18-25 ans",
+                          y: this.ageParEmployeList.map((item: any) => parseFloat(item['De 18-25 ans'])),
+                        },
+                        {
+                          x: "De 25-35 ans",
+                          y: this.ageParEmployeList.map((item: any) => parseFloat(item['De 25-35 ans'])),
+                        },
+                        {
+                          x: "De 35-45 ans",
+                          y: this.ageParEmployeList.map((item: any) => parseFloat(item['De 35-45 ans'])),
+                        },
+                        {
+                          x: "De 45-55 ans",
+                          y: this.ageParEmployeList.map((item: any) => parseFloat(item['De 45-55 ans'])),
+                        },
+                        {
+                          x: "De 55-65 ans",
+                          y: this.ageParEmployeList.map((item: any) => parseFloat(item['De 55-65 ans'])),
+                        }
+                      ]
                     }
-                ],
+                  ],
                 chart: {
+                    height: 360,
                     type: "bar",
-                    height: 480,
                     toolbar: {
                         show: false
                     }
                 },
                 plotOptions: {
-                    bar: {
-                        horizontal: true
-                    }
-                }, 
-                dataLabels: {
-                    enabled: true,
-                    formatter: function(val) {
-                        return val + " ans";
-                    },
-                    offsetY: -30,
-                    style: {
-                        colors: ["#5B5B98"]
-                    }
-                },
-                colors: [
-                    "#757FEF"
-                ],
-                stroke: {
-                    width: 0,
-                    show: true,
-                    colors: ["transparent"]
+                bar: {
+                    horizontal: true
+                }
                 },
                 xaxis: {
-                    categories: this.ageParEmployeList.map((item: any) => parseFloat(item.age)),
-                    labels: {
-                        show: true,
-                        style: {
-                            colors: "#a9a9c8",
-                            fontSize: "14px"
-                        },
-                    },
-                    axisBorder: {
-                        show: false,
-                    },
-                    axisTicks: {
-                        show: false
-                    }
-                },
-                yaxis: {
-                    labels: {
-                        style: {
-                            colors: "#a9a9c8",
-                            fontSize: "14px"
-                        }
-                    },
-                    axisBorder: {
-                        show: false
-                    }
-                },
-                fill: {
-                    opacity: 1
-                },
-                tooltip: {
-                    y: {
-                        formatter: function(val) {
-                            return val + " ans";
-                        }
-                    }
-                },
-                legend: {
-                    offsetY: 5,
-                    fontSize: "14px",
-                    position: "bottom",
-                    horizontalAlign: "center",
-                    labels: {
-                        colors: '#5B5B98'
-                    }
-                },
-                grid: {
-                    show: true,
-                    borderColor: "#EDEFF5",
-                    strokeDashArray: 5
-                }
+                    type: "category"
+                },  
             };
         }
     )
@@ -496,8 +417,7 @@ export class EmployesAllComponent implements OnInit{
   getEmployeparDepartement() {
     this.employeService.employeDepartementAll(this.currentUser.code_entreprise).subscribe(
         res => {
-            this.employeParDepartement = res;
-            console.log("employeParDepartement", this.employeParDepartement);
+            this.employeParDepartement = res; 
             this.chartOptionDepartement = {
                 series: this.employeParDepartement.map((item: any) => parseFloat(item.count)),
                 chart: {
@@ -525,9 +445,9 @@ export class EmployesAllComponent implements OnInit{
                         }
                     }
                 },
-                colors: [
-                    "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD", "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD",
-                ],
+                // colors: [
+                //     "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD", "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD",
+                // ],
                 labels: this.employeParDepartement.map((item: any) => item.departement),
                 legend: {
                     show: true,

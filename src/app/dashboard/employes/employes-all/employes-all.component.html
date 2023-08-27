@@ -34,7 +34,7 @@
 
         <mat-card class="mb-25 tagus-card">
             <mat-card-header class="border-bottom">
-                <h5 class="mb-0">Durées moyennes des contrats employés</h5>
+                <h5 class="mb-0">Tranches par Durées moyennes des contrats</h5>
                 <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
                     ALL
                 </button>
@@ -196,7 +196,7 @@
 
         <mat-card class="mb-25 tagus-card">
             <mat-card-header class="border-bottom">
-                <h5 class="mb-0">Ages moyennes des employés</h5>
+                <h5 class="mb-0">Tranches d'âges des employés</h5>
                 <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
                     ALL
                 </button>
@@ -212,19 +212,17 @@
                 </div> 
                 <div class="chart sessionsByCountriesChart" *ngIf="!isLoading && ageParEmployeList.length > 0">
                     <apx-chart
-                        [series]="chartOptionAgeMoyenneEmployes.series!"
-                        [chart]="chartOptionAgeMoyenneEmployes.chart!"
-                        [dataLabels]="chartOptionAgeMoyenneEmployes.dataLabels!"
-                        [plotOptions]="chartOptionAgeMoyenneEmployes.plotOptions!"
-                        [yaxis]="chartOptionAgeMoyenneEmployes.yaxis!"
-                        [legend]="chartOptionAgeMoyenneEmployes.legend!"
-                        [fill]="chartOptionAgeMoyenneEmployes.fill!"
-                        [stroke]="chartOptionAgeMoyenneEmployes.stroke!"
-                        [tooltip]="chartOptionAgeMoyenneEmployes.tooltip!"
-                        [xaxis]="chartOptionAgeMoyenneEmployes.xaxis!"
-                        [colors]="chartOptionAgeMoyenneEmployes.colors!"
-                        [grid]="chartOptionAgeMoyenneEmployes.grid!"
-                    ></apx-chart>
+                    [series]="chartOptionAgeMoyenneEmployes.series!"
+                    [chart]="chartOptionAgeMoyenneEmployes.chart!"
+                    [dataLabels]="chartOptionAgeMoyenneEmployes.dataLabels!"
+                    [plotOptions]="chartOptionAgeMoyenneEmployes.plotOptions!"
+                    [yaxis]="chartOptionAgeMoyenneEmployes.yaxis!"
+                    [xaxis]="chartOptionAgeMoyenneEmployes.xaxis!"
+                    [colors]="chartOptionAgeMoyenneEmployes.colors!"
+                    [fill]="chartOptionAgeMoyenneEmployes.fill!"
+                    [grid]="chartOptionAgeMoyenneEmployes.grid!"
+                    [title]="chartOptionAgeMoyenneEmployes.title!"
+                ></apx-chart>
                 </div>
             </mat-card-content>
         </mat-card>

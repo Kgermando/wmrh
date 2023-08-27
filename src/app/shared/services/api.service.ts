@@ -24,6 +24,11 @@ export abstract class ApiService {
     return this.http.get(`${this.endpoint}/get-all/${code_entreprise}`);
   }
 
+  getAllLocation(code_entreprise: string, site_location: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-all/${code_entreprise}/${site_location}`);
+  }
+
+
   all(code_entreprise: string, page?: number): Observable<any> {
     let url = `${this.endpoint}/${code_entreprise}`;
     if (page) { // page is optional

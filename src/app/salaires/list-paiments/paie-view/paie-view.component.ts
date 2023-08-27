@@ -436,6 +436,7 @@ export class PaieViewComponent implements OnInit {
           next: (res) => { 
             var personnel = { 
               is_paie: this.dateMonth,
+              statut_paie: 'Traitement',
               signature: this.currentUser.matricule,
               update_created: new Date(),
               entreprise: this.currentUser.entreprise,

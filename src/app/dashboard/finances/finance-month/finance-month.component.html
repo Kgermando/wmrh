@@ -172,7 +172,7 @@
                         mode="indeterminate">
                     </mat-progress-spinner>
                 </div> 
-                <div class="myProfileChart position-relative" *ngIf="">
+                <div class="myProfileChart position-relative">
                     <div class="chart" *ngIf="!isLoading && statutPaieList.length > 0">
                         <apx-chart
                             [series]="chartOptionsSTatutPaie.series!"
@@ -193,14 +193,7 @@
                                 <h5 class="fw-semibold">Primes anciennetés</h5> 
                             </div>
                         </div>
-                        <div class="info text-end"> 
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
+                        <div class="info text-end">
                             <span>{{ primeAnciennete | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li>
@@ -211,14 +204,7 @@
                                 <h5 class="fw-semibold">Primes divers</h5> 
                             </div>
                         </div>
-                        <div class="info text-end"> 
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
+                        <div class="info text-end">
                             <span>{{ primes | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li> 
@@ -229,14 +215,7 @@
                                 <h5 class="fw-semibold">Heures Supp.</h5> 
                             </div>
                         </div>
-                        <div class="info text-end"> 
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
+                        <div class="info text-end">
                             <span>{{ heureSupp | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li>
@@ -247,14 +226,7 @@
                                 <h5 class="fw-semibold">Avances salaires</h5> 
                             </div>
                         </div>
-                        <div class="info text-end"> 
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
+                        <div class="info text-end">
                             <span>{{ avanceSalaire | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li> 
@@ -265,14 +237,7 @@
                                 <h5 class="fw-semibold">Pénalités</h5> 
                             </div>
                         </div>
-                        <div class="info text-end"> 
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
+                        <div class="info text-end">  
                             <span>{{ penalite | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li>
@@ -283,14 +248,7 @@
                                 <h5 class="fw-semibold">Syndicats</h5> 
                             </div>
                         </div>
-                        <div class="info text-end"> 
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
+                        <div class="info text-end">  
                             <span>{{ syndicat | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li>
@@ -301,14 +259,7 @@
                                 <h5 class="fw-semibold">Près entreprise</h5> 
                             </div>
                         </div>
-                        <div class="info text-end"> 
-                            <div *ngIf="isLoading" 
-                                style="display: flex; justify-content: center; align-items: center; background: white;">
-                                <mat-progress-spinner [diameter]="10"
-                                    color="primary" 
-                                    mode="indeterminate">
-                                </mat-progress-spinner>
-                            </div> 
+                        <div class="info text-end">  
                             <span>{{ presEntreprise | numberFormat:'fr-FR'}} FC</span>
                         </div>
                     </li> 

@@ -16,23 +16,15 @@
                         mode="indeterminate">
                     </mat-progress-spinner>
                 </div>
-                <div class="chart activeCoursesChart" *ngIf="!isLoading && courbePresenceList.length > 0">
+                <div class="chart activeCoursesChart" *ngIf="!isLoading && multiPresence.length > 0">
                     <apx-chart
                     [series]="chartOptionMultiLine.series!"
                     [chart]="chartOptionMultiLine.chart!"
-                    [colors]="chartOptionMultiLine.colors"
-                    [xaxis]="chartOptionMultiLine.xaxis!"
-                    [markers]="chartOptionMultiLine.markers!"
-                    [stroke]="chartOptionMultiLine.stroke!"
-                    [yaxis]="chartOptionMultiLine.yaxis!"
                     [dataLabels]="chartOptionMultiLine.dataLabels!"
-                    [title]="chartOptionMultiLine.title!"
-                    [grid]="chartOptionMultiLine.grid!"
-                    [fill]="chartOptionMultiLine.fill!"
-                    [tooltip]="chartOptionMultiLine.tooltip!"
-                    [legend]="chartOptionMultiLine.legend!"
+                    [plotOptions]="chartOptionMultiLine.plotOptions!"
+                    [xaxis]="chartOptionMultiLine.xaxis!"
                     ></apx-chart>
-                </div> 
+                </div>
             </mat-card-content>
         </mat-card> 
     </div>

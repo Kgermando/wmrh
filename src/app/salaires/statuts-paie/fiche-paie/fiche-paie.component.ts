@@ -403,59 +403,72 @@ export class FichePaieComponent implements OnInit {
           statut: this.isPublie ? 'Disponible' : 'Traitement', 
           signature: this.currentUser.matricule, 
           update_created: new Date(),
-        });
-        console.log('formGroup', this.formGroup.getRawValue());
+        }); 
         this.salaireService.update(this.salaire.id, this.formGroup.getRawValue())
         .subscribe({
           next: () => {
-            this.toastr.success(this.isPublie ? 'Bulletin publié' : 'Traitement enregistré', 'Success!');
-            if (this.isPublie) {
-              var bodyNotify = {
-                personnel: this.salaire.personnel.id,
-                isRead: false,
-                title: `Bulletin ${this.mois} disponible.`,
-                // title: (this.salaire.personnel.sexe == 'Homme') 
-                //   ? `Bonjour Monsieur ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est maintement disponible.`
-                //   : `Bonjour Madame ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est maintement disponible.`,
-                route: `/layouts/salaires/disponible/${this.salaire.id}/bulletin-paie`,
-                signature: this.currentUser.matricule,
-                created: new Date(),
-                update_created: new Date(),
-                entreprise: this.currentUser.entreprise,
-                code_entreprise: this.currentUser.code_entreprise
-              };
-              this.notifyService.create(bodyNotify).subscribe(
-                res => {
-                  // this.notificationService.subscribeToNotifications();
-                  this.formGroup.reset();
-                  this.router.navigate(['/layouts/salaires/statuts-paies']);
-                  this.isLoading = false;
+            var personnel = {  
+              statut_paie: 'Disponible',
+              signature: this.currentUser.matricule,
+              update_created: new Date(),
+              entreprise: this.currentUser.entreprise,
+              code_entreprise: this.currentUser.code_entreprise
+            };
+            this.personnelService.update(this.salaire.personnel.id, personnel).subscribe(
+              res => {
+                if (this.isPublie) {
+                  var bodyNotify = {
+                    personnel: this.salaire.personnel.id,
+                    isRead: false,
+                    title: `Bulletin ${this.mois} disponible.`,
+                    // title: (this.salaire.personnel.sexe == 'Homme') 
+                    //   ? `Bonjour Monsieur ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est maintement disponible.`
+                    //   : `Bonjour Madame ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est maintement disponible.`,
+                    route: `/layouts/salaires/disponible/${this.salaire.id}/bulletin-paie`,
+                    signature: this.currentUser.matricule,
+                    created: new Date(),
+                    update_created: new Date(),
+                    entreprise: this.currentUser.entreprise,
+                    code_entreprise: this.currentUser.code_entreprise
+                  };
+                  this.notifyService.create(bodyNotify).subscribe(
+                    res => {
+                      // this.notificationService.subscribeToNotifications();
+                      this.formGroup.reset();
+                      this.router.navigate(['/layouts/salaires/statuts-paies']);
+                      this.toastr.success(this.isPublie ? 'Bulletin publié' : 'Traitement enregistré', 'Success!');
+                      this.isLoading = false;
+                    }
+                  )
+                } else if (!this.isPublie) {
+                  var bodyNotifyN = {
+                    personnel: this.salaire.personnel.id,
+                    isRead: false,
+                    title: `Bulletin ${this.mois} en traitement.`,
+                    // title: (this.salaire.personnel.sexe == 'Homme') 
+                    //   ? `Bonjour Monsieur ${this.salaire.personnel.prenom.toUpperCase()}${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est en traitement.`
+                    //   : `Bonjour Madame ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est en traitement.`,
+                    route: `/layouts/salaires/traitement/${this.salaire.id}/fiche-paie`, 
+                    signature: this.currentUser.matricule,
+                    created: new Date(),
+                    update_created: new Date(),
+                    entreprise: this.currentUser.entreprise,
+                    code_entreprise: this.currentUser.code_entreprise
+                  };
+                  this.notifyService.create(bodyNotifyN).subscribe(
+                    res => {
+                      // this.notificationService.subscribeToNotifications();
+                      this.formGroup.reset();
+                      this.router.navigate(['/layouts/salaires/statuts-paies']);
+                      this.toastr.success(this.isPublie ? 'Bulletin publié' : 'Traitement enregistré', 'Success!');
+                      this.isLoading = false;
+                    }
+                  )
                 }
-              )
-            } else if (!this.isPublie) {
-              var bodyNotifyN = {
-                personnel: this.salaire.personnel.id,
-                isRead: false,
-                title: `Bulletin ${this.mois} en traitement.`,
-                // title: (this.salaire.personnel.sexe == 'Homme') 
-                //   ? `Bonjour Monsieur ${this.salaire.personnel.prenom.toUpperCase()}${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est en traitement.`
-                //   : `Bonjour Madame ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est en traitement.`,
-                route: `/layouts/salaires/traitement/${this.salaire.id}/fiche-paie`, 
-                signature: this.currentUser.matricule,
-                created: new Date(),
-                update_created: new Date(),
-                entreprise: this.currentUser.entreprise,
-                code_entreprise: this.currentUser.code_entreprise
-              };
-              this.notifyService.create(bodyNotifyN).subscribe(
-                res => {
-                  // this.notificationService.subscribeToNotifications();
-                  this.formGroup.reset();
-                  this.router.navigate(['/layouts/salaires/statuts-paies']);
-                  this.isLoading = false;
-                }
-              )
-            }
+              }, 
+            )
+            
+            
             
            
           },

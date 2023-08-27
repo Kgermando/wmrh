@@ -117,15 +117,8 @@
                     <mat-card-content>
                         <div class="terminals-list position-relative">
                             <div class="terminal-box position-relative rounded-circle text-center">
-                                <div class="text">
-                                    <div *ngIf="isLoading" 
-                                        style="display: flex; justify-content: center; align-items: center; background: white;">
-                                        <mat-progress-spinner [diameter]="10"
-                                            color="primary" 
-                                            mode="indeterminate">
-                                        </mat-progress-spinner>
-                                    </div> 
-                                    <h4 *ngIf="!isLoading">{{recrutements}}</h4>
+                                <div class="text"> 
+                                    <h4>{{recrutements}}</h4>
                                     <span>Recrutements</span>
                                 </div>
                             </div>
@@ -138,20 +131,13 @@
                                             mode="indeterminate">
                                         </mat-progress-spinner>
                                     </div> 
-                                    <h4 *ngIf="!isLoading">{{postulants}}</h4>
+                                    <h4>{{postulants}}</h4>
                                     <span>Postulants</span>
                                 </div>
                             </div>
                             <div class="terminal-box position-relative rounded-circle text-center">
-                                <div class="text">
-                                    <div *ngIf="isLoading" 
-                                        style="display: flex; justify-content: center; align-items: center; background: white;">
-                                        <mat-progress-spinner [diameter]="10"
-                                            color="primary" 
-                                            mode="indeterminate">
-                                        </mat-progress-spinner>
-                                    </div> 
-                                    <h4 *ngIf="!isLoading">{{recrus}}</h4>
+                                <div class="text"> 
+                                    <h4>{{recrus}}</h4>
                                     <span>Récrus</span>
                                 </div>
                             </div>
@@ -171,15 +157,8 @@
             class="mb-25 tagus-card impressions-box" 
             >
             <mat-card-content>
-                <h6>Masse salariale</h6>
-                <div *ngIf="isLoading" 
-                    style="display: flex; justify-content: center; align-items: center; background: white;">
-                    <mat-progress-spinner [diameter]="10"
-                        color="primary" 
-                        mode="indeterminate">
-                    </mat-progress-spinner>
-                </div> 
-                <h3 *ngIf="!isLoading">{{ netAPayer  | numberFormat:'fr-FR'}} FC</h3> 
+                <h6>Masse salariale</h6> 
+                <h3>{{ netAPayer  | numberFormat:'fr-FR'}} FC</h3> 
                 <p>Dépenses effectuée depuis 10 ans</p>
             </mat-card-content>
         </mat-card>

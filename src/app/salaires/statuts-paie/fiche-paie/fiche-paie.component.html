@@ -153,7 +153,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                Age d'ancienneté :
+                                                Ages d'anciennetés :
                                             </td> 
                                             <td class="gray-color text-end">{{ salaire.anciennete_nbr_age }}</td>
                                         </tr>
@@ -376,7 +376,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                CNSS QPO (5%):
+                                                CNSS QPO ({{ preference.cnss_qpo }} %):
                                             </td> 
                                             <td class="gray-color text-end">{{ cnss_qpo | numberFormat:'fr-FR' }} FC</td>  
                                         </tr> 
@@ -418,7 +418,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                            Cotisations Syndicale(1%)
+                                            Cotisations Syndicale({{ preference.cnss_qpo }}%)
                                             </td> 
                                             <td class="gray-color text-end">{{ syndicat | numberFormat:'fr-FR' }} FC</td>
                                         </tr>

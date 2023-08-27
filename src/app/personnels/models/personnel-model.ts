@@ -62,6 +62,7 @@ export interface PersonnelModel {
     password: string;
 
     is_paie: number; // Le  mois du bulletin deja généré
+    statut_paie: string;
 
     presences: ApointementModel[];
     primes: PrimeModel[]; 

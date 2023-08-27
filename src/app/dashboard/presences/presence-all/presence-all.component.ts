@@ -12,7 +12,8 @@ import {
   ApexGrid,
   ApexYAxis,
   ApexTitleSubtitle,
-  ApexFill
+  ApexFill,
+  ApexPlotOptions
 } from "ng-apexcharts";
 
 import { AuthService } from 'src/app/auth/auth.service';
@@ -50,17 +51,9 @@ export type ChartOptionCourbePresence = {
 export type ChartOptionMultiLine = {
     series: ApexAxisChartSeries;
     chart: ApexChart;
-    xaxis: ApexXAxis;
-    markers: any; //ApexMarkers;
-    stroke: any; //ApexStroke;
-    yaxis: ApexYAxis | ApexYAxis[];
-    colors: any;
     dataLabels: ApexDataLabels;
-    grid: ApexGrid;
-    title: ApexTitleSubtitle;
-    legend: ApexLegend;
-    fill: ApexFill;
-    tooltip: ApexTooltip;
+    plotOptions: ApexPlotOptions;
+    xaxis: ApexXAxis;
 };
  
 
@@ -85,7 +78,9 @@ export class PresenceAllComponent implements OnInit {
 
   presencePieList: PresencePieModel[] = [];
 
-  courbePresenceList = [];
+  courbePresenceList: any[] = [];
+
+  multiPresence: any[] =  [];
 
   constructor(
     public themeService: CustomizerSettingsService,
@@ -223,7 +218,7 @@ export class PresenceAllComponent implements OnInit {
                         curve: "smooth"
                     },
                     colors: [
-                        "#E7EBF5", "#8EB0DE", "#90C6E0"
+                        "#27ae60", "#FAAA0C", "#FC0000"
                     ],
                     xaxis: {
                         axisBorder: {
@@ -276,141 +271,32 @@ export class PresenceAllComponent implements OnInit {
 
     
     getMultiPresence() {
-        this.presenceDashService.getCourbePresenceAll(this.currentUser.code_entreprise).subscribe(
+        this.dashAllService.presencePieAll(this.currentUser.code_entreprise).subscribe(
             res => {
-                this.courbePresenceList = res;
+                this.multiPresence = res;
                 this.chartOptionMultiLine = {
                     series: [
-                        {
-                            name: "Presence",
-                            type: "column",
-                            data: this.courbePresenceList.map((item: any) => parseFloat(item.p)), 
-                        }, 
-                        {
-                            name: "Absence Autorisée",
-                            type: "column",
-                            data: this.courbePresenceList.map((item: any) => parseFloat(item.a)), 
-                        },
-                        {
-                            name: "Absence Non Autorisée",
-                            type: "line",
-                            data: this.courbePresenceList.map((item: any) => parseFloat(item.aa)), 
-                        } 
+                      {
+                        name: "Pointages",
+                        data: this.multiPresence.map((item: any) => parseFloat(item.count)),
+                      }
                     ],
                     chart: {
-                        height: 350,
-                        type: "line",
-                        stacked: false
+                      type: "bar",
+                      height: 350
+                    },
+                    plotOptions: {
+                      bar: {
+                        horizontal: true
+                      }
                     },
                     dataLabels: {
-                        enabled: false
+                      enabled: false
                     },
-                    stroke: {
-                        width: [1, 1, 4]
-                    },
-                    colors: ['#27ae60', '#FC0000', '#FAAA0C'],
                     xaxis: {
-                        categories: this.courbePresenceList.map((item: any) => item.year),
-                        labels: {
-                            style: {
-                                colors: "#27ae60",
-                                fontSize: "14px"
-                            }
-                        }
-                    },
-                    yaxis: [
-                        {
-                            axisTicks: {
-                                show: true
-                            },
-                            axisBorder: {
-                                show: true,
-                                color: "#008FFB"
-                            },
-                            labels: {
-                                style: {
-                                    colors: "#a9a9c8",
-                                    fontSize: "14px"
-                                }
-                            },
-                            title: {
-                                text: "Presence",
-                                style: {
-                                    color: "#27ae60"
-                                }
-                            },
-                            tooltip: {
-                                enabled: true
-                            }
-                        },
-                        {
-                            seriesName: "Absence Autorisée",
-                            opposite: true,
-                            axisTicks: {
-                                show: true
-                            },
-                            axisBorder: {
-                                show: true,
-                                color: "#FAAA0C"
-                            },
-                            labels: {
-                                style: {
-                                    colors: "#FAAA0C",
-                                    fontSize: "14px"
-                                }
-                            },
-                            title: {
-                                text: "Absence Autorisée",
-                                style: {
-                                    color: "#FAAA0C"
-                                }
-                            }
-                        },
-                        {
-                            seriesName: "Absence Non Autorisée",
-                            opposite: true,
-                            axisTicks: {
-                                show: true
-                            },
-                            axisBorder: {
-                                show: true,
-                                color: "#FC0000"
-                            },
-                            labels: {
-                                style: {
-                                    colors: "#FC0000"
-                                }
-                            },
-                            title: {
-                                text: "Absence Non Autorisée",
-                                style: {
-                                    color: "#FC0000"
-                                }
-                            }
-                        }
-                    ], 
-                    tooltip: {
-                        fixed: {
-                            enabled: true,
-                            position: "topLeft", // topRight, topLeft, bottomRight, bottomLeft
-                            offsetY: 30,
-                            offsetX: 60
-                        }
-                    },
-                    grid: {
-                        show: true,
-                        strokeDashArray: 5,
-                        borderColor: "#EDEFF5"
-                    },
-                    legend: {
-                        horizontalAlign: "left",
-                        offsetX: 40,
-                        fontSize: "14px",
-                        labels: {
-                            colors: '#5B5B98'
-                        }
+                      categories: this.multiPresence.map((item: PresencePieModel) => item.apointement), 
                     }
-                };
+                  }; 
             }
         )
         
