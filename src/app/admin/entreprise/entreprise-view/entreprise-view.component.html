@@ -1,0 +1,88 @@
+
+
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+</div>
+<div *ngIf="!isLoading">
+    <div class="row" *ngIf="entreprise">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Entreprise</h5>
+                    <div>
+                        <button mat-icon-button color="primary" 
+                            (click)="openEditDialog('300ms', '100ms', entreprise.id)">
+                                <mat-icon>edit</mat-icon>
+                            </button> 
+                            <button mat-icon-button color="accent">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                    </div>
+                </mat-card-header>
+                <mat-card-content> 
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold d-inline-block">Entreprise: </span>
+                            <span class="gray-color">{{ entreprise.company_name }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">RCCM: </span>
+                            <span class="gray-color">{{ entreprise.rccm }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">ID Nat.: </span>
+                            <span class="gray-color">{{ entreprise.id_nat }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Responsable: </span>
+                            <span class="gray-color">{{ entreprise.responsable }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Telephone: </span>
+                            <span class="gray-color">{{ entreprise.telephone }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Telephone: </span>
+                            <span class="gray-color">{{ entreprise.telephone }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Email: </span>
+                            <span class="gray-color">{{ entreprise.email }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Adresse: </span>
+                            <span class="gray-color">{{ entreprise.adresse }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Code entreprise: </span>
+                            <span class="gray-color">{{ entreprise.code_entreprise }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Nbre employé: </span>
+                            <span class="gray-color">{{ nbrEmploye }} / {{ entreprise.nbre_employe }}</span>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Statut: </span>
+                            <span class="gray-color">{{ entreprise.statut }}</span>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Signature: </span>
+                            <span class="gray-color">{{ entreprise.signature }}</span>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Date: </span>
+                            <span class="gray-color">{{entreprise.created | date: 'dd/MM/yyyy HH:mm'}}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Mise à jour: </span>
+                            <span class="gray-color">{{entreprise.update_created | date: 'dd/MM/yyyy HH:mm'}}</span>
+                        </li>
+                    </ul>  
+                </mat-card-content>
+            </mat-card> 
+
+            <app-abonnement-table [item]="entreprise.abonnements"></app-abonnement-table>
+        </div>
+         
+    </div>
+</div>

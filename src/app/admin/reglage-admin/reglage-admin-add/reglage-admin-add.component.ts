@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
+import { EntrepriseService } from '../../entreprise/entreprise.service';
 
 @Component({
   selector: 'app-reglage-admin-add',
@@ -19,6 +20,7 @@ export class ReglageAdminAddComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private router: Router,
     private reglageService: ReglageService,
+    private entrepriseService: EntrepriseService,
     private toastr: ToastrService) {}
 
     ngOnInit(): void {
@@ -29,7 +31,7 @@ export class ReglageAdminAddComponent implements OnInit {
         rccm: ['', Validators.required],
         id_nat: ['', Validators.required],
         numero_impot: ['', Validators.required],
-        email: ['', Validators.required],
+        email: [''],
         telephone: ['', Validators.required],
         adresse: ['', Validators.required],
       });
@@ -41,7 +43,6 @@ export class ReglageAdminAddComponent implements OnInit {
         if (this.formGroup.valid) {
           this.isLoading = true;
           var code = Math.floor(1000 + Math.random() * 9000);
-          console.log("code", code);
           var body = {
             company_name: this.formGroup.value.company_name,
             nbr_employe: this.formGroup.value.nbr_employe,
@@ -99,11 +100,28 @@ export class ReglageAdminAddComponent implements OnInit {
             code_entreprise: code
           };
           this.reglageService.create(body).subscribe({
-            next: () => {
-              this.isLoading = false;
-              this.formGroup.reset();
-              this.toastr.success('Ajouter avec succès!', 'Success!');
-              this.router.navigate(['/layouts/support/reglages-admin']);
+            next: (res) => {
+              var entreprise = {
+                company_name: res.company_name,
+                rccm: res.rccm,
+                id_nat: res.id_nat,
+                responsable: '-',
+                telephone: res.telephone,
+                email: res.email,
+                adresse: res.adresse,
+                code_entreprise: res.code_entreprise,
+                nbre_employe: 1,
+                statut: false,
+                signature: '-',
+                created: new Date(),
+                update_created: new Date()
+              };
+              this.entrepriseService.create(entreprise).subscribe(en => {
+                this.isLoading = false;
+                this.formGroup.reset();
+                this.toastr.success('Ajouter avec succès!', 'Success!');
+                this.router.navigate(['/layouts/support/reglages-admin']);
+              });
             },
             error: (err) => {
               this.isLoading = false;

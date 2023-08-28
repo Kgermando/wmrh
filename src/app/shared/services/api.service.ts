@@ -6,10 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export abstract class ApiService {
-  abstract get endpoint(): string;
-
-  private httpOptions: object; 
-  private token = '';
+  abstract get endpoint(): string; 
 
   constructor(protected http: HttpClient) { }
 

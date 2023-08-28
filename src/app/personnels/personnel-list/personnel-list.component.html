@@ -2,7 +2,8 @@
     <mat-card-header>
         <h4 class="mb-0">Liste des Employés</h4>
         <div>
-            <button mat-flat-button class="default-btn tagus m-0 margin" routerLink="/layouts/personnels/personnel-add">
+            <button mat-flat-button class="default-btn tagus m-0 margin" [disabled]="isActive"
+                routerLink="/layouts/personnels/personnel-add">
                 <i class="ri-add-fill"></i> Ajouter un employé
             </button>
             <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="iconMenu">
@@ -15,7 +16,7 @@
                 </button>
                 <button mat-menu-item type="button" 
                     class="bg-transparent border-none position-relative" 
-                    (click)="openEditDialog('300ms', '100ms')">
+                    (click)="openEditDialog('300ms', '100ms')" *ngIf="isActive">
                     <i class="ri-upload-2-line"></i> Importer
                 </button>
                 <button mat-menu-item type="button" 

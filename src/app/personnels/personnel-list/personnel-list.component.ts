@@ -14,6 +14,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { EntrepriseService } from 'src/app/admin/entreprise/entreprise.service';
+import { EntrepriseModel } from 'src/app/admin/entreprise/models/entreprise.model';
 
 @Component({
   selector: 'app-personnel-list',
@@ -30,6 +32,11 @@ export class PersonnelListComponent implements AfterViewInit {
 
   isLoading = false;
   currentUser: PersonnelModel | any;
+
+  entrepriseList: EntrepriseModel[] = [];
+  entrepriseFilter: EntrepriseModel[] = [];
+  entreprise: EntrepriseModel;
+  isActive = false;
  
   constructor(
     private httpClient: HttpClient,
@@ -38,27 +45,38 @@ export class PersonnelListComponent implements AfterViewInit {
       private router: Router,
       private authService: AuthService,
       private personnelService: PersonnelService,
-      public dialog: MatDialog,
-      private toastr: ToastrService,
-  ) {}
+      private entrepriseService: EntrepriseService,
+      public dialog: MatDialog, 
+  ) {} 
 
   toggleTheme() {
-      this.themeService.toggleTheme();
+    this.themeService.toggleTheme();
   }
 
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    ngAfterViewInit() { 
+    ngAfterViewInit() {
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {
-                this.currentUser = user;
+                this.currentUser = user; 
                 this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
                   this.ELEMENT_DATA = res; 
                   this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
                   this.dataSource.sort = this.sort;
                   this.dataSource.paginator = this.paginator; 
+
+                  this.entrepriseService.getAll(this.currentUser.code_entreprise).subscribe(e => {
+                    this.entrepriseFilter = e;
+                    this.entrepriseList = this.entrepriseFilter.filter(v => v.code_entreprise == this.currentUser.code_entreprise);
+  
+                    if(this.entrepriseList.length >= 1) {
+                      if (this.ELEMENT_DATA.length < this.entrepriseList[0].nbre_employe) {
+                        this.isActive = true;
+                      }
+                    }
+                  });
               });
               this.isLoading = false;
             },

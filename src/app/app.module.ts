@@ -166,6 +166,10 @@ import { SalaireService } from './salaires/salaire.service';
 import { NotifyComponent } from './notify/notify.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { NotifyViewComponent } from './notify/notify-view/notify-view.component';
+import { EntrepriseComponent } from './admin/entreprise/entreprise.component';
+import { EditEntrepriseDialogBox, EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entreprise-view.component';
+import { AbonnementTableComponent } from './admin/entreprise/abonnement-table/abonnement-table.component';
+import { AbonnementAdminViewComponent } from './admin/abonnement-admin/abonnement-admin-view/abonnement-admin-view.component';
 
 
 @NgModule({
@@ -319,7 +323,12 @@ import { NotifyViewComponent } from './notify/notify-view/notify-view.component'
     ToasterComponent, 
     NotifyComponent, 
     NotifyViewComponent,
-    PresenceUploadCSVDialogBox
+    PresenceUploadCSVDialogBox,
+    EntrepriseComponent,
+    EntrepriseViewComponent,
+    EditEntrepriseDialogBox,
+    AbonnementTableComponent,
+    AbonnementAdminViewComponent
   ],
   imports: [
     BrowserModule,

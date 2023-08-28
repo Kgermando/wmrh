@@ -261,3 +261,13 @@ export const archivesGuard: CanActivateFn = (route, state) => {
   }     
   return access;  
 };
+
+export const supportGuard: CanActivateFn = (route, state) => {
+  let roles = localStorage.getItem('roles');
+  let roleList = JSON.parse(roles!) 
+  let access = false; 
+  if (roleList.includes('Support')) { 
+    access = true;
+  }     
+  return access;  
+};

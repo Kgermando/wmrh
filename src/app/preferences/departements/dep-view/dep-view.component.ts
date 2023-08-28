@@ -18,9 +18,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./dep-view.component.scss']
 })
 export class DepViewComponent implements AfterViewInit {
-  isLoading = false;
-
-  currentUser: PersonnelModel | any;
+  isLoading = false; 
   
   item: DepartementModel; 
 
@@ -106,9 +104,6 @@ export class DepViewComponent implements AfterViewInit {
           });
       }
     }
-
-
-
 
     toggleTheme() {
       this.themeService.toggleTheme();

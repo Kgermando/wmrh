@@ -58,7 +58,7 @@ import { FonctionViewComponent } from './preferences/fonction/fonction-view/fonc
 import { ServViewComponent } from './preferences/services/serv-view/serv-view.component';
 import { TitleViewComponent } from './preferences/titles/title-view/title-view.component';
 import { SiteLocationViewComponent } from './preferences/site-location/site-location-view/site-location-view.component';
-import { archivesGuard, avanceSalaireGuard, candidaturesGuard, dashboardGuard, departementsGuard, emailsGuard, fonctionGuard, heureSuppGuard, horaireGuard, listePaiementGuard, penealiteGuard, performenceGuard, personnelsGuard, pointagesGuard, postesGuard, presEntrepriseGuard, primeDiversGuard, registrePresenceGuard, reglagesGuard, relevePaieGuard, serviceGuard, siteLocationGuard, statutPaieGuard, syndicatGuard, titresGuard } from './guard/role.guard';
+import { archivesGuard, avanceSalaireGuard, candidaturesGuard, dashboardGuard, departementsGuard, emailsGuard, fonctionGuard, heureSuppGuard, horaireGuard, listePaiementGuard, penealiteGuard, performenceGuard, personnelsGuard, pointagesGuard, postesGuard, presEntrepriseGuard, primeDiversGuard, registrePresenceGuard, reglagesGuard, relevePaieGuard, serviceGuard, siteLocationGuard, statutPaieGuard, supportGuard, syndicatGuard, titresGuard } from './guard/role.guard';
 import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
 import { CalculateComponent } from './salaires/calculate/calculate.component';
 import { ReglageAdminAddComponent } from './admin/reglage-admin/reglage-admin-add/reglage-admin-add.component';
@@ -68,6 +68,8 @@ import { AbonnementComponent } from './abonnements/abonnement/abonnement.compone
 import { EnregistrementsComponent } from './auth/enregistrements/enregistrements.component';
 import { NotifyComponent } from './notify/notify.component';
 import { NotifyViewComponent } from './notify/notify-view/notify-view.component';
+import { EntrepriseComponent } from './admin/entreprise/entreprise.component';
+import { EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entreprise-view.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -143,13 +145,15 @@ const routes: Routes = [
     { path: 'mail/read-mail', component: ReadComponent, canActivate: [emailsGuard] },
     { path: 'mail/mail-sent', component: MailSentComponent, canActivate: [emailsGuard] },
 
+    { path: 'support/reglages-admin', component: ReglageAdminComponent, canActivate: [supportGuard]},
+    { path: 'support/reglages-admin-add', component: ReglageAdminAddComponent, canActivate: [supportGuard] },
+    { path: 'support/abonnements', component: AbonnementComponent, canActivate: [supportGuard] },
+    { path: 'support/entreprises', component: EntrepriseComponent, canActivate: [supportGuard] },
+    { path: 'support/entreprises/:id/entreprise-view', component: EntrepriseViewComponent, canActivate: [supportGuard]},
+    { path: 'support/abonnement_paiement', component: AbonnementAdminComponent, canActivate: [supportGuard] },
 
-    { path: 'abonnements', component: AbonnementComponent },
+    { path: 'paiements', component: AbonnementComponent },
 
-
-    { path: 'support/reglages-admin', component: ReglageAdminComponent },
-    { path: 'support/reglages-admin-add', component: ReglageAdminAddComponent },
-    { path: 'support/abonnements', component: AbonnementAdminComponent },
 
     { path: 'notify', component: NotifyComponent },
     { path: 'notify/:matricule/:id/notify-view', component: NotifyViewComponent },

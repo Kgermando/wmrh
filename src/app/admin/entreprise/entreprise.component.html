@@ -14,36 +14,45 @@
         <div class="mat-elevation-z8 tagus-mat-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
  
-                <ng-container matColumnDef="company_name">
+                <ng-container matColumnDef="statut">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>statut</th>
+                    <td mat-cell *matCellDef="let element">
+                        <a [routerLink]="['/layouts/support/entreprises', element.id, 'entreprise-view']"
+                            *ngIf="element.statut">
+                            Actif
+                        </a>
+                        <a [routerLink]="['/layouts/support/entreprises', element.id, 'entreprise-view']"
+                            *ngIf="!element.statut">
+                            Inactif
+                        </a>
+                    </td>
+                </ng-container> 
+ 
+                 <ng-container matColumnDef="company_name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Entreprise</th>
                     <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['/layouts/support/entreprise', element.id, 'entreprise-view']">
-                            {{element.entreprise.company_name}} 
+                        <a [routerLink]="['/layouts/support/entreprises', element.id, 'entreprise-view']">
+                            {{element.company_name}} 
                         </a>
                     </td>
                 </ng-container>  
 
                 <ng-container matColumnDef="code_entreprise">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Code entreprise</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>code_entreprise</th>
                     <td mat-cell *matCellDef="let element">
-                        {{element.entreprise.code_entreprise}}
+                        {{element.code_entreprise}}
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="devise">
-                    <th mat-header-cell *matHeaderCellDef>Devise</th>
-                    <td mat-cell *matCellDef="let element">{{element.devise}}</td>
+                <ng-container matColumnDef="rccm">
+                    <th mat-header-cell *matHeaderCellDef>RCCM</th>
+                    <td mat-cell *matCellDef="let element">{{element.rccm}}</td>
                 </ng-container>
-
-                <ng-container matColumnDef="taux_devise">
-                    <th mat-header-cell *matHeaderCellDef>Taux devise</th>
-                    <td mat-cell *matCellDef="let element">{{element.taux_devise}}</td>
-                </ng-container> 
 
                 <ng-container matColumnDef="responsable">
                     <th mat-header-cell *matHeaderCellDef>Responsable</th>
                     <td mat-cell *matCellDef="let element">{{element.responsable}}</td>
-                </ng-container>  
+                </ng-container> 
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>

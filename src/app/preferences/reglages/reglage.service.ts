@@ -15,7 +15,7 @@ export class ReglageService extends ApiService {
 
 
   getAllReglage(): Observable<any> {
-    return this.http.get(`${this.endpoint}}`);
+    return this.http.get(`${this.endpoint}/get-all`);
   }
 
   

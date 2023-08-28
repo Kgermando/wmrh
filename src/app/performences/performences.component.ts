@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { PerformenceModel } from './models/performence-model';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -7,13 +7,9 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { PerformenceService } from './performence.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { Validators } from 'ngx-editor';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog'; 
 import { PersonnelService } from '../personnels/personnel.service';
 
 @Component({
