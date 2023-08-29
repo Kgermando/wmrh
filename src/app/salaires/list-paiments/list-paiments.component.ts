@@ -17,7 +17,7 @@ import { Subject, finalize } from 'rxjs';
   templateUrl: './list-paiments.component.html',
   styleUrls: ['./list-paiments.component.scss']
 })
-export class ListPaimentsComponent implements AfterViewInit, OnInit {
+export class ListPaimentsComponent implements OnInit {
   displayedColumns: string[] = ['matricule','nom', 'postnom', 'prenom', 'email', 'telephone', 'sexe'];
   
   personnelFilter: PersonnelModel[] = []; // Filter des personnels qui sont deja payé!
@@ -25,6 +25,10 @@ export class ListPaimentsComponent implements AfterViewInit, OnInit {
   
   dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<PersonnelModel>(true, []);
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
+ 
 
   public loading$ = new Subject<boolean>();
 
@@ -73,39 +77,34 @@ export class ListPaimentsComponent implements AfterViewInit, OnInit {
     } else {
         ''
     }
+
+    this.isLoading = true;
+    this.authService.user().subscribe({
+        next: (user) => {
+            this.currentUser = user;
+            this.personnelService.getAll(this.currentUser.code_entreprise)
+            .pipe(finalize(() => this.loading$.next(false)))
+            .subscribe(res => {  
+                this.personnelFilter = res;
+                this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < this.dateMonth && parseFloat(v.salaire_base) > 0);
+                this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;  
+            });
+            this.isLoading = false;
+        },
+        error: (error) => {
+            this.isLoading = false;
+          this.router.navigate(['/auth/login']);
+          console.log(error);
+        }
+      }); 
   }
 
   toggleTheme() {
       this.themeService.toggleTheme();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
-
-    ngAfterViewInit() { 
-        this.isLoading = true;
-        this.authService.user().subscribe({
-            next: (user) => {
-                this.currentUser = user;
-                this.personnelService.getAll(this.currentUser.code_entreprise)
-                .pipe(finalize(() => this.loading$.next(false)))
-                .subscribe(res => {  
-                    this.personnelFilter = res;
-                    this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < this.dateMonth && parseFloat(v.salaire_base) > 0);
-                    this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-                    this.dataSource.sort = this.sort;
-                    this.dataSource.paginator = this.paginator;  
-                });
-                this.isLoading = false;
-            },
-            error: (error) => {
-                this.isLoading = false;
-              this.router.navigate(['/auth/login']);
-              console.log(error);
-            }
-          }); 
-       
-    }
 
  
   applyFilter(event: Event) {

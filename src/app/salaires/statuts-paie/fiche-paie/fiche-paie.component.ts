@@ -235,31 +235,37 @@ export class FichePaieComponent implements OnInit {
       this.salaire_base = +val.salaire_base;
       this.soins_medicaux = +val.soins_medicaux; 
 
-      // Aciennetés
-      if (this.salaire.anciennete_nbr_age >=5) {
-        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_5 / 100;
-      } else if(this.salaire.anciennete_nbr_age >=10) {
+      // Aciennetés 
+      if(this.salaire.anciennete_nbr_age >5 && this.salaire.anciennete_nbr_age <= 10) {
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_5 / 100; 
+
+      } else if(this.salaire.anciennete_nbr_age >10 && this.salaire.anciennete_nbr_age <= 15) {
         this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_10 / 100;
-      } else if(this.salaire.anciennete_nbr_age >=15) {
+        
+      } else if(this.salaire.anciennete_nbr_age >15 && this.salaire.anciennete_nbr_age <= 20) {
         this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_15 / 100;
-      } else if(this.salaire.anciennete_nbr_age >=20) {
+        
+      } else if(this.salaire.anciennete_nbr_age >20 && this.salaire.anciennete_nbr_age <= 25) {
         this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_20 / 100;
-      } else if(this.salaire.anciennete_nbr_age >=25) {
-        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_25 / 100;
+        
+      } else if(this.salaire.anciennete_nbr_age >25) {
+        this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_25 / 100; 
       }
 
+
       // Se refère dans les donnés de heures pour les conditions
-      if (this.salaire.heures_supp === 2) {
+      if(this.salaire.heures_supp >= 2 && this.salaire.heures_supp <6) {
         this.heure_supplementaire_monnaie = this.salaire_base * 30 / 100;
-      } else if(this.salaire.heures_supp > 2) {
-        this.heure_supplementaire_monnaie = this.salaire_base * 60 / 100;
+      } else if(this.salaire.heures_supp >=6 && this.salaire.heures_supp <8) {
+        this.heure_supplementaire_monnaie = this.salaire_base * 30 / 100;
       } else if(this.salaire.heures_supp >= 8) {
         this.heure_supplementaire_monnaie = this.salaire_base * 100 / 100;
       }
- 
 
       // Remuneration Brute impôsable
       this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heure_supplementaire_monnaie;
+
+     
 
 
       // Avantages sociaux
@@ -307,7 +313,7 @@ export class FichePaieComponent implements OnInit {
         } 
       
       // Redressement de la base net imposable
-      this.redressement = (alloc_famillialeExces + alloc_transportExces + alloc_logementExces + this.soins_medicaux);
+      this.redressement = (alloc_famillialeExces + alloc_transportExces + alloc_logementExces);
 
       // NETTE IMPOSABELE
       this.cnss_qpo = this.rbi * parseFloat(this.preference.cnss_qpo) / 100; // (RBI * CNSQPO)

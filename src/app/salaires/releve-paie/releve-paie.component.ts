@@ -21,12 +21,13 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './releve-paie.component.html',
   styleUrls: ['./releve-paie.component.scss']
 })
-export class RelevePaieComponent implements AfterViewInit {
+export class RelevePaieComponent implements OnInit {
 
-  displayedColumns: string[] = ['numero', 'matricule', 'fullname', 'departement', 'ipr', 'net_a_payer', 'compte', 'frais_bancaire', 'banque'];
+  displayedColumns: string[] = ['numero', 'matricule', 'fullname', 'ipr', 'net_a_payer', 'compte', 'frais_bancaire', 'banque'];
   
   ELEMENT_DATA: SalaireModel[] = []; 
 
+  releveFilter: SalaireModel[] = [];
   releveList: SalaireModel[] = [];
   
   dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
@@ -93,61 +94,55 @@ export class RelevePaieComponent implements AfterViewInit {
     } else {
         ''
     }
-  }
 
-
-  ngAfterViewInit() { 
-    this.isLoading = true;
     this.authService.user().subscribe({
-        next: (user) => {
-            this.currentUser = user;
-            this.salaireService.relevePaie(this.currentUser.code_entreprise).subscribe(res => { 
-              this.releveList = res; 
-              this.ELEMENT_DATA = this.releveList.filter(v => {
-                var created = new Date(v.created); 
-                return created.getMonth() + 1 == this.dateMonth;
-              });
-              this.dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator; 
-          });
+      next: (user) => {
+          this.currentUser = user;
+          this.salaireService.relevePaie(this.currentUser.code_entreprise).subscribe(res => { 
+            this.releveFilter = res; 
+            this.releveList = this.releveFilter.filter(v => {
+              var created = new Date(v.created); 
+              return created.getMonth() + 1 == this.dateMonth;
+            });
+            this.dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator; 
+        });
 
-            this.salaireService.netAPayerTotal(this.currentUser.code_entreprise).subscribe(
-              net_a_payer => {
-                var net_a_payE = net_a_payer;  
-                net_a_payE.map((item: any) => this.net_a_payer = parseFloat(item.sum));  
-              }
-            );
-            this.salaireService.iprTotal(this.currentUser.code_entreprise).subscribe(
-              ipr => {
-                var iprs = ipr; 
-                iprs.map((item: any) => this.ipr = parseFloat(item.sum)); 
-              }
-            );
-            this.salaireService.cnssQPOTotal(this.currentUser.code_entreprise).subscribe(
-              cnss => {
-                var cnssQPO = cnss; 
-                cnssQPO.map((item: any) => this.cnss = parseFloat(item.sum));
-              }
-            );
-            this.salaireService.fraisBancaireTotal(this.currentUser.code_entreprise).subscribe(
-              frais_bancaire => {
-                var frais_bancaires = frais_bancaire; 
-                frais_bancaires.map((item: any) => this.frais_bancaire = parseFloat(item.sum));
-              }
-            );
-          this.isLoading = false;
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.router.navigate(['/auth/login']);
-          console.log(error);
-        }
-      }); 
-    
+          this.salaireService.netAPayerTotal(this.currentUser.code_entreprise).subscribe(
+            net_a_payer => {
+              var net_a_payE = net_a_payer;  
+              net_a_payE.map((item: any) => this.net_a_payer = parseFloat(item.sum));  
+            }
+          );
+          this.salaireService.iprTotal(this.currentUser.code_entreprise).subscribe(
+            ipr => {
+              var iprs = ipr; 
+              iprs.map((item: any) => this.ipr = parseFloat(item.sum)); 
+            }
+          );
+          this.salaireService.cnssQPOTotal(this.currentUser.code_entreprise).subscribe(
+            cnss => {
+              var cnssQPO = cnss; 
+              cnssQPO.map((item: any) => this.cnss = parseFloat(item.sum));
+            }
+          );
+          this.salaireService.fraisBancaireTotal(this.currentUser.code_entreprise).subscribe(
+            frais_bancaire => {
+              var frais_bancaires = frais_bancaire; 
+              frais_bancaires.map((item: any) => this.frais_bancaire = parseFloat(item.sum));
+            }
+          );
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
+    }); 
   }
-
-
+ 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

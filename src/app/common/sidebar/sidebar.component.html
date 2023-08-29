@@ -84,7 +84,7 @@
                             </li>
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Avances salaires')">
                                 <a routerLink="/layouts/salaires/avance-salaire" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Avances sur salaires
+                                    Avances salaires
                                 </a>
                             </li>  
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Primes divers')">
@@ -142,13 +142,13 @@
                             </li>
                         </ul>
                     </mat-expansion-panel>
-                    <a routerLink="/layouts/mail/inbox" 
+                    <!-- <a routerLink="/layouts/mail/inbox" 
                         class="sidebar-menu-link" routerLinkActive="active" 
                         [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Emails')">
                         <i class="ri-mail-line"></i>
                         <span class="title">Mails</span>
-                    </a> 
+                    </a>  -->
                     <span class="sub-title gray-color">Configurations</span>
                     <mat-expansion-panel (opened)="panelOpenState = true" 
                         (closed)="panelOpenState = true"
@@ -192,12 +192,12 @@
                             </li>
                         </ul>
                     </mat-expansion-panel>
-                    <a routerLink="/layouts/archives" class="sidebar-menu-link" 
+                    <!-- <a routerLink="/layouts/archives" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Archives')">
                         <i class="ri-archive-line"></i>
                         <span class="title">Archives</span>
-                    </a>
+                    </a> -->
                     <mat-expansion-panel (opened)="panelOpenState = true" 
                         (closed)="panelOpenState = true"
                         *ngIf="currentUser.roles.includes('Support')">

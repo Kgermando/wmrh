@@ -78,15 +78,80 @@
  
 <br>
 
+
+
+<div class="reports-table table-responsive mt-25">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="fw-semibold gray-color">N°</th>
+                <th class="fw-semibold main-color">Matricule</th>
+                <th class="fw-semibold gray-color">Nom Complet</th>
+                <th class="fw-semibold gray-color">Departement</th>
+                <th class="fw-semibold gray-color">Fonction</th>
+                <th class="fw-semibold gray-color">RBI</th> 
+                <th class="fw-semibold gray-color">CNSS(QPO)</th>
+                <th class="fw-semibold gray-color">RNI</th>
+                <th class="fw-semibold gray-color">IPR</th>
+                <th class="fw-semibold gray-color">Net à payer</th>
+                <th class="fw-semibold gray-color">Compte</th>
+                <th class="fw-semibold gray-color">Frais bancaire</th>
+                <th class="fw-semibold gray-color">Banque</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of releveList; index as i">
+                <td class="gray-color fw-semibold">
+                    {{ i + 1 }}
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.personnel.matricule.toUpperCase() }}
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.personnel.nom }} {{ item.personnel.postnom }} {{ item.personnel.prenom }}
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.personnel.departements.departement }}
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.personnel.fonctions.fonction }}
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.rbi | numberFormat:'fr-FR'}} FC
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.cnss_qpo | numberFormat:'fr-FR'}} FC
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.rni | numberFormat:'fr-FR'}} FC
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.ipr | numberFormat:'fr-FR'}} FC
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.net_a_payer | numberFormat:'fr-FR'}} FC
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.personnel.compte_bancaire }}
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.personnel.frais_bancaire | numberFormat:'fr-FR'}} FC
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.personnel.nom_banque }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> 
+
+
+
+
+<!-- 
 <div class="mat-elevation-z8" [class.component-dark-theme]="themeService.isDark()">
     <table mat-table [dataSource]="dataSource">
-        <!-- Position Column -->
-        <ng-container matColumnDef="numero">
-            <th mat-header-cell *matHeaderCellDef>N°</th>
-            <td mat-cell *matCellDef="let element;let i = index;">
-                {{ i + 1 }}.
-            </td>
-        </ng-container>
+ 
     
  
         <ng-container matColumnDef="matricule">
@@ -104,14 +169,7 @@
                 {{element.personnel.postnom}}
                 {{element.personnel.prenom}}
             </td>
-        </ng-container>
-
-        <ng-container matColumnDef="departement">
-            <th mat-header-cell *matHeaderCellDef>Departement </th>
-            <td mat-cell *matCellDef="let element">
-                {{ element.personnel.departements.departement }}
-            </td>
-        </ng-container>
+        </ng-container> 
 
         <ng-container matColumnDef="ipr">
             <th mat-header-cell *matHeaderCellDef>IPR </th>
@@ -153,4 +211,4 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator [hidePageSize]="false" [pageSizeOptions]="[15, 30, 45]" showFirstLastButtons></mat-paginator>
-</div>
+</div> -->

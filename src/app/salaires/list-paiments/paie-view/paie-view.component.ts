@@ -270,25 +270,30 @@ export class PaieViewComponent implements OnInit {
        
 
         var ancennete = 0;
-        if (this.primeAncennete >=5) {
+        if(this.primeAncennete >5 && this.primeAncennete <= 10) {
           ancennete = salaire_base * this.preference.prime_ancien_5 / 100;
-        } else if(this.primeAncennete >=10) {
+          console.log('primeAncennete 10', this.primeAncennete);
+        } else if(this.primeAncennete >10 && this.primeAncennete <= 15) {
           ancennete = salaire_base * this.preference.prime_ancien_10 / 100;
-        } else if(this.primeAncennete >=15) {
+          console.log('primeAncennete 15', this.primeAncennete);
+        } else if(this.primeAncennete >15 && this.primeAncennete <= 20) {
           ancennete = salaire_base * this.preference.prime_ancien_15 / 100;
-        } else if(this.primeAncennete >=20) {
+          console.log('primeAncennete 20', this.primeAncennete);
+        } else if(this.primeAncennete >20 && this.primeAncennete <= 25) {
           ancennete = salaire_base * this.preference.prime_ancien_20 / 100;
-        } else if(this.primeAncennete >=25) {
+          console.log('primeAncennete 25', this.primeAncennete);
+        } else if(this.primeAncennete >25) {
           ancennete = salaire_base * this.preference.prime_ancien_25 / 100;
-        }
+          console.log('primeAncennete plus 25', this.primeAncennete);
+        } 
 
         var heureSupplementaireMonnaie = 0;
-
-        if (this.nbrHeureSupp === 2) {
+ 
+        if (this.nbrHeureSupp >=2 && this.nbrHeureSupp <6) {
           heureSupplementaireMonnaie = salaire_base * 30 / 100;
-        } else if(this.nbrHeureSupp > 2) {
+        } else if(this.nbrHeureSupp >=6 && this.nbrHeureSupp <8) {
           heureSupplementaireMonnaie = salaire_base * 60 / 100;
-        } else if(this.nbrHeureSupp > 8) {
+        } else if(this.nbrHeureSupp >= 8) {
           heureSupplementaireMonnaie = salaire_base * 100 / 100;
         }
 
@@ -309,6 +314,8 @@ export class PaieViewComponent implements OnInit {
         // Remuneration Brute impôsable
         var rbi = salaire_base + 
             prime + ancennete + heureSupplementaireMonnaie;  
+
+       
 
         var alloc_logementSurPlus = alloc_logementMonnaie - (30 * rbi / 100); // Le logement ne depasse le 30% de rbi
 
@@ -395,6 +402,8 @@ export class PaieViewComponent implements OnInit {
         
 
         var net_a_payer = rni + avantageSocials - deductions; 
+
+        console.log('RBI', rbi);
 
         var body = {
           personnel: this.personne.id,

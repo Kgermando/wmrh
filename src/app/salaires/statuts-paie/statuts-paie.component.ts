@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './statuts-paie.component.html',
   styleUrls: ['./statuts-paie.component.scss']
 })
-export class StatutsPaieComponent {
+export class StatutsPaieComponent implements OnInit {
   displayedColumns: string[] = ['statut', 'matricule', 'fullname', 'departements', 'services', 'site_locations', 'created'];
   
   ELEMENT_DATA: SalaireModel[] = [];
@@ -76,36 +76,30 @@ export class StatutsPaieComponent {
     } else {
         ''
     }
+
+    this.isLoading = true;
+    this.authService.user().subscribe({
+        next: (user) => {
+            this.currentUser = user;
+            this.salaireService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+                this.ELEMENT_DATA = res; 
+                this.dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
+            });
+            this.isLoading = false;
+        },
+        error: (error) => {
+            this.isLoading = false;
+          this.router.navigate(['/auth/login']);
+          console.log(error);
+        }
+      }); 
   }
 
   toggleTheme() {
       this.themeService.toggleTheme();
-  }
-
-
-
-    ngAfterViewInit() { 
-        this.isLoading = true;
-        this.authService.user().subscribe({
-            next: (user) => {
-                this.currentUser = user;
-                this.salaireService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-                    this.ELEMENT_DATA = res; 
-                    this.dataSource = new MatTableDataSource<SalaireModel>(this.ELEMENT_DATA);
-                    this.dataSource.sort = this.sort;
-                    this.dataSource.paginator = this.paginator;
-                });
-                this.isLoading = false;
-            },
-            error: (error) => {
-                this.isLoading = false;
-              this.router.navigate(['/auth/login']);
-              console.log(error);
-            }
-          }); 
-       
-    }
-
+  } 
  
   applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
