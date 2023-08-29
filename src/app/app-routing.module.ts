@@ -21,7 +21,6 @@ import { ServicesComponent } from './preferences/services/services.component';
 import { TitlesComponent } from './preferences/titles/titles.component';
 import { SiteLocationComponent } from './preferences/site-location/site-location.component';
 import { PointageComponent } from './presences/pointage/pointage.component';
-import { PointageMatriculeComponent } from './presences/pointage/pointage-matricule/pointage-matricule.component';  
 import { RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
 import { SyndicatsComponent } from './syndicats/syndicats.component';
 import { PostesComponent } from './recrutements/postes/postes.component';
@@ -70,6 +69,7 @@ import { NotifyComponent } from './notify/notify.component';
 import { NotifyViewComponent } from './notify/notify-view/notify-view.component';
 import { EntrepriseComponent } from './admin/entreprise/entreprise.component';
 import { EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entreprise-view.component';
+import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -100,7 +100,7 @@ const routes: Routes = [
     { path: 'preferences/site-location/:id/detail', component: SiteLocationViewComponent, canActivate: [siteLocationGuard] },
 
     { path: 'presences/pointage', component: PointageComponent, canActivate: [pointagesGuard] },
-    { path: 'presences/pointage/:id', component: PointageMatriculeComponent, canActivate: [pointagesGuard] },
+    { path: 'presences/pointage/:matricule', component: PointageViewComponent, canActivate: [pointagesGuard] },
     { path: 'presences/registre-presences', component: RegistrePresenceComponent, canActivate: [registrePresenceGuard] }, 
     { path: 'presences/heures-supp', component: HeuresSuppComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/heures-supp/:id/detail', component: HeureSuppDetailComponent, canActivate: [heureSuppGuard] },

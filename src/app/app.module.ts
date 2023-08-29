@@ -48,16 +48,14 @@ import { EditTitleDialogBox, TitlesComponent } from './preferences/titles/titles
 import { EditFonctionDialogBox, FonctionComponent } from './preferences/fonction/fonction.component';
 import { EditServiceDialogBox, ServicesComponent } from './preferences/services/services.component';
 import { EditSiteLocationDialogBox, SiteLocationComponent } from './preferences/site-location/site-location.component';
-import { PointageComponent } from './presences/pointage/pointage.component';
-import { PointageMatriculeComponent } from './presences/pointage/pointage-matricule/pointage-matricule.component';
-import { PointageSidebarComponent } from './presences/pointage/pointage-sidebar/pointage-sidebar.component'; 
-import { PenaliteSAddDialogBox, PresenceFormComponent } from './presences/pointage/presence-form/presence-form.component';
-import { PresenceCalendarComponent } from './presences/pointage/presence-calendar/presence-calendar.component';
-import { PresencePieMonthComponent } from './presences/pointage/presences-pie/presence-pie-month/presence-pie-month.component';
-import { PresencePieYearComponent } from './presences/pointage/presences-pie/presence-pie-year/presence-pie-year.component';
-import { PresencePieAllComponent } from './presences/pointage/presences-pie/presence-pie-all/presence-pie-all.component';
-import { PresencesPieComponent } from './presences/pointage/presences-pie/presences-pie.component'; 
-import { EditPresenceDialogBox, PointageTableComponent } from './presences/pointage/pointage-table/pointage-table.component';
+import { PointageComponent } from './presences/pointage/pointage.component'; 
+import { PenaliteSAddDialogBox, PresenceFormComponent } from './presences/pointage/pointage-view/presence-form/presence-form.component';
+import { PresenceCalendarComponent } from './presences/pointage/pointage-view/presence-calendar/presence-calendar.component';
+import { PresencePieMonthComponent } from './presences/pointage/pointage-view/presences-pie/presence-pie-month/presence-pie-month.component';
+import { PresencePieYearComponent } from './presences/pointage/pointage-view/presences-pie/presence-pie-year/presence-pie-year.component';
+import { PresencePieAllComponent } from './presences/pointage/pointage-view/presences-pie/presence-pie-all/presence-pie-all.component';
+import { PresencesPieComponent } from './presences/pointage/pointage-view/presences-pie/presences-pie.component'; 
+import { EditPresenceDialogBox, PointageTableComponent } from './presences/pointage/pointage-view/pointage-table/pointage-table.component';
 import { PresenceExportXLSXDialogBox, PresenceUploadCSVDialogBox, RegistrePresenceComponent } from './presences/registre-presence/registre-presence.component';
 import { SyndicatsComponent } from './syndicats/syndicats.component';
 import { CandidaturesComponent } from './recrutements/candidatures/candidatures.component';
@@ -73,7 +71,7 @@ import { PrimeAddDialogBox, PrimesComponent } from './primes/primes.component';
 import { PenaliteAddDialogBox, PenalitesComponent } from './penalites/penalites.component';
 import { AvanceSalaireAddDialogBox, AvanceSalairesComponent } from './avance-salaires/avance-salaires.component';
 import { HeureSuppAddDialogBox, HeuresSuppComponent } from './heures-supp/heures-supp.component';
-import { PresencePointageComponent } from './presences/pointage/pointage-sidebar/presence-pointage/presence-pointage.component';
+import { PresencePointageComponent } from './presences/pointage/presence-pointage/presence-pointage.component';
 import { AvanceSalaireDetailComponent, EditAvanceSalaireDialogBox } from './avance-salaires/avance-salaire-detail/avance-salaire-detail.component';
 import { AvanceSalaireTableComponent } from './avance-salaires/avance-salaire-table/avance-salaire-table.component';
 import { EditPrimeDialogBox, PrimeDetailComponent } from './primes/prime-detail/prime-detail.component';
@@ -170,6 +168,7 @@ import { EntrepriseComponent } from './admin/entreprise/entreprise.component';
 import { EditEntrepriseDialogBox, EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entreprise-view.component';
 import { AbonnementTableComponent } from './admin/entreprise/abonnement-table/abonnement-table.component';
 import { AbonnementAdminViewComponent } from './admin/abonnement-admin/abonnement-admin-view/abonnement-admin-view.component';
+import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component'; 
 
 
 @NgModule({
@@ -212,9 +211,7 @@ import { AbonnementAdminViewComponent } from './admin/abonnement-admin/abonnemen
     EditTitleDialogBox,
     EditSiteLocationDialogBox,
     EditReglageDialogBox, 
-    PointageComponent, 
-    PointageMatriculeComponent, 
-    PointageSidebarComponent,
+    PointageComponent,
     PresenceFormComponent,
     PresenceCalendarComponent, 
     PresencePieMonthComponent, 
@@ -328,7 +325,8 @@ import { AbonnementAdminViewComponent } from './admin/abonnement-admin/abonnemen
     EntrepriseViewComponent,
     EditEntrepriseDialogBox,
     AbonnementTableComponent,
-    AbonnementAdminViewComponent
+    AbonnementAdminViewComponent, 
+    PointageViewComponent, 
   ],
   imports: [
     BrowserModule,

@@ -1,21 +1,18 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 
 @Component({
-  selector: 'app-pointage-matricule',
-  templateUrl: './pointage-matricule.component.html',
-  styleUrls: ['./pointage-matricule.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  selector: 'app-pointage-view',
+  templateUrl: './pointage-view.component.html',
+  styleUrls: ['./pointage-view.component.scss']
 })
-export class PointageMatriculeComponent implements OnInit {
+export class PointageViewComponent implements OnInit {
   isLoading = false;
 
-  personne: PersonnelModel;  
-
-  cumulsMonth: number = 0;
+  personne: PersonnelModel;
 
   constructor(
     public themeService: CustomizerSettingsService,
@@ -26,12 +23,11 @@ export class PointageMatriculeComponent implements OnInit {
  
   ngOnInit(): void {
     this.isLoading = true;
-    let id = this.route.snapshot.params['id'];
-    this.personnelService.get(id).subscribe(pers => {
+    let matricule = this.route.snapshot.paramMap.get('matricule');  // this.route.snapshot.params['id'];
+    this.personnelService.getMatricule(matricule).subscribe(pers => {
       this.personne = pers;
       this.isLoading = false; 
     }); 
   }
  
-  
 }

@@ -1,3 +1,9 @@
+
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+</div>
+<div *ngIf="!isLoading">
+
 <div class="breadcrumb-card mb-25 d-md-flex align-items-cEntrer justify-content-space-between">
     <h5 class="mb-0" *ngIf="personne">{{ personne.nom.toUpperCase() }} {{ personne.postnom.toUpperCase() }} {{ personne.prenom.toUpperCase() }}</h5>
     <ol class="breadcrumb mb-0 ps-0">
@@ -515,3 +521,4 @@
         </mat-stepper>
     </mat-card-content>
 </mat-card>
+</div>

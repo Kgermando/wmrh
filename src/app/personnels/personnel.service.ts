@@ -9,6 +9,9 @@ import { Observable } from 'rxjs';
 export class PersonnelService extends ApiService {
   endpoint: string = `${environment.apiURL}/personnels`;
 
+  getMatricule(matricule: any): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-matricule/${matricule}`);
+  }
   
   getSyndicat(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-syndicat/${code_entreprise}`);

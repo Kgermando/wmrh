@@ -127,7 +127,7 @@ export class PersonnelListComponent implements AfterViewInit {
 
   downloadModelReport() {
     this.isLoading = true;
-    this.httpClient.get("assets/files/personnel.xlsx",{responseType: "blob"}).subscribe((res:any) => { 
+    this.httpClient.get("assets/files/personnel_model.xlsx",{responseType: "blob"}).subscribe((res:any) => { 
       const downloadUrl= window.URL.createObjectURL(res);
       const link = document.createElement('a');
       link.href = downloadUrl;

@@ -6,13 +6,13 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service'; 
 import { AuthService } from 'src/app/auth/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';  
-import { ApointementModel } from '../../models/presence-model';
+import { ApointementModel } from '../../../models/presence-model';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
-import { PresenceService } from '../../presence.service';
+import { PresenceService } from '../../../presence.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +20,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
   templateUrl: './pointage-table.component.html',
   styleUrls: ['./pointage-table.component.scss']
 })
-export class PointageTableComponent implements AfterViewInit {
+export class PointageTableComponent implements OnInit {
   @Input('personne') personne: PersonnelModel; 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -45,11 +45,11 @@ export class PointageTableComponent implements AfterViewInit {
       public dialog: MatDialog,
       private toastr: ToastrService
   ) {}
+ 
 
 
 
-
-  ngAfterViewInit() { 
+  ngOnInit() { 
     this.isLoading = true;
     this.authService.user().subscribe({
         next: (user) => {

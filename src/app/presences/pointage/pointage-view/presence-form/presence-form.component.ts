@@ -6,12 +6,12 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { PresenceService } from '../../presence.service';
-import { ApointementModel } from '../../models/presence-model';
 import { formatDate } from '@angular/common';
 import { PenaliteAddDialogBox } from 'src/app/penalites/penalites.component';
 import { PenaliteService } from 'src/app/penalites/penalite.service';
 import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
+import { ApointementModel } from 'src/app/presences/models/presence-model';
+import { PresenceService } from 'src/app/presences/presence.service';
 
 @Component({
   selector: 'app-presence-form',

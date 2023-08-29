@@ -1,9 +1,8 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatCalendarCellClassFunction } from '@angular/material/datepicker'; 
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model'; 
-import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service'; 
-import { ApointementModel } from '../../models/presence-model';
-
+import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
+import { ApointementModel } from 'src/app/presences/models/presence-model';
 @Component({
   selector: 'app-presence-calendar',
   templateUrl: './presence-calendar.component.html',
