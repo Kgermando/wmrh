@@ -135,7 +135,7 @@ export class FichePaieComponent implements OnInit {
             this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
               this.fardeList = farde;
               var datePaieList = this.fardeList.filter(v => v.is_paie == this.salaire.is_paie);
-              this.dateFarde = datePaieList[0];
+              this.dateFarde = datePaieList[datePaieList.length-1];
               var date = new Date(this.dateFarde.created);
               this.dateMonth = date.getMonth() + 1;
               this.dateYear =  date.getFullYear();

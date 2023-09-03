@@ -104,7 +104,7 @@ export class StatutsPaieComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         var datePaieList = this.fardeSetList.filter((v) => v.is_paie == event.value);
-        this.dateFarde = datePaieList[0];
+        this.dateFarde = datePaieList[datePaieList.length-1];
         var date = new Date(this.dateFarde.created);
         this.dateMonth = date.getMonth() + 1;
         this.dateYear =  date.getFullYear();

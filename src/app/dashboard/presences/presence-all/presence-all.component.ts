@@ -11,8 +11,6 @@ import {
   ApexXAxis,
   ApexGrid,
   ApexYAxis,
-  ApexTitleSubtitle,
-  ApexFill,
   ApexPlotOptions
 } from "ng-apexcharts";
 

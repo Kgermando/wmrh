@@ -47,7 +47,6 @@ export class ListPaimentsComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     this.isLoading = true;
     this.authService.user().subscribe({
         next: (user) => {
@@ -58,7 +57,7 @@ export class ListPaimentsComponent implements OnInit {
                 this.personnelService.getAll(this.currentUser.code_entreprise)
                 .subscribe(res => {
                     this.personnelFilter = res;
-                    this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < fardeValueMax.max && 
+                    this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie <= fardeValueMax.max && 
                         parseFloat(v.salaire_base) > 0);
                     this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
                     this.dataSource.sort = this.sort;
