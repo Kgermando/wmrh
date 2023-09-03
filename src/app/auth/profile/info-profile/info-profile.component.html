@@ -59,7 +59,7 @@
                         <span class="gray-color">{{ currentUser.nationalite }}</span>
                     </li>
                     <li>
-                        <span class="fw-semibold">Etat civile: </span>
+                        <span class="fw-semibold">Etat civil: </span>
                         <span class="gray-color">{{ currentUser.etat_civile }}</span>
                     </li>
                     <li>
@@ -115,22 +115,22 @@
                 </ul>
             </ng-template>
             <ng-template carouselSlide>
-                <ul class="list ps-0 mb-0" *ngIf="preference">
+                <ul class="list ps-0 mb-0">
                     <li>
                         <span class="fw-semibold">Salaire de base: </span>
-                        <span class="gray-color">{{ currentUser.salaire_base }} {{ preference.monnaie }} </span>
+                        <span class="gray-color">{{ currentUser.salaire_base }} {{ currentUser.monnaie }} </span>
                     </li>
                     <li>
                         <span class="fw-semibold">Allocation logement: </span>
-                        <span class="gray-color">{{ currentUser.alloc_logement }} {{ preference.monnaie }} </span>
+                        <span class="gray-color">{{ currentUser.alloc_logement }} {{ currentUser.monnaie }} </span>
                     </li>
                     <li>
                         <span class="fw-semibold">Allocation transport: </span>
-                        <span class="gray-color">{{ currentUser.alloc_transport }} {{ preference.monnaie }} </span>
+                        <span class="gray-color">{{ currentUser.alloc_transport }} {{ currentUser.monnaie }} </span>
                     </li>
                     <li>
                         <span class="fw-semibold">Allocation familliale: </span>
-                        <span class="gray-color">{{ currentUser.alloc_familliale }} {{ preference.monnaie }} </span>
+                        <span class="gray-color">{{ currentUser.alloc_familliale }} {{ currentUser.monnaie }} </span>
                     </li>
                     <li>
                         <span class="fw-semibold">Compte bancaire: </span>

@@ -20,6 +20,12 @@ export class PerformenceViewComponent implements OnInit {
   currentUser: PersonnelModel | any;
   
   personne: PersonnelModel;
+
+  cumuls = 0;
+
+  hospitaliteTotal = 0;
+  ponctualiteTotal = 0;
+  travailTotal = 0;
  
 
   constructor(
@@ -27,7 +33,8 @@ export class PerformenceViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
       private authService: AuthService,
-    private personnelService: PersonnelService, 
+    private personnelService: PersonnelService,
+    private performenceService: PerformenceService,
     public dialog: MatDialog ) {}
 
 
@@ -38,8 +45,18 @@ export class PerformenceViewComponent implements OnInit {
         next: (user) => {
           this.currentUser = user;
           this.personnelService.get(Number(id)).subscribe(res => {
-            this.personne = res;  
+            this.personne = res;
           });
+          this.performenceService.hospitaliteTotal(this.currentUser.code_entreprise, this.personne.id).subscribe(
+            res => {
+              var performences = res; 
+              performences.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum));
+              performences.map((item: any) => this.ponctualiteTotal = parseFloat(item.sum)); 
+              performences.map((item: any) => this.travailTotal = parseFloat(item.sum));
+
+              this.cumuls = this.hospitaliteTotal + this.ponctualiteTotal + this.travailTotal;
+            }
+          );
           this.isLoading = false;
         },
         error: (error) => {

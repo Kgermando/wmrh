@@ -23,13 +23,17 @@ import { monnaieDataList } from '../shared/tools/monnaie-list';
   templateUrl: './primes.component.html',
   styleUrls: ['./primes.component.scss']
 })
-export class PrimesComponent implements AfterViewInit {
+export class PrimesComponent implements OnInit {
   displayedColumns: string[] = ['matricule','fullname', 'intitule', 'montant', 'created', 'id'];
   
   ELEMENT_DATA: PrimeModel[] = [];
   
   dataSource = new MatTableDataSource<PrimeModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<PrimeModel>(true, []);
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
+
 
   isLoading = false;
   currentUser: PersonnelModel | any;
@@ -44,16 +48,14 @@ export class PrimesComponent implements AfterViewInit {
       private primeService: PrimeService,
       private reglageService: ReglageService,
       public dialog: MatDialog,
-  ) {}
+  ) {} 
 
   toggleTheme() {
     this.themeService.toggleTheme();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-    ngAfterViewInit() { 
+  ngOnInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
           next: (user) => {

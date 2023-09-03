@@ -27,6 +27,9 @@ export class PresEntrepriseViewComponent implements OnInit {
 
   preference: PreferenceModel;
 
+  totalDejaPayE = 0;
+  reste = 0;
+
   constructor(
     public themeService: CustomizerSettingsService,
     private route: ActivatedRoute,
@@ -46,7 +49,16 @@ export class PresEntrepriseViewComponent implements OnInit {
         next: (user) => {
             this.currentUser = user; 
             this.presEntrepriseService.get(Number(id)).subscribe(res => {
-              this.presEntreprise = res;  
+              this.presEntreprise = res; 
+
+              var moisDejaPayE = 0;
+
+              moisDejaPayE = new Date().getMonth() - new Date(this.presEntreprise.date_debut).getMonth();
+
+              this.totalDejaPayE = +this.presEntreprise.deboursement * moisDejaPayE;
+              
+              this.reste = +this.presEntreprise.total_empreints - this.totalDejaPayE;
+
             });
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
               this.preference = res; 

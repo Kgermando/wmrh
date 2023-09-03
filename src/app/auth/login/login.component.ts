@@ -57,6 +57,8 @@ export class LoginComponent {
             if (user.statut_personnel) {
               if (user.roles[0] === 'Dashboard') { 
                 this.router.navigate(['/layouts/dashboard']);  
+              } else if (user.roles[0] === 'Bulletins employé') { 
+                this.router.navigate(['/layouts/salaires/mes-bulletins-salaires']);  
               } else if (user.roles[0] === 'Personnels') { 
                 this.router.navigate(['/layouts/personnels/personnel-list']); 
               } else if (user.roles[0] === 'Pointages') {
@@ -77,7 +79,7 @@ export class LoginComponent {
                 this.router.navigate(['/layouts/salaires/primes']);
               } else if (user.roles[0] === 'Pénalites') {
                 this.router.navigate(['/layouts/salaires/penalites']);
-              } else if (user.roles[0] === 'Près entreprise') {
+              } else if (user.roles[0] === 'Pret entreprise') {
                 this.router.navigate(['/layouts/salaires/pres-entreprise']);
               } else if (user.roles[0] === 'Syndicats') {
                 this.router.navigate(['/layouts/personnels/syndicats']);

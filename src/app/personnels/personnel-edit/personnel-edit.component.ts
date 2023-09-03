@@ -89,32 +89,6 @@ export class PersonnelEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.authService.user().subscribe({
-      next: (user) => {
-        this.currentUser = user; 
-
-        this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.departementList = res; 
-        });
-        this.fonctionService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.fonctionList = res; 
-        });
-        this.titleService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.titleList = res; 
-        });
-        this.serviceService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.serviceList = res;
-        });
-        this.siteLocation.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.siteLocationList = res;
-        });
-      },
-      error: (error) => {
-        this.router.navigate(['/auth/login']);
-        console.log(error);
-      }
-    });
-
     this.formGroup = this._formBuilder.group({
       nom: [''],
       postnom: [''],
@@ -166,68 +140,94 @@ export class PersonnelEditComponent implements OnInit {
       permission: [''],
     });
 
-
     this.id = this.route.snapshot.params['id']; 
-    this.personnelService.get(this.id).subscribe(item => { 
-        this.personne = item; 
-        this.formGroup.patchValue({
-          nom: item.nom,
-          postnom: item.postnom,
-          prenom: item.prenom,
-          email: item.email,
-          telephone: item.telephone,
-          sexe: item.sexe,
-          adresse: item.adresse,
-          category: item.category,
-          signature: this.currentUser.matricule, 
-          update_created: new Date()
+    this.authService.user().subscribe({
+      next: (user) => {
+        this.currentUser = user; 
+
+        this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.departementList = res; 
         });
-        this.formGroup2.patchValue({ 
-          numero_cnss: item.numero_cnss,
-          date_naissance: item.date_naissance,
-          lieu_naissance: item.lieu_naissance,
-          nationalite: item.nationalite,
-          etat_civile: item.etat_civile,
-          nbr_dependants: item.nbr_dependants,
-          signature: this.currentUser.matricule, 
-          update_created: new Date()
+        this.fonctionService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.fonctionList = res; 
         });
-        this.formGroup3.patchValue({
-          departements: item.departements,
-          titles: item.titles,
-          fonctions: item.fonctions,
-          services: item.services,
-          site_locations: item.site_locations,
-          type_contrat: item.type_contrat,
-          date_debut_contrat: item.date_debut_contrat,
-          date_fin_contrat: this.typeContrat === 'CDI' ? '2099-01-01' : item.date_fin_contrat,
-          signature: this.currentUser.matricule,
-          update_created: new Date()
+        this.titleService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.titleList = res; 
         });
-        this.formGroup4.patchValue({ 
-          monnaie: item.monnaie,
-          salaire_base: item.salaire_base,
-          alloc_logement: item.alloc_logement,
-          alloc_transport: item.alloc_transport,
-          alloc_familliale: item.alloc_familliale,
-          soins_medicaux: item.soins_medicaux,
-          compte_bancaire: item.compte_bancaire,
-          nom_banque: item.nom_banque,
-          frais_bancaire: item.frais_bancaire, 
-          syndicat: item.syndicat,
-          cv_url: item.cv_url, 
-          signature: this.currentUser.matricule,
-          update_created: new Date()
+        this.serviceService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.serviceList = res;
         });
-        this.formGroup5.patchValue({ 
-          statut_personnel: item.statut_personnel,
-          roles: item.roles, 
-          permission: item.permission,
-          signature: this.currentUser.matricule,
-          update_created: new Date()
+        this.siteLocation.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.siteLocationList = res;
         });
+
+        this.personnelService.get(this.id).subscribe(item => { 
+          this.personne = item; 
+          this.formGroup.patchValue({
+            nom: item.nom,
+            postnom: item.postnom,
+            prenom: item.prenom,
+            email: item.email,
+            telephone: item.telephone,
+            sexe: item.sexe,
+            adresse: item.adresse,
+            category: item.category,
+            signature: this.currentUser.matricule, 
+            update_created: new Date()
+          });
+          this.formGroup2.patchValue({ 
+            numero_cnss: item.numero_cnss,
+            date_naissance: item.date_naissance,
+            lieu_naissance: item.lieu_naissance,
+            nationalite: item.nationalite,
+            etat_civile: item.etat_civile,
+            nbr_dependants: item.nbr_dependants,
+            signature: this.currentUser.matricule, 
+            update_created: new Date()
+          });
+          this.formGroup3.patchValue({
+            departements: item.departements,
+            titles: item.titles,
+            fonctions: item.fonctions,
+            services: item.services,
+            site_locations: item.site_locations,
+            type_contrat: item.type_contrat,
+            date_debut_contrat: item.date_debut_contrat,
+            date_fin_contrat: this.typeContrat === 'CDI' ? '2099-01-01' : item.date_fin_contrat,
+            signature: this.currentUser.matricule,
+            update_created: new Date()
+          });
+          this.formGroup4.patchValue({ 
+            monnaie: item.monnaie,
+            salaire_base: item.salaire_base,
+            alloc_logement: item.alloc_logement,
+            alloc_transport: item.alloc_transport,
+            alloc_familliale: item.alloc_familliale,
+            soins_medicaux: item.soins_medicaux,
+            compte_bancaire: item.compte_bancaire,
+            nom_banque: item.nom_banque,
+            frais_bancaire: item.frais_bancaire, 
+            syndicat: item.syndicat,
+            cv_url: item.cv_url, 
+            signature: this.currentUser.matricule,
+            update_created: new Date()
+          });
+          this.formGroup5.patchValue({ 
+            statut_personnel: item.statut_personnel,
+            roles: item.roles, 
+            permission: item.permission,
+            signature: this.currentUser.matricule,
+            update_created: new Date()
+          });
+        }
+      );
+      },
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
       }
-    );
+    });
+ 
   }
 
   onSubmit() {

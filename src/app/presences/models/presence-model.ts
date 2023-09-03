@@ -8,11 +8,12 @@ export interface ApointementModel {
     observation: string;
     date_entree: Date;
     date_sortie: Date;
+    personnel: PersonnelModel;
     site_location: string;
     signature: string;
     created: Date;
     update_created: Date;
     entreprise: string;
     code_entreprise: string;
-    personnel: PersonnelModel;
+    
 }

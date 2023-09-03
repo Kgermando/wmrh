@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { PerformenceModel } from './models/performence-model';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -17,8 +17,8 @@ import { PersonnelService } from '../personnels/personnel.service';
   templateUrl: './performences.component.html',
   styleUrls: ['./performences.component.scss']
 })
-export class PerformencesComponent implements AfterViewInit {
-  displayedColumns: string[] = ['created', 'matricule', 'fullname', 'ponctualite', 'hospitalite', 'travail'];
+export class PerformencesComponent implements OnInit {
+  displayedColumns: string[] = ['created', 'matricule', 'fullname', 'ponctualite', 'hospitalite', 'travail', 'cumul'];
   
   ELEMENT_DATA: PersonnelModel[] = [];
   
@@ -38,7 +38,7 @@ export class PerformencesComponent implements AfterViewInit {
       private authService: AuthService,
       private personnelService: PersonnelService,
       public dialog: MatDialog,
-  ) {}
+  ) {} 
 
   toggleTheme() {
       this.themeService.toggleTheme();
@@ -46,7 +46,7 @@ export class PerformencesComponent implements AfterViewInit {
 
 
 
-    ngAfterViewInit() { 
+  ngOnInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {

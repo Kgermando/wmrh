@@ -1,6 +1,8 @@
 export const RoleDataList: string[] = [
-    'Dashboard', 
-    'Personnels', 
+    
+    'Dashboard',
+    'Bulletins employé',
+    'Personnels',
     'Pointages', 
     'Registre de presences', 
     'Heure suplementaires',
@@ -10,7 +12,7 @@ export const RoleDataList: string[] = [
     'Avances salaires',
     'Primes divers',
     'Pénalites',
-    'Près entreprise', 
+    'Pret entreprise', 
     'Syndicats', 
     'Horaires', 
     'Performences', 
@@ -28,7 +30,8 @@ export const RoleDataList: string[] = [
   ]
 
   export const RoleSupportDataList: string[] = [
-    'Dashboard', 
+    'Dashboard',
+    'Bulletins employé',
     'Personnels', 
     'Pointages', 
     'Registre de presences', 
@@ -39,7 +42,7 @@ export const RoleDataList: string[] = [
     'Avances salaires',
     'Primes divers',
     'Pénalites',
-    'Près entreprise', 
+    'Pret entreprise', 
     'Syndicats', 
     'Horaires', 
     'Performences', 

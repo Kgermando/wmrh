@@ -168,7 +168,9 @@ import { EntrepriseComponent } from './admin/entreprise/entreprise.component';
 import { EditEntrepriseDialogBox, EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entreprise-view.component';
 import { AbonnementTableComponent } from './admin/entreprise/abonnement-table/abonnement-table.component';
 import { AbonnementAdminViewComponent } from './admin/abonnement-admin/abonnement-admin-view/abonnement-admin-view.component';
-import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component'; 
+import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component';
+import { MesBulletinsComponent } from './salaires/mes-bulletins/mes-bulletins.component';
+import { CumulComponent } from './performences/cumul/cumul.component'; 
 
 
 @NgModule({
@@ -326,7 +328,7 @@ import { PointageViewComponent } from './presences/pointage/pointage-view/pointa
     EditEntrepriseDialogBox,
     AbonnementTableComponent,
     AbonnementAdminViewComponent, 
-    PointageViewComponent, 
+    PointageViewComponent, MesBulletinsComponent, CumulComponent, 
   ],
   imports: [
     BrowserModule,

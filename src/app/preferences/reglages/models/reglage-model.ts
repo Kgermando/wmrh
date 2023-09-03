@@ -22,12 +22,12 @@ export interface PreferenceModel {
     onem : string;
 
     // Parametre de deduction
-    cotisation_syndicale : string;
+    cotisation_syndicale: string;
     cnss_qpo : string;
     smig: string;
 
     // Taux
-    monnaie: string;
+    // monnaie: string;
     nbre_heure_travail: number;
     taux_dollard: number;
     prise_en_charge_frais_bancaire : boolean;

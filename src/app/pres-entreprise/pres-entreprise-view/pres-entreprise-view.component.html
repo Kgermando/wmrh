@@ -7,7 +7,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
-                    <h4 class="mb-0">Près entreprise</h4>
+                    <h4 class="mb-0">Pret entreprise</h4>
                     <div> 
                         <button mat-icon-button color="accent" 
                             (click)="openEditDialog('300ms', '100ms', presEntreprise.id)"
@@ -56,40 +56,65 @@
                                     <span class="fw-semibold d-inline-block">Mise à jour: </span>
                                     <span class="gray-color">{{presEntreprise.update_created | date: 'dd/MM/yyyy HH:mm'}}</span>
                                 </li>
+                                <li> 
+                                    <span class="fw-semibold d-inline-block">Signature: </span>
+                                    <span class="gray-color">{{ presEntreprise.signature }}</span>
+                                </li>
                             </ul>
                         </div>
-                    </div>  
+                    </div>
                 </mat-card-content>
                 <mat-card-content> 
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <ul class="list ps-0 mb-0">
                                 <li>
                                     <span class="fw-semibold d-inline-block">Intitule: </span>
                                     <span class="gray-color">{{ presEntreprise.intitule }}</span>
                                 </li>
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Total Près entreprise: </span>
+                                    <span class="fw-semibold d-inline-block">Total Pret entreprise: </span>
                                     <span class="gray-color">
                                         {{ presEntreprise.total_empreints | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
                                     </span>
                                 </li>
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Montant à debourser: </span>
+                                    <span class="fw-semibold d-inline-block">Montant à payer chaque mois: </span>
                                     <span class="gray-color">
                                         {{ presEntreprise.deboursement | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
                                     </span>
-                                </li> 
-                                <!-- <li>
-                                    <span class="fw-semibold d-inline-block">Total rembourser: </span>
-                                    <span class="gray-color">
-                                        {{ presEntreprise.remboursement | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
-                                    </span>
-                                </li>  -->
-                                <li> 
-                                    <span class="fw-semibold d-inline-block">Signature: </span>
-                                    <span class="gray-color">{{ presEntreprise.signature }}</span>
                                 </li>
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Total déjà payé: </span>
+                                    <span class="gray-color">
+                                        {{ totalDejaPayE | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <ul class="list ps-0 mb-0">
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Total Restant: </span>
+                                    <span class="gray-color">
+                                        {{ reste | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Date choisie  pour le debut des paiements: </span>
+                                    <span class="gray-color">
+                                        {{ presEntreprise.date_debut | date: 'dd/MM/yyyy' }} 
+                                    </span>
+                                </li> 
+
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Echéance: </span>
+                                    <span class="gray-color">
+                                        {{ presEntreprise.date_limit | date: 'dd/MM/yyyy' }}  
+                                    </span>
+                                </li> 
+                                
+                                
                             </ul>
                         </div> 
                     </div>  

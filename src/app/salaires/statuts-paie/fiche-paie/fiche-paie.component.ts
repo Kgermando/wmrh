@@ -14,12 +14,11 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import jsPDF from "jspdf";
-import html2canvas from 'html2canvas'; 
+// import html2canvas from 'html2canvas'; 
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { formatDate } from '@angular/common';
-import { NotificationService } from 'src/app/notifications/notification.service';
+import { formatDate } from '@angular/common'; 
 import { NotifyService } from 'src/app/notify/notify.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
  
@@ -74,9 +73,13 @@ export class FichePaieComponent implements OnInit {
   redressement = 0;
 
 
-  mois = '';
+  fardeList: any[] = [];
+  dateFarde: any;
   dateNow = new Date();
-  dateMonth = 0; 
+  dateMonth = 0;
+  dateYear = 0; 
+
+  mois = '';
  
 
   constructor(
@@ -100,36 +103,6 @@ export class FichePaieComponent implements OnInit {
 
 
     ngOnInit(): void {
-      const dateNow = new Date();
-      this.dateMonth = dateNow.getMonth() + 1;
-      if (this.dateMonth === 1) {
-        this.mois = 'Janvier';
-      } else if(this.dateMonth === 2) {
-          this.mois = 'Fevrier';
-      } else if(this.dateMonth === 3) {
-          this.mois = 'Mars';
-      } else if(this.dateMonth === 4) {
-          this.mois = 'Avril';
-      } else if(this.dateMonth === 5) {
-          this.mois = 'Mai';
-      } else if(this.dateMonth === 6) {
-          this.mois = 'Juin';
-      } else if(this.dateMonth === 7) {
-          this.mois = 'Juillet';
-      } else if(this.dateMonth === 8) {
-          this.mois = 'Aôut';
-      } else if(this.dateMonth === 9) {
-          this.mois = 'Septembre';
-      } else if(this.dateMonth === 10) {
-          this.mois = 'Octobre';
-      } else if(this.dateMonth === 11) {
-          this.mois = 'Novembre';
-      } else if(this.dateMonth === 12) {
-          this.mois = 'Décembre';
-      } else {
-          ''
-      }
-
       this.isLoading = true;
       this.formGroup = this._formBuilder.group({
         alloc_logement: ['', Validators.required],
@@ -158,60 +131,68 @@ export class FichePaieComponent implements OnInit {
           this.currentUser = user;
           let id = this.route.snapshot.paramMap.get('id');
           this.salaireService.get(Number(id)).subscribe(res => {
-            this.salaire = res; 
+            this.salaire = res;
+            this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
+              this.fardeList = farde;
+              var datePaieList = this.fardeList.filter(v => v.is_paie == this.salaire.is_paie);
+              this.dateFarde = datePaieList[0];
+              var date = new Date(this.dateFarde.created);
+              this.dateMonth = date.getMonth() + 1;
+              this.dateYear =  date.getFullYear();
+              if (this.dateMonth === 1) {
+                this.mois = 'Janvier';
+              } else if(this.dateMonth === 2) {
+                  this.mois = 'Fevrier';
+              } else if(this.dateMonth === 3) {
+                  this.mois = 'Mars';
+              } else if(this.dateMonth === 4) {
+                  this.mois = 'Avril';
+              } else if(this.dateMonth === 5) {
+                  this.mois = 'Mai';
+              } else if(this.dateMonth === 6) {
+                  this.mois = 'Juin';
+              } else if(this.dateMonth === 7) {
+                  this.mois = 'Juillet';
+              } else if(this.dateMonth === 8) {
+                  this.mois = 'Aôut';
+              } else if(this.dateMonth === 9) {
+                  this.mois = 'Septembre';
+              } else if(this.dateMonth === 10) {
+                  this.mois = 'Octobre';
+              } else if(this.dateMonth === 11) {
+                  this.mois = 'Novembre';
+              } else if(this.dateMonth === 12) {
+                  this.mois = 'Décembre';
+              } else {
+                  ''
+              }
+            }); 
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
               this.preference = reglage;
-              if (this.salaire.personnel.monnaie == 'USD') {
-                this.formGroup.patchValue({
-                  alloc_logement: parseFloat(this.salaire.alloc_logement) * this.preference.taux_dollard,
-                  alloc_transport: parseFloat(this.salaire.alloc_transport) * this.preference.taux_dollard,
-                  alloc_familliale: parseFloat(this.salaire.alloc_familliale) * this.preference.taux_dollard,
-                  soins_medicaux: parseFloat(this.salaire.soins_medicaux) * this.preference.taux_dollard,
-                  salaire_base: parseFloat(this.salaire.salaire_base) * this.preference.taux_dollard,
-                  primes: parseFloat(this.salaire.primes) * this.preference.taux_dollard,
-                  prime_anciennete: parseFloat(this.salaire.prime_anciennete) * this.preference.taux_dollard,
-                  heure_supplementaire_monnaie: parseFloat(this.salaire.heure_supplementaire_monnaie) * this.preference.taux_dollard,
-                  rbi: parseFloat(this.salaire.rbi) * this.preference.taux_dollard,  // Remuneration brute imposable
-                  rni: parseFloat(this.salaire.rni) * this.preference.taux_dollard,  // Remuneration Nette Imposable
-                  ipr: parseFloat(this.salaire.ipr) * this.preference.taux_dollard,  // Impôt Professionnel sur les Rémunérations (IPR)
-                  impot_elide: parseFloat(this.salaire.impot_elide) * this.preference.taux_dollard,
-                  syndicat: parseFloat(this.salaire.syndicat) * this.preference.taux_dollard,  // 1 %
-                  penalites: parseFloat(this.salaire.penalites) * this.preference.taux_dollard,  // Sanctions sur le salaire net à payer
-                  avance_slaire: parseFloat(this.salaire.avance_slaire) * this.preference.taux_dollard,
-                  prise_en_charge_frais_bancaire:  parseFloat(this.salaire.prise_en_charge_frais_bancaire) * this.preference.taux_dollard,
-                  net_a_payer: parseFloat(this.salaire.net_a_payer) * this.preference.taux_dollard,
-                  statut: this.isPublie ? 'Disponible' : 'Traitement',
-                  signature: this.currentUser.matricule,
-                  update_created: new Date(),
-                  entreprise: this.currentUser.entreprise,
-                  code_entreprise: this.currentUser.code_entreprise
-                });
-              } else if (this.salaire.personnel.monnaie == 'CDF') { 
-                this.formGroup.patchValue({
-                  alloc_logement: parseFloat(this.salaire.alloc_logement),
-                  alloc_transport: parseFloat(this.salaire.alloc_transport),
-                  alloc_familliale: parseFloat(this.salaire.alloc_familliale),
-                  soins_medicaux: parseFloat(this.salaire.soins_medicaux),
-                  salaire_base: parseFloat(this.salaire.salaire_base),
-                  primes: parseFloat(this.salaire.primes),
-                  prime_anciennete: parseFloat(this.salaire.prime_anciennete),
-                  heure_supplementaire_monnaie: parseFloat(this.salaire.heure_supplementaire_monnaie),
-                  rbi: this.rbi,  // Remuneration brute imposable
-                  rni: parseFloat(this.salaire.rni),  // Remuneration Nette Imposable
-                  ipr: parseFloat(this.salaire.ipr),  // Impôt Professionnel sur les Rémunérations (IPR)
-                  impot_elide: parseFloat(this.salaire.impot_elide),
-                  syndicat: parseFloat(this.salaire.syndicat),  // 1 %
-                  penalites: parseFloat(this.salaire.penalites),  // Sanctions sur le salaire net à payer
-                  avance_slaire: parseFloat(this.salaire.avance_slaire),
-                  prise_en_charge_frais_bancaire:  parseFloat(this.salaire.prise_en_charge_frais_bancaire),
-                  net_a_payer: parseFloat(this.salaire.net_a_payer),
-                  statut: this.isPublie ? 'Disponible' : 'Traitement',
-                  signature: this.currentUser.matricule,
-                  update_created: new Date(),
-                  entreprise: this.currentUser.entreprise,
-                  code_entreprise: this.currentUser.code_entreprise
-                });
-              }
+              this.formGroup.patchValue({
+                alloc_logement: parseFloat(this.salaire.alloc_logement),
+                alloc_transport: parseFloat(this.salaire.alloc_transport),
+                alloc_familliale: parseFloat(this.salaire.alloc_familliale),
+                soins_medicaux: parseFloat(this.salaire.soins_medicaux),
+                salaire_base: parseFloat(this.salaire.salaire_base),
+                primes: parseFloat(this.salaire.primes),
+                prime_anciennete: parseFloat(this.salaire.prime_anciennete),
+                heure_supplementaire_monnaie: parseFloat(this.salaire.heure_supplementaire_monnaie),
+                rbi: this.rbi,  // Remuneration brute imposable
+                rni: parseFloat(this.salaire.rni),  // Remuneration Nette Imposable
+                ipr: parseFloat(this.salaire.ipr),  // Impôt Professionnel sur les Rémunérations (IPR)
+                impot_elide: parseFloat(this.salaire.impot_elide),
+                syndicat: parseFloat(this.salaire.syndicat),  // 1 %
+                penalites: parseFloat(this.salaire.penalites),  // Sanctions sur le salaire net à payer
+                avance_slaire: parseFloat(this.salaire.avance_slaire),
+                prise_en_charge_frais_bancaire:  parseFloat(this.salaire.prise_en_charge_frais_bancaire),
+                net_a_payer: parseFloat(this.salaire.net_a_payer),
+                statut: this.isPublie ? 'Disponible' : 'Traitement',
+                signature: this.currentUser.matricule,
+                update_created: new Date(),
+                entreprise: this.currentUser.entreprise,
+                code_entreprise: this.currentUser.code_entreprise
+              });
             });
 
             this.onChanges();
@@ -234,7 +215,6 @@ export class FichePaieComponent implements OnInit {
       // Variables 
       this.salaire_base = +val.salaire_base;
       this.soins_medicaux = +val.soins_medicaux; 
-
       // Aciennetés 
       if(this.salaire.anciennete_nbr_age >5 && this.salaire.anciennete_nbr_age <= 10) {
         this.prime_anciennete = this.salaire_base * this.preference.prime_ancien_5 / 100; 
@@ -266,17 +246,24 @@ export class FichePaieComponent implements OnInit {
       this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heure_supplementaire_monnaie;
 
      
-
+      console.log("this.alloc_familliale 1", this.alloc_familliale);
 
       // Avantages sociaux
       this.alloc_familliale = +val.alloc_familliale;
       this.alloc_transport = +val.alloc_transport;
       this.alloc_logement = +val.alloc_logement;
 
+      console.log("this.alloc_familliale 2", this.alloc_familliale);
+
 
       // L'allocation familliale
-      this.alloc_famillialePlafond = (parseFloat(this.preference.smig) *  
+      if (this.salaire.personnel.nbr_dependants > 0) {
+        this.alloc_famillialePlafond = (parseFloat(this.preference.smig) *  
             this.salaire.personnel.nbr_dependants * this.salaire.nbre_jrs_preste);
+      } else if(this.salaire.personnel.nbr_dependants == 0) {
+        this.alloc_famillialePlafond = (parseFloat(this.preference.smig) * this.salaire.nbre_jrs_preste);
+      }
+      
 
        var alloc_famillialeExces = 0;
         if (this.alloc_familliale > this.alloc_famillialePlafond) {
@@ -347,7 +334,12 @@ export class FichePaieComponent implements OnInit {
 
  
       // IPR à payé 
-      this.ipr = iprRetenu - (iprRetenu * this.salaire.personnel.nbr_dependants * 2 / 100);
+      if (this.salaire.personnel.nbr_dependants > 0) {
+        this.ipr = iprRetenu - (iprRetenu * this.salaire.personnel.nbr_dependants * 2 / 100);
+      } else if (this.salaire.personnel.nbr_dependants == 0) {
+        this.ipr = iprRetenu - (iprRetenu * 2 / 100);
+      }
+      
 
       // Impôt Elide trouvé 
       this.impot_elide = this.redressement - this.ipr;
@@ -425,7 +417,7 @@ export class FichePaieComponent implements OnInit {
                 if (this.isPublie) {
                   var bodyNotify = {
                     personnel: this.salaire.personnel.id,
-                    isRead: false,
+                    is_read: false,
                     title: `Bulletin ${this.mois} disponible.`,
                     // title: (this.salaire.personnel.sexe == 'Homme') 
                     //   ? `Bonjour Monsieur ${this.salaire.personnel.prenom.toUpperCase()} ${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est maintement disponible.`
@@ -492,23 +484,35 @@ export class FichePaieComponent implements OnInit {
  
     delete(id: number): void {
       if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-        const dateNow = new Date();
-        const dateMonth = dateNow.getMonth();
-        var personnel = {  
-          is_paie: dateMonth,
+        const is_paie = this.salaire.is_paie - 1;
+
+        var personnel = {
+          is_paie: is_paie,
+          statut_paie: 'En attente',
           signature: this.currentUser.matricule,
           update_created: new Date(),
           entreprise: this.currentUser.entreprise,
           code_entreprise: this.currentUser.code_entreprise
-        }; 
+        };
         this.personnelService.update(this.salaire.personnel.id, personnel).subscribe({
           next: () => {  
-            this.salaireService
-            .delete(id)
-            .subscribe(() => { 
-              this.toastr.info('Supprimé avec succès!', 'Supprimée!');
-              this.router.navigate(['/layouts/salaires/statuts-paies']);
-            }); 
+            var salaire = {  
+              is_paie: is_paie,
+              signature: this.currentUser.matricule,
+              update_created: new Date(),
+              entreprise: this.currentUser.entreprise,
+              code_entreprise: this.currentUser.code_entreprise
+            };
+            this.salaireService.update(this.salaire.id, salaire).subscribe({
+              next: () => {
+                this.salaireService
+                .delete(id)
+                .subscribe(() => { 
+                  this.toastr.info('Supprimé avec succès!', 'Supprimée!');
+                  this.router.navigate(['/layouts/salaires/liste-paiements']);
+                }); 
+              }
+            })
           },
           error: err => { 
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');

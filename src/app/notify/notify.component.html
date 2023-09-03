@@ -5,7 +5,7 @@
     <mat-card-content>
         <mat-list>
             <!-- <div mat-subheader class="fw-semibold">Folders</div> -->
-            <mat-list-item *ngFor="let notify of notifyList" [ngClass]="{'isread': notify.isRead}">
+            <mat-list-item *ngFor="let notify of notifyList" [ngClass]="{'isread': notify.is_read}">
                 <a [routerLink]="[notify.route]">
                     <mat-icon matListItemIcon>notifications</mat-icon>
                     <div matListItemTitle class="fw-semibold">{{notify.title}}</div>

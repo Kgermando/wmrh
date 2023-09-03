@@ -57,7 +57,33 @@ import { FonctionViewComponent } from './preferences/fonction/fonction-view/fonc
 import { ServViewComponent } from './preferences/services/serv-view/serv-view.component';
 import { TitleViewComponent } from './preferences/titles/title-view/title-view.component';
 import { SiteLocationViewComponent } from './preferences/site-location/site-location-view/site-location-view.component';
-import { archivesGuard, avanceSalaireGuard, candidaturesGuard, dashboardGuard, departementsGuard, emailsGuard, fonctionGuard, heureSuppGuard, horaireGuard, listePaiementGuard, penealiteGuard, performenceGuard, personnelsGuard, pointagesGuard, postesGuard, presEntrepriseGuard, primeDiversGuard, registrePresenceGuard, reglagesGuard, relevePaieGuard, serviceGuard, siteLocationGuard, statutPaieGuard, supportGuard, syndicatGuard, titresGuard } from './guard/role.guard';
+import { archivesGuard, 
+  avanceSalaireGuard, 
+  candidaturesGuard, 
+  dashboardGuard, 
+  departementsGuard, 
+  emailsGuard, 
+  fonctionGuard, 
+  heureSuppGuard, 
+  horaireGuard, 
+  listePaiementGuard, 
+  mesBulletinsGuard, 
+  penaliteGuard, 
+  performenceGuard, 
+  personnelsGuard, 
+  pointagesGuard, 
+  postesGuard, 
+  presEntrepriseGuard, 
+  primeDiversGuard, 
+  registrePresenceGuard, 
+  reglagesGuard, 
+  relevePaieGuard, 
+  serviceGuard, 
+  siteLocationGuard, 
+  statutPaieGuard, 
+  supportGuard, 
+  syndicatGuard, 
+  titresGuard } from './guard/role.guard';
 import { MailSentComponent } from './mail/mail-sent/mail-sent.component';
 import { CalculateComponent } from './salaires/calculate/calculate.component';
 import { ReglageAdminAddComponent } from './admin/reglage-admin/reglage-admin-add/reglage-admin-add.component';
@@ -70,6 +96,7 @@ import { NotifyViewComponent } from './notify/notify-view/notify-view.component'
 import { EntrepriseComponent } from './admin/entreprise/entreprise.component';
 import { EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entreprise-view.component';
 import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component';
+import { MesBulletinsComponent } from './salaires/mes-bulletins/mes-bulletins.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -119,13 +146,14 @@ const routes: Routes = [
 
     { path: 'salaires/primes', component: PrimesComponent, canActivate: [primeDiversGuard] },
     { path: 'salaires/primes/:id/detail', component: PrimeDetailComponent, canActivate: [primeDiversGuard] },
-    { path: 'salaires/penalites', component: PenalitesComponent, canActivate: [penealiteGuard] },
-    { path: 'salaires/penalites/:id/detail', component: PenaliteDetailComponent, canActivate: [penealiteGuard] },
+    { path: 'salaires/penalites', component: PenalitesComponent, canActivate: [penaliteGuard] },
+    { path: 'salaires/penalites/:id/detail', component: PenaliteDetailComponent, canActivate: [penaliteGuard] },
     { path: 'salaires/avance-salaire', component: AvanceSalairesComponent, canActivate: [avanceSalaireGuard] },
     { path: 'salaires/avance-salaire/:id/detail', component: AvanceSalaireDetailComponent, canActivate: [avanceSalaireGuard] },
     { path: 'salaires/liste-paiements', component: ListPaimentsComponent, canActivate: [listePaiementGuard] },
     { path: 'salaires/liste-paiements/:id/paie-view', component: PaieViewComponent, canActivate: [listePaiementGuard] },
     { path: 'salaires/statuts-paies', component: StatutsPaieComponent, canActivate: [statutPaieGuard] },
+    { path: 'salaires/mes-bulletins-salaires', component: MesBulletinsComponent, canActivate: [mesBulletinsGuard] },
     { path: 'salaires/traitement/:id/fiche-paie', component: FichePaieComponent, canActivate: [statutPaieGuard] },
     { path: 'salaires/disponible/:id/bulletin-paie', component: BulletinPaieComponent, canActivate: [statutPaieGuard] }, 
     { path: 'salaires/releve-paie', component: RelevePaieComponent , canActivate: [relevePaieGuard]},

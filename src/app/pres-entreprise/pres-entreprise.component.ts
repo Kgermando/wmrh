@@ -23,7 +23,7 @@ import { monnaieDataList } from '../shared/tools/monnaie-list';
   templateUrl: './pres-entreprise.component.html',
   styleUrls: ['./pres-entreprise.component.scss']
 })
-export class PresEntrepriseComponent implements AfterViewInit {
+export class PresEntrepriseComponent implements OnInit {
   displayedColumns: string[] = ['matricule','fullname', 'intitule', 'date_limit', 'created', 'id'];
   
   ELEMENT_DATA: PresentrepriseModel[] = [];
@@ -53,7 +53,7 @@ export class PresEntrepriseComponent implements AfterViewInit {
     this.themeService.toggleTheme();
   } 
 
-    ngAfterViewInit() { 
+  ngOnInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {

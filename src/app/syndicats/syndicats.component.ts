@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,13 +16,16 @@ import { PersonnelService } from '../personnels/personnel.service';
   templateUrl: './syndicats.component.html',
   styleUrls: ['./syndicats.component.scss']
 })
-export class SyndicatsComponent implements AfterViewInit {
+export class SyndicatsComponent implements OnInit {
   displayedColumns: string[] = ['matricule','nom', 'postnom', 'prenom', 'email', 'telephone', 'sexe'];
   
   ELEMENT_DATA: PersonnelModel[] = [];
   
   dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<PersonnelModel>(true, []);
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
 
   isLoading = false;
   currentUser: PersonnelModel | any;
@@ -33,16 +36,15 @@ export class SyndicatsComponent implements AfterViewInit {
       private router: Router,
       private authService: AuthService,
       private personnelService: PersonnelService
-  ) {}
+  ) {} 
 
   toggleTheme() {
       this.themeService.toggleTheme();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-    ngAfterViewInit() { 
+
+  ngOnInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {

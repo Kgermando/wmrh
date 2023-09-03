@@ -24,7 +24,7 @@ import { monnaieDataList } from '../shared/tools/monnaie-list';
   templateUrl: './penalites.component.html',
   styleUrls: ['./penalites.component.scss']
 })
-export class PenalitesComponent implements AfterViewInit {
+export class PenalitesComponent implements OnInit {
   displayedColumns: string[] = ['matricule','fullname', 'intitule', 'montant', 'created', 'id'];
   
   ELEMENT_DATA: PenaliteModel[] = [];
@@ -46,7 +46,7 @@ export class PenalitesComponent implements AfterViewInit {
       private reglageService: ReglageService,
       public dialog: MatDialog,
   ) {
-  }
+  } 
 
   toggleTheme() {
     this.themeService.toggleTheme();
@@ -55,7 +55,7 @@ export class PenalitesComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-    ngAfterViewInit() { 
+  ngOnInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {

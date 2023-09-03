@@ -4,19 +4,16 @@
         <mat-card class="single-stats-box tagus-card mb-25" style="background-color: aquamarine !important;">
             <span class="gray-color d-block mb-10">Votre filtre</span>
             <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  
-                value="All"
-                (selectionChange)="onSelectCategoryChange($event)">
+                value="All" (selectionChange)="onSelectCategoryChange($event)">
                 <mat-option *ngFor="let category of categoryList" [value]="category">{{category.toUpperCase()}}</mat-option>
             </mat-select> 
             <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"
-                        value="All"
-                    (selectionChange)="onSelectChange($event)">
+                value="All" (selectionChange)="onSelectChange($event)">
                 <mat-option *ngFor="let select of dureeList" [value]="select">{{select.toUpperCase()}}</mat-option>
             </mat-select> 
-        </mat-card>  
+        </mat-card>
 
-        <div 
-            *ngIf="isSelectCategory == 'Presences'">
+        <div *ngIf="isSelectCategory == 'Presences'">
         <mat-card
             class="mb-25 tagus-card user-activities-box"
             [class.component-dark-theme]="themeService.isDark()"

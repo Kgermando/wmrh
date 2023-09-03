@@ -8,7 +8,6 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
 
 @Component({
   selector: 'app-reglages',
@@ -81,7 +80,7 @@ export class EditReglageDialogBox implements OnInit{
 
   currentUser: PersonnelModel | any;
 
-  monnaieList = monnaieDataList;
+  // monnaieList = monnaieDataList;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -186,11 +185,11 @@ export class EditReglageDialogBox implements OnInit{
         nbr_max_enfant_courvert: '', 
       });
     }
-    if (this.data['reglage'] == 'Monnaie') {
-      this.formGroup = this.formBuilder.group({  
-        monnaie: '', 
-      });
-    }
+    // if (this.data['reglage'] == 'Monnaie') {
+    //   this.formGroup = this.formBuilder.group({  
+    //     monnaie: '', 
+    //   });
+    // }
     if (this.data['reglage'] == 'Nbre d\'heures de travail') {
       this.formGroup = this.formBuilder.group({  
         nbre_heure_travail: '', 
@@ -467,13 +466,13 @@ export class EditReglageDialogBox implements OnInit{
             update_created: new Date(),
           });
         }
-        if (this.data['reglage'] == 'Monnaie') {
-          this.formGroup.patchValue({
-            monnaie: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
+        // if (this.data['reglage'] == 'Monnaie') {
+        //   this.formGroup.patchValue({
+        //     monnaie: this.data['valeur'],
+        //     signature: this.currentUser.matricule, 
+        //     update_created: new Date(),
+        //   });
+        // }
         if (this.data['reglage'] == 'Nbre d\'heures de travail') {
           this.formGroup.patchValue({
             nbre_heure_travail: this.data['valeur'],
@@ -681,7 +680,7 @@ export class EditReglageDialogBox implements OnInit{
         next: () => {
           this.isLoading = false;
           window.location.reload(); 
-          this.toastr.success('Success!', 'Reglage enregistré!'); 
+          this.toastr.success('Reglage enregistré!', 'Success!');
         },
         error: err => {
           console.log(err);

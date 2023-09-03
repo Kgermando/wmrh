@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { ApointementModel } from '../models/presence-model';
 import { PresenceService } from '../presence.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
@@ -167,25 +167,6 @@ export class RegistrePresenceComponent implements OnInit, AfterViewInit {
       link.click();
       this.isLoading = false;
     });
-    // this.presenceService.downloadModelReport().subscribe({
-    //   next: (res) => {
-    //     this.isLoading = false;
-    //     const blob = new Blob([res], {type: 'text/xlsx'});
-    //     const downloadUrl = window.URL.createObjectURL(res);
-    //     const link = document.createElement('a');
-    //     link.href = downloadUrl;
-    //     link.download = `Models-Employes-${dateNowFormat}.xlsx`;
-    //     link.click();
-
-
-    //     this.toastr.success('Success!', 'Extraction effectuée!');
-    //   },
-    //   error: (err) => {
-    //     this.isLoading = false;
-    //     this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-    //     console.log(err); 
-    //   }
-    // });
   } 
 
 }
@@ -222,10 +203,10 @@ export class PresenceUploadCSVDialogBox {
         this.isLoading = false; 
         this.close();
       },
-      error: (err) => {
+      error: (e) => {
         this.isLoading = false;
-        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-        console.log(err);
+        this.toastr.error(`${e.error.message}`, 'Oupss!');
+        console.log(e);
         this.close();
       }
     });

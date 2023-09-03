@@ -72,16 +72,6 @@
                                     Liste de paies
                                 </a>
                             </li>
-                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Statuts de paies')">
-                                <a routerLink="/layouts/salaires/statuts-paies" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Statuts de paies
-                                </a>
-                            </li>
-                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Relevés de paies')">
-                                <a routerLink="/layouts/salaires/releve-paie" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Relevé de paies
-                                </a>
-                            </li>
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Avances salaires')">
                                 <a routerLink="/layouts/salaires/avance-salaire" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Avances salaires
@@ -96,12 +86,27 @@
                                 <a routerLink="/layouts/salaires/penalites" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Penalités
                                 </a>
-                            </li> 
-                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Près entreprise')">
+                            </li>
+                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Pret entreprise')">
                                 <a routerLink="/layouts/salaires/pres-entreprise" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Près entreprise
+                                    Pret entreprise
                                 </a>
-                            </li> 
+                            </li>
+                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Statuts de paies')">
+                                <a routerLink="/layouts/salaires/statuts-paies" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Statuts de paies
+                                </a>
+                            </li>
+                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Relevés de paies')">
+                                <a routerLink="/layouts/salaires/releve-paie" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Relevé de paies
+                                </a>
+                            </li>
+                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Bulletins employé')">
+                                <a routerLink="/layouts/salaires/mes-bulletins-salaires" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Mes bulletins de paies
+                                </a>
+                            </li>
                         </ul>
                     </mat-expansion-panel>
                     <a routerLink="/layouts/personnels/syndicats" class="sidebar-menu-link" 
@@ -110,12 +115,12 @@
                         <i class="ri-user-4-line"></i>
                         <span class="title">Syndicats</span>
                     </a>
-                    <a routerLink="/layouts/horaire" class="sidebar-menu-link" 
+                    <!-- <a routerLink="/layouts/horaire" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Horaires')">
                         <i class="ri-calendar-todo-line"></i>
                         <span class="title">Horaire</span>
-                    </a>
+                    </a> -->
                     <a routerLink="/layouts/performences" class="sidebar-menu-link" 
                     routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                     *ngIf="currentUser.roles.includes('Performences')">

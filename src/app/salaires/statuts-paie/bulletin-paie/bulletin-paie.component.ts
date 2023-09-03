@@ -52,6 +52,14 @@ export class BulletinPaieComponent implements OnInit {
   soins_medicauxUSD = 0;
   impot_elideUSD = 0;
 
+  fardeList: any[] = [];
+  dateFarde: any;
+  dateNow = new Date();
+  dateMonth = 0;
+  dateYear = 0; 
+
+  mois = '';
+
   @ViewChild('htmlData', { static: false}) htmlData!: ElementRef;
     
 
@@ -72,7 +80,42 @@ export class BulletinPaieComponent implements OnInit {
           this.currentUser = user;
           let id = this.route.snapshot.paramMap.get('id');
           this.salaireService.get(Number(id)).subscribe(res => {
-            this.salaire = res; 
+            this.salaire = res;
+            this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
+              this.fardeList = farde;
+              var datePaieList = this.fardeList.filter(v => v.is_paie == this.salaire.is_paie);
+              this.dateFarde = datePaieList[0];
+              var date = new Date(this.dateFarde.created);
+              this.dateMonth = date.getMonth() + 1;
+              this.dateYear =  date.getFullYear();
+              if (this.dateMonth === 1) {
+                this.mois = 'Janvier';
+              } else if(this.dateMonth === 2) {
+                  this.mois = 'Fevrier';
+              } else if(this.dateMonth === 3) {
+                  this.mois = 'Mars';
+              } else if(this.dateMonth === 4) {
+                  this.mois = 'Avril';
+              } else if(this.dateMonth === 5) {
+                  this.mois = 'Mai';
+              } else if(this.dateMonth === 6) {
+                  this.mois = 'Juin';
+              } else if(this.dateMonth === 7) {
+                  this.mois = 'Juillet';
+              } else if(this.dateMonth === 8) {
+                  this.mois = 'Aôut';
+              } else if(this.dateMonth === 9) {
+                  this.mois = 'Septembre';
+              } else if(this.dateMonth === 10) {
+                  this.mois = 'Octobre';
+              } else if(this.dateMonth === 11) {
+                  this.mois = 'Novembre';
+              } else if(this.dateMonth === 12) {
+                  this.mois = 'Décembre';
+              } else {
+                  ''
+              }
+            }); 
 
             var net_a_payer = parseFloat(this.salaire.net_a_payer)  / parseFloat(this.salaire.taux_dollard);
             this.net_a_payerUSD = parseFloat(net_a_payer.toFixed(2)); 

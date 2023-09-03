@@ -23,13 +23,17 @@ import { monnaieDataList } from '../shared/tools/monnaie-list';
   templateUrl: './avance-salaires.component.html',
   styleUrls: ['./avance-salaires.component.scss']
 })
-export class AvanceSalairesComponent implements AfterViewInit {
+export class AvanceSalairesComponent implements OnInit {
   displayedColumns: string[] = ['matricule','fullname', 'intitule', 'montant', 'created', 'id'];
   
   ELEMENT_DATA: AvanceSalaireModel[] = [];
   
   dataSource = new MatTableDataSource<AvanceSalaireModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<AvanceSalaireModel>(true, []);
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
+
 
   isLoading = false;
   currentUser: PersonnelModel | any;
@@ -44,16 +48,13 @@ export class AvanceSalairesComponent implements AfterViewInit {
       private avanceSalaireService: AvanceSalaireService,
       private reglageService: ReglageService,
       public dialog: MatDialog,
-  ) {}
-
+  ) {} 
   toggleTheme() {
     this.themeService.toggleTheme();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-    ngAfterViewInit() { 
+  ngOnInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {

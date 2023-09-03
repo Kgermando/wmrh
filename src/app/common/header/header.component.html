@@ -69,7 +69,7 @@
                             </div>
                             <a [routerLink]="[notify.route]" class="link-btn" *ngIf="!isLoading"></a>
                             <!-- <a [routerLink]="['/layouts/notify', notify.personnel.matricule, notify.id, 'notify-view']" class="link-btn"></a> -->
-                            <button class="close-btn bg-transparent border-none p-0"  (click)="isRead(notify.id)"
+                            <button class="close-btn bg-transparent border-none p-0" (click)="isRead(notify.id)"
                                 *ngIf="!isLoading"><i class="flaticon-close"></i></button>
                         </li>
                     </ul>
@@ -102,7 +102,7 @@
                         <ul class="m-0">
                             <li>
                                 <a routerLink="/layouts/profile">
-                                    <i class="ri-user-3-line"></i> Profile
+                                    <i class="ri-user-3-line"></i> Profil
                                 </a>
                             </li>
                             <!-- routerLink="/layouts/abonnements" -->

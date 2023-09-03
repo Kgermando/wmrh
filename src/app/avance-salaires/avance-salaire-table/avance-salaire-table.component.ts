@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { OnInit, Component, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AvanceSalaireModel } from '../models/avance-salaire-model';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -17,7 +17,7 @@ import { PersonnelService } from 'src/app/personnels/personnel.service';
   templateUrl: './avance-salaire-table.component.html',
   styleUrls: ['./avance-salaire-table.component.scss']
 })
-export class AvanceSalaireTableComponent implements AfterViewInit {
+export class AvanceSalaireTableComponent implements OnInit {
   @Input('avanceSalaire') avanceSalaire: AvanceSalaireModel;
   @Input('preference') preference: PreferenceModel;
 
@@ -27,6 +27,10 @@ export class AvanceSalaireTableComponent implements AfterViewInit {
   
   dataSource = new MatTableDataSource<AvanceSalaireModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<AvanceSalaireModel>(true, []);
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
+
 
   isLoading = false;
   currentUser: PersonnelModel | any;
@@ -45,10 +49,8 @@ export class AvanceSalaireTableComponent implements AfterViewInit {
     this.themeService.toggleTheme();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-    ngAfterViewInit() { 
+  ngOnInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {

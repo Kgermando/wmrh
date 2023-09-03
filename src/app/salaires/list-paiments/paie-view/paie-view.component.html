@@ -11,13 +11,12 @@
                     currentUser.permission === 'CR' ||
                     currentUser.permission === 'CRU' ||
                     currentUser.permission === 'CRUD'"> 
-                        <button [disabled]="personne.is_paie === dateMonth" mat-flat-button class="default-btn tagus"  
-                        color="warn" (click)="onSubmit()" >
+                        <button mat-flat-button class="default-btn tagus" color="warn" (click)="onSubmit()" >
                             <div class="d-flex justify-content-center" *ngIf="!isLoadingSubmit">
                                 <span><i class="ri-add-fill"></i> Génerer la fiche de paie </span>
                             </div> 
                             <div class="d-flex justify-content-center" *ngIf="isLoadingSubmit">
-                                <mat-spinner color="primary" [diameter]="30"></mat-spinner> 
+                                <mat-spinner color="primary" [diameter]="10"></mat-spinner> 
                                 <p class="text-white ml-2">Patientez-svp...</p>
                             </div>
                         </button>
@@ -45,7 +44,7 @@
                             <ul class="list ps-0 mb-0">
                                 <li>
                                     <span class="fw-semibold">Departement: </span>
-                                    <span class="gray-color">{{ personne.departements.departement }}</span>
+                                    <span class="gray-color" *ngIf="personne.departements">{{ personne.departements.departement }}</span>
                                 </li> 
                             </ul>
                         </div> 

@@ -1,6 +1,6 @@
 <div class="create-dialog-box scrollable-dialog">
     <div class="title d-flex align-items-center justify-content-space-between">
-        <h4 class="mb-0">Ajouter près entreprise</h4>
+        <h4 class="mb-0">Ajouter Pret entreprise</h4>
         <button class="close-btn bg-transparent p-0 border-none" (click)="close()"><i class="flaticon-close"></i></button>
     </div>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -67,7 +67,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="tagus-form-group">
-                    <label class="d-block mb-12 fw-semibold gray-color">Montant à debourser </label>
+                    <label class="d-block mb-12 fw-semibold gray-color">Montant à debourser par mois</label>
                     <mat-form-field appearance="fill">
                         <i class="ri-edit-2-line"></i>
                         <mat-label>Entrer le montant à debourser </mat-label>
@@ -77,7 +77,19 @@
                         </mat-error>
                     </mat-form-field> 
                 </div> 
-            </div>  
+            </div> 
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="tagus-form-group">
+                    <label class="d-block mb-12 fw-semibold gray-color">Date choisie  pour debut des paiements </label>
+                    <mat-form-field appearance="fill" class="date-input">
+                        <mat-label>MM/DD/YYYY</mat-label>
+                        <input matInput [matDatepicker]="pickerDebut1" id="date_debut" 
+                                formControlName="date_debut" required>
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerDebut1"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerDebut1></mat-datepicker> 
+                    </mat-form-field> 
+                </div>
+            </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="tagus-form-group">
                     <label class="d-block mb-12 fw-semibold gray-color">Date d'échéance </label>
@@ -94,17 +106,15 @@
         <div class="d-flex justify-content-center" *ngIf="isLoading">
             <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
         </div>
-        <div *ngif="!isLoading">
-            <div class="text-end" *ngIf="currentUser">
-                <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
-                <button type="submit" *ngIf="currentUser.permission === 'C' || 
-                    currentUser.permission === 'CR' ||
-                    currentUser.permission === 'CRU' ||
-                    currentUser.permission === 'CRUD'">
-                        <i class="ri-edit-fill"></i> 
-                        Soumettre
-                    </button>
-            </div>
+        <div class="text-end" *ngIf="!isLoading && currentUser">
+            <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
+            <button type="submit" *ngIf="currentUser.permission === 'C' || 
+                currentUser.permission === 'CR' ||
+                currentUser.permission === 'CRU' ||
+                currentUser.permission === 'CRUD'">
+                    <i class="ri-edit-fill"></i>
+                    Soumettre
+                </button>
         </div>
         
     </form> 

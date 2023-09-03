@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table'; 
 import { SelectionModel } from '@angular/cdk/collections';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
@@ -17,7 +17,7 @@ import { PrimeModel } from '../../models/prime-model';
   templateUrl: './prime-table.component.html',
   styleUrls: ['./prime-table.component.scss']
 })
-export class PrimeTableComponent implements AfterViewInit {
+export class PrimeTableComponent implements OnInit {
   @Input('prime') prime: PrimeModel;
   @Input('preference') preference: PreferenceModel;
 
@@ -27,6 +27,11 @@ export class PrimeTableComponent implements AfterViewInit {
   
   dataSource = new MatTableDataSource<PrimeModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<PrimeModel>(true, []);
+
+
+@ViewChild(MatSort) sort: MatSort;
+@ViewChild(MatPaginator) paginator: MatPaginator; 
+
 
   isLoading = false;
   currentUser: PersonnelModel | any;
@@ -39,16 +44,14 @@ export class PrimeTableComponent implements AfterViewInit {
     private router: Router,
     private authService: AuthService,
     private personnelService: PersonnelService, 
-) {}
+) {} 
+
 
 toggleTheme() {
   this.themeService.toggleTheme();
 }
 
-@ViewChild(MatSort) sort: MatSort;
-@ViewChild(MatPaginator) paginator: MatPaginator; 
-
-  ngAfterViewInit() { 
+ngOnInit() { 
       this.isLoading = true;
       this.authService.user().subscribe({
           next: (user) => {

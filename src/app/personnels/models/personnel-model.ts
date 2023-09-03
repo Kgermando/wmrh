@@ -61,7 +61,7 @@ export interface PersonnelModel {
 
     password: string;
 
-    is_paie: number; // Le  mois du bulletin deja généré
+    is_paie: number; // La fade de la masse salariale deja généré
     statut_paie: string;
 
     presences: ApointementModel[];

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table'; 
 import { SelectionModel } from '@angular/cdk/collections';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
@@ -16,7 +16,7 @@ import { HeureSuppModel } from '../../models/heure-supp-model';
   templateUrl: './heure-supp-table.component.html',
   styleUrls: ['./heure-supp-table.component.scss']
 })
-export class HeureSuppTableComponent implements AfterViewInit {
+export class HeureSuppTableComponent implements OnInit {
   @Input('heureSupp') heureSupp: HeureSuppModel;  
 
   displayedColumns: string[] = ['motif', 'nbr_heures', 'created', 'update_created'];
@@ -25,6 +25,10 @@ export class HeureSuppTableComponent implements AfterViewInit {
   
   dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<HeureSuppModel>(true, []);
+
+  @ViewChild(MatSort) sort: MatSort;
+@ViewChild(MatPaginator) paginator: MatPaginator; 
+
 
   isLoading = false;
   currentUser: PersonnelModel | any;
@@ -37,16 +41,13 @@ export class HeureSuppTableComponent implements AfterViewInit {
     private router: Router,
     private authService: AuthService,
     private personnelService: PersonnelService, 
-) {}
-
+) {} 
 toggleTheme() {
   this.themeService.toggleTheme();
 }
 
-@ViewChild(MatSort) sort: MatSort;
-@ViewChild(MatPaginator) paginator: MatPaginator; 
 
-  ngAfterViewInit() { 
+ngOnInit() { 
       this.isLoading = true;
       this.authService.user().subscribe({
           next: (user) => {

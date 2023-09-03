@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table'; 
 import { SelectionModel } from '@angular/cdk/collections';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
@@ -17,7 +17,7 @@ import { PenaliteModel } from '../../models/penalite-model';
   templateUrl: './penalite-table.component.html',
   styleUrls: ['./penalite-table.component.scss']
 })
-export class PenaliteTableComponent implements AfterViewInit {
+export class PenaliteTableComponent implements OnInit {
   @Input('penalite') penalite: PenaliteModel;
   @Input('preference') preference: PreferenceModel;
 
@@ -41,6 +41,7 @@ export class PenaliteTableComponent implements AfterViewInit {
     private personnelService: PersonnelService, 
 ) {}
 
+
 toggleTheme() {
   this.themeService.toggleTheme();
 }
@@ -48,7 +49,7 @@ toggleTheme() {
 @ViewChild(MatSort) sort: MatSort;
 @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-  ngAfterViewInit() { 
+  ngOnInit() { 
       this.isLoading = true;
       this.authService.user().subscribe({
           next: (user) => {

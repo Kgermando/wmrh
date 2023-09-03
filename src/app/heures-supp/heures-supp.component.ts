@@ -20,13 +20,16 @@ import { HeureSuppService } from './heure-supp.service';
   templateUrl: './heures-supp.component.html',
   styleUrls: ['./heures-supp.component.scss']
 })
-export class HeuresSuppComponent implements AfterViewInit {
+export class HeuresSuppComponent implements OnInit {
   displayedColumns: string[] = ['matricule','fullname', 'nbr_heures', 'created', 'id'];
   
   ELEMENT_DATA: HeureSuppModel[] = [];
   
   dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<HeureSuppModel>(true, []);
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
+
 
   isLoading = false;
   currentUser: PersonnelModel | any; 
@@ -38,16 +41,13 @@ export class HeuresSuppComponent implements AfterViewInit {
       private authService: AuthService,
       private heureSuppService: HeureSuppService, 
       public dialog: MatDialog,
-  ) {}
-
+  ) {} 
   toggleTheme() {
     this.themeService.toggleTheme();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-    ngAfterViewInit() { 
+  ngOnInit() { 
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {

@@ -9,9 +9,24 @@ import { Observable } from 'rxjs';
 export class SalaireService extends ApiService {
   endpoint: string = `${environment.apiURL}/salaires`;
 
+  farde(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-farde-paie/${code_entreprise}`);
+  } 
 
-  relevePaie(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-releve-paie/${code_entreprise}`);
+  fardeMaxValue(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-farde-max-value/${code_entreprise}`);
+  }
+
+  statutPaie(code_entreprise: string, is_paie: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-statut-paie/${code_entreprise}/${is_paie}`);
+  }
+
+  relevePaie(code_entreprise: string, is_paie: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-releve-paie/${code_entreprise}/${is_paie}`);
+  }
+
+  mesBulletins(code_entreprise: string, matricule: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-mes-bulletins/${code_entreprise}/${matricule}`);
   }
 
   getJrPrestE(code_entreprise: string, matricule: string): Observable<any> {
@@ -60,25 +75,25 @@ export class SalaireService extends ApiService {
   }
 
 
-  netAPayerTotal(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-net-a-payer-total/${code_entreprise}`);
+  netAPayerTotal(code_entreprise: string, is_paie: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-net-a-payer-total/${code_entreprise}/${is_paie}`);
+  } 
+
+  iprTotal(code_entreprise: string, is_paie: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-ipr-total/${code_entreprise}/${is_paie}`);
+  } 
+
+  cnssQPOTotal(code_entreprise: string, is_paie: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-cnss-qpo-total/${code_entreprise}/${is_paie}`);
   }
 
-  iprTotal(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-ipr-total/${code_entreprise}`);
-  }
-
-  cnssQPOTotal(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-cnss-qpo-total/${code_entreprise}`);
-  }
-
-  fraisBancaireTotal(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-frais-bancaire-total/${code_entreprise}`);
+  fraisBancaireTotal(code_entreprise: string, is_paie: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-frais-bancaire-total/${code_entreprise}/${is_paie}`);
   }
  
 
-  downloadReport(code_entreprise: string, start_date: string, end_date: string): Observable<any> {
-    return this.http.post(`${this.endpoint}/download-xlsx/${code_entreprise}/${start_date}/${end_date}`, {}, {responseType: 'blob'});
+  downloadReport(code_entreprise: string, is_paie: number, start_date: string, end_date: string): Observable<any> {
+    return this.http.post(`${this.endpoint}/download-xlsx/${code_entreprise}/${is_paie}/${start_date}/${end_date}`, {}, {responseType: 'blob'});
   } 
 }
 

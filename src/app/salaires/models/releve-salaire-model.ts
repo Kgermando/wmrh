@@ -1,8 +1,5 @@
-import { PersonnelModel } from "src/app/personnels/models/personnel-model";
-
-export class SalaireModel {
+export interface ReleveSalaireModel {
     id: number;
-    personnel: PersonnelModel;
     monnaie: string;
     taux_dollard : string;
     nbr_dependants: number;
@@ -37,4 +34,16 @@ export class SalaireModel {
     update_created: Date;
     entreprise: string;
     code_entreprise: string; 
+    matricule: string;
+    nom: string;
+    postnom: string;
+    prenom: string;
+    compte_bancaire: string;
+    frais_bancaire: string;
+    nom_banque: string;
+    departement: string;
+    title: string;
+    fonction: string;
+    service: string;
+    site_location: string;
 }

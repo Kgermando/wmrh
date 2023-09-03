@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,7 +10,7 @@ import { PersonnelService } from '../personnel.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -22,7 +22,7 @@ import { EntrepriseModel } from 'src/app/admin/entreprise/models/entreprise.mode
   templateUrl: './personnel-list.component.html',
   styleUrls: ['./personnel-list.component.scss']
 })
-export class PersonnelListComponent implements AfterViewInit {
+export class PersonnelListComponent implements OnInit {
   displayedColumns: string[] = ['matricule','fullname', 'email', 'telephone', 'sexe', 'id'];
   
   ELEMENT_DATA: PersonnelModel[] = [];
@@ -30,13 +30,16 @@ export class PersonnelListComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<PersonnelModel>(true, []);
 
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+
   isLoading = false;
   currentUser: PersonnelModel | any;
-
-  entrepriseList: EntrepriseModel[] = [];
-  entrepriseFilter: EntrepriseModel[] = [];
+ 
   entreprise: EntrepriseModel;
   isActive = false;
+
  
   constructor(
     private httpClient: HttpClient,
@@ -47,46 +50,42 @@ export class PersonnelListComponent implements AfterViewInit {
       private personnelService: PersonnelService,
       private entrepriseService: EntrepriseService,
       public dialog: MatDialog, 
-  ) {} 
+  ) {}
+
 
   toggleTheme() {
     this.themeService.toggleTheme();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    ngAfterViewInit() {
-        this.isLoading = true;
-        this.authService.user().subscribe({
-            next: (user) => {
-                this.currentUser = user; 
-                this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-                  this.ELEMENT_DATA = res; 
-                  this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator; 
+  ngOnInit() {
+    this.isLoading = true;
+    this.authService.user().subscribe({
+        next: (user) => {
+            this.currentUser = user; 
+            this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+              this.ELEMENT_DATA = res; 
+              this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator; 
 
-                  this.entrepriseService.getAll(this.currentUser.code_entreprise).subscribe(e => {
-                    this.entrepriseFilter = e;
-                    this.entrepriseList = this.entrepriseFilter.filter(v => v.code_entreprise == this.currentUser.code_entreprise);
-  
-                    if(this.entrepriseList.length >= 1) {
-                      if (this.ELEMENT_DATA.length < this.entrepriseList[0].nbre_employe) {
-                        this.isActive = true;
-                      }
-                    }
-                  });
+              this.entrepriseService.getCodeEntreprise(this.currentUser.code_entreprise).subscribe(e => {
+                this.entreprise = e;
+                if(this.entreprise) {
+                  if (this.ELEMENT_DATA.length < this.entreprise.nbre_employe) {
+                    this.isActive = true;
+                  }
+                }
               });
-              this.isLoading = false;
-            },
-            error: (error) => {
-              this.isLoading = false;
-              this.router.navigate(['/auth/login']);
-              console.log(error);
-            }
-          }); 
-       
+          });
+          this.isLoading = false;
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.router.navigate(['/auth/login']);
+          console.log(error);
+        }
+      });
     }
 
  
@@ -135,27 +134,6 @@ export class PersonnelListComponent implements AfterViewInit {
       link.click();
       this.isLoading = false;
     });
-    // var dateNow = new Date();
-    // var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
-    // this.personnelService.downloadModelReport().subscribe({
-    //   next: (res) => {
-    //     this.isLoading = false;
-    //     const blob = new Blob([res], {type: 'text/xlsx'});
-    //     const downloadUrl = window.URL.createObjectURL(res);
-    //     const link = document.createElement('a');
-    //     link.href = downloadUrl;
-    //     link.download = `Models-Employes-${dateNowFormat}.xlsx`;
-    //     link.click();
-
-
-    //     this.toastr.success('Success!', 'Extraction effectuée!');
-    //   },
-    //   error: (err) => {
-    //     this.isLoading = false;
-    //     this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-    //     console.log(err); 
-    //   }
-    // });
   } 
 
 }
@@ -194,10 +172,10 @@ export class PersonnelUploadCSVDialogBox {
         this.isLoading = false; 
         this.close();
       },
-      error: (err) => {
+      error: (e) => {
         this.isLoading = false;
-        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-        console.log(err);
+        this.toastr.error(`${e.error.message}`, 'Oupss!');
+        console.log(e);
         this.close();
       }
     });

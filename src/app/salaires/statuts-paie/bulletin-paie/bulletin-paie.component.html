@@ -9,7 +9,26 @@
                         <h4 class="mb-0 text-center">{{ title.toUpperCase()}} </h4>
                     </mat-card-header>
                     <mat-card-header>
-                        <h6>Bulletin N°{{salaire.id}} du {{salaire.created | date: 'dd/MM/yyyy'}}</h6>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <table class="table"> 
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-start">
+                                                Créé le {{salaire.created | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                Farde N° {{salaire.is_paie}} du {{mois}}/{{dateYear}}
+                                            </td> 
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                       
+                        
                         <div> 
                             <button mat-icon-button class="tagus" (click)="openPDF()">
                                 <mat-icon>print</mat-icon>
@@ -310,7 +329,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                Près entreprise
+                                                Pret entreprise
                                             </td> 
                                             <td class="gray-color text-end">{{ salaire.pres_entreprise | numberFormat:'fr-FR' }} FC</td>  
                                         </tr>

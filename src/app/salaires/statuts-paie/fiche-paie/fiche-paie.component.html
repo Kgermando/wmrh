@@ -9,7 +9,7 @@
                         <h4 class="mb-0 text-center">{{ title.toUpperCase()}} </h4>
                     </mat-card-header>
                     <mat-card-header>
-                        <h6>Bulletin N°{{salaire.id}} du {{salaire.created | date: 'dd/MM/yyyy'}}</h6>
+                        <h6>Farde N° {{salaire.is_paie}} du {{mois}}/{{dateYear}}</h6>
                         <div> 
                             <button mat-icon-button color="primary" 
                                     (click)="openDialog()">
@@ -165,7 +165,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-start fontSize">
-                                                BRUTE IMPOSABLE
+                                                BASE IMPOSABLE
                                             </td> 
                                             <td></td>
                                         </tr>
@@ -174,15 +174,20 @@
                                                 Salaire de base : 
                                             </td> 
                                            <td class="gray-color text-end">
-                                            {{ salaire.personnel.salaire_base | numberFormat:'fr-FR' }} |
-                                             <input class="form-control" 
-                                             type="number" 
-                                                aria-label="Sizing example input" 
-                                                aria-describedby="inputGroup-sizing-sm"
-                                                formControlName="salaire_base"
-                                                > FC
-                                           </td>  
-                                        </tr> 
+                                            <input class="form-control" 
+                                            type="number" 
+                                               aria-label="Sizing example input" 
+                                               aria-describedby="inputGroup-sizing-sm"
+                                               formControlName="salaire_base"
+                                               >  |
+                                            <span *ngIf="salaire.monnaie == 'USD'">
+                                                    {{ +salaire.personnel.salaire_base * +salaire.taux_dollard | numberFormat:'fr-FR' }}
+                                            </span>
+                                            <span *ngIf="salaire.monnaie == 'CDF'">
+                                                {{ salaire.personnel.salaire_base | numberFormat:'fr-FR' }}
+                                            </span>  FC
+                                           </td>
+                                        </tr>
                                         <tr>
                                             <td class="text-start">
                                                 Primes d'anciennetés : 
@@ -400,7 +405,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                Impôt Professionnel sur les Rémunérations (IPR)
+                                                IPR
                                             </td>
                                             <td class="gray-color text-end">{{ ipr | numberFormat:'fr-FR' }} FC</td>
                                         </tr>
@@ -424,13 +429,13 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                Prise en charge des frais bancaires
+                                                Frais bancaires
                                             </td> 
                                             <td class="gray-color text-end">{{ prise_en_charge_frais_bancaire | numberFormat:'fr-FR' }} FC</td>  
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                Près entreprise
+                                                Pret entreprise
                                             </td> 
                                             <td class="gray-color text-end">{{ salaire.pres_entreprise | numberFormat:'fr-FR' }} FC</td>  
                                         </tr>

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { Subject, finalize } from 'rxjs';
+import { SalaireService } from '../salaire.service';
 
 
 @Component({
@@ -33,65 +34,42 @@ export class ListPaimentsComponent implements OnInit {
   public loading$ = new Subject<boolean>();
 
   isLoading = false;
-  currentUser: PersonnelModel | any;
-
-    mois = '';
-    dateNow = new Date();
-    dateMonth = this.dateNow.getMonth() + 1;
+  currentUser: PersonnelModel | any; 
  
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService,
-      private personnelService: PersonnelService
+      private personnelService: PersonnelService,
+      private salaireService: SalaireService
   ) {}
 
 
-  ngOnInit(): void { 
-
-    if (this.dateMonth === 1) {
-        this.mois = 'Janvier';
-    } else if(this.dateMonth === 2) {
-        this.mois = 'Fevrier';
-    } else if(this.dateMonth === 3) {
-        this.mois = 'Mars';
-    } else if(this.dateMonth === 4) {
-        this.mois = 'Avril';
-    } else if(this.dateMonth === 5) {
-        this.mois = 'Mai';
-    } else if(this.dateMonth === 6) {
-        this.mois = 'Juin';
-    } else if(this.dateMonth === 7) {
-        this.mois = 'Juillet';
-    } else if(this.dateMonth === 8) {
-        this.mois = 'Aôut';
-    } else if(this.dateMonth === 9) {
-        this.mois = 'Septembre';
-    } else if(this.dateMonth === 10) {
-        this.mois = 'Octobre';
-    } else if(this.dateMonth === 11) {
-        this.mois = 'Novembre';
-    } else if(this.dateMonth === 12) {
-        this.mois = 'Décembre';
-    } else {
-        ''
-    }
+  ngOnInit(): void {
 
     this.isLoading = true;
     this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user;
-            this.personnelService.getAll(this.currentUser.code_entreprise)
-            .pipe(finalize(() => this.loading$.next(false)))
-            .subscribe(res => {  
-                this.personnelFilter = res;
-                this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < this.dateMonth && parseFloat(v.salaire_base) > 0);
-                this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator;  
+            this.salaireService.fardeMaxValue(this.currentUser.code_entreprise).subscribe(res => {
+                var fardeValue = res;
+                var fardeValueMax = fardeValue[0];
+                this.personnelService.getAll(this.currentUser.code_entreprise)
+                .subscribe(res => {
+                    this.personnelFilter = res;
+                    this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie < fardeValueMax.max && 
+                        parseFloat(v.salaire_base) > 0);
+                    this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+                    this.dataSource.sort = this.sort;
+                    this.dataSource.paginator = this.paginator;  
+
+                    this.isLoading = false;
+                });
+
             });
-            this.isLoading = false;
+            
+            
         },
         error: (error) => {
             this.isLoading = false;

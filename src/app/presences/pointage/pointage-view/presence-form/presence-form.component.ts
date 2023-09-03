@@ -260,7 +260,7 @@ export class PresenceFormComponent {
             this.formGroup.reset(); 
             this.toastr.success('Success!', 'Ajouté avec succès!');
             if(res['apointement'] === 'S') {
-              this.openEditDialog('300ms', '100ms', res['personnel']);
+              this.openEditDialog('300ms', '100ms', this.personne.id);
             } 
             this.router.navigate(['/layouts/presences/pointage']);
             this.isLoadingForm = false;

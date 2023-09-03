@@ -50,8 +50,7 @@
         <div class="d-flex justify-content-center" *ngIf="isLoading">
             <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
         </div>
-        <div *ngif="!isLoading">
-            <div class="text-end" *ngIf="currentUser">
+        <div class="text-end" *ngIf="!isLoading && currentUser">
                 <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
                 <button type="submit"
                 *ngIf="currentUser.permission === 'U' ||
@@ -62,7 +61,6 @@
                 <i class="ri-edit-fill"></i> 
                 Modifier
             </button>
-            </div>
         </div>
     </form> 
 </div>

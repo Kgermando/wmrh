@@ -1,7 +1,4 @@
-import { CanActivateFn } from '@angular/router';
-import { PersonnelModel } from '../personnels/models/personnel-model';
-import { Auth } from '../classes/auth';
-
+import { CanActivateFn } from '@angular/router'; 
  
 export const dashboardGuard: CanActivateFn = (route, state) =>  {
   let roles = localStorage.getItem('roles');
@@ -72,6 +69,16 @@ export const statutPaieGuard: CanActivateFn = (route, state) => {
   return access;  
 };
 
+export const mesBulletinsGuard: CanActivateFn = (route, state) => {
+  let roles = localStorage.getItem('roles');
+  let roleList = JSON.parse(roles!) 
+  let access = false; 
+  if (roleList.includes('Bulletins employé')) { 
+    access = true;
+  }     
+  return access;  
+};
+
 export const relevePaieGuard: CanActivateFn = (route, state) => {
   let roles = localStorage.getItem('roles');
   let roleList = JSON.parse(roles!) 
@@ -102,7 +109,7 @@ export const primeDiversGuard: CanActivateFn = (route, state) => {
   return access;
 };
 
-export const penealiteGuard: CanActivateFn = (route, state) => {
+export const penaliteGuard: CanActivateFn = (route, state) => {
   let roles = localStorage.getItem('roles');
   let roleList = JSON.parse(roles!) 
   let access = false; 
@@ -116,7 +123,7 @@ export const presEntrepriseGuard: CanActivateFn = (route, state) => {
   let roles = localStorage.getItem('roles');
   let roleList = JSON.parse(roles!) 
   let access = false; 
-  if (roleList.includes('Près entreprise')) { 
+  if (roleList.includes('Pret entreprise')) { 
     access = true;
   }     
   return access;  

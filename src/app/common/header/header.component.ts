@@ -61,7 +61,7 @@ export class HeaderComponent {
               this.notifyService.getAllNotify(this.currentUser.code_entreprise, this.currentUser.matricule).subscribe(
                 res => {
                     var dataList: NotifyModel[] = res;
-                    this.notifyList = dataList.filter(n => n.isRead === false);
+                    this.notifyList = dataList.filter(n => n.is_read === false);
                     if (this.notifyList.length > 0) {
                         this.isNotify = true;
                     } else {
@@ -79,14 +79,13 @@ export class HeaderComponent {
         try {
             this.isLoading = true;
             var body = {
-                isRead: true,
+                is_read: true,
                 signature: this.currentUser.matricule, 
                 update_created: new Date(),
             }
-            console.log('isRead', id);
+            console.log('isread', id);
             this.notifyService.update(id, body).subscribe({
                 next: (res) => {
-                   
                     this.isLoading = false;
                 },
                 error: err => {
@@ -95,8 +94,8 @@ export class HeaderComponent {
                 }
             });
         } catch (error) {
-        this.isLoading = false;
-        console.log(error);
+            this.isLoading = false;
+            console.log(error);
         }
     }
   

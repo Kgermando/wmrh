@@ -7,7 +7,7 @@ export interface PresentrepriseModel {
     monnaie: string;
     total_empreints: string;  // Près de l'entreprise 
     deboursement: string; // Montant à debourser par mois
-    remboursement: string; // Montant déjà rembouser
+    date_debut: Date; //Date choisi pour commencer les paiements
     date_limit: Date;  // Date de dernier remboursement
     signature: string;
     created: Date;

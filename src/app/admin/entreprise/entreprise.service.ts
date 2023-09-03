@@ -14,4 +14,9 @@ export class EntrepriseService extends ApiService {
     return this.http.get(`${this.endpoint}`);
   }
 
+  getCodeEntreprise(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-code-entreprise/${code_entreprise}`);
+  }
+
+ 
 }
