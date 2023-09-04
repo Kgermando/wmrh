@@ -57,6 +57,26 @@
                         <li>
                             <span class="fw-semibold d-inline-block">Categorie: </span>
                             <span class="gray-color">{{ personne.category }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Departement: </span>
+                            <span class="gray-color">{{ personne.departements.departement }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Titre: </span>
+                            <span class="gray-color">{{ personne.titles.title }}</span>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Fonction: </span>
+                            <span class="gray-color">{{ personne.fonctions.fonction }}</span>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Service: </span>
+                            <span class="gray-color">{{ personne.services.service }}</span>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Site de travail: </span>
+                            <span class="gray-color">{{ personne.site_locations.site_location }}</span>
                         </li> 
                     </ul>  
                 </mat-card-content>
