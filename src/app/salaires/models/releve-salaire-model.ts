@@ -1,5 +1,7 @@
 export interface ReleveSalaireModel {
     id: number;
+    departement: string;
+    fonction: string;
     monnaie: string;
     taux_dollard : string;
     nbr_dependants: number;
@@ -40,10 +42,8 @@ export interface ReleveSalaireModel {
     prenom: string;
     compte_bancaire: string;
     frais_bancaire: string;
-    nom_banque: string;
-    departement: string;
-    title: string;
-    fonction: string;
+    nom_banque: string; 
+    title: string; 
     service: string;
     site_location: string;
 }

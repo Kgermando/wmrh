@@ -3,6 +3,8 @@ import { PersonnelModel } from "src/app/personnels/models/personnel-model";
 export class SalaireModel {
     id: number;
     personnel: PersonnelModel;
+    departement: string;
+    fonction: string;
     monnaie: string;
     taux_dollard : string;
     nbr_dependants: number;

@@ -99,37 +99,37 @@ export class DashAllMoisComponent implements OnInit {
 
   presencePieList: PresencePieModel[] = [];
 
-  netAPayerList: []; 
-  netAPayerPrecedementList: [];
+  netAPayerList:any[] = []; 
+  netAPayerPrecedementList:any[] = [];
 
   netAPayer = 0;
   netAPayerPrecedement = 0;
 
-  statutPaieList = []; 
+  statutPaieList:any[] = []; 
 
-  allocationList = [];
+  allocationList:any[] = [];
 
-  primesList: [];
+  primesList:any[] = [];
   primes = 0;
-  primeAncienneteList: [];
+  primeAncienneteList:any[] = [];
   primeAnciennete = 0;
-  penaliteList: [];
+  penaliteList:any[] = [];
   penalite = 0;
-  avanceSalaireList: [];
+  avanceSalaireList:any[] = [];
   avanceSalaire = 0;
-  presEntrepriseList: [];
+  presEntrepriseList:any[] = [];
   presEntreprise = 0;
-  heureSuppList: [];
+  heureSuppList:any[] = [];
   heureSupp = 0;
-  syndicatList: [];
+  syndicatList:any[] = [];
   syndicat = 0;
 
 
-  recrutementsList: [];
+  recrutementsList:any[] = [];
   recrutements = 0;
-  postulantsList: [];
+  postulantsList:any[] = [];
   postulants = 0;
-  recrusList: [];
+  recrusList:any[] = [];
   recrus = 0;
 
   constructor(

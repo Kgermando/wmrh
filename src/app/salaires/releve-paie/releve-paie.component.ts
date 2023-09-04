@@ -36,6 +36,7 @@ export class RelevePaieComponent implements OnInit {
   ipr = 0;
   cnss = 0;
   frais_bancaire = 0;
+  rbi_total = 0;
 
 
 
@@ -57,7 +58,7 @@ export class RelevePaieComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
           this.currentUser = user;
-          this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
+          this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
             this.fardeSetList = farde;
             var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
             this.fardeList = [...new Set(fardeMap)];
@@ -126,12 +127,19 @@ export class RelevePaieComponent implements OnInit {
           cnssQPO.map((item: any) => this.cnss = parseFloat(item.sum));
         }
       );
-      this.salaireService.fraisBancaireTotal(this.currentUser.code_entreprise, event.value).subscribe(
-        frais_bancaire => {
-          var frais_bancaires = frais_bancaire; 
-          frais_bancaires.map((item: any) => this.frais_bancaire = parseFloat(item.sum));
+      this.salaireService.rbiTotal(this.currentUser.code_entreprise, event.value).subscribe(
+        rbi => {
+          var rbis = rbi; 
+          rbis.map((item: any) => this.rbi_total = parseFloat(item.sum));
         }
       );
+
+      // this.salaireService.fraisBancaireTotal(this.currentUser.code_entreprise, event.value).subscribe(
+      //   frais_bancaire => {
+      //     var frais_bancaires = frais_bancaire; 
+      //     frais_bancaires.map((item: any) => this.frais_bancaire = parseFloat(item.sum));
+      //   }
+      // );
     });
   }
 

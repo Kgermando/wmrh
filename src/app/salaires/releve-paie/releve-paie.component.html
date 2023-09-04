@@ -3,7 +3,7 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-5">Patientez-svp...</p>
 </div>
 
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between" *ngIf="!isLoading">
+<div class="breadcrumb-card  d-md-flex align-items-center justify-content-space-between" *ngIf="!isLoading">
     <h2 class="mb-0">Relevé de paies de {{mois}}/{{dateYear}} </h2>
     <div class="row bg-light-gray border-radius  d-flex align-items-center text-center p-10">
         <div class="d-md-flex align-items-end justify-content-end"> 
@@ -42,6 +42,20 @@
                 </tr>
                 <tr>
                     <td class="text-start">
+                        Brute imposable: 
+                    </td>
+                    <td>
+                        <input type="text" class="form-control text-end" 
+                            type="text"  name="rbi_total" [ngModel]="rbi_total | numberFormat:'fr-FR'"
+                            [readOnly]="true"
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm"
+                            [value]="rbi_total"
+                            > FC
+                    </td> 
+                </tr>
+                <tr>
+                    <td class="text-start">
                         IPR:
                     </td>
                     <td>
@@ -68,21 +82,7 @@
                             > FC
                     </td>
                     
-                </tr>
-                <tr>
-                    <td class="text-start">
-                        Frais bancaires: 
-                    </td>
-                    <td>
-                        <input type="text" class="form-control text-end" 
-                            type="text"  name="frais_bancaire" [ngModel]="frais_bancaire | numberFormat:'fr-FR'"
-                            [readOnly]="true"
-                            aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm"
-                            [value]="frais_bancaire"
-                            > FC
-                    </td> 
-                </tr>
+                </tr> 
             </tbody>
         </table> 
     </div>
@@ -93,7 +93,7 @@
 
 
 
-<div class="reports-table table-responsive mt-25">
+<div class="reports-table table-responsive mb-25">
     <table class="table">
         <thead>
             <tr>
@@ -102,7 +102,7 @@
                 <th class="fw-semibold gray-color">Nom Complet</th>
                 <th class="fw-semibold gray-color">Departement</th>
                 <th class="fw-semibold gray-color">Fonction</th>
-                <th class="fw-semibold gray-color">RBI</th> 
+                <th class="fw-semibold gray-color">RBI</th>
                 <th class="fw-semibold gray-color">CNSS(QPO)</th>
                 <th class="fw-semibold gray-color">RNI</th>
                 <th class="fw-semibold gray-color">IPR</th>

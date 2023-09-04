@@ -296,11 +296,6 @@ export class PaieViewComponent implements OnInit {
           alloc_familliale = alloc_famillialeMonnaie * totalJrsPreste;
           alloc_famillialeSurPlus = alloc_familliale - (parseFloat(this.preference.smig) * totalJrsPreste); 
         }
-
-
- 
-        console.log("alloc_familliale 3", alloc_familliale);
-        console.log("alloc_famillialeSurPlus", alloc_famillialeSurPlus);
        
         var alloc_transport = alloc_transportMonnaie * totalJrsPreste;
 
@@ -403,12 +398,13 @@ export class PaieViewComponent implements OnInit {
 
         var net_a_payer = rni + avantageSocials - deductions;
 
-        console.log('salaire base final', salaire_base);
-
-        console.log('alloc_familliale final', alloc_familliale);
-
         var body = {
           personnel: this.personne.id,
+          departement: this.personne.departements.departement,
+          fonction: this.personne.fonctions.fonction,
+          title: this.personne.titles.title,
+          service: this.personne.services.service,
+          site_location: this.personne.site_locations.site_location,
           monnaie: this.personne.monnaie,
           taux_dollard: this.preference.taux_dollard,
           nbr_dependants: this.personne.nbr_dependants, 

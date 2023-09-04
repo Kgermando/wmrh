@@ -11,8 +11,12 @@ export class SalaireService extends ApiService {
 
   farde(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-farde-paie/${code_entreprise}`);
-  } 
-
+  }
+  
+  fardeDisponible(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-farde-disponible-paie/${code_entreprise}`);
+  }
+  
   fardeMaxValue(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-farde-max-value/${code_entreprise}`);
   }
@@ -85,6 +89,10 @@ export class SalaireService extends ApiService {
 
   cnssQPOTotal(code_entreprise: string, is_paie: number): Observable<any> {
     return this.http.get(`${this.endpoint}/get-cnss-qpo-total/${code_entreprise}/${is_paie}`);
+  }
+
+  rbiTotal(code_entreprise: string, is_paie: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-rbi-total/${code_entreprise}/${is_paie}`);
   }
 
   fraisBancaireTotal(code_entreprise: string, is_paie: number): Observable<any> {
