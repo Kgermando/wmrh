@@ -3,7 +3,7 @@ const env = process.env.NODE_ENV;
 
 export const environment = {  
   apiURL: (env  === 'production') 
-    ? 'https://wmrh-api-7f92d2af5580.herokuapp.com/api'
+    ? 'https://wm-rh-api-782e302a0219.herokuapp.com/api'
     : 'http://localhost:3000/api',
 
   publicKey: "BHnrukMOoUpozT0O0LK9g_snE-nSCM_XeoEfbsy3FJO5vJQIAk5TeSYqol0HlvMUU-3poVLx1xNl8nAv14JVoL4",

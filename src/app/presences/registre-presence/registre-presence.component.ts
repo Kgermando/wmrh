@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,7 +23,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './registre-presence.component.html',
   styleUrls: ['./registre-presence.component.scss']
 })
-export class RegistrePresenceComponent implements OnInit, AfterViewInit {
+export class RegistrePresenceComponent implements OnInit {
   @Input('personne') personne: PersonnelModel; 
   
   displayedColumns: string[] = ['site_location', 'matricule', 'apointement', 'date_entree', 'date_sortie', 'observation'];
@@ -91,32 +91,28 @@ export class RegistrePresenceComponent implements OnInit, AfterViewInit {
     } else {
         ''
     }
-  }
 
-    ngAfterViewInit() { 
-        this.isLoading = true;
-        this.authService.user().subscribe({
-            next: (user) => {
-                this.currentUser = user;
-                this.presenceService.getRegisterPresence(
-                  this.currentUser.code_entreprise, 
-                  this.currentUser.site_locations.site_location).subscribe(res => {
-                    this.ELEMENT_DATA = res;
-                    this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
-                    this.dataSource.sort = this.sort;
-                    this.dataSource.paginator = this.paginator; 
-                });
-              this.isLoading = false;
-            },
-            error: (error) => {
-              this.isLoading = false;
-              this.router.navigate(['/auth/login']);
-              console.log(error);
-            }
-          }); 
-        
-    }
-
+    this.isLoading = true;
+      this.authService.user().subscribe({
+          next: (user) => {
+              this.currentUser = user;
+              this.presenceService.getRegisterPresence(
+                this.currentUser.code_entreprise, 
+                this.currentUser.site_locations.site_location).subscribe(res => {
+                  this.ELEMENT_DATA = res;
+                  this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
+                  this.dataSource.sort = this.sort;
+                  this.dataSource.paginator = this.paginator; 
+              });
+            this.isLoading = false;
+          },
+          error: (error) => {
+            this.isLoading = false;
+            this.router.navigate(['/auth/login']);
+            console.log(error);
+          }
+        }); 
+  } 
  
   applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
@@ -262,7 +258,7 @@ export class PresenceExportXLSXDialogBox implements OnInit {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    }); 
+    });
     this.dateRange = this._formBuilder.group({
       site_location: ['', Validators.required],
       start: ['', Validators.required],
