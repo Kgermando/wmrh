@@ -44,25 +44,36 @@
                                             <td class="text-start">
                                                 Entreprise:
                                             </td>
-                                            <td class="gray-color text-start">{{ preference.company.company_name }}</td> 
+                                            <td class="gray-color text-start" *ngIf="preference.company">{{ preference.company.company_name }}</td> 
+                                            <td class="gray-color text-start" *ngIf="!preference.company"> - </td> 
                                         </tr>
                                         <tr>
                                             <td class="text-start">
                                                 RCCM:
                                             </td>
-                                            <td class="gray-color text-start">{{ preference.company.rccm }}</td> 
+                                            <td class="gray-color text-start" *ngIf="preference.company">{{ preference.company.rccm }}</td>
+                                            <td class="gray-color text-start" *ngIf="!preference.company"> - </td> 
                                         </tr>
                                         <tr>
                                             <td class="text-start">
                                                 ID. Nat:
                                             </td>
-                                            <td class="gray-color text-start">{{ preference.company.id_nat }}</td> 
+                                            <td class="gray-color text-start" *ngIf="preference.company">{{ preference.company.id_nat }}</td> 
+                                            <td class="gray-color text-start" *ngIf="!preference.company"> - </td> 
                                         </tr>
                                         <tr>
                                             <td class="text-start">
                                                 N° Impôt:
                                             </td>
-                                            <td class="gray-color text-start">{{ preference.company.numero_impot }}</td>
+                                            <td class="gray-color text-start" *ngIf="preference.company">{{ preference.company.numero_impot }}</td>
+                                            <td class="gray-color text-start" *ngIf="!preference.company"> - </td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
+                                                N° CNSS:
+                                            </td>
+                                            <td class="gray-color text-start" *ngIf="preference.company">{{ preference.company.numero_cnss }}</td>
+                                            <td class="gray-color text-start" *ngIf="!preference.company"> - </td> 
                                         </tr>
                                     </tbody>
                                 </table>

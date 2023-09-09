@@ -46,17 +46,18 @@ export class PerformenceViewComponent implements OnInit {
           this.currentUser = user;
           this.personnelService.get(Number(id)).subscribe(res => {
             this.personne = res;
+            this.performenceService.hospitaliteTotal(this.currentUser.code_entreprise, this.personne.id).subscribe(
+              res => {
+                var performences = res; 
+                performences.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum));
+                performences.map((item: any) => this.ponctualiteTotal = parseFloat(item.sum)); 
+                performences.map((item: any) => this.travailTotal = parseFloat(item.sum));
+  
+                this.cumuls = this.hospitaliteTotal + this.ponctualiteTotal + this.travailTotal;
+              }
+            );
           });
-          this.performenceService.hospitaliteTotal(this.currentUser.code_entreprise, this.personne.id).subscribe(
-            res => {
-              var performences = res; 
-              performences.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum));
-              performences.map((item: any) => this.ponctualiteTotal = parseFloat(item.sum)); 
-              performences.map((item: any) => this.travailTotal = parseFloat(item.sum));
-
-              this.cumuls = this.hospitaliteTotal + this.ponctualiteTotal + this.travailTotal;
-            }
-          );
+          
           this.isLoading = false;
         },
         error: (error) => {
