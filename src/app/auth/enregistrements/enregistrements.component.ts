@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core'; 
-import { AuthService } from 'src/app/auth/auth.service';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel';
-import { RegisterModel } from './models/register-model';
-import { RoleDataList, RoleSupportDataList } from 'src/app/shared/tools/role-list';
+import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel'; 
+import { RoleSupportDataList } from 'src/app/shared/tools/role-list';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-enregistrements',
@@ -30,6 +29,7 @@ export class EnregistrementsComponent implements OnInit {
 
   constructor( public themeService: CustomizerSettingsService, 
     private _formBuilder: FormBuilder,
+    private router: Router,
     private authService: AuthService,
     private toastr: ToastrService) {}
 
@@ -44,10 +44,10 @@ export class EnregistrementsComponent implements OnInit {
       telephone: ['', Validators.required],
       sexe: ['', Validators.required],
       adresse: ['', Validators.required],
-      matricule: ['admin', Validators.required],
-      category: ['', Validators.required],
-      roles: ['', Validators.required],
-      entreprise: ['', Validators.required], 
+      // matricule: ['admin', Validators.required],
+      // category: ['', Validators.required],
+      // roles: ['', Validators.required],
+      // entreprise: ['', Validators.required], 
     });
   }
   
@@ -58,9 +58,8 @@ export class EnregistrementsComponent implements OnInit {
         this.isLoading = true;
         var val = Math.floor(1000 + Math.random() * 9000);
         console.log(val);
-        var codeEntreprise = val;
-        var mat = this.formGroup.value.matricule;
-        var identifiant = `${mat}-${codeEntreprise}`;
+        var codeEntreprise = 'et015'; 
+        var identifiant = `support-${codeEntreprise}`;
         var body = {
           nom: this.formGroup.value.nom,
           postnom: this.formGroup.value.postnom,
@@ -70,15 +69,15 @@ export class EnregistrementsComponent implements OnInit {
           sexe: this.formGroup.value.sexe,
           adresse: this.formGroup.value.adresse, 
           matricule: identifiant.toLowerCase(),
-          category: this.formGroup.value.category,
-          roles: this.formGroup.value.roles,
+          category: 'Cadres supérieurs',
+          roles: this.roleList,
           permission: 'CRUD',
           signature: '-',
           created: new Date(),
           update_created: new Date(),
           password: '1234',
           password_confirm: '1234',
-          entreprise: this.formGroup.value.entreprise,
+          entreprise: 'Support',
           code_entreprise: codeEntreprise
         };
         this.authService.register(body).subscribe({
@@ -86,7 +85,7 @@ export class EnregistrementsComponent implements OnInit {
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Ajouter avec succès!', 'Success!');
-            // this.router.navigate(['/layouts/personnels/personnel-list']);
+            this.router.navigate(['/layouts/auth/login']);
           },
           error: (err) => {
             this.isLoading = false;

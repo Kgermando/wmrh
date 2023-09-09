@@ -17,7 +17,7 @@
                 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                     <div class=" border-radius">
                         <div class="row">
-                            <div class="tagus-form-group without-icon col-lg-12 col-md-12 col-sm-12">
+                            <!-- <div class="tagus-form-group without-icon col-lg-12 col-md-12 col-sm-12">
                                 <label class="d-block mb-12 fw-semibold gray-color">Entreprise </label>
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
@@ -27,7 +27,7 @@
                                         Ce champs est obligatoire
                                     </mat-error>
                                 </mat-form-field>
-                            </div> 
+                            </div>  -->
                             <div class="tagus-form-group without-icon col-lg-12 col-md-12 col-sm-12">
                                 <label class="d-block mb-12 fw-semibold gray-color">Nom </label>
                                 <mat-form-field appearance="fill">
@@ -104,7 +104,7 @@
                                     </mat-error>
                                 </mat-form-field>
                             </div>
-                            <div class="tagus-form-group without-icon col-lg-12 col-md-12 col-sm-12">
+                            <!-- <div class="tagus-form-group without-icon col-lg-12 col-md-12 col-sm-12">
                                 <label class="d-block mb-12 fw-semibold gray-color">Identifiant </label>
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
@@ -114,8 +114,8 @@
                                         Ce champs est obligatoire
                                     </mat-error>
                                 </mat-form-field>
-                            </div> 
-                            <div class="tagus-form-group without-icon col-lg-12 col-md-12 col-sm-12">
+                            </div>  -->
+                            <!-- <div class="tagus-form-group without-icon col-lg-12 col-md-12 col-sm-12">
                                 <div class="tagus-form-group">
                                     <label class="d-block mb-12 fw-semibold gray-color">Categorie employé</label>
                                     <mat-form-field appearance="fill">
@@ -126,9 +126,9 @@
                                         </mat-select>
                                     </mat-form-field>
                                 </div> 
-                            </div> 
-                        </div>
-                        <div class="tagus-form-group without-icon col-lg-12 col-md-12 col-sm-12">
+                            </div>  -->
+                        
+                        <!-- <div class="tagus-form-group without-icon col-lg-12 col-md-12 col-sm-12">
                             <div class="tagus-form-group">
                                 <label class="d-block mb-12 fw-semibold gray-color">Acreditation</label>
                                 <mat-form-field appearance="fill">
@@ -139,8 +139,8 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div> 
-                        </div> 
- 
+                        </div>  -->
+                    </div>
                         <div class="d-flex justify-content-center" *ngIf="isLoading">
                             <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
                         </div>  

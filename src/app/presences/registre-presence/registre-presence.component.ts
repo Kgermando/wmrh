@@ -96,6 +96,7 @@ export class RegistrePresenceComponent implements OnInit {
       this.authService.user().subscribe({
           next: (user) => {
               this.currentUser = user;
+            if (this.currentUser.site_locations) {
               this.presenceService.getRegisterPresence(
                 this.currentUser.code_entreprise, 
                 this.currentUser.site_locations.site_location).subscribe(res => {
@@ -104,6 +105,7 @@ export class RegistrePresenceComponent implements OnInit {
                   this.dataSource.sort = this.sort;
                   this.dataSource.paginator = this.paginator; 
               });
+            }
             this.isLoading = false;
           },
           error: (error) => {
