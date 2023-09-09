@@ -29,137 +29,60 @@
                                 currentUser.permission === 'RUD' ||
                                 currentUser.permission === 'CRUD'">
                 <mat-card-header class="border-bottom">
-                    <h5 class="mb-0">Information de l'entreprise</h5> 
+                    <h5 class="mb-0">Information de l'entreprise</h5>
+                    <button mat-icon-button color="primary" 
+                                (click)="openEditEntrepriseDialog('300ms', '100ms', preference.company.id)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
                 </mat-card-header>
                 <mat-card-content> 
                     <ul class="list ps-0 mb-0">
                         <li>
                             <!-- <span class="fw-semibold">Logo: </span> -->
                             <span>
-                                <img src="assets/img/user/user13.jpg" class="border-radius logo" *ngIf="preference.logo === '-'">
-                                <img [src]="preference.logo" class="border-radius logo" *ngIf="preference.logo != '-'">
-                            </span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Votre logo', preference.logo)"
-                                *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'"> 
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                                <img src="assets/img/user/user13.jpg" class="border-radius logo" *ngIf="preference.company.logo === '-'">
+                                <img [src]="preference.company.logo" class="border-radius logo" *ngIf="preference.company.logo != '-'">
+                            </span> 
                         </li>
                         <li>
                             <span class="fw-semibold">Nom de l'entreprise: </span>
-                            <span class="gray-color">{{ preference.company_name }}</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Nom de l\'entreprise', preference.company_name)"
-                                *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span class="gray-color">{{ preference.company.company_name }}</span> 
                         </li>
                         <li>
                             <span class="fw-semibold">Nombre d'employés: </span>
-                            <span class="gray-color">{{ preference.nbr_employe }}</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Nombre d\'employés', preference.nbr_employe)" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span class="gray-color">{{ preference.company.nbre_employe }}</span> 
                         </li>
                         <li>
                             <span class="fw-semibold">Numéro CNSS: </span>
-                            <span class="gray-color">{{ preference.cnss }}</span>
-                            <button mat-icon-button color="warn" 
-                            (click)="openEditDialog('300ms', '100ms', 'Numéro CNSS', preference.cnss)" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span class="gray-color">{{ preference.company.numero_cnss }}</span> 
                         </li> 
                         <li>
                             <span class="fw-semibold">RCCM: </span>
-                            <span class="gray-color">{{ preference.rccm }}</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'RCCM', preference.rccm)" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span class="gray-color">{{ preference.company.rccm }}</span> 
                         </li>
                         <li>
                             <span class="fw-semibold">ID Nat: </span>
-                            <span class="gray-color">{{ preference.id_nat }}</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'ID Nat', preference.id_nat)" 
-                                *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span class="gray-color">{{ preference.company.id_nat }}</span> 
                         </li>
                         <li>
                             <span class="fw-semibold">Numero impôt: </span>
-                            <span class="gray-color">{{ preference.numero_impot }}</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Numero impôt', preference.numero_impot)" 
-                                *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span class="gray-color">{{ preference.company.numero_impot }}</span> 
                         </li>
                         <li>
                             <span class="fw-semibold ">Email: </span>
-                            <span class="gray-color">{{ preference.email }}</span>
-                            <button mat-icon-button color="warn"
-                                (click)="openEditDialog('300ms', '100ms', 'Email', preference.email)" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span class="gray-color">{{ preference.company.email }}</span> 
                         </li>
                         <li>
                             <span class="fw-semibold">Telephone: </span>
-                            <span class="gray-color">{{ preference.telephone }}</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Telephone', preference.telephone)" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span class="gray-color">{{ preference.company.telephone }}</span> 
                         </li>
                         <li>
                             <span class="fw-semibold">Adresse: </span>
-                            <span class="gray-color">{{ preference.adresse }}</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Adresse', preference.adresse)" 
-                                *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                            <span class="gray-color">{{ preference.company.adresse }}</span> 
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Responsable: </span>
+                            <span class="gray-color">{{ preference.company.responsable }}</span> 
                         </li>
                     </ul>
                 </mat-card-content>

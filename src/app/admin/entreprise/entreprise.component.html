@@ -1,7 +1,10 @@
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
         <h4 class="mb-0">Liste des entreprises</h4>
-        
+        <button mat-flat-button class="default-btn tagus m-0 margin" 
+            routerLink="/layouts/support/reglages-admin-add">
+            <i class="ri-add-fill"></i> Ajouter l'entreprise
+        </button> 
     </mat-card-header>
     <mat-card-content> 
         <div class="tagus-form-group">
@@ -40,7 +43,9 @@
                 <ng-container matColumnDef="code_entreprise">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>code_entreprise</th>
                     <td mat-cell *matCellDef="let element">
-                        {{element.code_entreprise}}
+                        <a [routerLink]="['/layouts/support/entreprises', element.id, 'entreprise-view']">
+                            {{element.code_entreprise}} 
+                        </a> 
                     </td>
                 </ng-container>
 

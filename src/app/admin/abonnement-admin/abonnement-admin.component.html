@@ -1,6 +1,6 @@
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
-        <h4 class="mb-0">Liste des entreprises</h4>
+        <h4 class="mb-0">Liste des abonnements</h4>
         
     </mat-card-header>
     <mat-card-content> 
@@ -17,7 +17,7 @@
                 <ng-container matColumnDef="company_name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Entreprise</th>
                     <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['/layouts/support/entreprise', element.id, 'entreprise-view']">
+                        <a [routerLink]="['/layouts/support/abonnements', element.id, 'abonnement-admin-view']" *ngIf="element.entreprise">
                             {{element.entreprise.company_name}} 
                         </a>
                     </td>
@@ -26,7 +26,9 @@
                 <ng-container matColumnDef="code_entreprise">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Code entreprise</th>
                     <td mat-cell *matCellDef="let element">
-                        {{element.entreprise.code_entreprise}}
+                        <a [routerLink]="['/layouts/support/abonnements', element.id, 'abonnement-admin-view']" *ngIf="element.entreprise">
+                            {{element.entreprise.code_entreprise}}
+                        </a> 
                     </td>
                 </ng-container>
 
@@ -37,11 +39,11 @@
 
                 <ng-container matColumnDef="taux_devise">
                     <th mat-header-cell *matHeaderCellDef>Taux devise</th>
-                    <td mat-cell *matCellDef="let element">{{element.taux_devise}}</td>
+                    <td mat-cell *matCellDef="let element">1$ = {{element.taux_devise}} FC</td>
                 </ng-container> 
 
                 <ng-container matColumnDef="responsable">
-                    <th mat-header-cell *matHeaderCellDef>Responsable</th>
+                    <th mat-header-cell *matHeaderCellDef>Responsable de paie </th>
                     <td mat-cell *matCellDef="let element">{{element.responsable}}</td>
                 </ng-container>  
 

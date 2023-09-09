@@ -1,17 +1,10 @@
+import { EntrepriseModel } from "src/app/admin/entreprise/models/entreprise.model";
+
 export interface PreferenceModel {
     id: number;  
     
     // Infos entreprise
-    logo: string;
-    company_name: string;
-    nbr_employe: number;
-    cnss: string; 
-    rccm: string;
-    id_nat: string;
-    numero_impot: string;
-    email: string;
-    telephone: string;
-    adresse: string;
+    company: EntrepriseModel;
 
     // Date de paie
     date_paie : Date;

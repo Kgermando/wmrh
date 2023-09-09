@@ -9,14 +9,18 @@
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0">Entreprise</h5>
-                    <div>
+                    <div> 
+                        <button mat-flat-button class="default-btn tagus m-0 margin"
+                            (click)="openAddAbonnementDialog('300ms', '100ms', entreprise.id)">
+                             <i class="ri-add-fill"></i> Ajouter Abonnement 
+                        </button>
                         <button mat-icon-button color="primary" 
-                            (click)="openEditDialog('300ms', '100ms', entreprise.id)">
-                                <mat-icon>edit</mat-icon>
-                            </button> 
-                            <button mat-icon-button color="accent">
-                                <mat-icon>delete</mat-icon>
-                            </button>
+                                (click)="openEditDialog('300ms', '100ms', entreprise.id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </div>
                 </mat-card-header>
                 <mat-card-content> 
@@ -40,11 +44,7 @@
                         <li>
                             <span class="fw-semibold d-inline-block">Telephone: </span>
                             <span class="gray-color">{{ entreprise.telephone }}</span>
-                        </li>
-                        <li>
-                            <span class="fw-semibold d-inline-block">Telephone: </span>
-                            <span class="gray-color">{{ entreprise.telephone }}</span>
-                        </li>
+                        </li> 
                         <li>
                             <span class="fw-semibold d-inline-block">Email: </span>
                             <span class="gray-color">{{ entreprise.email }}</span>

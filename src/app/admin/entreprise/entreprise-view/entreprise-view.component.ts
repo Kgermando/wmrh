@@ -5,10 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EntrepriseService } from '../entreprise.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { PersonnelService } from 'src/app/personnels/personnel.service';
+import { PersonnelService } from 'src/app/personnels/personnel.service'; 
+import { RoleDataList } from 'src/app/shared/tools/role-list';
+import { AbonnementAdminService } from '../../abonnement-admin/abonnement-admin.service';
+import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
+import { bouquetDataList } from 'src/app/shared/tools/bouquet';
 
 @Component({
   selector: 'app-entreprise-view',
@@ -25,6 +29,8 @@ export class EntrepriseViewComponent implements OnInit {
 
   nbrEmploye = 0;
 
+  roleList = RoleDataList;
+
   constructor(
     public themeService: CustomizerSettingsService,
     private route: ActivatedRoute,
@@ -32,7 +38,8 @@ export class EntrepriseViewComponent implements OnInit {
     private authService: AuthService,
     private entrepriseService: EntrepriseService,
     private personnelService: PersonnelService,
-    public dialog: MatDialog,) {}
+    public dialog: MatDialog,
+    private toastr: ToastrService,) {}
 
 
     ngOnInit(): void {
@@ -43,7 +50,7 @@ export class EntrepriseViewComponent implements OnInit {
           this.currentUser = user; 
           this.entrepriseService.get(Number(id)).subscribe(res => {
             this.entreprise = res;
-            this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(personne => {
+            this.personnelService.getAll(this.entreprise.code_entreprise).subscribe(personne => {
               this.personnelsList = personne;
               this.nbrEmploye = this.personnelsList.length; 
             });
@@ -69,6 +76,62 @@ export class EntrepriseViewComponent implements OnInit {
         }
       }); 
     }
+
+    openAddAbonnementDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
+      this.dialog.open(AddAbonnementDialogBox, {
+        width: '600px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+        data: {
+          id: id
+        }
+      }); 
+    }
+
+    
+
+    onSubmit() {
+      try {
+        this.isLoading = true;
+          var codeEntreprise = this.entreprise.code_entreprise;
+          var identifiant = `admin-${codeEntreprise}`;
+          var body = {
+            nom: 'admin',
+            postnom: 'admin',
+            prenom: 'admin',
+            email: 'admin@admin.com',
+            telephone: '0000000000',
+            sexe: '-',
+            adresse: '-', 
+            matricule: identifiant.toLowerCase(),
+            category: '-',
+            roles: this.roleList,
+            permission: 'CRUD',
+            signature: this.currentUser.matricule,
+            created: new Date(),
+            update_created: new Date(),
+            password: '1234',
+            password_confirm: '1234',
+            entreprise: this.entreprise.company_name,
+            code_entreprise: this.entreprise.code_entreprise
+          };
+          this.authService.register(body).subscribe({
+            next: () => {
+              this.isLoading = false; 
+              this.toastr.success('Ajouter avec succès!', 'Success!');
+              this.router.navigate(['/layouts/personnels/personnel-list']);
+            },
+            error: (err) => {
+              this.isLoading = false;
+              this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+              console.log(err);
+            }
+          });
+      } catch (error) {
+        this.isLoading = false;
+        console.log(error);
+      }
+    } 
   
     toggleTheme() {
       this.themeService.toggleTheme();
@@ -105,14 +168,17 @@ export class EditEntrepriseDialogBox implements OnInit{
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({  
+      logo: '',
       company_name: '',
+      nbre_employe: '',
+      numero_cnss: '',
       rccm: '',
       id_nat: '',
+      numero_impot: '',
       responsable: '',
       telephone: '',
       email: '',
       adresse: '',
-      nbre_employe: '',
       statut: '',
     });
 
@@ -121,14 +187,17 @@ export class EditEntrepriseDialogBox implements OnInit{
         this.currentUser = user;
         this.entrepriseService.get(parseInt(this.data['id'])).subscribe(item => {
           this.formGroup.patchValue({
+            logo: item.logo,
             company_name: item.company_name,
+            nbre_employe: item.nbre_employe,
+            numero_cnss: item.numero_cnss,
             rccm: item.rccm,
             id_nat: item.id_nat,
+            numero_impot: item.numero_impot,
             responsable: item.responsable,
             telephone: item.telephone,
             email: item.email,
             adresse: item.adresse,
-            nbre_employe: item.nbre_employe,
             statut: item.statut,
             signature: this.currentUser.matricule, 
             update_created: new Date(),
@@ -159,6 +228,104 @@ export class EditEntrepriseDialogBox implements OnInit{
           this.isLoading = false;
         }
       }); 
+    } catch (error) {
+      this.isLoading = false;
+      console.log(error);
+    }
+  }
+
+  close(){
+      this.dialogRef.close(true);
+  } 
+
+}
+
+
+
+
+@Component({
+  selector: 'add-abonnement-dialog',
+  templateUrl: './abonnement-add.html', 
+})
+export class AddAbonnementDialogBox implements OnInit{
+  isLoading = false;
+
+  formGroup!: FormGroup;
+ 
+
+  currentUser: PersonnelModel | any;
+
+  monnaieList = monnaieDataList;
+  bouquetList = bouquetDataList;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+      public dialogRef: MatDialogRef<AddAbonnementDialogBox>,
+      private formBuilder: FormBuilder,
+      private router: Router,
+      private authService: AuthService, 
+      private toastr: ToastrService,
+      private abonnementAdminService: AbonnementAdminService,
+  ) {}
+  
+
+
+  ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      devise: ['', Validators.required],
+      taux_devise: ['', Validators.required],
+      montant: ['', Validators.required],
+      reference: ['', Validators.required],
+      responsable: ['', Validators.required],
+      bouquet: ['', Validators.required],
+      dure_paiement: ['', Validators.required],
+      bordereau: [''],
+    });
+
+    this.authService.user().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
+    }); 
+  } 
+
+
+  onSubmit() {
+    try {
+      if (this.formGroup.valid) {
+        this.isLoading = true;
+        var body = {
+          entreprise: parseInt(this.data['id']),
+          devise: this.formGroup.value.devise,
+          taux_devise: this.formGroup.value.taux_devise,
+          montant: this.formGroup.value.montant,
+          reference: this.formGroup.value.reference,
+          responsable: this.formGroup.value.responsable,
+          bouquet: this.formGroup.value.bouquet,
+          dure_paiement: this.formGroup.value.dure_paiement,
+          bordereau: this.formGroup.value.bordereau,
+          signature: this.currentUser.matricule,
+          created: new Date(),
+          update_created: new Date()
+        };
+        this.abonnementAdminService.create(body).subscribe({
+          next: () => {
+            this.isLoading = false;
+            this.formGroup.reset();
+            this.toastr.success('Success!', 'Ajouté avec succès!'); 
+            window.location.reload();
+          },
+          error: (err) => {
+            this.isLoading = false;
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+            console.log(err);
+          }
+        });
+      } 
     } catch (error) {
       this.isLoading = false;
       console.log(error);

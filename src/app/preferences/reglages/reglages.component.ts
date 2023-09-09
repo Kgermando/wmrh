@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EditEntrepriseDialogBox } from 'src/app/admin/entreprise/entreprise-view/entreprise-view.component';
 
 @Component({
   selector: 'app-reglages',
@@ -49,6 +50,18 @@ export class ReglagesComponent implements OnInit {
     }
 
 
+    openEditEntrepriseDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
+      this.dialog.open(EditEntrepriseDialogBox, {
+        width: '600px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+        data: {
+          id: id
+        }
+      }); 
+    }
+
+
     openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, reglage: string, valeur: any): void {
       this.dialog.open(EditReglageDialogBox, {
         width: '600px',
@@ -76,11 +89,11 @@ export class EditReglageDialogBox implements OnInit{
   isLoading = false;
 
   formGroup!: FormGroup;
+
+  formGroupEntreprise!: FormGroup;
  
 
-  currentUser: PersonnelModel | any;
-
-  // monnaieList = monnaieDataList;
+  currentUser: PersonnelModel | any; 
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -93,63 +106,8 @@ export class EditReglageDialogBox implements OnInit{
   ) {}
   
 
-
   ngOnInit(): void {
-    if (this.data['reglage'] == 'Votre logo') {
-      this.formGroup = this.formBuilder.group({  
-        logo: '',
-      });
-    }
-    if (this.data['reglage'] == 'Nom de l\'entreprise') {
-      this.formGroup = this.formBuilder.group({  
-        company_name: '', 
-      });
-    }
-    if (this.data['reglage'] == 'Nombre d\'employés') {
-      this.formGroup = this.formBuilder.group({  
-        nbr_employe: '', 
-      });
-    } 
-    if (this.data['reglage'] == 'Numéro CNSS') {
-      this.formGroup = this.formBuilder.group({  
-        cnss: '', 
-      });
-    }
-    if (this.data['reglage'] == 'Numéro de Taxe') {
-      this.formGroup = this.formBuilder.group({
-        numero_taxe: '',
-      });
-    }
-    if (this.data['reglage'] == 'RCCM') {
-      this.formGroup = this.formBuilder.group({
-        rccm: '',
-      });
-    }
-    if (this.data['reglage'] == 'ID Nat') {
-      this.formGroup = this.formBuilder.group({
-        id_nat: '',
-      });
-    }
-    if (this.data['reglage'] == 'Numero impôt') {
-      this.formGroup = this.formBuilder.group({
-        numero_impot: '',
-      });
-    }
-    if (this.data['reglage'] == 'Email') {
-      this.formGroup = this.formBuilder.group({  
-        email: '', 
-      });
-    }
-    if (this.data['reglage'] == 'Telephone') {
-      this.formGroup = this.formBuilder.group({  
-        telephone: '', 
-      });
-    }
-    if (this.data['reglage'] == 'Adresse') {
-      this.formGroup = this.formBuilder.group({  
-        adresse: '',
-      });
-    }
+
     if (this.data['reglage'] == 'Date de paie') {
       this.formGroup = this.formBuilder.group({  
         date_paie: '', 
@@ -336,85 +294,8 @@ export class EditReglageDialogBox implements OnInit{
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        if (this.data['reglage'] == 'Votre logo') {
-          console.log("signature", this.currentUser.matricule);
-          this.formGroup.patchValue({
-            logo: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Nom de l\'entreprise') {
-          console.log("signature", this.currentUser.matricule);
-          this.formGroup.patchValue({
-            company_name: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Nombre d\'employés') { 
-          this.formGroup.patchValue({
-            nbr_employe: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Numéro CNSS') {
-          this.formGroup.patchValue({
-            cnss: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Numéro de Taxe') {
-          this.formGroup.patchValue({
-            numero_taxe: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'RCCM') {
-          this.formGroup.patchValue({
-            rccm: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'ID Nat') {
-          this.formGroup.patchValue({
-            id_nat: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Numero impôt') {
-          this.formGroup.patchValue({
-            numero_impot: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Email') {
-          this.formGroup.patchValue({
-            email: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Telephone') {
-          this.formGroup.patchValue({
-            telephone: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
-        if (this.data['reglage'] == 'Adresse') {
-          this.formGroup.patchValue({
-            adresse: this.data['valeur'],
-            signature: this.currentUser.matricule, 
-            update_created: new Date(),
-          });
-        }
+         
+
         if (this.data['reglage'] == 'Date de paie') {
           this.formGroup.patchValue({
             date_paie: this.data['valeur'],

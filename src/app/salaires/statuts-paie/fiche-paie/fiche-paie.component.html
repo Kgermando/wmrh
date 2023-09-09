@@ -34,34 +34,34 @@
                                             <td class="text-start">
                                                 Entreprise:
                                             </td>
-                                            <td class="gray-color text-start">{{ preference.company_name }}</td> 
+                                            <td class="gray-color text-start">{{ preference.company.company_name }}</td> 
                                         </tr>
                                         <tr>
                                             <td class="text-start">
                                                 RCCM:
                                             </td>
-                                            <td class="gray-color text-start">{{ preference.rccm }}</td> 
+                                            <td class="gray-color text-start">{{ preference.company.rccm }}</td> 
                                         </tr>
                                         <tr>
                                             <td class="text-start">
                                                 ID. Nat:
                                             </td>
-                                            <td class="gray-color text-start">{{ preference.id_nat }}</td> 
+                                            <td class="gray-color text-start">{{ preference.company.id_nat }}</td> 
                                         </tr>
                                         <tr>
                                             <td class="text-start">
                                                 N° Impôt:
                                             </td>
-                                            <td class="gray-color text-start">{{ preference.numero_impot }}</td>
+                                            <td class="gray-color text-start">{{ preference.company.numero_impot }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center">
-                                <img src="assets/img/user/user13.jpg" class="border-radius logo" *ngIf="preference.logo === '-'">
+                                <img src="assets/img/user/user13.jpg" class="border-radius logo" *ngIf="preference.company.logo === '-'">
                                 <!-- <qrcode [qrdata]="salaire.personnel.matricule" [width]="100" [errorCorrectionLevel]="'M'"
                                 *ngIf="preference.logo == '-'"></qrcode> -->
-                                <img [src]="preference.logo" class="border-radius logo" *ngIf="preference.logo != '-'">
+                                <img [src]="preference.company.logo" class="border-radius logo" *ngIf="preference.company.logo != '-'">
                             </div>
                         </div>
                         <mat-divider class="mb-25" ></mat-divider>

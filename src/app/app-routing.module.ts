@@ -97,6 +97,7 @@ import { EntrepriseComponent } from './admin/entreprise/entreprise.component';
 import { EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entreprise-view.component';
 import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component';
 import { MesBulletinsComponent } from './salaires/mes-bulletins/mes-bulletins.component';
+import { AbonnementAdminViewComponent } from './admin/abonnement-admin/abonnement-admin-view/abonnement-admin-view.component';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -174,11 +175,11 @@ const routes: Routes = [
     { path: 'mail/mail-sent', component: MailSentComponent, canActivate: [emailsGuard] },
 
     { path: 'support/reglages-admin', component: ReglageAdminComponent, canActivate: [supportGuard]},
-    { path: 'support/reglages-admin-add', component: ReglageAdminAddComponent, canActivate: [supportGuard] },
-    { path: 'support/abonnements', component: AbonnementComponent, canActivate: [supportGuard] },
+    { path: 'support/reglages-admin-add', component: ReglageAdminAddComponent, canActivate: [supportGuard] }, 
     { path: 'support/entreprises', component: EntrepriseComponent, canActivate: [supportGuard] },
     { path: 'support/entreprises/:id/entreprise-view', component: EntrepriseViewComponent, canActivate: [supportGuard]},
-    { path: 'support/abonnement_paiement', component: AbonnementAdminComponent, canActivate: [supportGuard] },
+    { path: 'support/abonnements', component: AbonnementAdminComponent, canActivate: [supportGuard] },
+    { path: 'support/abonnements/:id/abonnement-admin-view', component: AbonnementAdminViewComponent, canActivate: [supportGuard] },
 
     { path: 'paiements', component: AbonnementComponent },
 

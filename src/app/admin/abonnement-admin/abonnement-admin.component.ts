@@ -1,15 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { EntrepriseModel } from '../entreprise/models/entreprise.model';
-import { MatPaginator } from '@angular/material/paginator';
-import { EntrepriseService } from '../entreprise/entreprise.service';
+import { MatTableDataSource } from '@angular/material/table'; 
+import { MatPaginator } from '@angular/material/paginator'; 
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { SelectionModel } from '@angular/cdk/collections';
+import { AbonnementAdminService } from './abonnement-admin.service';
+import { AbonnementAdminModel } from './models/abonnement.model';
 
 @Component({
   selector: 'app-abonnement-admin',
@@ -17,42 +17,45 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrls: ['./abonnement-admin.component.scss']
 })
 
-export class AbonnementAdminComponent {
+export class AbonnementAdminComponent implements OnInit {
   displayedColumns: string[] = ['company_name', 'code_entreprise', 'devise', 'taux_devise', 'responsable'];
   
-  ELEMENT_DATA: EntrepriseModel[] = [];
+  ELEMENT_DATA: AbonnementAdminModel[] = [];
   
-  dataSource = new MatTableDataSource<EntrepriseModel>(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<AbonnementAdminModel>(this.ELEMENT_DATA);
   selection = new SelectionModel<PersonnelModel>(true, []);
 
   isLoading = false;
   currentUser: PersonnelModel | any;
  
   isActive = false;
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
  
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService, 
-      private entrepriseService: EntrepriseService, 
-  ) {} 
+      private AbonnementAdminService: AbonnementAdminService,
+  ) {}  
+
 
   toggleTheme() {
     this.themeService.toggleTheme();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    ngAfterViewInit() {
+  ngOnInit() {
         this.isLoading = true;
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user; 
-                this.entrepriseService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+                this.AbonnementAdminService.allAbonnement().subscribe(res => {
                   this.ELEMENT_DATA = res; 
-                  this.dataSource = new MatTableDataSource<EntrepriseModel>(this.ELEMENT_DATA);
+                  this.dataSource = new MatTableDataSource<AbonnementAdminModel>(this.ELEMENT_DATA);
                   this.dataSource.sort = this.sort;
                   this.dataSource.paginator = this.paginator; 
  

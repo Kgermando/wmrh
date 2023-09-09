@@ -165,9 +165,9 @@ import { NotifyComponent } from './notify/notify.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { NotifyViewComponent } from './notify/notify-view/notify-view.component';
 import { EntrepriseComponent } from './admin/entreprise/entreprise.component';
-import { EditEntrepriseDialogBox, EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entreprise-view.component';
+import { AddAbonnementDialogBox, EditEntrepriseDialogBox, EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entreprise-view.component';
 import { AbonnementTableComponent } from './admin/entreprise/abonnement-table/abonnement-table.component';
-import { AbonnementAdminViewComponent } from './admin/abonnement-admin/abonnement-admin-view/abonnement-admin-view.component';
+import { AbonnementAdminViewComponent, EditAbonnementAdminDialogBox } from './admin/abonnement-admin/abonnement-admin-view/abonnement-admin-view.component';
 import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component';
 import { MesBulletinsComponent } from './salaires/mes-bulletins/mes-bulletins.component';
 import { CumulComponent } from './performences/cumul/cumul.component'; 
@@ -328,7 +328,11 @@ import { CumulComponent } from './performences/cumul/cumul.component';
     EditEntrepriseDialogBox,
     AbonnementTableComponent,
     AbonnementAdminViewComponent, 
-    PointageViewComponent, MesBulletinsComponent, CumulComponent, 
+    PointageViewComponent, 
+    MesBulletinsComponent, 
+    CumulComponent,
+    AddAbonnementDialogBox,
+    EditAbonnementAdminDialogBox,
   ],
   imports: [
     BrowserModule,
