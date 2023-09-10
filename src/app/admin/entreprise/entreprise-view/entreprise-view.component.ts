@@ -88,52 +88,25 @@ export class EntrepriseViewComponent implements OnInit {
           id: id
         }
       }); 
-    }
+    }  
 
-    
 
-    onSubmit() {
-      try {
-        this.isLoading = true;
-          var codeEntreprise = this.entreprise.code_entreprise;
-          var identifiant = `admin-${codeEntreprise}`;
-          var body = {
-            nom: 'admin',
-            postnom: 'admin',
-            prenom: 'admin',
-            email: 'admin@admin.com',
-            telephone: '0000000000',
-            sexe: '-',
-            adresse: '-', 
-            matricule: identifiant.toLowerCase(),
-            category: '-',
-            roles: this.roleList,
-            permission: 'CRUD',
-            signature: this.currentUser.matricule,
-            created: new Date(),
-            update_created: new Date(),
-            password: '1234',
-            password_confirm: '1234',
-            entreprise: this.entreprise.company_name,
-            code_entreprise: this.entreprise.code_entreprise
-          };
-          this.authService.register(body).subscribe({
+    delete(id: number): void {
+      if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
+        this.entrepriseService
+          .delete(id)
+          .subscribe({
             next: () => {
-              this.isLoading = false; 
-              this.toastr.success('Ajouter avec succès!', 'Success!');
+              this.toastr.info('Success!', 'Supprimé avec succès!');
               this.router.navigate(['/layouts/personnels/personnel-list']);
             },
-            error: (err) => {
-              this.isLoading = false;
+            error: err => {
               this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
               console.log(err);
             }
           });
-      } catch (error) {
-        this.isLoading = false;
-        console.log(error);
       }
-    } 
+    }
   
     toggleTheme() {
       this.themeService.toggleTheme();
@@ -241,7 +214,6 @@ export class EditEntrepriseDialogBox implements OnInit{
   } 
 
 }
-
 
 
 

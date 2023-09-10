@@ -101,7 +101,7 @@ export class PointageComponent implements OnInit {
                 }); 
               });
             } else { 
-              this.toastr.warning('Vous n\'avez pas créé le site de travail!', 'Info!');
+              this.toastr.warning('Vous n\'avez pas créé le site de travail!', 'Infos!');
             }
             
           this.isLoading = false;

@@ -18,7 +18,7 @@
                                 (click)="openEditDialog('300ms', '100ms', entreprise.id)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="accent">
+                        <button mat-icon-button color="accent" (click)="delete(entreprise.id)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>

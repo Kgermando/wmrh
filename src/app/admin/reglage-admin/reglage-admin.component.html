@@ -58,6 +58,7 @@
                             <th class="fw-semibold gray-color pr-10 text-start">Update </th>
                             <th class="fw-semibold gray-color pr-10 text-start">Entreprise </th>
                             <th class="fw-semibold gray-color pr-10 text-start">Code entreprise </th>
+                            <th class="fw-semibold gray-color pr-10 text-start">Delete </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,15 +95,15 @@
                             <td class="gray-color pr-10">{{item.courses_transport}}</td>
                             <td class="gray-color pr-10">{{item.montant_travailler_quadre}}</td>
                             <td class="gray-color pr-10">{{item.montant_travailler_non_quadre}}</td>
-                            <td class="gray-color pr-10">{{item.new_year  | date: 'dd-MM-yyyy'}}</td>
-                            <td class="gray-color pr-10">{{item.noel  | date: 'dd-MM-yyyy'}}</td>
-                            <td class="gray-color pr-10">{{item.martyr_day  | date: 'dd-MM-yyyy'}}</td>
-                            <td class="gray-color pr-10">{{item.kabila_day  | date: 'dd-MM-yyyy'}}</td>
-                            <td class="gray-color pr-10">{{item.lumumba_day  | date: 'dd-MM-yyyy'}}</td>
-                            <td class="gray-color pr-10">{{item.labour_day  | date: 'dd-MM-yyyy'}}</td>
-                            <td class="gray-color pr-10">{{item.liberation_day  | date: 'dd-MM-yyyy'}}</td>
-                            <td class="gray-color pr-10">{{item.indepence_day  | date: 'dd-MM-yyyy'}}</td>
-                            <td class="gray-color pr-10">{{item.parent_day  | date: 'dd-MM-yyyy'}}</td>
+                            <td class="gray-color pr-10">{{item.new_year | date: 'dd-MM-yyyy'}}</td>
+                            <td class="gray-color pr-10">{{item.noel | date: 'dd-MM-yyyy'}}</td>
+                            <td class="gray-color pr-10">{{item.martyr_day | date: 'dd-MM-yyyy'}}</td>
+                            <td class="gray-color pr-10">{{item.kabila_day | date: 'dd-MM-yyyy'}}</td>
+                            <td class="gray-color pr-10">{{item.lumumba_day | date: 'dd-MM-yyyy'}}</td>
+                            <td class="gray-color pr-10">{{item.labour_day | date: 'dd-MM-yyyy'}}</td>
+                            <td class="gray-color pr-10">{{item.liberation_day | date: 'dd-MM-yyyy'}}</td>
+                            <td class="gray-color pr-10">{{item.indepence_day | date: 'dd-MM-yyyy'}}</td>
+                            <td class="gray-color pr-10">{{item.parent_day | date: 'dd-MM-yyyy'}}</td>
                             <td class="gray-color pr-10">{{item.kimbangu_day  | date: 'dd-MM-yyyy'}}</td>
                             <td class="gray-color pr-10">{{item.prime_ancien_0}} %</td>
                             <td class="gray-color pr-10">{{item.prime_ancien_5}} %</td>
@@ -118,10 +119,15 @@
                             <td class="gray-color pr-10">{{item.update_created  | date: 'dd-MM-yyyy'}}</td>
                             <td class="gray-color pr-10">{{item.entreprise}}</td>
                             <td class="gray-color pr-10">{{item.code_entreprise}}</td> 
+                            <td class="gray-color pr-10"> 
+                                <button mat-icon-button color="accent" (click)="delete(item.id)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td> 
                         </tr> 
                     </tbody>
                 </table>
             </div>
         </mat-card-content>
     </mat-card> 
-</div>
+</div> 

@@ -138,7 +138,7 @@ export class RegistrePresenceComponent implements OnInit {
     }
   }
 
-  openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openUploadDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PresenceUploadCSVDialogBox, {
       width: '600px', 
       enterAnimationDuration,
@@ -158,24 +158,36 @@ export class RegistrePresenceComponent implements OnInit {
   downloadModelReport() {
     try {
       this.isLoading = true;
-      this.presenceService.downloadModelReport(
-        this.currentUser.code_entreprise, 
-        this.currentUser.site_locations.site_location).subscribe({
-      next: (res) => {
-        this.isLoading = false; 
-        const downloadUrl = window.URL.createObjectURL(res);
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = `FICHE_DE_PRESENCES.xlsx`;
-        link.click();
-        this.toastr.info('Extraction effectuée!', 'Info!'); 
-      },
-      error: (err) => {
+      if (this.ELEMENT_DATA.length > 0) {
+        if (this.currentUser.site_locations.site_location) {
+          this.presenceService.downloadModelReport(
+            this.currentUser.code_entreprise, 
+            this.currentUser.site_locations.site_location).subscribe({
+          next: (res) => {
+            this.isLoading = false; 
+            const downloadUrl = window.URL.createObjectURL(res);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `FICHE_DE_PRESENCES.xlsx`;
+            link.click();
+            this.toastr.info('Extraction effectuée!', 'Info!'); 
+          },
+          error: (err) => {
+            this.isLoading = false;
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+            console.log(err); 
+          }
+        });
+        } else {
+          this.toastr.warning('Vous n\'avez pas créé le site de travail!', 'Infos!');
+          this.isLoading = false;
+        }
+      } else {
+        this.toastr.info('Effectuez au moins une presence pour avoir le modèle', 'Infos!');
         this.isLoading = false;
-        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-        console.log(err); 
       }
-    });
+      
+      
     } catch (error) {
       
     }
