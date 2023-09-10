@@ -148,7 +148,7 @@ export class RelevePaieComponent implements OnInit {
 
   openExportDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(SalaireExportXLSXDialogBox, {
-      width: '600px',
+      width: '600px', 
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 

@@ -105,7 +105,7 @@ export class TitlesComponent implements OnInit{
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
     this.dialog.open(EditTitleDialogBox, {
-      width: '600px',
+      width: '600px', 
       enterAnimationDuration,
       exitAnimationDuration,
       data: {

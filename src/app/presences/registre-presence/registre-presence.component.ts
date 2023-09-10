@@ -140,7 +140,7 @@ export class RegistrePresenceComponent implements OnInit {
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PresenceUploadCSVDialogBox, {
-      width: '600px',
+      width: '600px', 
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 
@@ -149,23 +149,50 @@ export class RegistrePresenceComponent implements OnInit {
 
   openExportDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PresenceExportXLSXDialogBox, {
-      width: '600px',
+      width: '600px', 
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 
   }
 
   downloadModelReport() {
-    this.isLoading = true;  
-    this.httpClient.get("assets/files/presence_model.xlsx",{responseType: "blob"}).subscribe((res:any) => { 
-      const downloadUrl= window.URL.createObjectURL(res);
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.download = `Votre_model_employes.xlsx`;
-      link.click();
-      this.isLoading = false;
+    try {
+      this.isLoading = true;
+      this.presenceService.downloadModelReport(
+        this.currentUser.code_entreprise, 
+        this.currentUser.site_locations.site_location).subscribe({
+      next: (res) => {
+        this.isLoading = false; 
+        const downloadUrl = window.URL.createObjectURL(res);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = `FICHE_DE_PRESENCES.xlsx`;
+        link.click();
+        this.toastr.info('Extraction effectuée!', 'Info!'); 
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+        console.log(err); 
+      }
     });
-  } 
+    } catch (error) {
+      
+    }
+  }
+
+  // downloadModelReport() {
+  //   this.isLoading = true;  
+  //   this.httpClient.get("assets/files/presence_model.xlsx",{responseType: "blob"}).subscribe((res:any) => { 
+  //     const downloadUrl= window.URL.createObjectURL(res);
+  //     const link = document.createElement('a');
+  //     link.href = downloadUrl;
+  //     link.download = `Votre_model_employes.xlsx`;
+  //     link.click();
+  //     this.toastr.success('Success!', 'Téléchargé avec succès!');
+  //     this.isLoading = false;
+  //   });
+  // } 
 
 }
 
@@ -182,6 +209,7 @@ export class PresenceUploadCSVDialogBox {
       private toastr: ToastrService,
       private presenceService: PresenceService,
   ) {}
+
 
   upload(event: Event) {
     this.isLoading = true;
@@ -203,12 +231,15 @@ export class PresenceUploadCSVDialogBox {
       },
       error: (e) => {
         this.isLoading = false;
-        this.toastr.error(`${e.error.message}`, 'Oupss!');
-        console.log(e);
         this.close();
+        this.toastr.error(`${e.error.message}`, 'Oupss!');
+        window.alert(e.error.message);
+        console.log(e);
+        
       }
     });
   } 
+ 
 
 
   close(){

@@ -110,7 +110,7 @@ export class SiteLocationComponent implements OnInit{
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
     this.dialog.open(EditSiteLocationDialogBox, {
-      width: '600px',
+      width: '600px',  
       enterAnimationDuration,
       exitAnimationDuration,
       data: {

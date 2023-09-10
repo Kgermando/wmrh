@@ -49,7 +49,8 @@ export class PersonnelListComponent implements OnInit {
       private authService: AuthService,
       private personnelService: PersonnelService,
       private entrepriseService: EntrepriseService,
-      public dialog: MatDialog, 
+      public dialog: MatDialog,
+      private toastr: ToastrService,
   ) {}
 
 
@@ -70,14 +71,10 @@ export class PersonnelListComponent implements OnInit {
               this.dataSource.paginator = this.paginator; 
 
               this.entrepriseService.getCodeEntreprise(this.currentUser.code_entreprise).subscribe(e => {
-                this.entreprise = e;
-                if(this.entreprise) {
-                  if (this.ELEMENT_DATA.length < this.entreprise.nbre_employe) {
-                    this.isActive = true;
-                  }
-                }
+                this.entreprise = e; 
               });
           });
+          
           this.isLoading = false;
         },
         error: (error) => {
@@ -86,6 +83,8 @@ export class PersonnelListComponent implements OnInit {
           console.log(error);
         }
       });
+
+      
     }
 
  
@@ -125,16 +124,40 @@ export class PersonnelListComponent implements OnInit {
   }
 
   downloadModelReport() {
-    this.isLoading = true;
-    this.httpClient.get("assets/files/personnel_model.xlsx",{responseType: "blob"}).subscribe((res:any) => { 
-      const downloadUrl= window.URL.createObjectURL(res);
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.download = `Votre_model_employes.xlsx`;
-      link.click();
-      this.isLoading = false;
+    try {
+      this.isLoading = true;
+      this.personnelService.downloadModelReport(this.currentUser.code_entreprise).subscribe({
+      next: (res) => {
+        this.isLoading = false; 
+        const downloadUrl = window.URL.createObjectURL(res);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = `Votre_model_employes.xlsx`;
+        link.click(); 
+        this.toastr.info('Extraction effectuée!', 'Info!'); 
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+        console.log(err); 
+      }
     });
-  } 
+    } catch (error) {
+      
+    }
+  }
+
+  // downloadModelReport() {
+  //   this.isLoading = true;
+  //   this.httpClient.get("assets/files/personnel_model.xlsx",{responseType: "blob"}).subscribe((res:any) => { 
+  //     const downloadUrl= window.URL.createObjectURL(res);
+  //     const link = document.createElement('a');
+  //     link.href = downloadUrl;
+  //     link.download = `Votre_model_employes.xlsx`;
+  //     link.click();
+  //     this.isLoading = false;
+  //   });
+  // } 
 
 }
 
@@ -174,9 +197,11 @@ export class PersonnelUploadCSVDialogBox {
       },
       error: (e) => {
         this.isLoading = false;
-        this.toastr.error(`${e.error.message}`, 'Oupss!');
-        console.log(e);
         this.close();
+        this.toastr.error(`${e.error.message}`, 'Oupss!');
+        window.alert(e.error.message);
+        console.log(e);
+        
       }
     });
   } 

@@ -93,6 +93,7 @@ applyFilter(event: Event) {
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
     this.dialog.open(EditPerformenceDialogBox, {
       width: '600px',
+        height: '100%',
       enterAnimationDuration,
       exitAnimationDuration,
       data: {

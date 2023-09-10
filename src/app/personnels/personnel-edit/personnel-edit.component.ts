@@ -164,9 +164,9 @@ export class PersonnelEditComponent implements OnInit {
         this.personnelService.get(this.id).subscribe(item => { 
           this.personne = item; 
           this.formGroup.patchValue({
-            nom: item.nom,
-            postnom: item.postnom,
-            prenom: item.prenom,
+            nom: this.capitalizeTest(item.nom),
+            postnom: this.capitalizeTest(item.postnom),
+            prenom: this.capitalizeTest(item.prenom),
             email: item.email,
             telephone: item.telephone,
             sexe: item.sexe,
@@ -362,5 +362,10 @@ export class PersonnelEditComponent implements OnInit {
   }
   compareFnTitle(c1: TitleModel, c2: TitleModel): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+
+  
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1)) || text;
   }
 }

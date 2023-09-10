@@ -100,7 +100,7 @@ export class PenalitesComponent implements OnInit {
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PenaliteAddDialogBox, {
-      width: '600px',
+      width: '600px', 
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 

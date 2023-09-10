@@ -69,6 +69,7 @@ export class EntrepriseViewComponent implements OnInit {
     openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
       this.dialog.open(EditEntrepriseDialogBox, {
         width: '600px',
+        height: '100%',
         enterAnimationDuration,
         exitAnimationDuration,
         data: {
@@ -80,6 +81,7 @@ export class EntrepriseViewComponent implements OnInit {
     openAddAbonnementDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
       this.dialog.open(AddAbonnementDialogBox, {
         width: '600px',
+        height: '100%',
         enterAnimationDuration,
         exitAnimationDuration,
         data: {

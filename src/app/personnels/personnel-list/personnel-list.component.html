@@ -1,8 +1,11 @@
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
-        <h4 class="mb-0">Liste des Employés</h4>
         <div>
-            <button mat-flat-button class="default-btn tagus m-0 margin" [disabled]="isActive"
+            <h4 class="mb-0">Liste des Employés</h4>
+            <span *ngIf="entreprise">TOTAL: {{ELEMENT_DATA.length}} / {{entreprise.nbre_employe}}</span>
+        </div>
+        <div>
+            <button mat-flat-button class="default-btn tagus m-0 margin" 
                 routerLink="/layouts/personnels/personnel-add">
                 <i class="ri-add-fill"></i> Ajouter un employé
             </button>
@@ -16,7 +19,7 @@
                 </button>
                 <button mat-menu-item type="button" 
                     class="bg-transparent border-none position-relative" 
-                    (click)="openEditDialog('300ms', '100ms')" *ngIf="isActive">
+                    (click)="openEditDialog('300ms', '100ms')">
                     <i class="ri-upload-2-line"></i> Importer
                 </button>
                 <button mat-menu-item type="button" 

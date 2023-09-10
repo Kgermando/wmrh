@@ -53,6 +53,7 @@ export class ReglagesComponent implements OnInit {
     openEditEntrepriseDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
       this.dialog.open(EditEntrepriseDialogBox, {
         width: '600px',
+        height: '100%', 
         enterAnimationDuration,
         exitAnimationDuration,
         data: {
@@ -556,8 +557,8 @@ export class EditReglageDialogBox implements OnInit{
   onSubmit() {
     try {
       this.isLoading = true;
-      this.reglageService.updatePref(this.currentUser.code_entreprise, this.formGroup.getRawValue())
-      .subscribe({
+      this.reglageService.updatePref(this.currentUser.code_entreprise, this.currentUser.matricule, this.formGroup.getRawValue())
+      .subscribe({ 
         next: () => {
           this.isLoading = false;
           window.location.reload(); 

@@ -137,19 +137,20 @@ export class ReglageAdminAddComponent implements OnInit {
                 code_entreprise: company.code_entreprise
               };
               this.reglageService.create(body).subscribe(reglage => {
-                var identifiant = `admin-${reglage.code_entreprise}`;
-                var body = {
+                var identifiant = `admin-${company.code_entreprise}`;
+                var body = { 
                   nom: 'admin',
                   postnom: 'admin',
                   prenom: 'admin',
                   email: 'admin@admin.com',
                   telephone: '0000000000',
-                  sexe: '-',
+                  sexe: 'Homme',
                   adresse: '-', 
                   matricule: identifiant.toLowerCase(),
                   category: '-',
                   roles: this.roleList,
                   permission: 'CRUD',
+                  monnaie: 'USD',
                   signature: this.currentUser.matricule,
                   created: new Date(),
                   update_created: new Date(),

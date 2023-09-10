@@ -56,5 +56,9 @@ export class PresenceService extends ApiService {
   uploadCSV(data: any): Observable<any> {
     return this.http.post(`${this.endpoint}/upload-csv`, data);
   } 
+
+  downloadModelReport(code_entreprise: string, site_location: string): Observable<any> {
+    return this.http.post(`${this.endpoint}/download-model-xlsx/${code_entreprise}/${site_location}`, {}, {responseType: 'blob'});
+  } 
  
 }

@@ -101,6 +101,7 @@ export class AvanceSalairesComponent implements OnInit {
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(AvanceSalaireAddDialogBox, {
       width: '600px',
+        height: '100%',
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 

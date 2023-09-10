@@ -9,8 +9,8 @@ import { environment } from 'src/environments/environment';
 export class ReglageService extends ApiService {
   endpoint: string = `${environment.apiURL}/preferences`;
 
-  updatePref(code_entreprise: string, data: any): Observable<any> {
-    return this.http.put(`${this.endpoint}/${code_entreprise}`, data);
+  updatePref(code_entreprise: string, signature: string, data: any): Observable<any> {
+    return this.http.put(`${this.endpoint}/${code_entreprise}/${signature}`, data);
   }
 
 

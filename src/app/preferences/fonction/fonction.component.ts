@@ -106,7 +106,7 @@ export class FonctionComponent implements OnInit {
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
     this.dialog.open(EditFonctionDialogBox, {
-      width: '600px',
+      width: '600px', 
       enterAnimationDuration,
       exitAnimationDuration,
       data: {

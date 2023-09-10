@@ -19,15 +19,11 @@
     <div class="row" *ngIf="preference && currentUser">
         <div class="d-flex justify-content-space-between">
             <p>Denière mise à jour le: {{ preference.update_created | date: 'dd/MM/yyyy HH:mm:ss' }} </p>
-            <!-- <p>Par: {{ preference.signature }}</p> -->
+            <p>Par: {{ preference.signature }}</p>
         </div>
         
         <div class="col-lg-4 col-md-12">
-            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()" >
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0">Information de l'entreprise</h5>
                     <button mat-icon-button color="primary" 
@@ -88,11 +84,7 @@
                 </mat-card-content>
             </mat-card> 
             
-            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0">Taxes de la société</h5>
                 </mat-card-header>
@@ -137,15 +129,56 @@
                     </ul>   
                 </mat-card-content>
             </mat-card>
-        </div>
 
-
-        <div class="col-lg-4 col-md-12">   
-            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()" *ngIf="currentUser.permission === 'U' || 
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">IPR Taux Barèmique</h5>
+                </mat-card-header>
+                <mat-card-content>
+                    <ul class="list ps-0 mb-0">
+                        <li>
+                            <span class="fw-semibold">Barèmique de 3%: </span>
+                            <span class="gray-color">{{ preference.bareme_3 | number }} CDF</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Taux Barèmique de 3%', preference.bareme_3)" *ngIf="currentUser.permission === 'U' || 
                                 currentUser.permission === 'RU' ||
                                 currentUser.permission === 'CRU' ||
                                 currentUser.permission === 'RUD' ||
                                 currentUser.permission === 'CRUD'">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Barèmique de 15%: </span>
+                            <span class="gray-color">{{ preference.bareme_15 | number }} CDF</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Taux Barèmique de 15%', preference.bareme_15)" *ngIf="currentUser.permission === 'U' || 
+                                currentUser.permission === 'RU' ||
+                                currentUser.permission === 'CRU' ||
+                                currentUser.permission === 'RUD' ||
+                                currentUser.permission === 'CRUD'">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                        <li>
+                            <span class="fw-semibold">Barèmique de 30%: </span>
+                            <span class="gray-color">{{ preference.bareme_30 | number }} CDF</span>
+                            <button mat-icon-button color="warn" 
+                                (click)="openEditDialog('300ms', '100ms', 'Taux Barèmique de 30%', preference.bareme_30)" *ngIf="currentUser.permission === 'U' || 
+                                currentUser.permission === 'RU' ||
+                                currentUser.permission === 'CRU' ||
+                                currentUser.permission === 'RUD' ||
+                                currentUser.permission === 'CRUD'">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </li>
+                    </ul>   
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="col-lg-4 col-md-12">   
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0">Paramètres de déduction </h5>
                 </mat-card-header>
@@ -190,11 +223,8 @@
                     </ul>
                 </mat-card-content>
             </mat-card>
-            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
+
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0">Jours feriés</h5>
                 </mat-card-header>
@@ -324,12 +354,9 @@
                 </mat-card-content>
             </mat-card>
         </div>
+
         <div class="col-lg-4 col-md-12">
-            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0">Paramètres de paie</h5>
                 </mat-card-header>
@@ -435,11 +462,8 @@
                     </ul>   
                 </mat-card-content>
             </mat-card>
-            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
+
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0">Primes d'anciennetés</h5>
                 </mat-card-header>
@@ -507,56 +531,7 @@
                         </li> 
                     </ul>  
                 </mat-card-content>
-            </mat-card>
-            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                <mat-card-header class="border-bottom">
-                    <h5 class="mb-0">IPR Taux Barèmique</h5>
-                </mat-card-header>
-                <mat-card-content>
-                    <ul class="list ps-0 mb-0">
-                        <li>
-                            <span class="fw-semibold">Barèmique de 3%: </span>
-                            <span class="gray-color">{{ preference.bareme_3 | number }} CDF</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Taux Barèmique de 3%', preference.bareme_3)" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                        </li>
-                        <li>
-                            <span class="fw-semibold">Barèmique de 15%: </span>
-                            <span class="gray-color">{{ preference.bareme_15 | number }} CDF</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Taux Barèmique de 15%', preference.bareme_15)" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                        </li>
-                        <li>
-                            <span class="fw-semibold">Barèmique de 30%: </span>
-                            <span class="gray-color">{{ preference.bareme_30 | number }} CDF</span>
-                            <button mat-icon-button color="warn" 
-                                (click)="openEditDialog('300ms', '100ms', 'Taux Barèmique de 30%', preference.bareme_30)" *ngIf="currentUser.permission === 'U' || 
-                                currentUser.permission === 'RU' ||
-                                currentUser.permission === 'CRU' ||
-                                currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                        </li>
-                    </ul>   
-                </mat-card-content>
-            </mat-card>
+            </mat-card> 
         </div> 
     </div>
 </div>

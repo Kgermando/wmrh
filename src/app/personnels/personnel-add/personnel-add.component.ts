@@ -68,10 +68,11 @@ export class PersonnelAddComponent implements OnInit {
         var codeEntreprise = this.currentUser.code_entreprise;
         var mat = this.formGroup.value.matricule;
         var identifiant = `${mat}-${codeEntreprise}`;
+        
         var body = {
-          nom: this.formGroup.value.nom,
-          postnom: this.formGroup.value.postnom,
-          prenom: this.formGroup.value.prenom,
+          nom: this.capitalizeTest(this.formGroup.value.nom),
+          postnom: this.capitalizeTest(this.formGroup.value.postnom),
+          prenom: this.capitalizeTest(this.formGroup.value.prenom),
           email: this.formGroup.value.email,
           telephone: this.formGroup.value.telephone,
           sexe: this.formGroup.value.sexe,
@@ -103,5 +104,10 @@ export class PersonnelAddComponent implements OnInit {
       console.log(error);
     }
   } 
+
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1)) || text;
+  }
 
 }
