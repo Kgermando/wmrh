@@ -102,19 +102,14 @@
                                     Relevé de paies
                                 </a>
                             </li>
-                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Bulletins employé')">
+                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Mes Bulletins')">
                                 <a routerLink="/layouts/salaires/mes-bulletins-salaires" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Mes bulletins de paies
                                 </a>
                             </li>
                         </ul>
                     </mat-expansion-panel>
-                    <a routerLink="/layouts/personnels/syndicats" class="sidebar-menu-link" 
-                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-                        *ngIf="currentUser.roles.includes('Syndicats')">
-                        <i class="ri-user-4-line"></i>
-                        <span class="title">Syndicats</span>
-                    </a>
+                  
                     <!-- <a routerLink="/layouts/horaire" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Horaires')">
@@ -147,6 +142,12 @@
                             </li>
                         </ul>
                     </mat-expansion-panel>
+                    <a routerLink="/layouts/personnels/syndicats" class="sidebar-menu-link" 
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        *ngIf="currentUser.roles.includes('Syndicats')">
+                        <i class="ri-user-4-line"></i>
+                        <span class="title">Syndicats</span>
+                    </a>
                     <!-- <a routerLink="/layouts/mail/inbox" 
                         class="sidebar-menu-link" routerLinkActive="active" 
                         [routerLinkActiveOptions]="{exact: true}"

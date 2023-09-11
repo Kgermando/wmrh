@@ -73,7 +73,7 @@ export const mesBulletinsGuard: CanActivateFn = (route, state) => {
   let roles = localStorage.getItem('roles');
   let roleList = JSON.parse(roles!) 
   let access = false; 
-  if (roleList.includes('Bulletins employé')) { 
+  if (roleList.includes('Mes Bulletins')) { 
     access = true;
   }     
   return access;  

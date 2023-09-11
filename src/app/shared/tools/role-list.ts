@@ -1,7 +1,7 @@
 export const RoleDataList: string[] = [
     
     'Dashboard',
-    'Bulletins employé',
+    'Mes Bulletins',
     'Personnels',
     'Pointages', 
     'Registre de presences', 
@@ -31,7 +31,7 @@ export const RoleDataList: string[] = [
 
   export const RoleSupportDataList: string[] = [
     'Dashboard',
-    'Bulletins employé',
+    'Mes Bulletins',
     'Personnels', 
     'Pointages', 
     'Registre de presences', 

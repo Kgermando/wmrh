@@ -97,7 +97,7 @@
                                     </td>
                                     <td class="gray-color text-start">{{ salaire.personnel.nom}} {{ salaire.personnel.postnom}} {{ salaire.personnel.prenom}}</td> 
                                 </tr>
-                                <tr>
+                                <tr *ngIf="salaire.personnel.departements">
                                     <td class="text-start">
                                         Département
                                     </td>

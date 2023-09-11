@@ -176,10 +176,10 @@ export class PersonnelEditComponent implements OnInit {
             update_created: new Date()
           });
           this.formGroup2.patchValue({ 
-            numero_cnss: item.numero_cnss,
-            date_naissance: item.date_naissance,
-            lieu_naissance: item.lieu_naissance,
-            nationalite: item.nationalite,
+            numero_cnss: item.numero_cnss.toUpperCase(),
+            date_naissance: item.date_naissance.toUpperCase(),
+            lieu_naissance: item.lieu_naissance.toUpperCase(),
+            nationalite: this.capitalizeTest(item.nationalite),
             etat_civile: item.etat_civile,
             nbr_dependants: item.nbr_dependants,
             signature: this.currentUser.matricule, 
@@ -205,8 +205,8 @@ export class PersonnelEditComponent implements OnInit {
             alloc_familliale: item.alloc_familliale,
             soins_medicaux: item.soins_medicaux,
             compte_bancaire: item.compte_bancaire,
-            nom_banque: item.nom_banque,
-            frais_bancaire: item.frais_bancaire, 
+            nom_banque: this.capitalizeTest(item.nom_banque),
+            frais_bancaire: item.frais_bancaire,
             syndicat: item.syndicat,
             cv_url: item.cv_url, 
             signature: this.currentUser.matricule,

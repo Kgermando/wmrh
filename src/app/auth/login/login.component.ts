@@ -57,7 +57,7 @@ export class LoginComponent {
             if (user.statut_personnel) {
               if (user.roles[0] === 'Dashboard') { 
                 this.router.navigate(['/layouts/dashboard']);  
-              } else if (user.roles[0] === 'Bulletins employé') { 
+              } else if (user.roles[0] === 'Mes Bulletins') { 
                 this.router.navigate(['/layouts/salaires/mes-bulletins-salaires']);  
               } else if (user.roles[0] === 'Personnels') { 
                 this.router.navigate(['/layouts/personnels/personnel-list']); 
