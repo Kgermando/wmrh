@@ -102,7 +102,6 @@ export class PresEntrepriseComponent implements OnInit {
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PresEntrepriseAddDialogBox, {
       width: '600px',
-        height: '100%',
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 
@@ -157,6 +156,7 @@ export class PresEntrepriseAddDialogBox implements OnInit {
       monnaie: ['', Validators.required],
       total_empreints: ['', Validators.required],
       deboursement: ['', Validators.required], 
+      date_debut: ['', Validators.required],
       date_limit: ['', Validators.required], 
     });
   } 
@@ -173,6 +173,7 @@ export class PresEntrepriseAddDialogBox implements OnInit {
           total_empreints: this.formGroup.value.total_empreints,
           deboursement: this.formGroup.value.deboursement,
           remboursement: '0',
+          date_debut: this.formGroup.value.date_debut,
           date_limit: this.formGroup.value.date_limit,
           signature: this.currentUser.matricule,
           created: new Date(),

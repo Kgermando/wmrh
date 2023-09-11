@@ -278,7 +278,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                CNSS QPO (5%):
+                                                CNSS QPO ({{preference.cnss_qpo}}%):
                                             </td> 
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.cnss_qpo | numberFormat:'fr-FR' }} FC</td>  
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ cnss_qpoUSD | numberFormat:'fr-FR' }} $</td> 
@@ -326,7 +326,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                            Cotisations Syndicale(1%)
+                                            Cotisations Syndicale ({{preference.cotisation_syndicale}}%):
                                             </td> 
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.syndicat | numberFormat:'fr-FR' }} FC</td>  
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ syndicatUSD | numberFormat:'fr-FR' }} $</td> 

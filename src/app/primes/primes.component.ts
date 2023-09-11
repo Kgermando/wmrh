@@ -102,7 +102,6 @@ export class PrimesComponent implements OnInit {
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PrimeAddDialogBox, {
       width: '600px',
-        height: '100%',
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 
