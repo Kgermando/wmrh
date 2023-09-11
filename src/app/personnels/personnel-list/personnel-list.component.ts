@@ -189,11 +189,11 @@ export class PersonnelUploadCSVDialogBox {
     data.append('file', file); 
 
     this.personnelService.uploadCSV(data).subscribe({
-      next: () => {
+      next: () => { 
+        window.location.reload();
         this.toastr.success('Success!', 'Ajouté avec succès!');
-        // window.location.reload();
         this.isLoading = false; 
-        this.close();
+        // this.close();
       },
       error: (e) => {
         this.isLoading = false;

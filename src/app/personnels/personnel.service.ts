@@ -17,6 +17,14 @@ export class PersonnelService extends ApiService {
     return this.http.get(`${this.endpoint}/get-syndicat/${code_entreprise}`);
   }
 
+  updateStatutPaieAll(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/update-statut-paie-all/${code_entreprise}`);
+  }
+
+  updateStatutPaie(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/update-statut-paie/${code_entreprise}`);
+  }
+
   uploadCSV(data: any): Observable<any> {
     return this.http.post(`${this.endpoint}/upload-csv`, data);
   }
@@ -27,5 +35,7 @@ export class PersonnelService extends ApiService {
 
   downloadModelReport(code_entreprise: string): Observable<any> {
     return this.http.post(`${this.endpoint}/download-model-xlsx/${code_entreprise}`, {}, {responseType: 'blob'});
-  } 
+  }
+ 
+
 } 

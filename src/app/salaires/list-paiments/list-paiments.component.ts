@@ -65,8 +65,26 @@ export class ListPaimentsComponent implements OnInit {
 
                     this.isLoading = false;
                 });
-
             });
+            // this.personnelService.updateStatutPaieAll(this.currentUser.code_entreprise).subscribe(() => {
+            //     this.salaireService.fardeMaxValue(this.currentUser.code_entreprise).subscribe(res => {
+            //         var fardeValue = res;
+            //         var fardeValueMax = fardeValue[0];
+            //         this.personnelService.getAll(this.currentUser.code_entreprise)
+            //         .subscribe(res => {
+            //             this.personnelFilter = res;
+            //             this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie <= fardeValueMax.max && 
+            //                 parseFloat(v.salaire_base) > 0 && v.statut_paie == 'En attente');
+            //             this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+            //             this.dataSource.sort = this.sort;
+            //             this.dataSource.paginator = this.paginator;  
+    
+            //             this.isLoading = false;
+            //         });
+    
+            //     });
+            // });
+            
             
             
         },
@@ -96,6 +114,14 @@ export class ListPaimentsComponent implements OnInit {
       } else {
           this._liveAnnouncer.announce('Sorting cleared');
       }
+  }
+
+
+  updateStatutPaie() {
+    this.isLoading = true;
+    this.personnelService.updateStatutPaieAll(this.currentUser.code_entreprise).subscribe(() => {
+        this.isLoading = false;
+    })
   }
  
 

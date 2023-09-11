@@ -73,11 +73,11 @@
                         </div>
                         <app-presence-pointage [item]="item"></app-presence-pointage>
                     </div>
-                </a>  
-            </div> 
-        </div> 
+                </a>
+            </div>
+        </div>
     </mat-card-content>
-    <p class="text-center mt-20">
+    <p class="text-center mt-20" *ngIf="!currentUser.site_locations">
         Ajoutez un site de travail en cliquant ici >
         <a routerLink="/layouts/preferences/site-location" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
             Sites de travail

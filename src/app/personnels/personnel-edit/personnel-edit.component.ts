@@ -366,6 +366,6 @@ export class PersonnelEditComponent implements OnInit {
 
   
   capitalizeTest(text: string): string {
-    return (text && text[0].toUpperCase() + text.slice(1)) || text;
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 }
