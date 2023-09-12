@@ -7,9 +7,9 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
-                    <h4 class="mb-0">Performences individuel</h4>
+                    <h4 class="mb-0">Performance individuelle</h4>
                     <button mat-flat-button class="default-btn tagus" (click)="openAddDialog('300ms', '100ms', personne.id)">
-                        <i class="ri-add-fill"></i> Ajouter des Performences
+                        <i class="ri-add-fill"></i> Ajouter des Performances
                     </button> 
                 </mat-card-header>
                 <mat-card-content> 
@@ -70,7 +70,7 @@
                                     </span>
                                 </li>
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Cumuls des points: </span>
+                                    <span class="fw-semibold d-inline-block">Cumul des points: </span>
                                     <span class="gray-color">
                                         {{ cumuls }} / 30
                                     </span>

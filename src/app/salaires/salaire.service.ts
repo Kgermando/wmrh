@@ -12,6 +12,14 @@ export class SalaireService extends ApiService {
   farde(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-farde-paie/${code_entreprise}`);
   }
+
+  fardeIsPaie(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-farde-paie-only/${code_entreprise}`);
+  }
+
+  fardeIsPaieDisponible(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-farde-paie-disponible-only/${code_entreprise}`);
+  }
   
   fardeDisponible(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-farde-disponible-paie/${code_entreprise}`);

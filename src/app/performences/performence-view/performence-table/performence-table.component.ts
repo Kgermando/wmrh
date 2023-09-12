@@ -20,7 +20,7 @@ import { PerformenceService } from '../../performence.service';
   templateUrl: './performence-table.component.html',
   styleUrls: ['./performence-table.component.scss']
 })
-export class PerformenceTableComponent {
+export class PerformenceTableComponent implements OnInit{
   @Input('personne') personne: PersonnelModel; 
 
   displayedColumns: string[] = ['created', 'ponctualite', 'hospitalite', 'travail', 'observation',  'update_created', 'edit'];
@@ -32,6 +32,10 @@ export class PerformenceTableComponent {
 
   isLoading = false;
   currentUser: PersonnelModel | any; 
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
+ 
  
 
   constructor(
@@ -44,15 +48,8 @@ export class PerformenceTableComponent {
     public dialog: MatDialog
 ) {}
 
-toggleTheme() {
-  this.themeService.toggleTheme();
-}
-
-@ViewChild(MatSort) sort: MatSort;
-@ViewChild(MatPaginator) paginator: MatPaginator; 
-
-  ngAfterViewInit() { 
-      this.isLoading = true;
+  ngOnInit(): void {
+    this.isLoading = true;
       this.authService.user().subscribe({
           next: (user) => {
               this.currentUser = user;
@@ -71,8 +68,13 @@ toggleTheme() {
             console.log(error);
           }
         }); 
-   
   }
+
+toggleTheme() {
+  this.themeService.toggleTheme();
+}
+
+
 
 
 applyFilter(event: Event) {

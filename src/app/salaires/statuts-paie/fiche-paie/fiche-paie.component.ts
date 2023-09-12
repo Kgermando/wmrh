@@ -244,16 +244,12 @@ export class FichePaieComponent implements OnInit {
 
       // Remuneration Brute impôsable
       this.rbi = this.salaire_base + +val.primes + this.prime_anciennete + this.heure_supplementaire_monnaie;
-
-     
-      console.log("this.alloc_familliale 1", this.alloc_familliale);
+ 
 
       // Avantages sociaux
       this.alloc_familliale = +val.alloc_familliale;
       this.alloc_transport = +val.alloc_transport;
-      this.alloc_logement = +val.alloc_logement;
-
-      console.log("this.alloc_familliale 2", this.alloc_familliale);
+      this.alloc_logement = +val.alloc_logement; 
 
 
       // L'allocation familliale
@@ -270,7 +266,7 @@ export class FichePaieComponent implements OnInit {
           alloc_famillialeExces = this.alloc_familliale - this.alloc_famillialePlafond;
         } else if (this.alloc_famillialePlafond <= this.alloc_familliale) {
           alloc_famillialeExces = 0;
-        } 
+        }
 
         // L'allocation transport
         if (this.salaire.personnel.category === 'Cadres supérieurs' ||
@@ -401,7 +397,7 @@ export class FichePaieComponent implements OnInit {
           statut: this.isPublie ? 'Disponible' : 'Traitement', 
           signature: this.currentUser.matricule, 
           update_created: new Date(),
-        }); 
+        });
         this.salaireService.update(this.salaire.id, this.formGroup.getRawValue())
         .subscribe({
           next: () => {

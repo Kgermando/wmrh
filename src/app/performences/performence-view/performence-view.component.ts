@@ -67,14 +67,11 @@ export class PerformenceViewComponent implements OnInit {
         }
       });  
     }
-
  
-
-
     openAddDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
       this.dialog.open(PerformenceAddDialogBox, {
         width: '600px',
-        height: '100%',
+        // height: '100%',
         enterAnimationDuration,
         exitAnimationDuration,
         data: {

@@ -1,6 +1,6 @@
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
-        <h4 class="mb-0">Liste des Performences</h4>
+        <h4 class="mb-0">Liste des Performances</h4>
         <!-- <div> 
             <button mat-icon-button class="tagus">
                 <mat-icon>print</mat-icon>
@@ -45,7 +45,7 @@
 
  
                 <ng-container matColumnDef="ponctualite">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ponctualités</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ponctualité</th>
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/performences', element.id, 'performence-view']">
                             <!-- <span class="badge text-soft-primary">  </span>  -->
@@ -56,7 +56,7 @@
 
 
                 <ng-container matColumnDef="hospitalite">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Hospitalités</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Hospitalité</th>
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/performences', element.id, 'performence-view']"> 
                             <!-- <span class="badge text-soft-danger"></span> -->
@@ -66,7 +66,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="travail">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Travails</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Travail</th>
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/performences', element.id, 'performence-view']">
                             <!-- <span class="badge text-soft-success"></span> -->
@@ -76,7 +76,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="cumul">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cumuls</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cumul</th>
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/performences', element.id, 'performence-view']">
                             <span class="badge text-soft-primary"> 

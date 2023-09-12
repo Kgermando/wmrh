@@ -167,22 +167,22 @@ export class PersonnelEditComponent implements OnInit {
             nom: this.capitalizeTest(item.nom),
             postnom: this.capitalizeTest(item.postnom),
             prenom: this.capitalizeTest(item.prenom),
-            email: item.email,
+            email: this.capitalizeTest(item.email),
             telephone: item.telephone,
             sexe: item.sexe,
-            adresse: item.adresse,
+            adresse: this.capitalizeTest(item.adresse),
             category: item.category,
             signature: this.currentUser.matricule, 
             update_created: new Date()
           });
           this.formGroup2.patchValue({ 
-            numero_cnss: item.numero_cnss.toUpperCase(),
-            date_naissance: item.date_naissance.toUpperCase(),
-            lieu_naissance: item.lieu_naissance.toUpperCase(),
+            numero_cnss: item.numero_cnss,
+            date_naissance: item.date_naissance,
+            lieu_naissance: item.lieu_naissance,
             nationalite: this.capitalizeTest(item.nationalite),
             etat_civile: item.etat_civile,
             nbr_dependants: item.nbr_dependants,
-            signature: this.currentUser.matricule, 
+            signature: this.currentUser.matricule,
             update_created: new Date()
           });
           this.formGroup3.patchValue({
@@ -193,22 +193,22 @@ export class PersonnelEditComponent implements OnInit {
             site_locations: item.site_locations,
             type_contrat: item.type_contrat,
             date_debut_contrat: item.date_debut_contrat,
-            date_fin_contrat: this.typeContrat === 'CDI' ? '2099-01-01' : item.date_fin_contrat,
+            date_fin_contrat: (this.typeContrat === 'CDI') ? '2099-01-01' : item.date_fin_contrat,
             signature: this.currentUser.matricule,
             update_created: new Date()
           });
           this.formGroup4.patchValue({ 
             monnaie: item.monnaie,
-            salaire_base: item.salaire_base,
-            alloc_logement: item.alloc_logement,
-            alloc_transport: item.alloc_transport,
-            alloc_familliale: item.alloc_familliale,
-            soins_medicaux: item.soins_medicaux,
+            salaire_base: (item.salaire_base) ? item.salaire_base : '0',
+            alloc_logement: (item.alloc_logement) ? item.alloc_logement : '0',
+            alloc_transport: (item.alloc_transport) ? item.alloc_transport : '0',
+            alloc_familliale: (item.alloc_familliale) ? item.alloc_familliale : '0',
+            soins_medicaux: (item.soins_medicaux) ? item.soins_medicaux : '0',
             compte_bancaire: item.compte_bancaire,
             nom_banque: this.capitalizeTest(item.nom_banque),
             frais_bancaire: item.frais_bancaire,
             syndicat: item.syndicat,
-            cv_url: item.cv_url, 
+            cv_url: item.cv_url,
             signature: this.currentUser.matricule,
             update_created: new Date()
           });

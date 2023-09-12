@@ -10,7 +10,7 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SalaireExportXLSXDialogBox } from '../releve-paie/releve-paie.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { ReleveSalaireModel } from '../models/releve-salaire-model';
 
 @Component({
@@ -58,10 +58,16 @@ export class StatutsPaieComponent implements OnInit {
         next: (user) => {
             this.currentUser = user;
             this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
-            this.fardeList = farde;
-            // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
-            this.fardeSetList = [...new Set(this.fardeList)];
-              this.isLoading = false;
+              this.salaireService.fardeIsPaie(this.currentUser.code_entreprise).subscribe(f => {
+                this.fardeSetList = farde;
+                this.fardeList = f;
+                // this.fardeList = fardeListIsPaie;
+                // console.log('dfgggfgf', this.fardeList);
+                // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
+                // this.fardeList = [...new Set(fardeMap)];
+                  this.isLoading = false;
+                }
+              );
             }
           );
         },

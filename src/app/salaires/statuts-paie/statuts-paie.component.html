@@ -7,8 +7,8 @@
             <mat-form-field appearance="fill">
                 <mat-label>Select classeur</mat-label>
                 <mat-select (selectionChange)="onChangeFarde($event)">
-                    <mat-option *ngFor="let farde of fardeSetList" [value]="farde.is_paie">
-                        <app-classeur-filter [farde]="farde"></app-classeur-filter>
+                    <mat-option *ngFor="let farde of fardeList" [value]="farde.is_paie">
+                        <app-classeur-filter [farde]="farde.is_paie"></app-classeur-filter>
                     </mat-option>
                 </mat-select>
             </mat-form-field> 

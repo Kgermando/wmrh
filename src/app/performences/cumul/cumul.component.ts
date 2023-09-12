@@ -38,16 +38,28 @@ export class CumulComponent implements OnInit {
         next: (user) => {
           this.currentUser = user;
           this.performenceService.hospitaliteTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
-            res => {
-              var performences = res; 
-              performences.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum));
-              performences.map((item: any) => this.ponctualiteTotal = parseFloat(item.sum)); 
-              performences.map((item: any) => this.travailTotal = parseFloat(item.sum));
+            h => {
+              this.performenceService.ponctualiteTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
+                p => {
+                  this.performenceService.travailTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
+                    t => {
+                      var travail = t;
+                      var ponctualite = p;  
+                      var hospitalite = h; 
+                      ponctualite.map((item: any) => this.ponctualiteTotal = parseFloat(item.sum));
+                      hospitalite.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum)); 
+                      travail.map((item: any) => this.travailTotal = parseFloat(item.sum)); 
 
-              this.cumuls = this.hospitaliteTotal + this.ponctualiteTotal + this.travailTotal;
+                      this.cumuls = this.hospitaliteTotal + this.ponctualiteTotal + this.travailTotal;
+                      this.isLoading = false;
+                    }
+                  );
+    
+                  
+                }
+              ); 
             }
-          );
-          this.isLoading = false;
+          );  
         },
         error: (error) => {
           this.isLoading = false;

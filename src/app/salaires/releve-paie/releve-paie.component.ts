@@ -27,9 +27,10 @@ export class RelevePaieComponent implements OnInit {
   dateFarde: any;
   dateNow = new Date();
   dateMonth = 0;
-  dateYear = 0; 
+  dateYear: any; 
 
   mois = '';
+  is_paie:any;
 
   net_a_payer = 0;
   ipr = 0;
@@ -57,14 +58,26 @@ export class RelevePaieComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
           this.currentUser = user;
-          this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
-            this.fardeList = farde;
-            // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
-            this.fardeSetList = [...new Set(this.fardeList)];
+        //   this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
+        //     this.fardeList = farde;
+        //     // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
+        //     this.fardeSetList = [...new Set(this.fardeList)];
             
-            this.isLoading = false;
-          }
-        );
+        //     this.isLoading = false;
+        //   }
+        // );
+        this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
+          this.salaireService.fardeIsPaieDisponible(this.currentUser.code_entreprise).subscribe(f => {
+            this.fardeSetList = farde;
+            this.fardeList = f;
+            // this.fardeList = fardeListIsPaie;
+            // console.log('dfgggfgf', this.fardeList);
+            // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
+            // this.fardeList = [...new Set(fardeMap)];
+              this.isLoading = false;
+            }
+          );
+        });
       },
       error: (error) => {
         this.isLoading = false;
@@ -79,6 +92,7 @@ export class RelevePaieComponent implements OnInit {
     this.salaireService.relevePaie(this.currentUser.code_entreprise, event.value).subscribe(res => {
       this.releveList = res;
       var datePaieList = this.fardeSetList.filter((v) => v.is_paie == event.value);
+      this.is_paie = event.value;
       this.dateFarde = datePaieList[datePaieList.length-1];
       var date = new Date(this.dateFarde.created);
       this.dateMonth = date.getMonth() + 1;

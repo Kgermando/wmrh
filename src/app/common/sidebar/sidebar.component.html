@@ -31,7 +31,7 @@
                         [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Personnels')">
                         <i class="ri-group-line"></i>
-                        <span class="title">Personnels</span>
+                        <span class="title">Personnel</span>
                     </a>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
@@ -117,10 +117,10 @@
                         <span class="title">Horaire</span>
                     </a> -->
                     <a routerLink="/layouts/performences" class="sidebar-menu-link" 
-                    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-                    *ngIf="currentUser.roles.includes('Performences')">
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        *ngIf="currentUser.roles.includes('Performences')">
                         <i class="ri-creative-commons-nd-line"></i>
-                        <span class="title">Performences</span>
+                        <span class="title">Performances</span>
                     </a>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
