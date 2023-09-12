@@ -4,16 +4,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
-import { SalaireModel } from '../models/salaire-model';
+import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service'; 
 import { SalaireService } from '../salaire.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SalaireExportXLSXDialogBox } from '../releve-paie/releve-paie.component';
-import { MatDialog } from '@angular/material/dialog';
-import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
-import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model'; 
+import { MatDialog } from '@angular/material/dialog'; 
 import { ReleveSalaireModel } from '../models/releve-salaire-model';
 
 @Component({
@@ -61,10 +58,9 @@ export class StatutsPaieComponent implements OnInit {
         next: (user) => {
             this.currentUser = user;
             this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
-              this.fardeSetList = farde;
-            var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
-            this.fardeList = [...new Set(fardeMap)];
-
+            this.fardeList = farde;
+            // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
+            this.fardeSetList = [...new Set(this.fardeList)];
               this.isLoading = false;
             }
           );
@@ -136,8 +132,7 @@ export class StatutsPaieComponent implements OnInit {
       }
     );
   }
-
-
+ 
  
   openExportDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(SalaireExportXLSXDialogBox, {

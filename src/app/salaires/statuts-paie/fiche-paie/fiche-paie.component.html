@@ -9,7 +9,7 @@
                         <h4 class="mb-0 text-center">{{ title.toUpperCase()}} </h4>
                     </mat-card-header>
                     <mat-card-header>
-                        <h6>Farde N° {{salaire.is_paie}} du {{mois}}/{{dateYear}}</h6>
+                        <h6>Classeur N° {{salaire.is_paie}} du {{mois}}/{{dateYear}}</h6>
                         <div> 
                             <button mat-icon-button color="primary" 
                                     (click)="openDialog()">
@@ -395,7 +395,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                CNSS QPO ({{preference.cotisation_syndicale}}%):
+                                                CNSS QPO ({{preference.cnss_qpo}}%):
                                             </td> 
                                             <td class="gray-color text-end">{{ cnss_qpo | numberFormat:'fr-FR' }} FC</td>  
                                         </tr> 

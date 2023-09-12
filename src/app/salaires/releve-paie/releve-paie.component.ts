@@ -7,9 +7,8 @@ import { SalaireService } from '../salaire.service';
 import { formatDate } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReleveSalaireModel } from '../models/releve-salaire-model';
- 
 
 @Component({
   selector: 'app-releve-paie',
@@ -59,9 +58,9 @@ export class RelevePaieComponent implements OnInit {
       next: (user) => {
           this.currentUser = user;
           this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
-            this.fardeSetList = farde;
-            var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
-            this.fardeList = [...new Set(fardeMap)];
+            this.fardeList = farde;
+            // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
+            this.fardeSetList = [...new Set(this.fardeList)];
             
             this.isLoading = false;
           }
@@ -83,7 +82,7 @@ export class RelevePaieComponent implements OnInit {
       this.dateFarde = datePaieList[datePaieList.length-1];
       var date = new Date(this.dateFarde.created);
       this.dateMonth = date.getMonth() + 1;
-      this.dateYear =  date.getFullYear();
+      this.dateYear =  date.getFullYear(); 
       if (this.dateMonth === 1) {
           this.mois = 'Janvier';
       } else if(this.dateMonth === 2) {
@@ -153,7 +152,6 @@ export class RelevePaieComponent implements OnInit {
       exitAnimationDuration, 
     }); 
   }
-   
 
 }
 

@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonnelModel } from '../models/personnel-model';
 import { ToastrService } from 'ngx-toastr';
 import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel';
+import { SalaireService } from 'src/app/salaires/salaire.service';
 
 @Component({
   selector: 'app-personnel-add',
@@ -26,11 +27,10 @@ export class PersonnelAddComponent implements OnInit {
 
   categoriList = CategoriepersonnelDataList;
 
-
   constructor(private router: Router,
     private _formBuilder: FormBuilder,
     private authService: AuthService, 
-    private personnelService: PersonnelService,
+    private personnelService: PersonnelService, 
     private toastr: ToastrService) {}
 
 
@@ -38,7 +38,7 @@ export class PersonnelAddComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user().subscribe({
       next: (user) => {
-        this.currentUser = user;
+        this.currentUser = user; 
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -50,7 +50,7 @@ export class PersonnelAddComponent implements OnInit {
       nom: ['', Validators.required],
       postnom: ['', Validators.required],
       prenom: ['', Validators.required],
-      email: [''],
+      email: ['', Validators.required],
       telephone: ['', Validators.required],
       sexe: ['', Validators.required],
       adresse: ['', Validators.required],
@@ -58,11 +58,10 @@ export class PersonnelAddComponent implements OnInit {
       category: ['', Validators.required], 
     });
   }
-  
-  
+
+
   onSubmit() {
     try {
-      
       if (this.formGroup.valid) {
         this.isLoading = true;
         var codeEntreprise = this.currentUser.code_entreprise;

@@ -170,7 +170,8 @@ import { AbonnementTableComponent } from './admin/entreprise/abonnement-table/ab
 import { AbonnementAdminViewComponent, EditAbonnementAdminDialogBox } from './admin/abonnement-admin/abonnement-admin-view/abonnement-admin-view.component';
 import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component';
 import { MesBulletinsComponent } from './salaires/mes-bulletins/mes-bulletins.component';
-import { CumulComponent } from './performences/cumul/cumul.component'; 
+import { CumulComponent } from './performences/cumul/cumul.component';
+import { ClasseurFilterComponent } from './salaires/classeur-filter/classeur-filter.component'; 
 
 
 @NgModule({
@@ -333,6 +334,7 @@ import { CumulComponent } from './performences/cumul/cumul.component';
     CumulComponent,
     AddAbonnementDialogBox,
     EditAbonnementAdminDialogBox,
+    ClasseurFilterComponent,
   ],
   imports: [
     BrowserModule,

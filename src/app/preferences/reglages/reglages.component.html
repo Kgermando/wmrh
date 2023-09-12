@@ -255,7 +255,7 @@
                             </button>
                         </li>
                         <li>
-                            <span class="fw-semibold">Jour de Martyr: </span>
+                            <span class="fw-semibold">Jour de Martyrs: </span>
                             <span class="gray-color">{{ preference.martyr_day  | date: 'dd-MM-yyyy' }}</span>
                             <button mat-icon-button color="warn" 
                                 (click)="openEditDialog('300ms', '100ms', 'Jour de Martyr', preference.martyr_day)" *ngIf="currentUser.permission === 'U' || 
@@ -291,7 +291,7 @@
                             </button>
                         </li>
                         <li>
-                            <span class="fw-semibold">Jour de traval: </span>
+                            <span class="fw-semibold">Jour de travail: </span>
                             <span class="gray-color">{{ preference.labour_day  | date: 'dd-MM-yyyy' }}</span>
                             <button mat-icon-button color="warn" 
                                 (click)="openEditDialog('300ms', '100ms', 'Jour de traval', preference.labour_day)" *ngIf="currentUser.permission === 'U' || 
@@ -424,7 +424,7 @@
                             </button>
                         </li>
                         <li>
-                            <span class="fw-semibold">Nbre de Courses transport: </span> 
+                            <span class="fw-semibold">Nbre de courses transport: </span> 
                             <span class="gray-color">{{ preference.courses_transport }}</span>
                             <button mat-icon-button color="warn" 
                                 (click)="openEditDialog('300ms', '100ms', 'Courses transport', preference.courses_transport)" *ngIf="currentUser.permission === 'U' || 
@@ -436,7 +436,7 @@
                             </button>
                         </li>
                         <li>
-                            <span class="fw-semibold">Travailleur Quadre: </span> 
+                            <span class="fw-semibold">Travailleur cadre: </span> 
                             <span class="gray-color">{{ preference.montant_travailler_quadre }} CDF</span>
                             <button mat-icon-button color="warn" 
                                 (click)="openEditDialog('300ms', '100ms', 'Montant pour travailleur quadre', preference.montant_travailler_quadre)" *ngIf="currentUser.permission === 'U' || 
@@ -448,7 +448,7 @@
                             </button>
                         </li>
                         <li>
-                            <span class="fw-semibold">Travailleur Non Quadre: </span> 
+                            <span class="fw-semibold">Travailleur non cadre: </span> 
                             <span class="gray-color">{{ preference.montant_travailler_non_quadre }} CDF</span>
                             <button mat-icon-button color="warn" 
                                 (click)="openEditDialog('300ms', '100ms', 'Montant pour travailleur non quadre', preference.montant_travailler_non_quadre)" *ngIf="currentUser.permission === 'U' || 

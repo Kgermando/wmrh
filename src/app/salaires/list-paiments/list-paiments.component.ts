@@ -54,16 +54,14 @@ export class ListPaimentsComponent implements OnInit {
             this.salaireService.fardeMaxValue(this.currentUser.code_entreprise).subscribe(res => {
                 var fardeValue = res;
                 var fardeValueMax = fardeValue[0];
-                this.personnelService.getAll(this.currentUser.code_entreprise)
-                .subscribe(res => {
-                    this.personnelFilter = res;
-                    this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie <= fardeValueMax.max && 
-                        parseFloat(v.salaire_base) > 0);
-                    this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-                    this.dataSource.sort = this.sort;
-                    this.dataSource.paginator = this.paginator;  
-
-                    this.isLoading = false;
+                this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+                  this.personnelFilter = res;
+                  this.ELEMENT_DATA = this.personnelFilter.filter((v) => v.is_paie <= fardeValueMax.max &&
+                      parseFloat(v.salaire_base) > 0); 
+                  this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+                  this.dataSource.sort = this.sort;
+                  this.dataSource.paginator = this.paginator;
+                  this.isLoading = false;
                 });
             });
             // this.personnelService.updateStatutPaieAll(this.currentUser.code_entreprise).subscribe(() => {

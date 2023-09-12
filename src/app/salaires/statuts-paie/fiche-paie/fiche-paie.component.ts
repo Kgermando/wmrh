@@ -413,7 +413,7 @@ export class FichePaieComponent implements OnInit {
               code_entreprise: this.currentUser.code_entreprise
             };
             this.personnelService.update(this.salaire.personnel.id, personnel).subscribe(
-              res => {
+              () => {
                 if (this.isPublie) {
                   var bodyNotify = {
                     personnel: this.salaire.personnel.id,
@@ -441,7 +441,7 @@ export class FichePaieComponent implements OnInit {
                 } else if (!this.isPublie) {
                   var bodyNotifyN = {
                     personnel: this.salaire.personnel.id,
-                    isRead: false,
+                    is_read: false,
                     title: `Bulletin ${this.mois} en traitement.`,
                     // title: (this.salaire.personnel.sexe == 'Homme') 
                     //   ? `Bonjour Monsieur ${this.salaire.personnel.prenom.toUpperCase()}${this.salaire.personnel.nom.toUpperCase()} votre bulletin de paie est en traitement.`

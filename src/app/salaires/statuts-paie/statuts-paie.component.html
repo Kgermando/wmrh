@@ -5,19 +5,19 @@
         <h4 class="mb-0">Statuts des paies de {{mois}}/{{dateYear}}</h4>
         <div>
             <mat-form-field appearance="fill">
-                <mat-label>Select farde</mat-label>
+                <mat-label>Select classeur</mat-label>
                 <mat-select (selectionChange)="onChangeFarde($event)">
-                    <mat-option *ngFor="let farde of fardeList" [value]="farde">Farde N° {{farde}}</mat-option>
+                    <mat-option *ngFor="let farde of fardeSetList" [value]="farde.is_paie">
+                        <app-classeur-filter [farde]="farde"></app-classeur-filter>
+                    </mat-option>
                 </mat-select>
             </mat-form-field> 
             <button mat-icon-button class="tagus" (click)="openExportDialog('300ms', '100ms')">
                 <mat-icon>print</mat-icon>
             </button>
-        </div> 
+        </div>
     </mat-card-header>
     <mat-card-content>
-
-        
         <div class="tagus-form-group">
             <mat-form-field appearance="fill">
                 <i class="ri-search-line"></i>

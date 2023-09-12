@@ -31,7 +31,7 @@ export class PaieViewComponent implements OnInit {
   nbrHeureSupp = 0;
   primeUSD = 0;
   primeCDF = 0;
-  primeAncennete = 0;
+  anciennete_nbr_age = 0;
   penaliteCDF = 0;
   penaliteUSD = 0;
   avanceSalaireUSD = 0;
@@ -164,18 +164,18 @@ export class PaieViewComponent implements OnInit {
                 congepayes.map((item: any) => this.congepayeNbr = parseFloat(item.conge));
               }
             );
-            var date_debut = formatDate(this.personne.date_debut_contrat, 'yyyy-MM-dd', 'en-US');
-            this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_debut).subscribe(
+            var date_debut_contrat_employE = (this.personne.date_debut_contrat) ? this.personne.date_debut_contrat : new Date(); 
+            var date_contrat = formatDate(date_debut_contrat_employE, 'yyyy-MM-dd', 'en-US');
+            this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_contrat).subscribe(
               date_debut_contrat => {
-                var date_debut_contrats = date_debut_contrat;  
-                date_debut_contrats.map((item: any) => this.primeAncennete = parseFloat(item.age['years']));
-                if (Number.isNaN(this.primeAncennete)) {
-                  this.primeAncennete = 0;
-                }
+                var date_debut_contrats = date_debut_contrat;
+                date_debut_contrats.map((item: any) => this.anciennete_nbr_age = parseFloat(item.age['years']));
+                if (Number.isNaN(this.anciennete_nbr_age)) {
+                  this.anciennete_nbr_age = 0;
+                } 
               }
             );
           });
-
           this.isLoading = false;
         },
         error: (error) => {
@@ -215,7 +215,7 @@ export class PaieViewComponent implements OnInit {
           soins_medicauxMonnaie = parseFloat(this.personne.soins_medicaux); 
         } 
 
-        console.log("alloc_famillialeMonnaie", alloc_famillialeMonnaie);
+       
 
         var totalJrsPreste = 0;
         var nbre_jrs_ferie = 0;
@@ -260,22 +260,24 @@ export class PaieViewComponent implements OnInit {
           }
         } else {
           salaire_base = salaire * totalJrsPreste;
-        }
+        } 
 
-        console.log('salaire base', salaire_base);
+        
+
+        console.log('this.anciennete_nbr_age 2', this.anciennete_nbr_age);
 
         var ancennete = 0;
-        if(this.primeAncennete >5 && this.primeAncennete <= 10) {
+        if(this.anciennete_nbr_age >5 && this.anciennete_nbr_age <= 10) {
           ancennete = salaire_base * this.preference.prime_ancien_5 / 100;
-        } else if(this.primeAncennete >10 && this.primeAncennete <= 15) {
+        } else if(this.anciennete_nbr_age >10 && this.anciennete_nbr_age <= 15) {
           ancennete = salaire_base * this.preference.prime_ancien_10 / 100;
-        } else if(this.primeAncennete >15 && this.primeAncennete <= 20) {
+        } else if(this.anciennete_nbr_age >15 && this.anciennete_nbr_age <= 20) {
           ancennete = salaire_base * this.preference.prime_ancien_15 / 100;
-        } else if(this.primeAncennete >20 && this.primeAncennete <= 25) {
+        } else if(this.anciennete_nbr_age >20 && this.anciennete_nbr_age <= 25) {
           ancennete = salaire_base * this.preference.prime_ancien_20 / 100;
-        } else if(this.primeAncennete >25) {
+        } else if(this.anciennete_nbr_age >25) {
           ancennete = salaire_base * this.preference.prime_ancien_25 / 100;
-        } 
+        }
 
         var heureSupplementaireMonnaie = 0;
  
@@ -396,7 +398,7 @@ export class PaieViewComponent implements OnInit {
           prime + ancennete + heureSupplementaireMonnaie + prise_en_charge_frais_bancaireMonnaie;
         
 
-        var net_a_payer = rni + avantageSocials - deductions;
+        var net_a_payer = rni + avantageSocials - deductions; 
 
         var body = {
           personnel: this.personne.id,
@@ -414,7 +416,7 @@ export class PaieViewComponent implements OnInit {
           soins_medicaux: soins_medicauxMonnaie,
           salaire_base: salaire_base,  // Par jour * 26
           primes: prime,
-          anciennete_nbr_age: this.primeAncennete, //Nombre d'age d'ancienneté
+          anciennete_nbr_age: this.anciennete_nbr_age, // Nombre d'age d'ancienneté
           prime_anciennete: ancennete, // Cumul de prime d'ancienneté
           heures_supp: this.nbrHeureSupp,
           heure_supplementaire_monnaie: heureSupplementaireMonnaie,

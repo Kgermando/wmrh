@@ -15,13 +15,15 @@
             <tbody>
                 <tr>
                     <td class="text-start">
-                        Farde:
+                        Classeur:
                     </td>
                     <td>
                         <mat-form-field appearance="fill">
-                            <mat-label>Select farde</mat-label>
+                            <mat-label>Select classeur</mat-label>
                             <mat-select (selectionChange)="onChangeFarde($event)">
-                                <mat-option *ngFor="let farde of fardeList" [value]="farde">Farde N° {{farde}}</mat-option>
+                                <mat-option *ngFor="let farde of fardeSetList" [value]="farde.is_paie">
+                                    <app-classeur-filter [farde]="farde"></app-classeur-filter>
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </td>
