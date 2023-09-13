@@ -12,23 +12,6 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="tagus-form-group">
-                    <label class="d-block mb-12 fw-semibold gray-color">Farde salaires <span>*</span></label>
-                    <mat-form-field appearance="fill">
-                        <i class="ri-edit-2-line"></i>
-                        <mat-label>Select la farde des salaires</mat-label>
-                        <mat-select formControlName="farde">
-                            <mat-option *ngFor="let farde of fardeList" [value]="farde.date_paie">
-                                {{ farde.date_paie }}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="dateRange.controls['farde'].hasError('required')">
-                            Ce champs est obligatoire
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="tagus-form-group">
                     <mat-form-field>
                         <mat-label>Choisir la plage de Date</mat-label>
                         <mat-date-range-input [rangePicker]="picker">

@@ -209,7 +209,6 @@ export class SalaireExportXLSXDialogBox implements OnInit {
 
   ngOnInit(): void {
     this.dateRange = this._formBuilder.group({
-      farde: ['', Validators.required],
       start: ['', Validators.required],
       end: ['-', Validators.required]
     });
@@ -217,11 +216,7 @@ export class SalaireExportXLSXDialogBox implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
           this.currentUser = user; 
-          this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
-            this.fardeList = farde;
-            
-            this.isLoading = false;
-          })
+          this.isLoading = false;
       },
       error: (error) => {
         this.isLoading = false;
@@ -251,7 +246,7 @@ export class SalaireExportXLSXDialogBox implements OnInit {
           const downloadUrl = window.URL.createObjectURL(res);
           const link = document.createElement('a');
           link.href = downloadUrl;
-          link.download = `Salaires-${dateNowFormat}.xlsx`;
+          link.download = `Remuneration-${dateNowFormat}.xlsx`;
           link.click();
           this.toastr.success('Success!', 'Extraction effectuée!');
           // window.location.reload();
