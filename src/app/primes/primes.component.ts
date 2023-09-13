@@ -24,7 +24,7 @@ import { monnaieDataList } from '../shared/tools/monnaie-list';
   styleUrls: ['./primes.component.scss']
 })
 export class PrimesComponent implements OnInit {
-  displayedColumns: string[] = ['matricule','fullname', 'intitule', 'montant', 'created', 'id'];
+  displayedColumns: string[] = ['matricule','fullname', 'intitule', 'montant', 'created', 'id']; 
   
   ELEMENT_DATA: PrimeModel[] = [];
   

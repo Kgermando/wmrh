@@ -18,12 +18,14 @@
         <div class="mat-elevation-z8 tagus-mat-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
                 
-                <ng-container matColumnDef="created">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                <ng-container matColumnDef="update_created">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Mise à jour</th>
                     <td mat-cell *matCellDef="let element">
-                        {{element.created | date: 'dd/MM/yyyy'}}
+                        <a [routerLink]="['/layouts/salaires/avance-salaire',element.id, 'detail']">
+                            {{element.update_created | date: 'dd/MM/yyyy'}}
+                        </a> 
                     </td>
-                </ng-container>
+                </ng-container> 
                 
                 <ng-container matColumnDef="matricule">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Matricule</th>

@@ -33,7 +33,7 @@ export class SalaireModel {
     pres_entreprise: string;
     net_a_payer: string;
     statut: string; // Genereted, Traitement, Disponible
-    is_paie: number;
+    date_paie: Date;
     signature: string;
     created: Date;
     update_created: Date;

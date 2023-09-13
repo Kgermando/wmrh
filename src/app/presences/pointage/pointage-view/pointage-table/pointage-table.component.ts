@@ -26,7 +26,7 @@ export class PointageTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator; 
   
-  displayedColumns: string[] = ['matricule','apointement', 'date_entree', 'date_sortie', 'observation', 'action'];
+  displayedColumns: string[] = ['matricule', 'apointement', 'prestation', 'date_entree', 'date_sortie', 'observation', 'action'];
   
   ELEMENT_DATA: ApointementModel[] = []; 
   

@@ -33,7 +33,6 @@ export class StatutsPaieComponent implements OnInit {
   currentUser: PersonnelModel | any;
 
   fardeList: any[] = [];
-  fardeSetList: any[] = [];
   dateFarde: any; 
 
   mois = '';
@@ -58,18 +57,9 @@ export class StatutsPaieComponent implements OnInit {
         next: (user) => {
             this.currentUser = user;
             this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
-              this.salaireService.fardeIsPaie(this.currentUser.code_entreprise).subscribe(f => {
-                this.fardeSetList = farde;
-                this.fardeList = f;
-                // this.fardeList = fardeListIsPaie;
-                // console.log('dfgggfgf', this.fardeList);
-                // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
-                // this.fardeList = [...new Set(fardeMap)];
-                  this.isLoading = false;
-                }
-              );
-            }
-          );
+              this.fardeList = farde; 
+              this.isLoading = false;
+            });
         },
         error: (error) => {
           this.isLoading = false;
@@ -100,16 +90,16 @@ export class StatutsPaieComponent implements OnInit {
 
 
   onChangeFarde(event: any) {
-    this.salaireService.statutPaie(this.currentUser.code_entreprise, event.value).subscribe(res => { 
+    this.salaireService.statutPaie(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(res => { 
         this.ELEMENT_DATA = res;
         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        var datePaieList = this.fardeSetList.filter((v) => v.is_paie == event.value);
+        var datePaieList = this.fardeList.filter((v) => v.date_paie.month == event.value.month &&
+          v.date_paie.year == event.value.year);
         this.dateFarde = datePaieList[datePaieList.length-1];
-        var date = new Date(this.dateFarde.created);
-        this.dateMonth = date.getMonth() + 1;
-        this.dateYear =  date.getFullYear();
+        this.dateMonth = parseInt(this.dateFarde.month);
+        this.dateYear =  parseInt(this.dateFarde.year);
         if (this.dateMonth === 1) {
             this.mois = 'Janvier';
         } else if(this.dateMonth === 2) {

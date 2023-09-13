@@ -206,7 +206,7 @@ export class PersonnelEditComponent implements OnInit {
             soins_medicaux: (item.soins_medicaux) ? item.soins_medicaux : '0',
             compte_bancaire: item.compte_bancaire,
             nom_banque: this.capitalizeTest(item.nom_banque),
-            frais_bancaire: item.frais_bancaire,
+            frais_bancaire: (item.frais_bancaire) ? item.frais_bancaire : '0',
             syndicat: item.syndicat,
             cv_url: item.cv_url,
             signature: this.currentUser.matricule,

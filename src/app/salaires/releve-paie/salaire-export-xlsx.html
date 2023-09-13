@@ -17,8 +17,8 @@
                         <i class="ri-edit-2-line"></i>
                         <mat-label>Select la farde des salaires</mat-label>
                         <mat-select formControlName="farde">
-                            <mat-option *ngFor="let farde of fardeList" [value]="farde.is_paie">
-                                {{ farde.is_paie }}
+                            <mat-option *ngFor="let farde of fardeList" [value]="farde.date_paie">
+                                {{ farde.date_paie }}
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="dateRange.controls['farde'].hasError('required')">

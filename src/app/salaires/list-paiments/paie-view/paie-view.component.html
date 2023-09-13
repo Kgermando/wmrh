@@ -7,10 +7,20 @@
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header *ngIf="currentUser">
                     <h4 class="mb-0">Fiche employé</h4>
-                    <div *ngIf="currentUser.permission === 'C' || 
-                    currentUser.permission === 'CR' ||
-                    currentUser.permission === 'CRU' ||
-                    currentUser.permission === 'CRUD'"> 
+                    <div  
+                        *ngIf="currentUser.permission === 'C' || 
+                            currentUser.permission === 'CR' ||
+                            currentUser.permission === 'CRU' ||
+                            currentUser.permission === 'CRUD'">
+                    <div class="tagus-form-group">
+                        <mat-form-field appearance="fill" class="date-input" [formGroup]="formGroup">
+                            <mat-label>MM/DD/YYYY</mat-label>
+                            <input matInput [matDatepicker]="picker" id="date_paie"
+                                formControlName="date_paie" required>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker> 
+                        </mat-form-field>
+                    </div>
                         <button mat-flat-button class="default-btn tagus" color="warn" (click)="onSubmit()" >
                             <div class="d-flex justify-content-center" *ngIf="!isLoadingSubmit">
                                 <span><i class="ri-add-fill"></i> Génerer la fiche de paie </span>

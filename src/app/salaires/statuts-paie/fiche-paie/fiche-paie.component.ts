@@ -132,11 +132,7 @@ export class FichePaieComponent implements OnInit {
           let id = this.route.snapshot.paramMap.get('id');
           this.salaireService.get(Number(id)).subscribe(res => {
             this.salaire = res;
-            this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
-              this.fardeList = farde;
-              var datePaieList = this.fardeList.filter(v => v.is_paie == this.salaire.is_paie);
-              this.dateFarde = datePaieList[datePaieList.length-1];
-              var date = new Date(this.dateFarde.created);
+            var date = new Date(this.salaire.date_paie);
               this.dateMonth = date.getMonth() + 1;
               this.dateYear =  date.getFullYear();
               if (this.dateMonth === 1) {
@@ -166,7 +162,6 @@ export class FichePaieComponent implements OnInit {
               } else {
                   ''
               }
-            }); 
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
               this.preference = reglage;
               this.formGroup.patchValue({
@@ -480,10 +475,10 @@ export class FichePaieComponent implements OnInit {
  
     delete(id: number): void {
       if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-        const is_paie = this.salaire.is_paie - 1;
+        const date_paie = this.salaire.date_paie.getMonth() - 1;
 
         var personnel = {
-          is_paie: is_paie,
+          date_paie: date_paie,
           statut_paie: 'En attente',
           signature: this.currentUser.matricule,
           update_created: new Date(),
@@ -493,7 +488,7 @@ export class FichePaieComponent implements OnInit {
         this.personnelService.update(this.salaire.personnel.id, personnel).subscribe({
           next: () => {  
             var salaire = {  
-              is_paie: is_paie,
+              date_paie: date_paie,
               signature: this.currentUser.matricule,
               update_created: new Date(),
               entreprise: this.currentUser.entreprise,

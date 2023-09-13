@@ -22,15 +22,14 @@ export class RelevePaieComponent implements OnInit {
   isLoading = false;
   currentUser: PersonnelModel | any;
 
-  fardeList: any[] = [];
-  fardeSetList: any[] = [];
+  fardeList: any[] = []; 
   dateFarde: any;
   dateNow = new Date();
   dateMonth = 0;
   dateYear: any; 
 
   mois = '';
-  is_paie:any;
+  date_paie:any;
 
   net_a_payer = 0;
   ipr = 0;
@@ -38,6 +37,10 @@ export class RelevePaieComponent implements OnInit {
   frais_bancaire = 0;
   rbi_total = 0;
 
+  heure_supp_total = 0;
+  prime_total = 0;
+  penalite_total = 0;
+  syndicat_total = 0; 
 
 
   constructor( 
@@ -58,26 +61,10 @@ export class RelevePaieComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
           this.currentUser = user;
-        //   this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
-        //     this.fardeList = farde;
-        //     // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
-        //     this.fardeSetList = [...new Set(this.fardeList)];
-            
-        //     this.isLoading = false;
-        //   }
-        // );
-        this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
-          this.salaireService.fardeIsPaieDisponible(this.currentUser.code_entreprise).subscribe(f => {
-            this.fardeSetList = farde;
-            this.fardeList = f;
-            // this.fardeList = fardeListIsPaie;
-            // console.log('dfgggfgf', this.fardeList);
-            // var fardeMap = this.fardeSetList.map((item: any) => item.is_paie);
-            // this.fardeList = [...new Set(fardeMap)];
-              this.isLoading = false;
-            }
-          );
-        });
+          this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
+            this.fardeList = farde; 
+            this.isLoading = false;
+          });
       },
       error: (error) => {
         this.isLoading = false;
@@ -89,14 +76,13 @@ export class RelevePaieComponent implements OnInit {
 
 
   onChangeFarde(event: any) {
-    this.salaireService.relevePaie(this.currentUser.code_entreprise, event.value).subscribe(res => {
+    this.salaireService.relevePaie(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(res => {
       this.releveList = res;
-      var datePaieList = this.fardeSetList.filter((v) => v.is_paie == event.value);
-      this.is_paie = event.value;
+      
+      var datePaieList = this.fardeList.filter((v) => v.month == event.value.month && v.year == event.value.year);
       this.dateFarde = datePaieList[datePaieList.length-1];
-      var date = new Date(this.dateFarde.created);
-      this.dateMonth = date.getMonth() + 1;
-      this.dateYear =  date.getFullYear(); 
+      this.dateMonth = parseInt(this.dateFarde.month);
+      this.dateYear =  parseInt(this.dateFarde.year);
       if (this.dateMonth === 1) {
           this.mois = 'Janvier';
       } else if(this.dateMonth === 2) {
@@ -122,28 +108,52 @@ export class RelevePaieComponent implements OnInit {
       } else if(this.dateMonth === 12) {
         this.mois = 'Décembre';
       }
-      this.salaireService.netAPayerTotal(this.currentUser.code_entreprise, event.value).subscribe(
+      this.salaireService.netAPayerTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
         net_a_payer => {
           var net_a_payE = net_a_payer;
           net_a_payE.map((item: any) => this.net_a_payer = parseFloat(item.sum));  
         }
       );
-      this.salaireService.iprTotal(this.currentUser.code_entreprise, event.value).subscribe(
+      this.salaireService.iprTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
         ipr => {
           var iprs = ipr;
           iprs.map((item: any) => this.ipr = parseFloat(item.sum));
         }
       );
-      this.salaireService.cnssQPOTotal(this.currentUser.code_entreprise, event.value).subscribe(
+      this.salaireService.cnssQPOTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
         cnss => {
           var cnssQPO = cnss; 
           cnssQPO.map((item: any) => this.cnss = parseFloat(item.sum));
         }
       );
-      this.salaireService.rbiTotal(this.currentUser.code_entreprise, event.value).subscribe(
+      this.salaireService.rbiTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
         rbi => {
           var rbis = rbi; 
           rbis.map((item: any) => this.rbi_total = parseFloat(item.sum));
+        }
+      );
+      this.salaireService.heureSuppTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+        heure_supp => {
+          var heure_supps = heure_supp;
+          heure_supps.map((item: any) => this.heure_supp_total = parseFloat(item.sum));  
+        }
+      );
+      this.salaireService.primeTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+        prime => {
+          var primes = prime;
+          primes.map((item: any) => this.prime_total = parseFloat(item.sum));
+        }
+      );
+      this.salaireService.penalitesTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+        penalites => {
+          var penalitess = penalites; 
+          penalitess.map((item: any) => this.penalite_total = parseFloat(item.sum));
+        }
+      );
+      this.salaireService.syndicatTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+        syndicat => {
+          var syndicats = syndicat; 
+          syndicats.map((item: any) => this.syndicat_total = parseFloat(item.sum));
         }
       );
 
@@ -232,7 +242,6 @@ export class SalaireExportXLSXDialogBox implements OnInit {
       var end_date = formatDate(this.dateRange.value.end, 'yyyy-MM-dd', 'en-US'); 
       this.salaireService.downloadReport(
           this.currentUser.code_entreprise,
-          this.dateRange.value.farde,
           start_date,
           end_date
         ).subscribe({

@@ -23,10 +23,10 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './registre-presence.component.html',
   styleUrls: ['./registre-presence.component.scss']
 })
-export class RegistrePresenceComponent implements OnInit {
+export class RegistrePresenceComponent implements OnInit { 
   @Input('personne') personne: PersonnelModel; 
   
-  displayedColumns: string[] = ['site_location', 'matricule', 'apointement', 'date_entree', 'date_sortie', 'observation'];
+  displayedColumns: string[] = ['site_location', 'matricule', 'apointement', 'prestation', 'date_entree', 'date_sortie', 'observation'];
    
   ELEMENT_DATA: ApointementModel[] = []; 
   

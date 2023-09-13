@@ -99,7 +99,7 @@ export class PresencePieAllComponent implements OnInit {
                         },
                         y: {
                             formatter: function(val:any) {
-                                return val + "%";
+                                return val;
                             }
                         }
                     },

@@ -15,7 +15,7 @@ export class ClasseurFilterComponent implements OnInit {
 
   currentUser: PersonnelModel | any;
 
-  fardeSetList: any[] = [];
+  fardeList: any[] = [];
   dateFarde: any;
   moisClasseur = '';
   annee: any;
@@ -32,39 +32,37 @@ export class ClasseurFilterComponent implements OnInit {
       next: (user) => {
           this.currentUser = user;
           this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
-          this.fardeSetList = farde;
-          var datePaieList = this.fardeSetList.filter((v) => v.is_paie == this.farde);
-          this.dateFarde = datePaieList[datePaieList.length-1];
-          var created = new Date(this.dateFarde.created);
-          const month = created.getMonth() + 1;
-          this.annee =  created.getFullYear();
-          if (month === 1) {
-            this.moisClasseur = 'Janvier';
-          } else if(month === 2) {
-              this.moisClasseur = 'Fevrier';
-          } else if(month === 3) {
-              this.moisClasseur = 'Mars';
-          } else if(month === 4) {
-              this.moisClasseur = 'Avril';
-          } else if(month === 5) {
-              this.moisClasseur = 'Mai';
-          } else if(month === 6) {
-              this.moisClasseur = 'Juin';
-          } else if(month === 7) {
-              this.moisClasseur = 'Juillet';
-          } else if(month === 8) {
-              this.moisClasseur = 'Aôut';
-          } else if(month === 9) {
-              this.moisClasseur = 'Septembre';
-          } else if(month === 10) {
-              this.moisClasseur = 'Octobre';
-          } else if(month === 11) {
-            this.moisClasseur = 'Novembre';
-          } else if(month === 12) {
-            this.moisClasseur = 'Décembre';
-          }
-          }
-        );
+            this.fardeList = farde;
+            var datePaieList = this.fardeList.filter((v) => v.month == this.farde.month && v.year == this.farde.year);
+            this.dateFarde = datePaieList[datePaieList.length-1]; 
+            const month = parseInt(this.dateFarde.month);
+            this.annee =  parseInt(this.dateFarde.year);
+            if (month === 1) {
+              this.moisClasseur = 'Janvier';
+            } else if(month === 2) {
+                this.moisClasseur = 'Fevrier';
+            } else if(month === 3) {
+                this.moisClasseur = 'Mars';
+            } else if(month === 4) {
+                this.moisClasseur = 'Avril';
+            } else if(month === 5) {
+                this.moisClasseur = 'Mai';
+            } else if(month === 6) {
+                this.moisClasseur = 'Juin';
+            } else if(month === 7) {
+                this.moisClasseur = 'Juillet';
+            } else if(month === 8) {
+                this.moisClasseur = 'Aôut';
+            } else if(month === 9) {
+                this.moisClasseur = 'Septembre';
+            } else if(month === 10) {
+                this.moisClasseur = 'Octobre';
+            } else if(month === 11) {
+              this.moisClasseur = 'Novembre';
+            } else if(month === 12) {
+              this.moisClasseur = 'Décembre';
+            }
+          });
       },
       error: (error) => { 
         this.router.navigate(['/auth/login']);
@@ -74,33 +72,7 @@ export class ClasseurFilterComponent implements OnInit {
     
   }
 
-  getMonthClasseur(month: any) {
-    if (month === 1) {
-      this.moisClasseur = 'Janvier';
-    } else if(month === 2) {
-        this.moisClasseur = 'Fevrier';
-    } else if(month === 3) {
-        this.moisClasseur = 'Mars';
-    } else if(month === 4) {
-        this.moisClasseur = 'Avril';
-    } else if(month === 5) {
-        this.moisClasseur = 'Mai';
-    } else if(month === 6) {
-        this.moisClasseur = 'Juin';
-    } else if(month === 7) {
-        this.moisClasseur = 'Juillet';
-    } else if(month === 8) {
-        this.moisClasseur = 'Aôut';
-    } else if(month === 9) {
-        this.moisClasseur = 'Septembre';
-    } else if(month === 10) {
-        this.moisClasseur = 'Octobre';
-    } else if(month === 11) {
-      this.moisClasseur = 'Novembre';
-    } else if(month === 12) {
-      this.moisClasseur = 'Décembre';
-    }
-  }
+ 
 
 
 }

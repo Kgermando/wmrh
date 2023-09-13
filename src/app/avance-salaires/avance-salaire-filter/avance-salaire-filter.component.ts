@@ -8,8 +8,7 @@ import { AvanceSalaireModel } from '../models/avance-salaire-model';
   styleUrls: ['./avance-salaire-filter.component.scss']
 })
 export class AvanceSalaireFilterComponent implements OnInit {
-  @Input('element') element: AvanceSalaireModel;
-  @Input('preference') preference: PreferenceModel;
+  @Input('element') element: AvanceSalaireModel; 
 
   isValid = false; 
   isMoisSuivantValid = false;

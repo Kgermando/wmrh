@@ -41,7 +41,7 @@ import { InboxComponent } from './mail/inbox/inbox.component';
 import { ComposeComponent } from './mail/compose/compose.component';
 import { ReadComponent } from './mail/read/read.component';
 import { EmailSidebarComponent } from './mail/email-sidebar/email-sidebar.component'; 
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, MAT_DATE_LOCALE, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { DepartementsComponent, EditDepartementDialogBox } from './preferences/departements/departements.component';
 import { EditReglageDialogBox, ReglagesComponent } from './preferences/reglages/reglages.component';
 import { EditTitleDialogBox, TitlesComponent } from './preferences/titles/titles.component';
@@ -171,7 +171,15 @@ import { AbonnementAdminViewComponent, EditAbonnementAdminDialogBox } from './ad
 import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component';
 import { MesBulletinsComponent } from './salaires/mes-bulletins/mes-bulletins.component';
 import { CumulComponent } from './performences/cumul/cumul.component';
-import { ClasseurFilterComponent } from './salaires/classeur-filter/classeur-filter.component'; 
+import { ClasseurFilterComponent } from './salaires/classeur-filter/classeur-filter.component';
+import { ProfilHeuresSuppComponent } from './auth/profile/profil-heures-supp/profil-heures-supp.component';
+import { ProfilPresencesComponent } from './auth/profile/profil-presences/profil-presences.component';
+import { ProfilPrimesComponent } from './auth/profile/profil-primes/profil-primes.component';
+import { ProfilPenalitesComponent } from './auth/profile/profil-penalites/profil-penalites.component';
+import { ProfilPerformanceComponent } from './auth/profile/profil-performance/profil-performance.component';
+import { ProfilAvancesSalaireComponent } from './auth/profile/profil-avances-salaire/profil-avances-salaire.component';
+import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/profil-presences-view/profil-presences-view.component';
+import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/classeur-filter-disp.component'; 
 
 
 @NgModule({
@@ -335,6 +343,14 @@ import { ClasseurFilterComponent } from './salaires/classeur-filter/classeur-fil
     AddAbonnementDialogBox,
     EditAbonnementAdminDialogBox,
     ClasseurFilterComponent,
+    ProfilHeuresSuppComponent,
+    ProfilPresencesComponent,
+    ProfilPrimesComponent,
+    ProfilPenalitesComponent,
+    ProfilPerformanceComponent,
+    ProfilAvancesSalaireComponent,
+    ProfilPresencesViewComponent, 
+    ClasseurFilterDispComponent,
   ],
   imports: [
     BrowserModule,
@@ -365,6 +381,7 @@ import { ClasseurFilterComponent } from './salaires/classeur-filter/classeur-fil
       useClass: CredentialInterceptor,
       multi: true
     },
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     provideAnimations(), // required animations providers
     provideToastr(),

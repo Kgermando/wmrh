@@ -99,7 +99,7 @@ export class PresencePieMonthComponent implements OnInit {
                         },
                         y: {
                             formatter: function(val:any) {
-                                return val + "%";
+                                return val;
                             }
                         }
                     },

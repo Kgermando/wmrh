@@ -81,12 +81,8 @@ export class BulletinPaieComponent implements OnInit {
           let id = this.route.snapshot.paramMap.get('id');
           this.salaireService.get(Number(id)).subscribe(res => {
             this.salaire = res;
-            this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
-              this.fardeList = farde;
-              var datePaieList = this.fardeList.filter(v => v.is_paie == this.salaire.is_paie);
-              this.dateFarde = datePaieList[datePaieList.length-1];
-              var date = new Date(this.dateFarde.created);
-              this.dateMonth = date.getMonth() + 1;
+            var date = new Date(this.salaire.date_paie);
+              this.dateMonth = date.getMonth();
               this.dateYear =  date.getFullYear();
               if (this.dateMonth === 1) {
                 this.mois = 'Janvier';
@@ -115,7 +111,6 @@ export class BulletinPaieComponent implements OnInit {
               } else {
                   ''
               }
-            }); 
 
             var net_a_payer = parseFloat(this.salaire.net_a_payer)  / parseFloat(this.salaire.taux_dollard);
             this.net_a_payerUSD = parseFloat(net_a_payer.toFixed(2)); 

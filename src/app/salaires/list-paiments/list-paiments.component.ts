@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router'; 
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
-import { Subject, finalize } from 'rxjs';
+import { Subject } from 'rxjs';
 import { SalaireService } from '../salaire.service';
 
 
@@ -28,7 +28,7 @@ export class ListPaimentsComponent implements OnInit {
   selection = new SelectionModel<PersonnelModel>(true, []);
 
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator; 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
  
 
   public loading$ = new Subject<boolean>();
@@ -51,18 +51,13 @@ export class ListPaimentsComponent implements OnInit {
     this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user;
-            this.salaireService.fardeMaxValue(this.currentUser.code_entreprise).subscribe(res => {
-                var fardeValue = res;
-                var fardeValueMax = fardeValue[0];
-                this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-                  this.personnelFilter = res;
-                  this.ELEMENT_DATA = this.personnelFilter.filter((v) => v.is_paie <= fardeValueMax.max &&
-                      parseFloat(v.salaire_base) > 0); 
-                  this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator;
-                  this.isLoading = false;
-                });
+            this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+              this.personnelFilter = res;
+              this.ELEMENT_DATA = this.personnelFilter.filter((v) => parseFloat(v.salaire_base) > 0);  // v.date_paie <= fardeValueMax.max &&
+              this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.isLoading = false;
             });
             // this.personnelService.updateStatutPaieAll(this.currentUser.code_entreprise).subscribe(() => {
             //     this.salaireService.fardeMaxValue(this.currentUser.code_entreprise).subscribe(res => {
@@ -71,7 +66,7 @@ export class ListPaimentsComponent implements OnInit {
             //         this.personnelService.getAll(this.currentUser.code_entreprise)
             //         .subscribe(res => {
             //             this.personnelFilter = res;
-            //             this.ELEMENT_DATA = this.personnelFilter.filter(v => v.is_paie <= fardeValueMax.max && 
+            //             this.ELEMENT_DATA = this.personnelFilter.filter(v => v.date_paie <= fardeValueMax.max && 
             //                 parseFloat(v.salaire_base) > 0 && v.statut_paie == 'En attente');
             //             this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
             //             this.dataSource.sort = this.sort;

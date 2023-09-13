@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,10 +15,10 @@ import { AuthService } from '../../auth.service';
   templateUrl: './profile-paie.component.html',
   styleUrls: ['./profile-paie.component.scss']
 })
-export class ProfilePaieComponent {
+export class ProfilePaieComponent implements OnInit {
   @Input() currentUser: PersonnelModel;
 
-  displayedColumns: string[] = ['numero', 'statut', 'matricule', 'nbre_jrs_preste', 'created', 'update'];
+  displayedColumns: string[] = ['numero', 'statut', 'nbre_jrs_preste', 'created', 'update'];
   
   ELEMENT_DATA: SalaireModel[] = [];
   
@@ -28,7 +28,7 @@ export class ProfilePaieComponent {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-  isLoading = false;  
+  isLoading = false;
  
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
@@ -36,9 +36,7 @@ export class ProfilePaieComponent {
       private router: Router,
       private authService: AuthService,
   ) {}
-
-
-  ngAfterViewInit() { 
+  ngOnInit(): void {
     this.isLoading = true;
     this.authService.user().subscribe({
         next: (user) => {
@@ -55,7 +53,9 @@ export class ProfilePaieComponent {
           console.log(error);
         }
       }); 
-}
+  }
+
+ 
 
 
 applyFilter(event: Event) {

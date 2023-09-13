@@ -18,7 +18,7 @@ import { PersonnelService } from '../personnels/personnel.service';
   styleUrls: ['./performences.component.scss']
 })
 export class PerformencesComponent implements OnInit {
-  displayedColumns: string[] = ['created', 'matricule', 'fullname', 'ponctualite', 'hospitalite', 'travail', 'cumul'];
+  displayedColumns: string[] = ['update_created', 'matricule', 'fullname', 'ponctualite', 'hospitalite', 'travail', 'cumul'];
   
   ELEMENT_DATA: PersonnelModel[] = [];
   

@@ -98,6 +98,8 @@ import { EntrepriseViewComponent } from './admin/entreprise/entreprise-view/entr
 import { PointageViewComponent } from './presences/pointage/pointage-view/pointage-view.component';
 import { MesBulletinsComponent } from './salaires/mes-bulletins/mes-bulletins.component';
 import { AbonnementAdminViewComponent } from './admin/abonnement-admin/abonnement-admin-view/abonnement-admin-view.component';
+import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/profil-presences-view/profil-presences-view.component';
+ 
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -132,6 +134,7 @@ const routes: Routes = [
     { path: 'presences/registre-presences', component: RegistrePresenceComponent, canActivate: [registrePresenceGuard] }, 
     { path: 'presences/heures-supp', component: HeuresSuppComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/heures-supp/:id/detail', component: HeureSuppDetailComponent, canActivate: [heureSuppGuard] },
+    { path: 'presences/pointage-profil/:matricule/detail', component: ProfilPresencesViewComponent }, // C'est le lien du profil, donc pas de guard
                                                                                                                                                                            
     { path: 'personnels/syndicats', component: SyndicatsComponent, canActivate: [syndicatGuard] },
     { path: 'personnels/syndicats/:id/view', component: SyndicatViewComponent, canActivate: [syndicatGuard] },
@@ -157,10 +160,10 @@ const routes: Routes = [
     { path: 'salaires/mes-bulletins-salaires', component: MesBulletinsComponent, canActivate: [mesBulletinsGuard] },
     { path: 'salaires/traitement/:id/fiche-paie', component: FichePaieComponent, canActivate: [statutPaieGuard] },
     { path: 'salaires/disponible/:id/bulletin-paie', component: BulletinPaieComponent, canActivate: [statutPaieGuard] }, 
-    { path: 'salaires/releve-paie', component: RelevePaieComponent , canActivate: [relevePaieGuard]},
+    { path: 'salaires/releve-paie', component: RelevePaieComponent, canActivate: [relevePaieGuard]},
     { path: 'salaires/pres-entreprise', component: PresEntrepriseComponent, canActivate: [presEntrepriseGuard] },
     { path: 'salaires/pres-entreprise/:id/detail', component: PresEntrepriseViewComponent, canActivate: [presEntrepriseGuard] },
-    { path: 'salaires/calculate', component: CalculateComponent },
+    { path: 'salaires/calculate', component: CalculateComponent }, 
 
     { path: 'horaire', component: HoraireComponent, canActivate: [horaireGuard] },
 

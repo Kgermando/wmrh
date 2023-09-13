@@ -9,7 +9,8 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { PersonnelService } from 'src/app/personnels/personnel.service'; 
 import { SalaireService } from '../../salaire.service';
 import { formatDate } from '@angular/common';
-import { NotifyService } from 'src/app/notify/notify.service';
+import { NotifyService } from 'src/app/notify/notify.service'; 
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-paie-view',
@@ -25,6 +26,10 @@ export class PaieViewComponent implements OnInit {
   preference: PreferenceModel;
 
   currentUser: PersonnelModel | any;
+
+  formGroup!: FormGroup;
+  date_paie = new Date();
+  datePaie = '';
 
   nbreJrsPreste = 0;
   congepayeNbr = 0;
@@ -56,6 +61,7 @@ export class PaieViewComponent implements OnInit {
   constructor(
     public themeService: CustomizerSettingsService,
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private personnelService: PersonnelService,
@@ -70,6 +76,8 @@ export class PaieViewComponent implements OnInit {
       this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user;
+          let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
+
           const dateNow = new Date();
           this.dateMonth = dateNow.getMonth() + 1;
           if (this.dateMonth === 1) {
@@ -99,66 +107,76 @@ export class PaieViewComponent implements OnInit {
           } else {
             '';
           }
- 
-          let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
+
+          this.formGroup = this.formBuilder.group({  
+            date_paie: new FormControl(this.date_paie),
+          });
+
+          this.formGroup.valueChanges.subscribe(val => {
+            this.date_paie = val.date_paie;
+          });
+
+          this.datePaie = formatDate(this.date_paie, 'yyyy-MM-dd', 'en-US');
+          console.log('datePaie', this.datePaie);
+
           this.personnelService.get(Number(id)).subscribe(res => {
             this.personne = res;
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
               this.preference = res;
             });
-            this.salaireService.primeTotalUSD(this.currentUser.code_entreprise, this.personne.id).subscribe(prime => {
+            this.salaireService.primeTotalUSD(this.currentUser.code_entreprise, this.personne.id, this.datePaie).subscribe(prime => {
               var primes  = prime;
               primes.map((item: any) => this.primeUSD = parseFloat(item.sum));
             });
-            this.salaireService.primeTotalCDF(this.currentUser.code_entreprise, this.personne.id).subscribe(prime => {
+            this.salaireService.primeTotalCDF(this.currentUser.code_entreprise, this.personne.id, this.datePaie).subscribe(prime => {
               var primes  = prime;
               primes.map((item: any) => this.primeCDF = parseFloat(item.sum));
             });
-            this.salaireService.penaliteTotalUSD(this.currentUser.code_entreprise, this.personne.id).subscribe(penalite => {
+            this.salaireService.penaliteTotalUSD(this.currentUser.code_entreprise, this.personne.id, this.datePaie).subscribe(penalite => {
               var penalites  = penalite;
               penalites.map((item: any) => this.penaliteUSD = parseFloat(item.sum));
             });
-            this.salaireService.penaliteTotalCDF(this.currentUser.code_entreprise, this.personne.id).subscribe(penalite => {
+            this.salaireService.penaliteTotalCDF(this.currentUser.code_entreprise, this.personne.id, this.datePaie).subscribe(penalite => {
               var penalites  = penalite;
               penalites.map((item: any) => this.penaliteCDF = parseFloat(item.sum));
             });
-            this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.personne.id).subscribe(
+            this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.personne.id, this.datePaie).subscribe(
               heureSup => {
                 var heureSupp  = heureSup;
                 heureSupp.map((item: any) => this.nbrHeureSupp = parseFloat(item.sum));
               }
             );
-            this.salaireService.avanceSalaireTotalUSD(this.currentUser.code_entreprise, this.personne.id).subscribe(
+            this.salaireService.avanceSalaireTotalUSD(this.currentUser.code_entreprise, this.personne.id, this.datePaie).subscribe(
               avanceSalaire => {
                 var avanceSalaires = avanceSalaire; 
                 avanceSalaires.map((item: any) => this.avanceSalaireUSD = parseFloat(item.sum)); 
               }
             );
-            this.salaireService.avanceSalaireTotalCDF(this.currentUser.code_entreprise, this.personne.id).subscribe(
+            this.salaireService.avanceSalaireTotalCDF(this.currentUser.code_entreprise, this.personne.id, this.datePaie).subscribe(
               avanceSalaire => {
                 var avanceSalaires = avanceSalaire; 
                 avanceSalaires.map((item: any) => this.avanceSalaireCDF = parseFloat(item.sum)); 
               }
             );
-            this.salaireService.preEntrepriseUSD(this.currentUser.code_entreprise, this.personne.id).subscribe(
+            this.salaireService.preEntrepriseUSD(this.currentUser.code_entreprise, this.personne.id, this.datePaie).subscribe(
               presEntreprise => {
                 var preEntrepriseUSDs = presEntreprise; 
                 preEntrepriseUSDs.map((item: any) => this.presEntrepriseUSD = parseFloat(item.sum)); 
               }
             );
-            this.salaireService.preEntrepriseCDF(this.currentUser.code_entreprise, this.personne.id).subscribe(
+            this.salaireService.preEntrepriseCDF(this.currentUser.code_entreprise, this.personne.id, this.datePaie).subscribe(
               presEntreprise => {
                 var preEntrepriseUSD = presEntreprise; 
                 preEntrepriseUSD.map((item: any) => this.presEntrepriseCDF = parseFloat(item.sum)); 
               }
             );
-            this.salaireService.getJrPrestE(this.currentUser.code_entreprise, this.personne.matricule).subscribe(
+            this.salaireService.getJrPrestE(this.currentUser.code_entreprise, this.personne.matricule, this.datePaie).subscribe(
               jrsPreste => {
                 var jrsPrestE = jrsPreste; 
                 jrsPrestE.map((item: any) => this.nbreJrsPreste = parseFloat(item.presence));
               }
             );
-            this.salaireService.getJrCongePayE(this.currentUser.code_entreprise, this.personne.matricule).subscribe(
+            this.salaireService.getJrCongePayE(this.currentUser.code_entreprise, this.personne.matricule, this.datePaie).subscribe(
               jrsCongE => {
                 var congepayes = jrsCongE; 
                 congepayes.map((item: any) => this.congepayeNbr = parseFloat(item.conge));
@@ -166,7 +184,7 @@ export class PaieViewComponent implements OnInit {
             );
             var date_debut_contrat_employE = (this.personne.date_debut_contrat) ? this.personne.date_debut_contrat : new Date(); 
             var date_contrat = formatDate(date_debut_contrat_employE, 'yyyy-MM-dd', 'en-US');
-            this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_contrat).subscribe(
+            this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_contrat, this.datePaie).subscribe(
               date_debut_contrat => {
                 var date_debut_contrats = date_debut_contrat;
                 date_debut_contrats.map((item: any) => this.anciennete_nbr_age = parseFloat(item.age['years']));
@@ -176,6 +194,10 @@ export class PaieViewComponent implements OnInit {
               }
             );
           });
+
+ 
+         
+          
           this.isLoading = false;
         },
         error: (error) => {
@@ -190,7 +212,7 @@ export class PaieViewComponent implements OnInit {
     onSubmit() {
       try {
         this.isLoadingSubmit = true;
-
+        console.log('date_paie 111111', this.date_paie);
         var salaire = 0;
         var alloc_famillialeMonnaie = 0;
         var alloc_transportMonnaie = 0;
@@ -262,10 +284,7 @@ export class PaieViewComponent implements OnInit {
           salaire_base = salaire * totalJrsPreste;
         } 
 
-        
-
-        console.log('this.anciennete_nbr_age 2', this.anciennete_nbr_age);
-
+      
         var ancennete = 0;
         if(this.anciennete_nbr_age >5 && this.anciennete_nbr_age <= 10) {
           ancennete = salaire_base * this.preference.prime_ancien_5 / 100;
@@ -435,7 +454,7 @@ export class PaieViewComponent implements OnInit {
           pres_entreprise: pres_entreprise,
           net_a_payer: net_a_payer,
           statut: 'Traitement',
-          is_paie: this.personne.is_paie + 1,
+          date_paie: this.date_paie, // this.formGroup.value.date_paie,
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
@@ -445,7 +464,7 @@ export class PaieViewComponent implements OnInit {
         this.salaireService.create(body).subscribe({
           next: (res) => { 
             var personnel = { 
-              is_paie: this.personne.is_paie + 1,
+              date_paie: this.formGroup.value.date_paie,
               statut_paie: 'Traitement',
               signature: this.currentUser.matricule,
               update_created: new Date(),

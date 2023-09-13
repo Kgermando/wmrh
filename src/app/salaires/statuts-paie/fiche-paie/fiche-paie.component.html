@@ -9,7 +9,7 @@
                         <h4 class="mb-0 text-center">{{ title.toUpperCase()}} </h4>
                     </mat-card-header>
                     <mat-card-header>
-                        <h6>Classeur N° {{salaire.is_paie}} du {{mois}}/{{dateYear}}</h6>
+                        <h6>Classeur du {{mois}}/{{dateYear}}</h6>
                         <div> 
                             <button mat-icon-button color="primary" 
                                     (click)="openDialog()">
@@ -26,7 +26,7 @@
                     </mat-card-header>
                     <mat-card-content class="example-buttons">
                         <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-                        <div class=" d-flex flex-nowrap mb-25 align-items-center justify-content-space-between">
+                        <div class="d-flex flex-nowrap mb-25 align-items-center justify-content-space-between">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <table class="table"> 
                                     <tbody>
