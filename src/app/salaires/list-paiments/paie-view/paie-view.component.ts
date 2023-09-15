@@ -10,7 +10,7 @@ import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { SalaireService } from '../../salaire.service';
 import { formatDate } from '@angular/common';
 import { NotifyService } from 'src/app/notify/notify.service'; 
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-paie-view',

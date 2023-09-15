@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { ApointementModel } from '../models/presence-model';
 import { PresenceService } from '../presence.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
@@ -34,7 +34,10 @@ export class RegistrePresenceComponent implements OnInit {
   selection = new SelectionModel<ApointementModel>(true, []);
 
   isLoading = false;
-  currentUser: PersonnelModel;
+  currentUser: PersonnelModel; 
+
+  formGroup!: FormGroup;
+  date_presence: any;
 
   mois = '';
   dateNow = new Date();
@@ -46,7 +49,7 @@ export class RegistrePresenceComponent implements OnInit {
 
  
   constructor(
-    private httpClient: HttpClient,
+    private formBuilder: FormBuilder,
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
       private router: Router,
@@ -92,19 +95,16 @@ export class RegistrePresenceComponent implements OnInit {
         ''
     }
 
+    this.formGroup = this.formBuilder.group({  
+      date_presence: new FormControl(new Date()),
+    }); 
+
     this.isLoading = true;
       this.authService.user().subscribe({
           next: (user) => {
-              this.currentUser = user;
+            this.currentUser = user;
             if (this.currentUser.site_locations) {
-              this.presenceService.getRegisterPresence(
-                this.currentUser.code_entreprise, 
-                this.currentUser.site_locations.site_location).subscribe(res => {
-                  this.ELEMENT_DATA = res;
-                  this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator; 
-              });
+              this.onChange();
             }
             this.isLoading = false;
           },
@@ -115,19 +115,46 @@ export class RegistrePresenceComponent implements OnInit {
           }
         }); 
   } 
+
+
+  onChange() {
+    if (!this.date_presence) {
+      var datePresence = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); 
+        this.presenceService.getRegisterPresence(
+        this.currentUser.code_entreprise,
+        this.currentUser.site_locations.site_location, datePresence).subscribe(res => {
+          this.ELEMENT_DATA = res;
+          this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+      });
+    }
+    this.formGroup.valueChanges.subscribe(val => {
+      this.date_presence = val.date_presence;
+      var datePresence = formatDate(this.date_presence, 'yyyy-MM-dd', 'en-US'); 
+      this.presenceService.getRegisterPresence(
+      this.currentUser.code_entreprise,
+      this.currentUser.site_locations.site_location, datePresence).subscribe(res => {
+          this.ELEMENT_DATA = res;
+          this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+      });
+    });
+  }
  
   applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /** Announce the change in sort state for assistive technology. */
-    announceSortChange(sortState: Sort) { 
-      if (sortState.direction) {
-          this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-      } else {
-          this._liveAnnouncer.announce('Sorting cleared');
-      }
+  announceSortChange(sortState: Sort) { 
+    if (sortState.direction) {
+        this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+        this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
   delete(id: number): void {

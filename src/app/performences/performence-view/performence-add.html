@@ -1,6 +1,6 @@
 <div class="create-dialog-box scrollable-dialog">
     <div class="title d-flex align-items-center justify-content-space-between">
-        <h4 class="mb-0">Ajout des performances</h4>
+        <h4 class="mb-0">Ajout performance</h4>
         <button class="close-btn bg-transparent p-0 border-none" (click)="close()"><i class="flaticon-close"></i></button>
     </div>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -12,7 +12,7 @@
                             <label class="d-block mb-12 fw-semibold gray-color">Ponctualité </label>
                             <mat-form-field appearance="fill">
                                 <i class="ri-edit-2-line"></i>
-                                <mat-label>Entrer la ponctualité </mat-label>
+                                <mat-label>Entrer la note ponctualité </mat-label>
                                 <input matInput type="number"   
                                     formControlName="ponctualite" name="ponctualite">
                                 <mat-error *ngIf="formGroup.controls['ponctualite'].hasError('required')">
@@ -42,7 +42,7 @@
                             <label class="d-block mb-12 fw-semibold gray-color">Hospitalité </label>
                             <mat-form-field appearance="fill">
                                 <i class="ri-edit-2-line"></i>
-                                <mat-label>Entrer l'hospitalité </mat-label>
+                                <mat-label>Entrer la note hospitalité </mat-label>
                                 <input matInput type="number"  
                                     [min]="0" 
                                     [max]="10"
@@ -75,7 +75,7 @@
                             <label class="d-block mb-12 fw-semibold gray-color">Travail </label>
                             <mat-form-field appearance="fill">
                                 <i class="ri-edit-2-line"></i>
-                                <mat-label>Entrer le travail </mat-label>
+                                <mat-label>Entrer la note travail </mat-label>
                                 <input matInput type="number"  
                                     [min]="0" 
                                     [max]="10" formControlName="travail" name="travail">
