@@ -63,6 +63,14 @@ export class PersonnelViewComponent implements OnInit {
           });
       }
     }
+
+    resetStatutPaie(id: number) {
+      this.isLoading = true;
+      this.personnelService.resetStatutPaie(this.currentUser.code_entreprise, id).subscribe(() => {
+          this.isLoading = false;
+      })
+    }
+   
   
     toggleTheme() {
       this.themeService.toggleTheme();

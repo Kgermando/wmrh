@@ -80,14 +80,14 @@
                             currentUser.permission === 'RU' ||
                             currentUser.permission === 'CRU' ||
                             currentUser.permission === 'RUD' ||
-                            currentUser.permission === 'CRUD'">
+                            currentUser.permission === 'CRUD'" matTooltip="Modifier">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button color="accent" (click)="delete(element.id)"
                             *ngIf="currentUser.permission === 'D' || 
                             currentUser.permission === 'RD' ||
                             currentUser.permission === 'RUD' || 
-                            currentUser.permission === 'CRUD'">
+                            currentUser.permission === 'CRUD'" matTooltip="Supprimer ce document">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

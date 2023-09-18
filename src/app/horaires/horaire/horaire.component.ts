@@ -15,5 +15,5 @@ export class HoraireComponent {
         { title: 'Meeting with UI/UX Designers', date: '2023-03-12' }, 
     ],
     plugins: [dayGridPlugin]
-};
+  };
 }

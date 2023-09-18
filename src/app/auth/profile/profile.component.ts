@@ -13,6 +13,7 @@ import { CustomizerSettingsService } from 'src/app/customizer-settings/customize
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Auth } from 'src/app/classes/auth';
+import { ToastrService } from 'ngx-toastr';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -148,6 +149,7 @@ export class ProfileComponent implements OnInit {
 })
 export class ChangePasswordDialogBox implements OnInit{
   passwordForm: FormGroup;
+  isLoading = false; 
 
   currentUser: PersonnelModel | any;
 
@@ -156,6 +158,7 @@ export class ChangePasswordDialogBox implements OnInit{
       private formBuilder: FormBuilder,
       private router: Router,
       private authService: AuthService,
+      private toastr: ToastrService
   ) {}
 
 
@@ -173,14 +176,24 @@ export class ChangePasswordDialogBox implements OnInit{
 
 
   passwordSubmit(): void {  
-    this.authService.updatePassword(this.passwordForm.getRawValue()).subscribe(
-      res => {
+    this.authService.updatePassword(this.passwordForm.getRawValue()).subscribe({
+      next: res => {
         console.log(res);
+        this.toastr.success(`Mot de passe changé!`, 'Success!');
+        this.isLoading = false;
         this.authService.logout().subscribe(
           user => this.router.navigate(['/layouts/profile'])
-        )
-      }
-    );
+        );
+        
+      },
+      error: (e) => {
+        this.isLoading = false;
+        console.error(e);
+        // this.toastr.error('Votre matricule ou le mot de passe ou encore les deux ne sont pas correct !', 'Oupss!');
+        this.toastr.error(`${e.error.message}`, 'Oupss!');
+        this.router.navigate(['/auth/login']); 
+      }, 
+    });
   }
 
   close(){

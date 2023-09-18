@@ -2,12 +2,11 @@
     <h5 class="mb-0">Informations du personnel</h5>
     <ol class="breadcrumb mb-0 ps-0">
         <li class="breadcrumb-item">
-            <a routerLink="/">
-                <i class="ri-home-8-line"></i>
-                Dashboard
+            <a routerLink="/layouts/personnels/personnel-list">
+                <i class="ri-group-line"></i>
+                Personnel
             </a>
-        </li>
-        <li class="breadcrumb-item gray-color">Personnels</li>
+        </li> 
         <li class="breadcrumb-item fw-semibold">View</li>
     </ol>
 </div>
@@ -21,14 +20,23 @@
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0">Identité</h5>
-                    <div> 
+                    <div>
+                        <button mat-icon-button color="primary"  
+                            (click)="resetStatutPaie(personne.id)"
+                            *ngIf="currentUser.permission === 'U' || 
+                                currentUser.permission === 'RU' ||
+                                currentUser.permission === 'CRU' || 
+                                currentUser.permission === 'RUD' || 
+                                currentUser.permission === 'CRUD'" matTooltip="Reinitialiser le statut de paie">
+                                <mat-icon>refresh</mat-icon>
+                        </button>
                         <button mat-icon-button color="accent"  
                             [routerLink]="['/layouts/personnels', personne.id, 'personnel-edit']"
                             *ngIf="currentUser.permission === 'U' || 
                                 currentUser.permission === 'RU' ||
                                 currentUser.permission === 'CRU' || 
                                 currentUser.permission === 'RUD' || 
-                                currentUser.permission === 'CRUD'">
+                                currentUser.permission === 'CRUD'" matTooltip="Modifier ce document">
                                 <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button color="warn" 
@@ -36,7 +44,7 @@
                             *ngIf="currentUser.permission === 'D' || 
                                 currentUser.permission === 'RD' ||
                                 currentUser.permission === 'RUD' ||
-                                currentUser.permission === 'CRUD'">
+                                currentUser.permission === 'CRUD'" matTooltip="Mettre dans le corbeil">
                                 <mat-icon>delete</mat-icon>
                         </button>
                     </div>

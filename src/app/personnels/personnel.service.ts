@@ -17,12 +17,12 @@ export class PersonnelService extends ApiService {
     return this.http.get(`${this.endpoint}/get-syndicat/${code_entreprise}`);
   }
 
-  updateStatutPaieAll(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/update-statut-paie-all/${code_entreprise}`);
+  resetStatutPaieAll(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/reset-statut-paie-all/${code_entreprise}`);
   }
 
-  updateStatutPaie(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/update-statut-paie/${code_entreprise}`);
+  resetStatutPaie(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/reset-statut-paie/${code_entreprise}/${id}`);
   }
 
   uploadCSV(data: any): Observable<any> {
@@ -38,4 +38,4 @@ export class PersonnelService extends ApiService {
   }
  
 
-} 
+}

@@ -11,10 +11,10 @@
                     <h5 class="mb-0" *ngIf="abonnement.entreprise">{{abonnement.entreprise.company_name}}</h5>
                     <div>
                         <button mat-icon-button color="primary" 
-                        (click)="openEditDialog('300ms', '100ms', abonnement.id)">
+                        (click)="openEditDialog('300ms', '100ms', abonnement.id)" matTooltip="Modifier ce document">
                         <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="accent">
+                        <button mat-icon-button color="accent" matTooltip="Supprimer ce document">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>

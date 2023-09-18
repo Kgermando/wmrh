@@ -7,23 +7,23 @@
             <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-header class="border-bottom">
                     <h5 class="mb-0"> Heures supplementaires</h5>
-                    <div *ngIf="currentUser"> 
+                    <div> 
                         <button mat-icon-button color="accent" 
                             (click)="openEditDialog('300ms', '100ms', heureSupp.id)"
                             *ngIf="currentUser.permission === 'U' || 
                             currentUser.permission === 'RU' ||
                             currentUser.permission === 'CRU' ||
                             currentUser.permission === 'RUD' ||
-                            currentUser.permission === 'CRUD'">
+                            currentUser.permission === 'CRUD'" matTooltip="Modifier ce document">
                                 <mat-icon>edit</mat-icon>
-                        </button> 
+                        </button>
                         <button mat-icon-button color="warn" 
                                 (click)="delete(heureSupp.id)"
                             *ngIf="currentUser.permission === 'D' || 
                                 currentUser.permission === 'RD' ||
                                 currentUser.permission === 'RUD' || 
-                                currentUser.permission === 'CRUD'">
-                                <mat-icon>delete</mat-icon>
+                                currentUser.permission === 'CRUD'" matTooltip="Supprimer ce document">
+                            <mat-icon>delete</mat-icon>
                         </button>
                     </div>
                 </mat-card-header>
@@ -62,11 +62,7 @@
                 <mat-card-content> 
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <ul class="list ps-0 mb-0">
-                                <li>
-                                    <span class="fw-semibold d-inline-block">Motif: </span>
-                                    <span class="gray-color">{{ heureSupp.motif }}</span>
-                                </li>
+                            <ul class="list ps-0 mb-0"> 
                                 <li>
                                     <span class="fw-semibold d-inline-block">Nombre d'heures: </span>
                                     <span class="gray-color">
@@ -81,6 +77,10 @@
                                         </span>  
                                     </span>
                                 </li> 
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Motif: </span>
+                                    <span class="gray-color">{{ heureSupp.motif }}</span>
+                                </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Signature: </span>
                                     <span class="gray-color">{{ heureSupp.signature }}</span>

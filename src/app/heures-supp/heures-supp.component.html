@@ -27,17 +27,10 @@
 
                 <ng-container matColumnDef="fullname">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom complet</th>
-                    <td mat-cell *matCellDef="let element">
+                    <td mat-cell *matCellDef="let element"> 
                         {{element.personnel.prenom}} {{element.personnel.nom}} {{element.personnel.postnom}}
                     </td>
-                </ng-container> 
-<!-- 
-                <ng-container matColumnDef="motif">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Motif</th>
-                    <td mat-cell *matCellDef="let element">
-                        {{element.motif}}
-                    </td>
-                </ng-container> -->
+                </ng-container>  
 
                  <ng-container matColumnDef="nbr_heures">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nbre d'heures</th>

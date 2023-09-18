@@ -18,7 +18,7 @@
                                 <div>
                                     <img [src]="currentUser.photo"class="rounded-circle" alt="user" *ngIf="currentUser.photo">
                                     <img src="assets/img/user/user15.jpg" class="rounded-circle" alt="user" *ngIf="!currentUser.photo">
-                                    <button mat-icon-button color="warn" (click)="openChangePhotoDialog('300ms', '100ms')">
+                                    <button mat-icon-button color="warn" (click)="openChangePhotoDialog('300ms', '100ms')" matTooltip="Modifier la photo profile">
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                 </div>
@@ -37,7 +37,7 @@
                                     ></apx-chart>
                                 </div>
                                 <span class="d-block">Excellent</span>
-                                <h5 class="mb-0 fw-semibold gray-color">Performence</h5>
+                                <h5 class="mb-0 fw-semibold gray-color">Performences</h5>
                             </div>
                         </div>
                     </div>

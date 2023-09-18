@@ -15,11 +15,11 @@
                                     (click)="openDialog()">
                                 <mat-icon>calculate</mat-icon>
                             </button>
-                            <button mat-icon-button class="tagus" (click)="openPDF()">
+                            <button mat-icon-button class="tagus" (click)="openPDF()" matTooltip="Imprimer">
                                 <mat-icon>print</mat-icon>
                             </button>
                             <button mat-icon-button color="warn" 
-                                (click)="delete(salaire.id)">
+                                (click)="delete(salaire.id)" matTooltip="Supprimer ce bulletin">
                                 <mat-icon>delete</mat-icon>
                             </button> 
                         </div>

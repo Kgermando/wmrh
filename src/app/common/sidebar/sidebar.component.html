@@ -33,7 +33,17 @@
                         <i class="ri-group-line"></i>
                         <span class="title">Personnel</span>
                     </a>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                    <a routerLink="/layouts/horaires" class="sidebar-menu-link" 
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        *ngIf="currentUser.roles.includes('Horaires')">
+                        <i class="ri-calendar-todo-line"></i>
+                        <span class="title">Horaire</span>
+                    </a>
+                    <mat-expansion-panel (opened)="panelOpenState = true" 
+                    (closed)="panelOpenState = true"
+                    *ngIf="currentUser.roles.includes('Pointages' || 
+                        'Registre de presences' ||
+                        'Heure suplementaires')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <i class="ri-user-follow-line"></i>
@@ -59,7 +69,18 @@
                             </li> 
                         </ul>
                     </mat-expansion-panel>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                    <mat-expansion-panel (opened)="panelOpenState = true" 
+                    (closed)="panelOpenState = true"
+                    *ngIf="currentUser.roles.includes(
+                        'Liste de paiements' || 
+                        'Avances salaires' ||
+                        'Primes divers' ||
+                        'Pénalites' ||
+                        'Pret entreprise' ||
+                        'Statuts de paies' ||
+                        'Mes Bulletins' ||
+                        'Relevés de paies' ||
+                        'Indemnités')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <i class="ri-wallet-2-line"></i>
@@ -107,6 +128,11 @@
                                     Relevé de paie
                                 </a>
                             </li>
+                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Indemnités')">
+                                <a routerLink="/layouts/salaires/indemnites" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Indemnités de paie
+                                </a>
+                            </li>
                             <!-- <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Relevés de paies')">
                                 <a routerLink="/layouts/salaires/releve-frais-divers" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Relevé de frais divers
@@ -115,19 +141,16 @@
                         </ul>
                     </mat-expansion-panel>
                   
-                    <!-- <a routerLink="/layouts/horaire" class="sidebar-menu-link" 
-                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-                        *ngIf="currentUser.roles.includes('Horaires')">
-                        <i class="ri-calendar-todo-line"></i>
-                        <span class="title">Horaire</span>
-                    </a> -->
+                    
                     <a routerLink="/layouts/performences" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Performences')">
                         <i class="ri-creative-commons-nd-line"></i>
                         <span class="title">Performances</span>
                     </a>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                    <mat-expansion-panel (opened)="panelOpenState = true" 
+                    (closed)="panelOpenState = true"
+                    *ngIf="currentUser.roles.includes('Postes' || 'Candidatures')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <i class="ri-account-pin-box-line"></i>

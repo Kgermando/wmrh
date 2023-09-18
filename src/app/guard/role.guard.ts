@@ -129,6 +129,16 @@ export const presEntrepriseGuard: CanActivateFn = (route, state) => {
   return access;  
 };
 
+export const indemniteGuard: CanActivateFn = (route, state) => {
+  let roles = localStorage.getItem('roles');
+  let roleList = JSON.parse(roles!) 
+  let access = false; 
+  if (roleList.includes('Indemnités')) { 
+    access = true;
+  }
+  return access;  
+};
+
 export const syndicatGuard: CanActivateFn = (route, state) => {
   let roles = localStorage.getItem('roles');
   let roleList = JSON.parse(roles!) 

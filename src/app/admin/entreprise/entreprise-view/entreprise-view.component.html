@@ -15,10 +15,10 @@
                              <i class="ri-add-fill"></i> Ajouter Abonnement 
                         </button>
                         <button mat-icon-button color="primary" 
-                                (click)="openEditDialog('300ms', '100ms', entreprise.id)">
+                                (click)="openEditDialog('300ms', '100ms', entreprise.id)" matTooltip="Modifier ce document">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="accent" (click)="delete(entreprise.id)">
+                        <button mat-icon-button color="accent" (click)="delete(entreprise.id)" matTooltip="Supprimer ce document">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>

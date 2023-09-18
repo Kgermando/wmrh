@@ -53,29 +53,29 @@ export class AvanceSalaireDetailComponent implements OnInit {
       
       this.authService.user().subscribe({
         next: (user) => {
-            this.currentUser = user; 
-            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-              this.preference = res;
-            });
+          this.currentUser = user; 
+          this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
+            this.preference = res;
             this.avanceSalaireService.get(Number(id)).subscribe(res => {
-              this.avanceSalaire = res;
-              const created = new Date(this.avanceSalaire.created);
-              const moisSuivant = created.getMonth() + 1;
-              const annee = created.getFullYear();
-              this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
-              this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
-              
-              this.isValid = created.getMonth() === this.dateMonth && annee === this.dateAN
-              this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!   
-            });
-          this.isLoading = false;
+            this.avanceSalaire = res;
+            const created = new Date(this.avanceSalaire.created);
+            const moisSuivant = created.getMonth() + 1;
+            const annee = created.getFullYear();
+            this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
+            this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
+            
+            this.isValid = created.getMonth() === this.dateMonth && annee === this.dateAN
+            this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!
+            this.isLoading = false; 
+          });
+          });
         },
         error: (error) => {
           this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
-      });  
+      });
     }
 
     delete(id: number): void {

@@ -80,7 +80,7 @@ import { EditPenaliteDialogBox, PenaliteDetailComponent } from './penalites/pena
 import { PenaliteTableComponent } from './penalites/penalite-detail/penalite-table/penalite-table.component';
 import { EditHeureSuppDialogBox, HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
 import { HeureSuppTableComponent } from './heures-supp/heure-supp-detail/heure-supp-table/heure-supp-table.component';
-import { HoraireComponent } from './horaire/horaire.component';
+import { HoraireComponent } from './horaires/horaire/horaire.component';
 import { PrimeFilterComponent } from './primes/prime-filter/prime-filter.component';
 import { PenaliteFilterComponent } from './penalites/penalite-filter/penalite-filter.component';
 import { HeureSuppFilterComponent } from './heures-supp/heure-supp-filter/heure-supp-filter.component';
@@ -179,7 +179,12 @@ import { ProfilPenalitesComponent } from './auth/profile/profil-penalites/profil
 import { ProfilPerformanceComponent } from './auth/profile/profil-performance/profil-performance.component';
 import { ProfilAvancesSalaireComponent } from './auth/profile/profil-avances-salaire/profil-avances-salaire.component';
 import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/profil-presences-view/profil-presences-view.component';
-import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/classeur-filter-disp.component'; 
+import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/classeur-filter-disp.component';
+import { HorairesComponent } from './horaires/horaires.component'; 
+import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.component'; 
+import { HoraireViewComponent } from './horaires/horaire-view/horaire-view.component';
+import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
+import { IndemnitePaieComponent } from './salaires/indemnite-paie/indemnite-paie.component';
 
 
 @NgModule({
@@ -350,7 +355,10 @@ import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/cla
     ProfilPerformanceComponent,
     ProfilAvancesSalaireComponent,
     ProfilPresencesViewComponent, 
-    ClasseurFilterDispComponent,
+    ClasseurFilterDispComponent, 
+    HoraireAddComponent, 
+    HorairesComponent, 
+    HoraireViewComponent, IndemnitesComponent, IndemnitePaieComponent,
   ],
   imports: [
     BrowserModule,

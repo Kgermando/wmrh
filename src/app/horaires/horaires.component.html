@@ -1,0 +1,25 @@
+
+
+<mat-card class="mb-25 tagus-card"> 
+    <mat-card-header>
+        <div>
+            <h4 class="mb-0">Horaire</h4>
+        </div>
+        <div>
+            <button mat-flat-button class="default-btn tagus m-0 margin" 
+                routerLink="/layouts/horaires/horaire-add">
+                <i class="ri-add-fill"></i> Ajouter l'horaire
+            </button> 
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-lg-8 col-md-6">
+                <app-horaire></app-horaire>
+            </div>
+            <div class="col-lg-4 col-md-6">  
+                <app-horaire-view></app-horaire-view>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -11,7 +11,7 @@
                     <mat-form-field appearance="fill">
                         <i class="ri-edit-2-line"></i>
                         <mat-label>Select agent</mat-label>
-                        <mat-select formControlName="personnel">
+                        <mat-select  [compareWith]="compareFn" formControlName="personnel">
                             <mat-option *ngFor="let personne of personneList" [value]="personne.id">
                                 {{personne.prenom}} {{personne.nom}}  <<{{personne.matricule}}>> 
                             </mat-option>

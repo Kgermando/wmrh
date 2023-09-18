@@ -35,7 +35,7 @@ export class HeureSuppDetailComponent implements OnInit {
     public themeService: CustomizerSettingsService,
     private route: ActivatedRoute,
     private router: Router,
-      private authService: AuthService,
+    private authService: AuthService,
     private heureSuppService: HeureSuppService, 
     public dialog: MatDialog,
     private toastr: ToastrService) {}
@@ -43,17 +43,27 @@ export class HeureSuppDetailComponent implements OnInit {
 
     ngOnInit(): void {
       this.isLoading = true;
-      let id = this.route.snapshot.paramMap.get('id');  // this.route.snapshot.params['id'];
-      this.heureSuppService.get(Number(id)).subscribe(res => {
-        this.heureSupp = res;
-        const created = new Date(this.heureSupp.created);
-        const moisSuivant = created.getMonth() + 1;
-        const annee = created.getFullYear();
-        this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
-        this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
-        this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
-        this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
-        this.isLoading = false; 
+      let id = this.route.snapshot.paramMap.get('id'); 
+      this.authService.user().subscribe({
+        next: (user) => {
+          this.currentUser = user; 
+          this.heureSuppService.get(Number(id)).subscribe(res => {
+            this.heureSupp = res;
+            const created = new Date(this.heureSupp.created);
+            const moisSuivant = created.getMonth() + 1;
+            const annee = created.getFullYear();
+            this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
+            this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
+            this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
+            this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
+            this.isLoading = false;
+          });
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.router.navigate(['/auth/login']);
+          console.log(error);
+        }
       });   
     }
 
@@ -172,6 +182,10 @@ export class EditHeureSuppDialogBox implements OnInit{
 
   close(){
       this.dialogRef.close(true);
-  } 
+  }
+
+  compareFn(c1: PersonnelModel, c2: PersonnelModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
 
 }
