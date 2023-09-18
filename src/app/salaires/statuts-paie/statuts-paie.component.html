@@ -3,7 +3,17 @@
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
         <h4 class="mb-0">Statut de paie</h4>
-        <div>
+        <div class="d-flex align-items-center justify-content-end"> 
+            <mat-form-field appearance="fill">
+                <mat-label>Select entreprise</mat-label>
+                <mat-select (selectionChange)="onChangeEntreprise($event)" formControlName="entreprise">
+                    <mat-option *ngFor="let entreprise of entrepriseList" [value]="entreprise.service"
+                        >
+                        {{entreprise.service}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="box"></div>
             <mat-form-field appearance="fill">
                 <mat-label>Select classeur</mat-label>
                 <mat-select (selectionChange)="onChangeFarde($event)">
@@ -27,6 +37,19 @@
         </div>
         <div class="mat-elevation-z8 tagus-mat-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+                <ng-container matColumnDef="services">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Entreprise</th>
+                    <td mat-cell *matCellDef="let element">
+                        <a [routerLink]="['/layouts/salaires/traitement', element.id, 'fiche-paie']" 
+                                *ngIf="element.statut == 'Traitement'">
+                                {{element.service }}
+                        </a>
+                        <a [routerLink]="['/layouts/salaires/disponible', element.id, 'bulletin-paie']"
+                                                    *ngIf="element.statut == 'Disponible'">
+                                {{element.service }}
+                        </a>
+                    </td>
+                </ng-container>
 
                 <ng-container matColumnDef="statut">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Statuts</th>
@@ -74,19 +97,7 @@
                         </a>
                     </td>
                 </ng-container>
-                <ng-container matColumnDef="services">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Services</th>
-                    <td mat-cell *matCellDef="let element">
-                        <a [routerLink]="['/layouts/salaires/traitement', element.id, 'fiche-paie']" 
-                                *ngIf="element.statut == 'Traitement'">
-                                {{element.service }}
-                        </a>
-                        <a [routerLink]="['/layouts/salaires/disponible', element.id, 'bulletin-paie']"
-                                                    *ngIf="element.statut == 'Disponible'">
-                                {{element.service }}
-                        </a>
-                    </td>
-                </ng-container>
+                
                 <ng-container matColumnDef="site_locations">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Sites de travail</th>
                     <td mat-cell *matCellDef="let element">

@@ -18,11 +18,11 @@ export class PersonnelService extends ApiService {
   }
 
   resetStatutPaieAll(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/reset-statut-paie-all/${code_entreprise}`);
+    return this.http.put(`${this.endpoint}/reset-statut-paie-all/${code_entreprise}`, {});
   }
 
   resetStatutPaie(code_entreprise: string, id: number): Observable<any> {
-    return this.http.get(`${this.endpoint}/reset-statut-paie/${code_entreprise}/${id}`);
+    return this.http.put(`${this.endpoint}/reset-statut-paie/${code_entreprise}/${id}`, {});
   }
 
   uploadCSV(data: any): Observable<any> {

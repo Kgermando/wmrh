@@ -8,6 +8,16 @@
     <div class="row bg-light-gray border-radius d-flex align-items-center text-center p-10 taille">
         <div class="d-flex align-items-center justify-content-end"> 
             <mat-form-field appearance="fill">
+                <mat-label>Select entreprise</mat-label>
+                <mat-select (selectionChange)="onChangeEntreprise($event)">
+                    <mat-option *ngFor="let entreprise of entrepriseList" [value]="entreprise.service"
+                        >
+                        {{entreprise.service}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="box"></div>
+            <mat-form-field appearance="fill">
                 <mat-label>Select classeur</mat-label>
                 <mat-select (selectionChange)="onChangeFarde($event)">
                     <mat-option *ngFor="let farde of fardeList" [value]="farde">
@@ -19,10 +29,9 @@
                 <mat-icon>print</mat-icon>
             </button>
         </div>
-        
-       
+
         <div class="col-lg-6 col-md-6 col-sm-6"> 
-            <table class="table"> 
+            <table class="table">
                 <tbody>
                     <tr>
                         <td class="text-start">
@@ -161,6 +170,7 @@
         <thead>
             <tr>
                 <th class="fw-semibold gray-color">N°</th>
+                <th class="fw-semibold main-color">Entreprise</th>
                 <th class="fw-semibold main-color">Matricule</th>
                 <th class="fw-semibold gray-color">Nom Complet</th>
                 <th class="fw-semibold gray-color">Departement</th>
@@ -186,6 +196,9 @@
             <tr *ngFor="let item of releveList; index as i">
                 <td class="gray-color fw-semibold">
                     {{ i + 1 }}
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.service }}
                 </td>
                 <td class="gray-color fw-semibold">
                     {{ item.matricule.toUpperCase() }}

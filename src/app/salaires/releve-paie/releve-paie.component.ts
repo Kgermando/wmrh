@@ -7,7 +7,7 @@ import { SalaireService } from '../salaire.service';
 import { formatDate } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReleveSalaireModel } from '../models/releve-salaire-model';
 
 @Component({
@@ -22,6 +22,7 @@ export class RelevePaieComponent implements OnInit {
   isLoading = false;
   currentUser: PersonnelModel | any;
 
+  entrepriseList: any[] = []; 
   fardeList: any[] = []; 
   dateFarde: any;
   dateNow = new Date();
@@ -42,47 +43,64 @@ export class RelevePaieComponent implements OnInit {
   penalite_total = 0;
   syndicat_total = 0; 
 
+  formGroup!: FormGroup;
+  entreprise: any;
+
 
   constructor( 
       public themeService: CustomizerSettingsService,
+      private formBuilder: FormBuilder,
       private router: Router,
       private authService: AuthService,
       private salaireService: SalaireService, 
       public dialog: MatDialog,
   ) {}
 
- 
+
   toggleTheme() {
       this.themeService.toggleTheme();
   }
 
   ngOnInit(): void {
     this.isLoading = true;
+
+    this.formGroup = this.formBuilder.group({  
+      entreprise: new FormControl(''),
+    });
+
     this.authService.user().subscribe({
       next: (user) => {
-          this.currentUser = user;
+        this.currentUser = user;
+        this.salaireService.listeService(this.currentUser.code_entreprise).subscribe(entreprise => {
+          this.entrepriseList = entreprise;
           this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
-            this.fardeList = farde; 
+            this.fardeList = farde;
             this.isLoading = false;
           });
+        });
       },
       error: (error) => {
         this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    }); 
+    });
+  }
+
+  onChangeEntreprise(event: any) { 
+    this.entreprise = event.value;
   }
 
 
   onChangeFarde(event: any) {
-    this.salaireService.relevePaie(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(res => {
+    console.log('entreprise', this.entreprise);
+    this.salaireService.relevePaie(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(res => {
       this.releveList = res;
-      
+
       var datePaieList = this.fardeList.filter((v) => v.month == event.value.month && v.year == event.value.year);
       this.dateFarde = datePaieList[datePaieList.length-1];
-      this.dateMonth = parseInt(this.dateFarde.month);
-      this.dateYear =  parseInt(this.dateFarde.year);
+      this.dateMonth = new Date(this.dateFarde).getMonth();
+        this.dateYear =  new Date(this.dateFarde).getFullYear();
       if (this.dateMonth === 1) {
           this.mois = 'Janvier';
       } else if(this.dateMonth === 2) {
@@ -108,49 +126,50 @@ export class RelevePaieComponent implements OnInit {
       } else if(this.dateMonth === 12) {
         this.mois = 'Décembre';
       }
-      this.salaireService.netAPayerTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+      
+      this.salaireService.netAPayerTotal(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(
         net_a_payer => {
           var net_a_payE = net_a_payer;
           net_a_payE.map((item: any) => this.net_a_payer = parseFloat(item.sum));  
         }
       );
-      this.salaireService.iprTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+      this.salaireService.iprTotal(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(
         ipr => {
           var iprs = ipr;
           iprs.map((item: any) => this.ipr = parseFloat(item.sum));
         }
       );
-      this.salaireService.cnssQPOTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+      this.salaireService.cnssQPOTotal(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(
         cnss => {
           var cnssQPO = cnss; 
           cnssQPO.map((item: any) => this.cnss = parseFloat(item.sum));
         }
       );
-      this.salaireService.rbiTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+      this.salaireService.rbiTotal(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(
         rbi => {
           var rbis = rbi; 
           rbis.map((item: any) => this.rbi_total = parseFloat(item.sum));
         }
       );
-      this.salaireService.heureSuppTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+      this.salaireService.heureSuppTotal(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(
         heure_supp => {
           var heure_supps = heure_supp;
           heure_supps.map((item: any) => this.heure_supp_total = parseFloat(item.sum));  
         }
       );
-      this.salaireService.primeTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+      this.salaireService.primeTotal(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(
         prime => {
           var primes = prime;
           primes.map((item: any) => this.prime_total = parseFloat(item.sum));
         }
       );
-      this.salaireService.penalitesTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+      this.salaireService.penalitesTotal(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(
         penalites => {
           var penalitess = penalites; 
           penalitess.map((item: any) => this.penalite_total = parseFloat(item.sum));
         }
       );
-      this.salaireService.syndicatTotal(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(
+      this.salaireService.syndicatTotal(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(
         syndicat => {
           var syndicats = syndicat; 
           syndicats.map((item: any) => this.syndicat_total = parseFloat(item.sum));

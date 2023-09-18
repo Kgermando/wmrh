@@ -18,9 +18,9 @@ export class SalaireService extends ApiService {
     return this.http.get(`${this.endpoint}/get-farde-paie/${code_entreprise}`);
   }
 
-  // fardeIsPaie(code_entreprise: string): Observable<any> {
-  //   return this.http.get(`${this.endpoint}/get-farde-paie-only/${code_entreprise}`);
-  // }
+  listeService(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-list-services/${code_entreprise}`);
+  }
 
   // fardeIsPaieDisponible(code_entreprise: string): Observable<any> {
   //   return this.http.get(`${this.endpoint}/get-farde-paie-disponible-only/${code_entreprise}`);
@@ -34,51 +34,56 @@ export class SalaireService extends ApiService {
   //   return this.http.get(`${this.endpoint}/get-farde-max-value/${code_entreprise}`);
   // }
 
-  statutPaie(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-statut-paie/${code_entreprise}/${month}/${year}`);
+
+
+
+  statutPaie(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-statut-paie/${code_entreprise}/${service}/${month}/${year}`);
   }
 
-  relevePaie(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-releve-paie/${code_entreprise}/${month}/${year}`);
+  relevePaie(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-releve-paie/${code_entreprise}/${service}/${month}/${year}`);
   }
 
-
-
-  netAPayerTotal(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-net-a-payer-total/${code_entreprise}/${month}/${year}`);
+  netAPayerTotal(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-net-a-payer-total/${code_entreprise}/${service}/${month}/${year}`);
   } 
 
-  iprTotal(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-ipr-total/${code_entreprise}/${month}/${year}`);
+  iprTotal(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-ipr-total/${code_entreprise}/${service}/${month}/${year}`);
   } 
 
-  cnssQPOTotal(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-cnss-qpo-total/${code_entreprise}/${month}/${year}`);
+  cnssQPOTotal(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-cnss-qpo-total/${code_entreprise}/${service}/${month}/${year}`);
   }
 
-  rbiTotal(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-rbi-total/${code_entreprise}/${month}/${year}`);
+  rbiTotal(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-rbi-total/${code_entreprise}/${service}/${month}/${year}`);
   }
 
-  fraisBancaireTotal(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-frais-bancaire-total/${code_entreprise}/${month}/${year}`);
+  fraisBancaireTotal(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-frais-bancaire-total/${code_entreprise}/${service}/${month}/${year}`);
   }
 
-  heureSuppTotal(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-heures-supp-total/${code_entreprise}/${month}/${year}`);
+  heureSuppTotal(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-heures-supp-total/${code_entreprise}/${service}/${month}/${year}`);
   }
 
-  primeTotal(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-primes-total/${code_entreprise}/${month}/${year}`);
+  primeTotal(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-primes-total/${code_entreprise}/${service}/${month}/${year}`);
   }
 
-  penalitesTotal(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-penalites-total/${code_entreprise}/${month}/${year}`);
+  penalitesTotal(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-penalites-total/${code_entreprise}/${service}/${month}/${year}`);
   }
 
-  syndicatTotal(code_entreprise: string, month: string, year: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-syndicat-total/${code_entreprise}/${month}/${year}`);
+  syndicatTotal(code_entreprise: string, service: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-syndicat-total/${code_entreprise}/${service}/${month}/${year}`);
   }
+
+
+
+
 
 
   getJrPrestE(code_entreprise: string, matricule: string, date_paie: string): Observable<any> {

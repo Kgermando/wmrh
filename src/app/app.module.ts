@@ -358,7 +358,9 @@ import { IndemnitePaieComponent } from './salaires/indemnite-paie/indemnite-paie
     ClasseurFilterDispComponent, 
     HoraireAddComponent, 
     HorairesComponent, 
-    HoraireViewComponent, IndemnitesComponent, IndemnitePaieComponent,
+    HoraireViewComponent, 
+    IndemnitesComponent, 
+    IndemnitePaieComponent,
   ],
   imports: [
     BrowserModule,

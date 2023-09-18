@@ -19,7 +19,7 @@ import { ReleveSalaireModel } from '../models/releve-salaire-model';
   styleUrls: ['./statuts-paie.component.scss']
 })
 export class StatutsPaieComponent implements OnInit {
-  displayedColumns: string[] = ['statut', 'matricule', 'fullname', 'departements', 'services', 'site_locations', 'created'];
+  displayedColumns: string[] = [ 'services', 'statut', 'matricule', 'fullname', 'departements', 'site_locations', 'created'];
   
   ELEMENT_DATA: ReleveSalaireModel[] = [];
   
@@ -33,12 +33,15 @@ export class StatutsPaieComponent implements OnInit {
   currentUser: PersonnelModel | any;
 
   fardeList: any[] = [];
+  entrepriseList: any[] = [];
   dateFarde: any; 
 
   mois = '';
   dateNow = new Date();
   dateMonth = 0;
   dateYear = 0; 
+
+  entreprise: any;
   
  
   constructor(
@@ -56,9 +59,12 @@ export class StatutsPaieComponent implements OnInit {
     this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user;
-            this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
-              this.fardeList = farde; 
-              this.isLoading = false;
+            this.salaireService.listeService(this.currentUser.code_entreprise).subscribe(entreprise => {
+              this.entrepriseList = entreprise;
+              this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
+                this.fardeList = farde;
+                this.isLoading = false;
+              });
             });
         },
         error: (error) => {
@@ -88,19 +94,22 @@ export class StatutsPaieComponent implements OnInit {
   }
 
 
+  onChangeEntreprise(event: any) { 
+    this.entreprise = event.value;
+  }
 
   onChangeFarde(event: any) {
-    this.salaireService.statutPaie(this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(res => { 
+    this.salaireService.statutPaie(this.currentUser.code_entreprise, this.entreprise, event.value.month, event.value.year).subscribe(res => { 
         this.ELEMENT_DATA = res;
         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        console.log('event.value.month', event.value.month);
-        var datePaieList = this.fardeList.filter((v) => v.date_paie.month == event.value.month &&
+        
+        var datePaieList = this.fardeList.filter((v) => new Date(v.date_paie).getMonth() == event.value.month &&
           v.date_paie.year == event.value.year);
         this.dateFarde = datePaieList[datePaieList.length-1];
-        this.dateMonth = parseInt(this.dateFarde.month);
-        this.dateYear =  parseInt(this.dateFarde.year);
+        this.dateMonth = new Date(this.dateFarde).getMonth();
+        this.dateYear =  new Date(this.dateFarde).getFullYear();
         if (this.dateMonth === 1) {
             this.mois = 'Janvier';
         } else if(this.dateMonth === 2) {

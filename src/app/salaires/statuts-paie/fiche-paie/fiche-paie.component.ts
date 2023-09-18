@@ -474,11 +474,10 @@ export class FichePaieComponent implements OnInit {
     }
  
     delete(id: number): void {
-      if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-        const date_paie = this.salaire.date_paie.getMonth() - 1;
+      if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { 
 
         var personnel = {
-          date_paie: date_paie,
+          date_paie: new Date(),
           statut_paie: 'En attente',
           signature: this.currentUser.matricule,
           update_created: new Date(),
@@ -488,7 +487,7 @@ export class FichePaieComponent implements OnInit {
         this.personnelService.update(this.salaire.personnel.id, personnel).subscribe({
           next: () => {  
             var salaire = {
-              date_paie: date_paie,
+              date_paie: new Date(),
               signature: this.currentUser.matricule,
               update_created: new Date(),
               entreprise: this.currentUser.entreprise,

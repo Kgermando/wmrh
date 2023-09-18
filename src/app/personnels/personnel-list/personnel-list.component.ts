@@ -23,7 +23,7 @@ import { EntrepriseModel } from 'src/app/admin/entreprise/models/entreprise.mode
   styleUrls: ['./personnel-list.component.scss']
 })
 export class PersonnelListComponent implements OnInit {
-  displayedColumns: string[] = ['matricule','fullname', 'email', 'telephone', 'sexe', 'id'];
+  displayedColumns: string[] = ['service', 'matricule', 'fullname', 'email', 'telephone', 'sexe', 'id'];
   
   ELEMENT_DATA: PersonnelModel[] = [];
   
@@ -42,7 +42,6 @@ export class PersonnelListComponent implements OnInit {
 
  
   constructor(
-    private httpClient: HttpClient,
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
       private router: Router,
@@ -68,10 +67,10 @@ export class PersonnelListComponent implements OnInit {
               this.ELEMENT_DATA = res; 
               this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
               this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator; 
+              this.dataSource.paginator = this.paginator;
 
               this.entrepriseService.getCodeEntreprise(this.currentUser.code_entreprise).subscribe(e => {
-                this.entreprise = e; 
+                this.entreprise = e;
               });
           });
           
