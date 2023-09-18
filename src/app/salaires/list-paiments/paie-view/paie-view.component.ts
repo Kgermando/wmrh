@@ -53,9 +53,7 @@ export class PaieViewComponent implements OnInit {
 
   mois = '';
   dateNow = new Date();
-  dateMonth = 0; 
-
-  fardeValue = 0;
+  dateMonth = 0;  
  
 
   constructor(

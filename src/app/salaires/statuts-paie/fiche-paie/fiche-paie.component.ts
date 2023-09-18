@@ -487,7 +487,7 @@ export class FichePaieComponent implements OnInit {
         };
         this.personnelService.update(this.salaire.personnel.id, personnel).subscribe({
           next: () => {  
-            var salaire = {  
+            var salaire = {
               date_paie: date_paie,
               signature: this.currentUser.matricule,
               update_created: new Date(),

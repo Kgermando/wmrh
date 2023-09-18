@@ -95,6 +95,7 @@ export class StatutsPaieComponent implements OnInit {
         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        console.log('event.value.month', event.value.month);
         var datePaieList = this.fardeList.filter((v) => v.date_paie.month == event.value.month &&
           v.date_paie.year == event.value.year);
         this.dateFarde = datePaieList[datePaieList.length-1];
