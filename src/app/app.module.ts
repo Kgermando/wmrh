@@ -103,18 +103,10 @@ import { EditPerformenceDialogBox, PerformenceTableComponent } from './performen
 import { PerformencePieComponent } from './performences/performence-view/performence-pie/performence-pie.component'; 
 import { PerformencePieYearComponent } from './performences/performence-view/performence-pie/performence-pie-year/performence-pie-year.component';
 import { PerformencePieAllComponent } from './performences/performence-view/performence-pie/performence-pie-all/performence-pie-all.component';
-import { PresEntrepriseAddDialogBox, PresEntrepriseComponent } from './pres-entreprise/pres-entreprise.component';
-import { DashAllMoisComponent } from './dashboard/all/dash-all-mois/dash-all-mois.component';
-import { DashAllYearComponent } from './dashboard/all/dash-all-year/dash-all-year.component';
-import { DashAllComponent } from './dashboard/all/dash-all/dash-all.component';
-import { EmployesMoisComponent } from './dashboard/employes/employes-mois/employes-mois.component';
-import { EmployesYearComponent } from './dashboard/employes/employes-year/employes-year.component';
+import { PresEntrepriseAddDialogBox, PresEntrepriseComponent } from './pres-entreprise/pres-entreprise.component'; 
+import { DashAllComponent } from './dashboard/all/dash-all/dash-all.component'; 
 import { EmployesAllComponent } from './dashboard/employes/employes-all/employes-all.component';
-import { FinanceAllComponent } from './dashboard/finances/finance-all/finance-all.component';
-import { FinanceYearComponent } from './dashboard/finances/finance-year/finance-year.component';
-import { FinanceMonthComponent } from './dashboard/finances/finance-month/finance-month.component';
-import { PresenceMonthComponent } from './dashboard/presences/presence-month/presence-month.component';
-import { PresenceYearComponent } from './dashboard/presences/presence-year/presence-year.component';
+import { FinanceAllComponent } from './dashboard/finances/finance-all/finance-all.component';  
 import { PresenceAllComponent } from './dashboard/presences/presence-all/presence-all.component';
 import { AutreAllComponent } from './dashboard/autres/autre-all/autre-all.component';
 import { AutreMonthComponent } from './dashboard/autres/autre-month/autre-month.component';
@@ -297,18 +289,10 @@ import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.compon
     PerformencePieComponent, 
     PerformencePieYearComponent,
     PerformencePieAllComponent,
-    PresEntrepriseComponent,
-    DashAllMoisComponent,
-    DashAllYearComponent,
-    DashAllComponent,
-    EmployesMoisComponent,
-    EmployesYearComponent,
+    PresEntrepriseComponent, 
+    DashAllComponent, 
     EmployesAllComponent,
     FinanceAllComponent,
-    FinanceYearComponent,
-    FinanceMonthComponent,
-    PresenceMonthComponent,
-    PresenceYearComponent,
     PresenceAllComponent,
     AutreAllComponent,
     AutreMonthComponent,

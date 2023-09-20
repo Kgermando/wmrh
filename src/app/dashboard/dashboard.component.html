@@ -1,39 +1,48 @@
 
 <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap="25px" fxLayoutGap.xs="0" fxLayoutGap.sm="0">
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
-        <mat-card class="single-stats-box tagus-card mb-25" style="background-color: aquamarine !important;">
-            <span class="gray-color d-block mb-10">Votre filtre</span>
-            <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"  
-                value="All" (selectionChange)="onSelectCategoryChange($event)">
-                <mat-option *ngFor="let category of categoryList" [value]="category">{{category.toUpperCase()}}</mat-option>
-            </mat-select> 
-            <mat-select type="button" mat-button class="position-relative p-0 bg-transparent border-none"
-                value="All" (selectionChange)="onSelectChange($event)">
-                <mat-option *ngFor="let select of dureeList" [value]="select">{{select.toUpperCase()}}</mat-option>
-            </mat-select> 
+        <mat-card class=" tagus-card" style="background-color: aquamarine !important; height: 80%;"> 
+            <form [formGroup]="dateRange">
+                <mat-form-field>
+                    <mat-label>Choisir la plage de Date</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                      <input matStartDate formControlName="start" placeholder="Start Date">
+                      <input matEndDate formControlName="end" placeholder="End Date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker> 
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Choisir le module</mat-label>
+                    <mat-select type="button" mat-button
+                        (selectionChange)="onSelectCategoryChange($event)" formControlName="categorie">
+                        <mat-option *ngFor="let category of categoryList" [value]="category">{{category.toUpperCase()}}</mat-option>
+                    </mat-select> 
+                </mat-form-field>
+            </form>
         </mat-card>
 
         <div *ngIf="isSelectCategory == 'Presences'">
-        <mat-card
-            class="mb-25 tagus-card user-activities-box"
-            [class.component-dark-theme]="themeService.isDark()"
-        >
-            <mat-card-content>
-                <ul class="list-unstyled ps-0 mb-0">
-                    <li class="d-flex align-items-center justify-content-space-between">
-                        <div class="d-flex align-items-center">
-                            <i class="ri-user-line mission"></i>
-                            <div class="ms-12">
-                                <h5>{{numberM}}</h5>
-                                <span class="d-block mission">Missions</span>
+            <mat-card
+                class="mb-25 tagus-card user-activities-box"
+                [class.component-dark-theme]="themeService.isDark()"
+            >
+                <mat-card-content>
+                    <ul class="list-unstyled ps-0 mb-0">
+                        <li class="d-flex align-items-center justify-content-space-between">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-user-line mission"></i>
+                                <div class="ms-12">
+                                    <h5>{{numberM}}</h5>
+                                    <span class="d-block mission">Missions</span>
+                                </div>
                             </div>
-                        </div>
-                    </li> 
-                </ul>
-            </mat-card-content>
-        </mat-card> 
+                        </li> 
+                    </ul>
+                </mat-card-content>
+            </mat-card> 
+        </div> 
     </div> 
-</div> 
     
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
             *ngIf="isSelectCategory == 'Employés' || isSelectCategory == 'All'">
@@ -42,16 +51,8 @@
                 <div class="icon bg2">
                     <i class="flaticon flaticon-people"></i> 
                 </div>
-                <div class="title"> 
-                        <div *ngIf="isSelect == 'Mois'">
-                            <h3>{{totalEmployeMonth}}</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'Année'">
-                            <h3>{{totalEmployeYear}}</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'All'">
-                            <h3>{{totalEmployeAll}}</h3>
-                        </div>
+                <div class="title">  
+                    <h3>{{totalEmployeAll}}</h3>
                     <span class="gray-color d-block">Total Employés</span>
                 </div>
             </div>
@@ -64,16 +65,8 @@
                 <div class="icon bg3">
                     <i class="flaticon flaticon-user"></i>
                 </div>
-                <div class="title"> 
-                    <div *ngIf="isSelect == 'Mois'">
-                        <h3>{{totalEmployeFemmeMonth}}</h3>
-                    </div>
-                    <div *ngIf="isSelect == 'Année'">
-                        <h3>{{totalEmployeFemmeYear}}</h3>
-                    </div>
-                    <div *ngIf="isSelect == 'All'">
-                        <h3>{{totalEmployeFemmeAll}}</h3>
-                    </div> 
+                <div class="title">  
+                    <h3>{{totalEmployeFemmeAll}}</h3>
                     <span class="gray-color d-block">Total Femmes</span>
                 </div>
             </div>
@@ -87,15 +80,7 @@
                     <i class="flaticon flaticon-user"></i>
                 </div>
                 <div class="title"> 
-                        <div *ngIf="isSelect == 'Mois'">
-                            <h3>{{totalEmployeHommeMonth}}</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'Année'">
-                            <h3>{{totalEmployeHommeYear}}</h3>
-                        </div>
-                        <div *ngIf="isSelect == 'All'">
-                            <h3>{{totalEmployeHommeAll}}</h3>
-                        </div> 
+                    <h3>{{totalEmployeHommeAll}}</h3>
                     <span class="gray-color d-block">Total Hommes</span>
                 </div>
             </div>
@@ -111,15 +96,7 @@
                     <i class="ri-money-dollar-circle-line"></i>
                 </div>
             </div>
-            <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'Mois'"> 
-                <h3 class="text-center">{{ netAPayerMonth  | numberFormat:'fr-FR'}} FC</h3> 
-            </div>
-            <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'Année'">
-                <h3 class="text-center">{{ netAPayerYear  | numberFormat:'fr-FR'}} FC</h3>  
-            </div>
-            <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'All'">
-                <h3 class="text-center">{{ netAPayerAll  | numberFormat:'fr-FR'}} FC</h3>  
-            </div> 
+            <h3 class="text-center">{{ netAPayerAll  | numberFormat:'fr-FR'}} FC</h3>  
         </mat-card>
     </div>
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
@@ -131,15 +108,7 @@
                     <i class="ri-swap-box-line"></i>
                 </div>
             </div>
-            <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'Mois'"> 
-                <h3 class="text-center">{{ iprMonth  | numberFormat:'fr-FR'}} FC</h3> 
-            </div>
-            <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'Année'">
-                <h3 class="text-center">{{ iprYear  | numberFormat:'fr-FR'}} FC</h3>  
-            </div>
-            <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'All'">
-                <h3 class="text-center">{{ iprAll  | numberFormat:'fr-FR'}} FC</h3>  
-            </div> 
+            <h3 class="text-center">{{ iprAll  | numberFormat:'fr-FR'}} FC</h3>  
         </mat-card>
     </div>
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col"  
@@ -151,15 +120,7 @@
                     <i class="ri-safe-line"></i>
                 </div>
             </div>
-            <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'Mois'"> 
-                <h3 class="text-center">{{ cnssQPOMonth  | numberFormat:'fr-FR'}} FC</h3> 
-            </div>
-            <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'Année'">
-                <h3 class="text-center">{{ cnssQPOYear  | numberFormat:'fr-FR'}} FC</h3>  
-            </div>
-            <div class="d-flex align-items-center justify-content-space-between"  *ngIf="isSelect == 'All'">
-                <h3 class="text-center">{{ cnssQPOAll  | numberFormat:'fr-FR'}} FC</h3>  
-            </div> 
+            <h3 class="text-center">{{ cnssQPOAll  | numberFormat:'fr-FR'}} FC</h3>  
         </mat-card>
     </div> 
 
@@ -291,58 +252,20 @@
 
 
 <div *ngIf="isSelectCategory == 'All'">
-    <div *ngIf="isSelect == 'Mois'">
-        <app-dash-all-mois></app-dash-all-mois>
-    </div>
-    <div *ngIf="isSelect == 'Année'">
-        <app-dash-all-year></app-dash-all-year>
-    </div>
-    <div *ngIf="isSelect == 'All'">
-        <app-dash-all></app-dash-all>
-    </div>
+    <app-dash-all [start_date]="start_date" [end_date]="end_date"></app-dash-all>
 </div>
 <div *ngIf="isSelectCategory == 'Employés'">
-    <div *ngIf="isSelect == 'Mois'">
-        <app-employes-mois></app-employes-mois>
-    </div>
-    <div *ngIf="isSelect == 'Année'">
-        <app-employes-year></app-employes-year>
-    </div>
-    <div *ngIf="isSelect == 'All'">
-        <app-employes-all></app-employes-all>
-    </div>
+    <app-employes-all [start_date]="start_date" [end_date]="end_date"></app-employes-all>
 </div>
 <div *ngIf="isSelectCategory == 'Finances'">
-    <div *ngIf="isSelect == 'Mois'">
-        <app-finance-month></app-finance-month>
-    </div>
-    <div *ngIf="isSelect == 'Année'">
-        <app-finance-year></app-finance-year>
-    </div>
-    <div *ngIf="isSelect == 'All'">
-        <app-finance-all></app-finance-all>
-    </div>
+    <app-finance-all [start_date]="start_date" [end_date]="end_date"></app-finance-all>
 </div>
-<div *ngIf="isSelectCategory == 'Presences'">
-    <div *ngIf="isSelect == 'Mois'">
-        <app-presence-month></app-presence-month>
-    </div>
-    <div *ngIf="isSelect == 'Année'">
-        <app-presence-year></app-presence-year>
-    </div>
-    <div *ngIf="isSelect == 'All'">
-        <app-presence-all></app-presence-all>
-    </div>
+
+
+<!-- <div *ngIf="isSelectCategory == 'Presences'">
+    <app-presence-all></app-presence-all>
 </div>
 <div *ngIf="isSelectCategory == 'Autres'">
-    <div *ngIf="isSelect == 'Mois'">
-        <app-autre-month></app-autre-month>
-    </div>
-    <div *ngIf="isSelect == 'Année'">
-        <app-autre-year></app-autre-year>
-    </div>
-    <div *ngIf="isSelect == 'All'">
-        <app-autre-all></app-autre-all>
-    </div>
-</div>
+    <app-autre-all></app-autre-all>
+</div> -->
  

@@ -7,6 +7,8 @@ import { PersonnelModel } from '../personnels/models/personnel-model';
 import { FinanceService } from './finances/finance.service';
 import { PresencePAAAModel } from '../presences/models/presence-pie-model';
 import { PresenceService } from '../presences/presence.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,60 +22,37 @@ export class DashboardComponent {
     'All',
     'Employés', 
     'Finances', 
-    'Presences',  
-  ]; //    'Autres', 
+    
+  ];
+  // 'Presences',  
+  // 'Autres', 
 
-  dureeList = ['All', 'Année', 'Mois'];
+  // dureeList = ['All', 'Année', 'Mois'];
+  dateRange!: FormGroup;
+  start_date: any = formatDate(new Date('2023-05-01'), 'yyyy-MM-dd', 'en-US');
+  end_date: any= formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
 
 
   isSelectCategory = 'All';
-  isSelect = 'All';
 
 
   currentUser: PersonnelModel | any;
 
-
-  totalEmployeAllList = [];
-  totalEmployeYearList = [];
-  totalEmployeMonthList = [];
+  totalEmployeAllList:any[] = [];
+  totalEmployeFemmeAllList:any[] = [];
+  totalEmployeHommeAllList:any[] = [];
   totalEmployeAll = 0;
-  totalEmployeYear = 0;
-  totalEmployeMonth = 0;
-
-  totalEmployeFemmeAllList = [];
-  totalEmployeFemmeYearList = [];
-  totalEmployeFemmeMonthList = [];
   totalEmployeFemmeAll = 0;
-  totalEmployeFemmeYear = 0;
-  totalEmployeFemmeMonth = 0;
-
-  totalEmployeHommeAllList = [];
-  totalEmployeHommeYearList = [];
-  totalEmployeHommeMonthList = [];
   totalEmployeHommeAll = 0;
-  totalEmployeHommeYear = 0;
-  totalEmployeHommeMonth = 0;
 
-  netAPayerAllList: [];
-  netAPayerYearList: [];
-  netAPayerMonthList: [];
+  netAPayerAllList:any[] = [];
   netAPayerAll = 0;
-  netAPayerYear = 0;
-  netAPayerMonth = 0; 
 
-  iprAllList: []; 
-  iprYearList: [];
-  iprMonthList: [];
+  iprAllList:any[] = [];
   iprAll = 0;
-  iprYear = 0;
-  iprMonth = 0;
 
-  cnssQPOAllList: [];
-  cnssQPOYearList: [];
-  cnssQPOMonthList: [];
+  cnssQPOAllList:any[] = [];
   cnssQPOAll = 0;
-  cnssQPOYear = 0;
-  cnssQPOMonth = 0;
 
 
   itemsPAAAList: PresencePAAAModel[] = [];
@@ -103,6 +82,7 @@ export class DashboardComponent {
 
   constructor(
     public themeService: CustomizerSettingsService,
+    private _formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private dashAllService: DashAllService,
@@ -113,37 +93,17 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void { 
+    this.dateRange = this._formBuilder.group({ 
+      start: new FormControl(new Date('2023-05-01')),
+      end: new FormControl(new Date()),
+      categorie: new FormControl('All')
+    });
+
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.getTotal(); 
-        this.getTotalFinance(); 
-        this.presenceService.getItemsPAAAALL(this.currentUser.code_entreprise).subscribe(res => { 
-          this.itemsPAAAList = res;
-          this.itemsPList = this.itemsPAAAList.filter(v => v.apointement === 'P');
-          this.itemsAList = this.itemsPAAAList.filter(v => v.apointement === 'A');
-          this.itemsAAList = this.itemsPAAAList.filter(v => v.apointement === 'AA');
-          
-          this.itemsPList.map((item: any) => this.numberP = item.count);
-          this.itemsAList.map((item: any) => this.numberA = item.count);
-          this.itemsAAList.map((item: any) => this.numberAA = item.count); 
-        });
-        this.presenceService.getItemsCongEALL(this.currentUser.code_entreprise).subscribe(res => {
-          this.itemsCongeList = res;
-          this.itemsAMList = this.itemsCongeList.filter(v => v.apointement === 'AM');
-          this.itemsCCList = this.itemsCongeList.filter(v => v.apointement === 'CC');
-          this.itemsCAList = this.itemsCongeList.filter(v => v.apointement === 'CA');
-          this.itemsSList = this.itemsCongeList.filter(v => v.apointement === 'S');
-          this.itemsOList = this.itemsCongeList.filter(v => v.apointement === 'O');
-          this.itemsMList = this.itemsCongeList.filter(v => v.apointement === 'M');
 
-          this.itemsAMList.map((item: any) => this.numberAM = item.count);
-          this.itemsCCList.map((item: any) => this.numberCC = item.count);
-          this.itemsCAList.map((item: any) => this.numberCA = item.count);
-          this.itemsSList.map((item: any) => this.numberS = item.count);
-          this.itemsOList.map((item: any) => this.numberO = item.count);
-          this.itemsMList.map((item: any) => this.numberM = item.count);
-        });
+        this.getTotalEmployE(this.start_date, this.end_date);
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -154,153 +114,115 @@ export class DashboardComponent {
 
   
     onSelectCategoryChange(event: any) { 
-      if (event.value === 'Employés') {
+      var body = {
+        start: this.dateRange.value.start,
+        end: this.dateRange.value.end,
+        categorie: this.dateRange.value.categorie,
+      }
+
+      this.start_date = formatDate(body.start, 'yyyy-MM-dd', 'en-US');
+      this.end_date = formatDate(body.end, 'yyyy-MM-dd', 'en-US'); 
+
+      if(body.categorie === 'All') {
+        this.isSelectCategory = 'All'; 
+        this.getTotalEmployE(this.start_date, this.end_date);
+
+      } else if (body.categorie === 'Employés') {
         this.isSelectCategory = 'Employés';
-      } else if(event.value === 'Finances') {
+        this.getTotalEmployE(this.start_date, this.end_date);
+
+      } else if(body.categorie === 'Finances') {
         this.isSelectCategory = 'Finances';
-      } else if(event.value === 'Presences') {
+        this.getTotalFinance(this.start_date, this.end_date); 
+
+      } else if(body.categorie === 'Presences') {
         this.isSelectCategory = 'Presences';
-      } else if(event.value === 'Autres') {
+        this.getPresence();
+        
+      } else if(body.categorie === 'Autres') {
         this.isSelectCategory = 'Autres';
-      } else if(event.value === 'All') {
-        this.isSelectCategory = 'All';
       }
+    }
+ 
+
+    getTotalEmployE(start_date: string, end_date: string) {
+      this.dashAllService.totalEnmployesAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+        res =>  {
+            this.totalEmployeAllList = res;
+            this.totalEmployeAllList.map((item: any) => this.totalEmployeAll = parseFloat(item.total));
+        }
+      ); 
+
+      this.dashAllService.totalEnmployeFemmeAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+        res =>  {
+          this.totalEmployeFemmeAllList = res;
+          this.totalEmployeFemmeAllList.map((item: any) => this.totalEmployeFemmeAll = parseFloat(item.total));
+        }
+      );
+
+      this.dashAllService.totalEnmployeHommeAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+        res =>  {
+          this.totalEmployeHommeAllList = res;
+            this.totalEmployeHommeAllList.map((item: any) => this.totalEmployeHommeAll = parseFloat(item.total));
+        }
+      ); 
     }
 
 
-    onSelectChange(event: any) { 
-      if (event.value === 'Mois') {
-        this.isSelect = 'Mois';
-      } else if(event.value === 'Année') {
-        this.isSelect = 'Année';
-      } else if(event.value === 'All') {
-        this.isSelect = 'All';
-      }
-    }
 
-    getTotal() {
-      this.dashAllService.totalEnmployesAll(this.currentUser.code_entreprise).subscribe(
-          res =>  {
-              this.totalEmployeAllList = res;
-              this.totalEmployeAllList.map((item: any) => this.totalEmployeAll = parseFloat(item.total));
-          }
-      );
-      this.dashAllService.totalEnmployesYear(this.currentUser.code_entreprise).subscribe(
-        res =>  {
-            this.totalEmployeYearList = res;
-            this.totalEmployeYearList.map((item: any) => this.totalEmployeYear = parseFloat(item.total));
-        }
-    );
-    this.dashAllService.totalEnmployesMonth(this.currentUser.code_entreprise).subscribe(
-      res =>  {
-          this.totalEmployeMonthList = res;
-          this.totalEmployeMonthList.map((item: any) => this.totalEmployeMonth = parseFloat(item.total));
-      }
-    );
-
-    this.dashAllService.totalEnmployeFemmeAll(this.currentUser.code_entreprise).subscribe(
-        res =>  {
-            this.totalEmployeFemmeAllList = res;
-            this.totalEmployeFemmeAllList.map((item: any) => this.totalEmployeFemmeAll = parseFloat(item.total));
-        }
-    );
-    this.dashAllService.totalEnmployeFemmeYear(this.currentUser.code_entreprise).subscribe(
-      res =>  {
-          this.totalEmployeFemmeYearList = res;
-          this.totalEmployeFemmeYearList.map((item: any) => this.totalEmployeFemmeYear = parseFloat(item.total));
-      }
-  );
-    this.dashAllService.totalEnmployeFemmeMonth(this.currentUser.code_entreprise).subscribe(
-        res =>  {
-            this.totalEmployeFemmeMonthList = res;
-            this.totalEmployeFemmeMonthList.map((item: any) => this.totalEmployeFemmeMonth = parseFloat(item.total));
-        }
-    );
-
-    this.dashAllService.totalEnmployeHommeAll(this.currentUser.code_entreprise).subscribe(
-        res =>  {
-            this.totalEmployeHommeAllList = res;
-              this.totalEmployeHommeAllList.map((item: any) => this.totalEmployeHommeAll = parseFloat(item.total));
-          }
-      );
-      this.dashAllService.totalEnmployeHommeYear(this.currentUser.code_entreprise).subscribe(
-        res =>  {
-            this.totalEmployeHommeYearList = res;
-            this.totalEmployeHommeYearList.map((item: any) => this.totalEmployeHommeYear = parseFloat(item.total));
-        }
-    );
-    this.dashAllService.totalEnmployeHommeMonth(this.currentUser.code_entreprise).subscribe(
-      res =>  {
-          this.totalEmployeHommeMonthList = res;
-          this.totalEmployeHommeMonthList.map((item: any) => this.totalEmployeHommeMonth = parseFloat(item.total));
-      }
-  );
-     }
-
-
-
-    getTotalFinance() {
-      this.dashAllService.masseSalarialAll(this.currentUser.code_entreprise).subscribe(
+    getTotalFinance(start_date: string, end_date: string) {
+      this.dashAllService.masseSalarialAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
           res =>  {
               this.netAPayerAllList = res;
               this.netAPayerAllList.map((item: any) => this.netAPayerAll = parseFloat(item.net_a_payer));
           }
-      );
-      this.dashAllService.masseSalarialYear(this.currentUser.code_entreprise).subscribe(
-        res =>  {
-              this.netAPayerYearList = res;
-              this.netAPayerYearList.map((item: any) => this.netAPayerYear = parseFloat(item.net_a_payer));
-          }
-      ); 
-      this.dashAllService.masseSalarialMonth(this.currentUser.code_entreprise).subscribe(
-        res =>  {
-            this.netAPayerMonthList = res;
-              this.netAPayerMonthList.map((item: any) => this.netAPayerMonth = parseFloat(item.net_a_payer));
-          }
-      );
-
+      );  
 
         // IPR
-      this.financeService.iprAll(this.currentUser.code_entreprise).subscribe(
+      this.financeService.iprAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
         res =>  {
             this.iprAllList = res;
             this.iprAllList.map((item: any) => this.iprAll = parseFloat(item.total));
         }
-      );
-      this.financeService.iprYear(this.currentUser.code_entreprise).subscribe(
-        res =>  {
-              this.iprYearList = res;
-              this.iprYearList.map((item: any) => this.iprYear = parseFloat(item.total));
-          }
       ); 
-      this.financeService.iprMonth(this.currentUser.code_entreprise).subscribe(
+
+        // CNSS QQPO
+      this.financeService.cnssQPOAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
         res =>  {
-            this.iprMonthList = res;
-              this.iprMonthList.map((item: any) => this.iprMonth = parseFloat(item.total));
-          }
+            this.cnssQPOAllList = res;
+            this.cnssQPOAllList.map((item: any) => this.cnssQPOAll = parseFloat(item.total));
+        }
       );
+    }
 
-         // CNSS QQPO
-         this.financeService.cnssQPOAll(this.currentUser.code_entreprise).subscribe(
-          res =>  {
-              this.cnssQPOAllList = res;
-              this.cnssQPOAllList.map((item: any) => this.cnssQPOAll = parseFloat(item.total));
-          }
-        );
-        this.financeService.cnssQPOYear(this.currentUser.code_entreprise).subscribe(
-          res =>  {
-                this.cnssQPOYearList = res;
-                this.cnssQPOYearList.map((item: any) => this.cnssQPOYear = parseFloat(item.total));
-            }
-        ); 
-        this.financeService.cnssQPOMonth(this.currentUser.code_entreprise).subscribe(
-          res =>  {
-              this.cnssQPOMonthList = res;
-                this.cnssQPOMonthList.map((item: any) => this.cnssQPOMonth = parseFloat(item.total));
-            }
-        );
 
-      
+    getPresence() {
+      this.presenceService.getItemsPAAAALL(this.currentUser.code_entreprise).subscribe(res => { 
+        this.itemsPAAAList = res;
+        this.itemsPList = this.itemsPAAAList.filter(v => v.apointement === 'P');
+        this.itemsAList = this.itemsPAAAList.filter(v => v.apointement === 'A');
+        this.itemsAAList = this.itemsPAAAList.filter(v => v.apointement === 'AA');
+        
+        this.itemsPList.map((item: any) => this.numberP = item.count);
+        this.itemsAList.map((item: any) => this.numberA = item.count);
+        this.itemsAAList.map((item: any) => this.numberAA = item.count); 
+      });
+      this.presenceService.getItemsCongEALL(this.currentUser.code_entreprise).subscribe(res => {
+        this.itemsCongeList = res;
+        this.itemsAMList = this.itemsCongeList.filter(v => v.apointement === 'AM');
+        this.itemsCCList = this.itemsCongeList.filter(v => v.apointement === 'CC');
+        this.itemsCAList = this.itemsCongeList.filter(v => v.apointement === 'CA');
+        this.itemsSList = this.itemsCongeList.filter(v => v.apointement === 'S');
+        this.itemsOList = this.itemsCongeList.filter(v => v.apointement === 'O');
+        this.itemsMList = this.itemsCongeList.filter(v => v.apointement === 'M');
+
+        this.itemsAMList.map((item: any) => this.numberAM = item.count);
+        this.itemsCCList.map((item: any) => this.numberCC = item.count);
+        this.itemsCAList.map((item: any) => this.numberCA = item.count);
+        this.itemsSList.map((item: any) => this.numberS = item.count);
+        this.itemsOList.map((item: any) => this.numberO = item.count);
+        this.itemsMList.map((item: any) => this.numberM = item.count);
+      });
     }
   
   

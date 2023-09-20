@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import {
     ApexAxisChartSeries,
@@ -87,6 +87,24 @@ export type ChartOptionDepartement = {
   plotOptions: ApexPlotOptions;
 };
 
+export type ChartOptionService = {
+    series: ApexNonAxisChartSeries;
+    chart: ApexChart;
+    labels: string[];
+    colors: string[];
+    legend: ApexLegend;
+    plotOptions: ApexPlotOptions;
+  };
+
+  export type ChartOptionSiteTravail = {
+    series: ApexNonAxisChartSeries;
+    chart: ApexChart;
+    labels: string[];
+    colors: string[];
+    legend: ApexLegend;
+    plotOptions: ApexPlotOptions;
+  };
+
 
 @Component({
   selector: 'app-employes-all',
@@ -94,6 +112,9 @@ export type ChartOptionDepartement = {
   styleUrls: ['./employes-all.component.scss']
 })
 export class EmployesAllComponent implements OnInit{
+    @Input('start_date') start_date: any;
+    @Input('end_date') end_date: any;
+
   @ViewChild("chart") chart: ChartComponent;
 
   public chartOptions: Partial<ChartOptions>;
@@ -105,6 +126,8 @@ export class EmployesAllComponent implements OnInit{
   public chartOptionPieSexe: Partial<ChartOptionPieSexe>;
 
   public chartOptionDepartement: Partial<ChartOptionDepartement>;
+  public chartOptionService: Partial<ChartOptionService>;
+  public chartOptionSiteTravail: Partial<ChartOptionSiteTravail>;
 
   isLoading = false;
 
@@ -116,7 +139,9 @@ export class EmployesAllComponent implements OnInit{
   ageParContratList: any[] = [];
   ageParEmployeList: any[] = [];
   sexeList: any = [];
-  employeParDepartement: any = []; 
+  employeParDepartement: any[] = [];
+  employeParService: any[] = []; 
+  employeParSiteTravail: any[] = []; 
 
   depList: any[] = [];
   depTotal = 0;
@@ -149,6 +174,8 @@ export class EmployesAllComponent implements OnInit{
         this.getPieSexe();
         this.getPerformence();
         this.getEmployeparDepartement();
+        this.getEmployeparService();
+        this.getEmployeparSiteTravail();
         this.getTotal();
         this.isLoading = false;
       },
@@ -161,7 +188,7 @@ export class EmployesAllComponent implements OnInit{
   }  
 
   getAgeParContrat() {
-    this.employeService.ageContratEmployeAll(this.currentUser.code_entreprise).subscribe(
+    this.employeService.ageContratEmployeAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
             this.ageParContratList = res;
             this.chartOptions = {
@@ -218,7 +245,7 @@ export class EmployesAllComponent implements OnInit{
 
 
   getAgeParEmploye() {
-    this.employeService.ageEmployeAll(this.currentUser.code_entreprise).subscribe(
+    this.employeService.ageEmployeAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
             this.ageParEmployeList = res;
             this.chartOptionAgeMoyenneEmployes = {
@@ -271,7 +298,7 @@ export class EmployesAllComponent implements OnInit{
 
 
   getPieSexe() {
-    this.employeService.getPieSexeAll(this.currentUser.code_entreprise).subscribe(
+    this.employeService.getPieSexeAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
             this.sexeList = res;
             this.chartOptionPieSexe = {
@@ -330,7 +357,7 @@ export class EmployesAllComponent implements OnInit{
 
 
   getPerformence() {
-    this.dashAllService.getPerformencesAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.getPerformencesAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
             this.prerformencePieList = res;
             this.chartOptionPerformence = {
@@ -415,7 +442,7 @@ export class EmployesAllComponent implements OnInit{
   
 
   getEmployeparDepartement() {
-    this.employeService.employeDepartementAll(this.currentUser.code_entreprise).subscribe(
+    this.employeService.employeDepartementAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
             this.employeParDepartement = res; 
             this.chartOptionDepartement = {
@@ -469,27 +496,138 @@ export class EmployesAllComponent implements OnInit{
 
   }
 
+  getEmployeparService() {
+    this.employeService.employeServiceAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
+        res => {
+            this.employeParService = res; 
+            this.chartOptionService = {
+                series: this.employeParService.map((item: any) => parseFloat(item.count)),
+                chart: {
+                    height: 300,
+                    type: "radialBar"
+                },
+                plotOptions: {
+                    radialBar: {
+                        offsetY: 0,
+                        startAngle: 0,
+                        endAngle: 270,
+                        hollow: {
+                            margin: 10,
+                            size: "30%",
+                            image: undefined,
+                            background: "transparent"
+                        },
+                        dataLabels: {
+                            name: {
+                                show: false
+                            },
+                            value: {
+                                show: false
+                            }
+                        }
+                    }
+                },
+                // colors: [
+                //     "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD", "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD",
+                // ],
+                labels: this.employeParService.map((item: any) => item.service),
+                legend: {
+                    show: true,
+                    offsetY: 0,
+                    offsetX: -20,
+                    floating: true,
+                    position: "left",
+                    fontSize: "14px",
+                    labels: {
+                        colors: '#5B5B98'
+                    },
+                    formatter: function(seriesName, opts) {
+                        return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
+                    }
+                }
+            }; 
+        }
+    )
+
+  }
+
+  getEmployeparSiteTravail() {
+    this.employeService.employeSiteLocationAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
+        res => {
+            this.employeParSiteTravail = res; 
+            this.chartOptionSiteTravail = {
+                series: this.employeParSiteTravail.map((item: any) => parseFloat(item.count)),
+                chart: {
+                    height: 300,
+                    type: "radialBar"
+                },
+                plotOptions: {
+                    radialBar: {
+                        offsetY: 0,
+                        startAngle: 0,
+                        endAngle: 270,
+                        hollow: {
+                            margin: 10,
+                            size: "30%",
+                            image: undefined,
+                            background: "transparent"
+                        },
+                        dataLabels: {
+                            name: {
+                                show: false
+                            },
+                            value: {
+                                show: false
+                            }
+                        }
+                    }
+                },
+                // colors: [
+                //     "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD", "#757FEF", "#9EA5F4", "#C8CCF9", "#F1F2FD",
+                // ],
+                labels: this.employeParSiteTravail.map((item: any) => item.site_location),
+                legend: {
+                    show: true,
+                    offsetY: 0,
+                    offsetX: -20,
+                    floating: true,
+                    position: "left",
+                    fontSize: "14px",
+                    labels: {
+                        colors: '#5B5B98'
+                    },
+                    formatter: function(seriesName, opts) {
+                        return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
+                    }
+                }
+            }; 
+        }
+    )
+
+  }
+
+
 
   getTotal() {
-    this.employeService.departementAll(this.currentUser.code_entreprise).subscribe(
+    this.employeService.departementAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.depList = res;
             this.depList.map((item: any) => this.depTotal = parseFloat(item.count));
         }
     );
-    this.employeService.syndicatAll(this.currentUser.code_entreprise).subscribe(
+    this.employeService.syndicatAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.syndicatList = res;
             this.syndicatList.map((item: any) => this.syndicatTotal = parseFloat(item.count));
         }
     );
-    this.employeService.siteLocationAll(this.currentUser.code_entreprise).subscribe(
+    this.employeService.siteLocationAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.siteLocationList = res;
             this.siteLocationList.map((item: any) => this.siteLocationTotal = parseFloat(item.count));
         }
     );
-    this.employeService.compteActifAll(this.currentUser.code_entreprise).subscribe(
+    this.employeService.compteActifAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.compteActifList = res;
             this.compteActifList.map((item: any) => this.compteActifTotal = parseFloat(item.count));

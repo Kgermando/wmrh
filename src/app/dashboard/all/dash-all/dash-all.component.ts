@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   ApexAxisChartSeries,
@@ -84,6 +84,9 @@ export type ChartOptionPresence = {
   styleUrls: ['./dash-all.component.scss']
 })
 export class DashAllComponent implements OnInit{
+  @Input('start_date') start_date: any;
+  @Input('end_date') end_date: any;
+    
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
@@ -155,6 +158,7 @@ export class DashAllComponent implements OnInit{
         this.getTotal();
         this.getPiePresence();
         this.getRecrutement();
+ 
         this.isLoading = false;
       },
       error: (error) => {
@@ -166,7 +170,7 @@ export class DashAllComponent implements OnInit{
   } 
 
   getPie() {
-    this.dashAllService.getPerformencesAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.getPerformencesAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
             this.prerformencePieList = res;
             this.chartOptions = {
@@ -250,7 +254,7 @@ export class DashAllComponent implements OnInit{
    }
 
    getNetAPayer() {
-    this.dashAllService.masseSalarialAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.masseSalarialAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.netAPayerList = res;
             this.netAPayerList.map((item: any) => this.netAPayer = parseFloat(item.net_a_payer));
@@ -261,10 +265,9 @@ export class DashAllComponent implements OnInit{
 
 
    getStatutPaie() {
-    this.dashAllService.statutPaieAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.statutPaieAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
-            this.statutPaieList = res;
-            console.log('statutPaieList', this.statutPaieList);
+            this.statutPaieList = res; 
             this.chartOptionsSTatutPaie = {
                 series: this.statutPaieList.map((item: any) => parseFloat(item.count)),
                 colors: this.statutPaieList.map((item: any) => {
@@ -308,7 +311,7 @@ export class DashAllComponent implements OnInit{
    }
 
    getAllocations() {
-    this.dashAllService.allocationALl(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.allocationALl(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
             this.allocationList = res;
             this.chartOptionAllocations = {
@@ -406,43 +409,43 @@ export class DashAllComponent implements OnInit{
 
 
    getTotal() {
-    this.dashAllService.primesAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.primesAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.primesList = res;
             this.primesList.map((item: any) => this.primes = parseFloat(item.total));
         }
     );
-    this.dashAllService.primeAncienneteAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.primeAncienneteAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.primeAncienneteList = res;
             this.primeAncienneteList.map((item: any) => this.primeAnciennete = parseFloat(item.total));
         }
     );
-    this.dashAllService.penaliteAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.penaliteAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.penaliteList = res;
             this.penaliteList.map((item: any) => this.penalite = parseFloat(item.total));
         }
     );
-    this.dashAllService.avanceSalaireAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.avanceSalaireAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.avanceSalaireList = res;
             this.avanceSalaireList.map((item: any) => this.avanceSalaire = parseFloat(item.total));
         }
     );
-    this.dashAllService.presEntrepriseAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.presEntrepriseAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.presEntrepriseList = res;
             this.presEntrepriseList.map((item: any) => this.presEntreprise = parseFloat(item.total));
         }
     );
-    this.dashAllService.heureSuppAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.heureSuppAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.heureSuppList = res;
             this.heureSuppList.map((item: any) => this.heureSupp = parseFloat(item.total));
         }
     );
-    this.dashAllService.syndicatAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.syndicatAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res =>  {
             this.syndicatList = res;
             this.syndicatList.map((item: any) => this.syndicat = parseFloat(item.total));
@@ -452,7 +455,7 @@ export class DashAllComponent implements OnInit{
 
 
    getPiePresence() {
-    this.dashAllService.presencePieAll(this.currentUser.code_entreprise).subscribe(
+    this.dashAllService.presencePieAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
             this.presencePieList = res;
             this.chartOptionPresence = {
@@ -525,19 +528,19 @@ export class DashAllComponent implements OnInit{
 
 
     getRecrutement() {
-        this.dashAllService.recrutementsTotalAll(this.currentUser.code_entreprise).subscribe(
+        this.dashAllService.recrutementsTotalAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
             res =>  {
                 this.recrutementsList = res;
                 this.recrutementsList.map((item: any) => this.recrutements = parseFloat(item.count));
             }
         );
-        this.dashAllService.postulantsTotalAll(this.currentUser.code_entreprise).subscribe(
+        this.dashAllService.postulantsTotalAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
             res =>  {
                 this.postulantsList = res;
                 this.postulantsList.map((item: any) => this.postulants = parseFloat(item.count));
             }
         );
-        this.dashAllService.postulantsRetenuTotalAll(this.currentUser.code_entreprise).subscribe(
+        this.dashAllService.postulantsRetenuTotalAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
             res =>  {
                 this.recrusList = res;
                 this.recrusList.map((item: any) => this.recrus = parseFloat(item.count));

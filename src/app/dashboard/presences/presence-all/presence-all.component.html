@@ -2,11 +2,7 @@
     <div fxFlex="66.666666%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" class="col">
         <mat-card class="mb-25 tagus-card audienceOverview-box">
             <mat-card-header class="border-bottom">
-                <h5 class="mb-0">Presences</h5>
-                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
-                    ALL
-                </button>
-                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+                <h5 class="mb-0">Presences</h5> 
             </mat-card-header>
             <mat-card-content>
                 <div *ngIf="isLoading" 
@@ -32,11 +28,7 @@
 
         <mat-card class="mb-25 tagus-card audienceOverview-box">
             <mat-card-header class="border-bottom">
-                <h5 class="mb-0">Taux de presences</h5>
-                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
-                    ALL
-                </button>
-                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+                <h5 class="mb-0">Taux de presences</h5> 
             </mat-card-header>
             <mat-card-content>
                 <div *ngIf="isLoading" 
@@ -66,11 +58,7 @@
 
 <mat-card class="mb-25 tagus-card">
     <mat-card-header class="border-bottom">
-        <h5 class="mb-0">Courbe de Presence</h5>
-        <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
-            ALL
-        </button>
-        <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+        <h5 class="mb-0">Courbe de Presence</h5> 
     </mat-card-header>
     <mat-card-content>
         <div *ngIf="isLoading" 

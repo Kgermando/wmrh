@@ -4,11 +4,8 @@
 
         <mat-card class="mb-25 tagus-card audienceOverview-box">
             <mat-card-header class="border-bottom">
-                <h5 class="mb-0">Total des allocations sur 10 ans</h5>
-                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
-                    ALL
-                </button>
-                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+                <h5 class="mb-0">Total des allocations</h5>
+               
             </mat-card-header>
             <mat-card-content>
                 <div *ngIf="isLoading" 
@@ -40,10 +37,7 @@
         <mat-card class="mb-25 tagus-card customer-satisfaction-box">
             <mat-card-header class="border-bottom">
                 <h5 class="mb-0">Performances du personnel</h5> 
-                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
-                    ALL
-                </button>
-                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+                
             </mat-card-header>
             <mat-card-content>
                 <div *ngIf="isLoading" 
@@ -77,10 +71,7 @@
                 <mat-card class="mb-25 tagus-card audienceOverview-box">
                     <mat-card-header class="border-bottom">
                         <h5 class="mb-0">Taux de presences</h5>
-                        <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
-                            ALL
-                        </button>
-                        <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+                        
                     </mat-card-header>
                     <mat-card-content>
                         <div *ngIf="isLoading" 
@@ -109,10 +100,7 @@
                 <mat-card class="mb-25 terminals-box tagus-card" [class.component-dark-theme]="themeService.isDark()">
                     <mat-card-header class="border-bottom">
                         <h5 class="mb-0">Taux de recrutements</h5>
-                        <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
-                            ALL
-                        </button>
-                        <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+                        
                     </mat-card-header>
                     <mat-card-content>
                         <div class="terminals-list position-relative">
@@ -159,17 +147,13 @@
             <mat-card-content>
                 <h6>Masse salariale</h6> 
                 <h3>{{ netAPayer  | numberFormat:'fr-FR'}} FC</h3> 
-                <p>Dépenses effectuée depuis 10 ans</p>
+                <!-- <p>Dépenses effectuée depuis 10 ans</p> -->
             </mat-card-content>
         </mat-card>
 
         <mat-card class="mb-25 tagus-card  my-profile-box">
             <mat-card-header class="border-bottom">
-                <h5 class="mb-0">Progression de paie</h5> 
-                <button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
-                    ALL
-                </button>
-                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before"> </mat-menu>
+                <h5 class="mb-0">Progression de paie</h5>  
             </mat-card-header>
             <mat-card-content>
                 <div *ngIf="isLoading" 

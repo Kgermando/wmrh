@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   ApexChart, 
@@ -61,7 +61,8 @@ export type ChartOptionMultiLine = {
   styleUrls: ['./presence-all.component.scss']
 })
 export class PresenceAllComponent implements OnInit {
-
+    @Input('start_date') start_date: any;
+    @Input('end_date') end_date: any;
 
   public chartOptionPresence: Partial<ChartOptionPresence>;
 
@@ -111,7 +112,7 @@ export class PresenceAllComponent implements OnInit {
 
 
   getPiePresence() {
-    this.dashAllService.presencePieAll(this.currentUser.code_entreprise).subscribe(
+    this.presenceDashService.getPieAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
         res => {
             this.presencePieList = res;
             this.chartOptionPresence = {
@@ -184,7 +185,7 @@ export class PresenceAllComponent implements OnInit {
 
 
     getCourbepresence() {
-        this.presenceDashService.getCourbePresenceAll(this.currentUser.code_entreprise).subscribe(
+        this.presenceDashService.getCourbePresenceAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
             res => {
                 this.courbePresenceList = res;
                 this.chartOptionCourbePresence = {
@@ -269,7 +270,7 @@ export class PresenceAllComponent implements OnInit {
 
     
     getMultiPresence() {
-        this.dashAllService.presencePieAll(this.currentUser.code_entreprise).subscribe(
+        this.dashAllService.presencePieAll(this.currentUser.code_entreprise, this.start_date, this.end_date).subscribe(
             res => {
                 this.multiPresence = res;
                 this.chartOptionMultiLine = {
