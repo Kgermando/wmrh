@@ -13,7 +13,6 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { EntrepriseService } from 'src/app/admin/entreprise/entreprise.service';
 import { EntrepriseModel } from 'src/app/admin/entreprise/models/entreprise.model';
 

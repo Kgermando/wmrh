@@ -234,6 +234,23 @@
                         <span class="title">Archives</span>
                     </a> -->
                     <mat-expansion-panel (opened)="panelOpenState = true" 
+                    (closed)="panelOpenState = true"
+                    *ngIf="currentUser.roles.includes('Personnels')">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="ri-admin-line"></i>
+                            <span class="title">Autres</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ul class="sidebar-sub-menu"> 
+                        <li class="sidemenu-item">
+                            <a routerLink="/layouts/personnels/hors-usages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                Personnel retiré
+                            </a>
+                        </li>
+                    </ul>
+                </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" 
                         (closed)="panelOpenState = true"
                         *ngIf="currentUser.roles.includes('Support')">
                         <mat-expansion-panel-header>
@@ -259,8 +276,11 @@
                                 </a>
                             </li> 
                         </ul>
-                    </mat-expansion-panel>
+                    </mat-expansion-panel> 
+                   
                 </mat-accordion>
+                
+
             </div>
         </div>
     </ng-scrollbar>

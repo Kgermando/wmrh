@@ -102,6 +102,8 @@ import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/pr
 import { HorairesComponent } from './horaires/horaires.component';
 import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.component';
 import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
+import { CorbeilComponent } from './corbeil/corbeil.component';
+import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
  
 
 const routes: Routes = [
@@ -119,6 +121,10 @@ const routes: Routes = [
     { path: 'personnels/personnel-add', component: PersonnelAddComponent, canActivate: [personnelsGuard] },
     { path: 'personnels/:id/personnel-edit', component: PersonnelEditComponent, canActivate: [personnelsGuard] },
     { path: 'personnels/:id/personnel-view', component: PersonnelViewComponent , canActivate: [personnelsGuard]},
+    { path: 'personnels/syndicats', component: SyndicatsComponent, canActivate: [syndicatGuard] },
+    { path: 'personnels/syndicats/:id/view', component: SyndicatViewComponent, canActivate: [syndicatGuard] },
+    { path: 'personnels/hors-usages', component: CorbeilComponent, canActivate: [personnelsGuard] },
+    { path: 'personnels/hors-usages/:id/view', component: CorbeilViewComponent, canActivate: [personnelsGuard] },
 
     { path: 'preferences/reglages', component: ReglagesComponent, canActivate: [reglagesGuard] },
     { path: 'preferences/fonction', component: FonctionComponent, canActivate: [fonctionGuard] },
@@ -138,9 +144,7 @@ const routes: Routes = [
     { path: 'presences/heures-supp', component: HeuresSuppComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/heures-supp/:id/detail', component: HeureSuppDetailComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/pointage-profil/:matricule/detail', component: ProfilPresencesViewComponent }, // C'est le lien du profil, donc pas de guard
-                                                                                                                                                                           
-    { path: 'personnels/syndicats', component: SyndicatsComponent, canActivate: [syndicatGuard] },
-    { path: 'personnels/syndicats/:id/view', component: SyndicatViewComponent, canActivate: [syndicatGuard] },
+                                                                                                                                                                          
 
     { path: 'recrutements/postes', component: PostesComponent, canActivate: [postesGuard] },
     { path: 'recrutements/postes/poste-add', component: PosteAddComponent, canActivate: [postesGuard] },

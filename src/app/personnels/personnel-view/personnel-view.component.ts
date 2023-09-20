@@ -48,19 +48,37 @@ export class PersonnelViewComponent implements OnInit {
     }
 
     delete(id: number): void {
-      if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-        this.personnelService
-          .delete(id)
-          .subscribe({
-            next: () => {
-              this.toastr.info('Success!', 'Supprimé avec succès!');
+      if (confirm('Êtes-vous sûr de vouloir mettre cet enregistrement dans le corbeil?')) {
+        var personnel = { 
+          is_delete: true, 
+          signature: this.currentUser.matricule,
+          update_created: new Date(),
+          entreprise: this.currentUser.entreprise,
+          code_entreprise: this.currentUser.code_entreprise
+        };
+        this.personnelService.update(this.personne.id, personnel).subscribe({
+              next: () => {
+              this.toastr.info('Mise en corbeil avec succès!', 'Success!');
               this.router.navigate(['/layouts/personnels/personnel-list']);
             },
             error: err => {
               this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
               console.log(err);
             }
-          });
+        });
+
+        // this.personnelService
+        //   .delete(id)
+        //   .subscribe({
+        //     next: () => {
+        //       this.toastr.info('Supprimé avec succès!', 'Success!');
+        //       this.router.navigate(['/layouts/personnels/personnel-list']);
+        //     },
+        //     error: err => {
+        //       this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+        //       console.log(err);
+        //     }
+        //   });
       }
     }
 

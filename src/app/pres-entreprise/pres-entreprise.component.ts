@@ -102,6 +102,7 @@ export class PresEntrepriseComponent implements OnInit {
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PresEntrepriseAddDialogBox, {
       width: '600px',
+      height: '100%',
       enterAnimationDuration,
       exitAnimationDuration, 
     }); 

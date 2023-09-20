@@ -33,8 +33,7 @@ export class ClasseurFilterDispComponent implements OnInit {
         this.currentUser = user;
         this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
           this.fardeList = farde;
-
-          console.log('this.fardeList', this.fardeList);
+ 
           var datePaieList = this.fardeList.filter((v) => v.month == this.farde.month && v.year == this.farde.year);
           this.dateFarde = datePaieList[datePaieList.length-1];
           const month = parseInt(this.dateFarde.month);

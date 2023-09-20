@@ -185,6 +185,8 @@ import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.componen
 import { HoraireViewComponent } from './horaires/horaire-view/horaire-view.component';
 import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
 import { IndemnitePaieComponent } from './salaires/indemnite-paie/indemnite-paie.component';
+import { CorbeilComponent } from './corbeil/corbeil.component';
+import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
 
 
 @NgModule({
@@ -360,7 +362,9 @@ import { IndemnitePaieComponent } from './salaires/indemnite-paie/indemnite-paie
     HorairesComponent, 
     HoraireViewComponent, 
     IndemnitesComponent, 
-    IndemnitePaieComponent,
+    IndemnitePaieComponent, 
+    CorbeilComponent, 
+    CorbeilViewComponent,
   ],
   imports: [
     BrowserModule,

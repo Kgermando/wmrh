@@ -109,6 +109,8 @@ export class LoginComponent {
                 this.router.navigate(['/layouts/preferences/titles']);
               } else if (user.roles[0] === 'Archives') {
                 this.router.navigate(['/layouts/archives']);
+              } else {
+                this.router.navigate(['/layouts/salaires/mes-bulletins-salaires']); 
               }
             } else {
               this.router.navigate(['/auth/login']);

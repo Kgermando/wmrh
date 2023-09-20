@@ -36,6 +36,10 @@ export class PersonnelService extends ApiService {
   downloadModelReport(code_entreprise: string): Observable<any> {
     return this.http.post(`${this.endpoint}/download-model-xlsx/${code_entreprise}`, {}, {responseType: 'blob'});
   }
+
+  corbeil(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-corbeil/${code_entreprise}`);
+  }
  
 
 }

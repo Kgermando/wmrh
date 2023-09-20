@@ -60,7 +60,7 @@ export class ServicesComponent implements OnInit {
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
-          service: this.formGroup.value.service, 
+          service: this.formGroup.value.service.toUpperCase(), 
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),

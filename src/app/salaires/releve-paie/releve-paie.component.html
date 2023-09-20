@@ -3,161 +3,168 @@
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-5">Patientez-svp...</p>
 </div>
 
-<div class="breadcrumb-card  d-md-flex align-items-center justify-content-space-between" *ngIf="!isLoading">
-    <h2 class="mb-0">Relevé de paie</h2>
-    <div class="row bg-light-gray border-radius d-flex align-items-center text-center p-10 taille">
-        <div class="d-flex align-items-center justify-content-end"> 
-            <mat-form-field appearance="fill">
-                <mat-label>Select entreprise</mat-label>
-                <mat-select (selectionChange)="onChangeEntreprise($event)">
-                    <mat-option *ngFor="let entreprise of entrepriseList" [value]="entreprise.service"
-                        >
-                        {{entreprise.service}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <div class="box"></div>
-            <mat-form-field appearance="fill">
-                <mat-label>Select classeur</mat-label>
-                <mat-select (selectionChange)="onChangeFarde($event)">
-                    <mat-option *ngFor="let farde of fardeList" [value]="farde">
-                        <app-classeur-filter-disp [farde]="farde"></app-classeur-filter-disp>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <button mat-icon-button class="tagus" (click)="openExportDialog('300ms', '100ms')">
-                <mat-icon>print</mat-icon>
-            </button>
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-6"> 
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <td class="text-start">
-                            Masse salariale:
-                        </td>
-                        <td>
-                            <input type="text" class="form-control text-end" 
-                                type="text"  name="net_a_payer" [ngModel]="net_a_payer | numberFormat:'fr-FR'"
-                                [readOnly]="true"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm"
-                                [value]="net_a_payer"
-                                > FC
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-start">
-                            Brute imposable: 
-                        </td>
-                        <td>
-                            <input type="text" class="form-control text-end" 
-                                type="text"  name="rbi_total" [ngModel]="rbi_total | numberFormat:'fr-FR'"
-                                [readOnly]="true"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm"
-                                [value]="rbi_total"
-                                > FC
-                        </td> 
-                    </tr>
-                    <tr>
-                        <td class="text-start">
-                            IPR:
-                        </td>
-                        <td>
-                            <input type="text" class="form-control text-end" 
-                                type="text"  name="ipr" [ngModel]="ipr | numberFormat:'fr-FR'"
-                                [readOnly]="true"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm"
-                                [value]="ipr"
-                                > FC
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-start">
-                            CNSS(QPO):
-                        </td>
-                        <td>
-                            <input type="text" class="form-control text-end" 
-                                type="text"  name="cnss" [ngModel]="cnss | numberFormat:'fr-FR'"
-                                [readOnly]="true"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm"
-                                [value]="cnss"
-                                > FC
-                        </td>
-                        
-                    </tr> 
-                </tbody>
-            </table> 
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
-            <table class="table"> 
-                <tbody> 
-                    <tr>
-                        <td class="text-start">
-                            Heures supp.:
-                        </td>
-                        <td>
-                            <input type="text" class="form-control text-end" 
-                                type="text"  name="heure_supp_total" [ngModel]="heure_supp_total | numberFormat:'fr-FR'"
-                                [readOnly]="true"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm"
-                                [value]="heure_supp_total"
-                                > FC
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-start">
-                            Total Primes: 
-                        </td>
-                        <td>
-                            <input type="text" class="form-control text-end" 
-                                type="text"  name="prime_total" [ngModel]="prime_total | numberFormat:'fr-FR'"
-                                [readOnly]="true"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm"
-                                [value]="prime_total"
-                                > FC
-                        </td> 
-                    </tr>
-                    <tr>
-                        <td class="text-start">
-                            Penalités:
-                        </td>
-                        <td>
-                            <input type="text" class="form-control text-end" 
-                                type="text"  name="penalite_total" [ngModel]="penalite_total | numberFormat:'fr-FR'"
-                                [readOnly]="true"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm"
-                                [value]="penalite_total"
-                                > FC
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-start">
-                            Syndicats:
-                        </td>
-                        <td>
-                            <input type="text" class="form-control text-end" 
-                                type="text"  name="syndicat_total" [ngModel]="syndicat_total | numberFormat:'fr-FR'"
-                                [readOnly]="true"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm"
-                                [value]="syndicat_total"
-                                > FC
-                        </td>
-                        
-                    </tr> 
-                </tbody>
-            </table> 
-        </div>
-        
+<div class="breadcrumb-card row d-md-flex align-items-center justify-content-space-between" *ngIf="!isLoading">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <h2 class="mb-10">Relevé de paie</h2>
     </div>
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <div class="row bg-light-gray border-radius d-flex align-items-center text-center p-10 taille">
+            <form [formGroup]="formGroup">
+                <div class="d-flex align-items-center justify-content-end">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select entreprise</mat-label>
+                        <mat-select (selectionChange)="onChangeFarde($event)" formControlName="entreprise">
+                            <mat-option *ngFor="let entreprise of entrepriseList" [value]="entreprise.service">
+                                {{entreprise.service}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="box"></div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select classeur</mat-label>
+                        <mat-select (selectionChange)="onChangeFarde($event)" formControlName="classeur">
+                            <mat-option *ngFor="let farde of fardeList" [value]="farde">
+                                <app-classeur-filter-disp [farde]="farde"></app-classeur-filter-disp>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field> 
+                    <button mat-icon-button class="tagus" (click)="openExportDialog('300ms', '100ms')">
+                        <mat-icon>print</mat-icon>
+                    </button>
+                </div>
+            </form>
+            
+    
+            <div class="col-lg-6 col-md-6 col-sm-12"> 
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-start">
+                                Masse salariale:
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-end" 
+                                    type="text"  name="net_a_payer" [ngModel]="net_a_payer | numberFormat:'fr-FR'"
+                                    [readOnly]="true"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    [value]="net_a_payer"
+                                    > FC
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                Brute imposable: 
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-end" 
+                                    type="text"  name="rbi_total" [ngModel]="rbi_total | numberFormat:'fr-FR'"
+                                    [readOnly]="true"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    [value]="rbi_total"
+                                    > FC
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                IPR:
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-end" 
+                                    type="text"  name="ipr" [ngModel]="ipr | numberFormat:'fr-FR'"
+                                    [readOnly]="true"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    [value]="ipr"
+                                    > FC
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                CNSS(QPO):
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-end" 
+                                    type="text"  name="cnss" [ngModel]="cnss | numberFormat:'fr-FR'"
+                                    [readOnly]="true"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    [value]="cnss"
+                                    > FC
+                            </td>
+                            
+                        </tr> 
+                    </tbody>
+                </table> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <table class="table"> 
+                    <tbody> 
+                        <tr>
+                            <td class="text-start">
+                                Heures supp.:
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-end" 
+                                    type="text"  name="heure_supp_total" [ngModel]="heure_supp_total | numberFormat:'fr-FR'"
+                                    [readOnly]="true"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    [value]="heure_supp_total"
+                                    > FC
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                Total Primes: 
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-end" 
+                                    type="text"  name="prime_total" [ngModel]="prime_total | numberFormat:'fr-FR'"
+                                    [readOnly]="true"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    [value]="prime_total"
+                                    > FC
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                Penalités:
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-end" 
+                                    type="text"  name="penalite_total" [ngModel]="penalite_total | numberFormat:'fr-FR'"
+                                    [readOnly]="true"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    [value]="penalite_total"
+                                    > FC
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">
+                                Syndicats:
+                            </td>
+                            <td>
+                                <input type="text" class="form-control text-end" 
+                                    type="text"  name="syndicat_total" [ngModel]="syndicat_total | numberFormat:'fr-FR'"
+                                    [readOnly]="true"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm"
+                                    [value]="syndicat_total"
+                                    > FC
+                            </td>
+                            
+                        </tr> 
+                    </tbody>
+                </table> 
+            </div>
+            
+        </div>
+    </div>
+
 </div> 
 
  

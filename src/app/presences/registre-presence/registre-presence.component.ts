@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
 import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
 import { SiteLocationService } from 'src/app/preferences/site-location/site-location.service';
-import { HttpClient } from '@angular/common/http';
+ 
 
 @Component({
   selector: 'app-registre-presence',
@@ -116,7 +116,7 @@ export class RegistrePresenceComponent implements OnInit {
         }); 
   } 
 
-
+ 
   onChange() {
     if (!this.date_presence) {
       var datePresence = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); 
