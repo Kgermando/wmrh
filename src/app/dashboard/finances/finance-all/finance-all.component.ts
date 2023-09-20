@@ -200,7 +200,35 @@ isLoading = false;
                     colors: ["transparent"]
                 },
                 xaxis: {
-                    categories: this.allocationList.map((item: any) => item.year_ans),
+                    categories: this.allocationList.map((item: any) => {
+                        if (item.year_ans == 1) {
+                            return 'Jan';
+                        } else if (item.year_ans == 2) {
+                            return 'Fev';
+                        } else if (item.year_ans == 3) {
+                            return 'Mar';
+                        } else if (item.year_ans == 4) {
+                            return 'Avr';
+                        } else if (item.year_ans == 5) {
+                            return 'Mai';
+                        } else if (item.year_ans == 6) {
+                            return 'Jui';
+                        } else if (item.year_ans == 7) {
+                            return 'Juil';
+                        } else if (item.year_ans == 8) {
+                            return 'Aout';
+                        } else if (item.year_ans == 9) {
+                            return 'Sep';
+                        } else if (item.year_ans == 10) {
+                            return 'Oct';
+                        } else if (item.year_ans == 11) {
+                            return 'Nov';
+                        } else if (item.year_ans == 12) {
+                            return 'Dec';
+                        } else {
+                            return '';
+                        }
+                    }),
                     labels: {
                         style: {
                             colors: "#a9a9c8",

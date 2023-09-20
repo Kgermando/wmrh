@@ -104,6 +104,8 @@ import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.componen
 import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
 import { CorbeilComponent } from './corbeil/corbeil.component';
 import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
+import { UsersComponent } from './admin/users/users.component';
+import { UserViewComponent } from './admin/users/user-view/user-view.component';
  
 
 const routes: Routes = [
@@ -193,6 +195,9 @@ const routes: Routes = [
     { path: 'support/entreprises/:id/entreprise-view', component: EntrepriseViewComponent, canActivate: [supportGuard]},
     { path: 'support/abonnements', component: AbonnementAdminComponent, canActivate: [supportGuard] },
     { path: 'support/abonnements/:id/abonnement-admin-view', component: AbonnementAdminViewComponent, canActivate: [supportGuard] },
+    { path: 'support/users', component: UsersComponent, canActivate: [supportGuard]},
+    { path: 'support/users/:id/user-view', component: UserViewComponent, canActivate: [supportGuard]},
+
 
     { path: 'paiements', component: AbonnementComponent },
 

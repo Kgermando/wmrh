@@ -179,6 +179,8 @@ import { IndemnitesComponent } from './salaires/indemnites/indemnites.component'
 import { IndemnitePaieComponent } from './salaires/indemnite-paie/indemnite-paie.component';
 import { CorbeilComponent } from './corbeil/corbeil.component';
 import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
+import { UsersComponent } from './admin/users/users.component';
+import { UserViewComponent } from './admin/users/user-view/user-view.component';
 
 
 @NgModule({
@@ -348,7 +350,7 @@ import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.compon
     IndemnitesComponent, 
     IndemnitePaieComponent, 
     CorbeilComponent, 
-    CorbeilViewComponent,
+    CorbeilViewComponent, UsersComponent, UserViewComponent,
   ],
   imports: [
     BrowserModule,

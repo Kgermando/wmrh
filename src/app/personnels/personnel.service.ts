@@ -40,6 +40,10 @@ export class PersonnelService extends ApiService {
   corbeil(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-corbeil/${code_entreprise}`);
   }
- 
+
+
+  getAllWithSupport(): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-all-support`);
+  }
 
 }

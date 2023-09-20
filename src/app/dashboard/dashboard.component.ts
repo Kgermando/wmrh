@@ -29,8 +29,8 @@ export class DashboardComponent {
 
   // dureeList = ['All', 'Année', 'Mois'];
   dateRange!: FormGroup;
-  start_date: any = formatDate(new Date('2023-05-01'), 'yyyy-MM-dd', 'en-US');
-  end_date: any= formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+  start_date: any;
+  end_date: any;
 
 
   isSelectCategory = 'All';
@@ -103,7 +103,16 @@ export class DashboardComponent {
       next: (user) => {
         this.currentUser = user;
 
-        this.getTotalEmployE(this.start_date, this.end_date);
+        
+        if (this.start_date == undefined && this.end_date == undefined) {
+          console.log('start_date', this.start_date, this.end_date);
+          this.start_date = formatDate(new Date('2023-05-01'), 'yyyy-MM-dd', 'en-US');
+          this.end_date= formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+
+          this.getTotalEmployE(this.start_date, this.end_date);
+        }
+
+        
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
