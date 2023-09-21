@@ -16,6 +16,8 @@ export class PrimeFilterComponent implements OnInit {
   isMoisSuivantANValid = false;
   isMoisPrecedentValid = false;
 
+  isMoisPrecedent = false;
+
   dateNow = new Date();  
   dateMonth = this.dateNow.getMonth();
   dateAN = this.dateNow.getFullYear(); 
@@ -29,5 +31,10 @@ export class PrimeFilterComponent implements OnInit {
     this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
     this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
     this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
+
+
+
+    // Cette ligne ne prend pas en compte +1
+    this.isMoisPrecedent = created.getMonth() +1 < new Date().getMonth() + 1 && created.getFullYear() === new Date().getFullYear();
   }
 }

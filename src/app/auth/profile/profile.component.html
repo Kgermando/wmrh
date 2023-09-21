@@ -18,7 +18,7 @@
                                 <div>
                                     <img [src]="currentUser.photo"class="rounded-circle" alt="user" *ngIf="currentUser.photo">
                                     <img src="assets/img/user/user15.jpg" class="rounded-circle" alt="user" *ngIf="!currentUser.photo">
-                                    <button mat-icon-button color="warn" (click)="openChangePhotoDialog('300ms', '100ms')" matTooltip="Modifier la photo profile">
+                                    <button mat-icon-button color="warn" (click)="openChangePhotoDialog('300ms', '100ms', currentUser.id)" matTooltip="Modifier la photo profile">
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                 </div>
@@ -48,7 +48,8 @@
                 <!-- <button mat-flat-button class="d-block" color="primary" routerLink="/layouts/profile/edit">Modifier vos informations</button> -->
                 <p> </p> 
                
-               
+                <button mat-flat-button class="d-block" color="primary" (click)="openUpdateInfoDialog('300ms', '100ms', currentUser.id)" >Modifier vos informations</button>
+                <p></p>
                 <button mat-flat-button class="d-block" color="warn" (click)="openPasswordDialog('300ms', '100ms')" >Modifier le mot de passe</button>
                 <p> </p> 
                 <p> </p> 

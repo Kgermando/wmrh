@@ -1,4 +1,4 @@
-<span class="badge text-soft-info" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
+<!-- <span class="badge text-soft-info" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
     {{ element.nbr_heures }} H <sup>+1</sup>
 </span>
 
@@ -8,4 +8,11 @@
 
 <span *ngIf="isMoisPrecedentValid && !isValid">
    <del>{{ element.nbr_heures }} H</del> 
+</span> -->
+ 
+<span class="badge text-soft-info" *ngIf="!isMoisPrecedent">
+    {{ element.nbr_heures }} H
 </span>
+<span *ngIf="isMoisPrecedent">
+    <del> {{ element.nbr_heures }} H</del> 
+ </span>

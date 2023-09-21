@@ -16,7 +16,7 @@ import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { ChangePasswordDialogBox, ChangePhotoDialogBox, ProfileComponent } from './auth/profile/profile.component';
+import { ChangePasswordDialogBox, ChangePhotoDialogBox, ProfileComponent, UpdateInfoDialogBox } from './auth/profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutsComponent } from './layouts/layouts.component';
 import { PersonnelExportXLSXDialogBox, PersonnelListComponent, PersonnelUploadCSVDialogBox } from './personnels/personnel-list/personnel-list.component';
@@ -350,7 +350,10 @@ import { UserViewComponent } from './admin/users/user-view/user-view.component';
     IndemnitesComponent, 
     IndemnitePaieComponent, 
     CorbeilComponent, 
-    CorbeilViewComponent, UsersComponent, UserViewComponent,
+    CorbeilViewComponent, 
+    UsersComponent, 
+    UserViewComponent,
+    UpdateInfoDialogBox,
   ],
   imports: [
     BrowserModule,

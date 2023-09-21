@@ -68,7 +68,7 @@
                                     <span class="fw-semibold d-inline-block">Intitule: </span>
                                     <span class="gray-color">{{ penalite.intitule }}</span>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <span class="fw-semibold d-inline-block">Montant: </span>
                                     <span class="gray-color">
                                         <span class="badge text-soft-danger" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
@@ -82,6 +82,17 @@
                                         <span *ngIf="isMoisPrecedentValid && !isValid">
                                            <del>{{ penalite.montant | numberFormat:'fr-FR' }} {{ penalite.monnaie }}</del> 
                                         </span>
+                                    </span>
+                                </li> -->
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Montant: </span>
+                                    <span class="gray-color">
+                                        <span class="badge text-soft-danger" *ngIf="!isMoisPrecedent">
+                                            {{ penalite.montant | numberFormat:'fr-FR' }} {{ penalite.monnaie }}
+                                        </span>
+                                        <span *ngIf="isMoisPrecedent">
+                                            <del>{{ penalite.montant | numberFormat:'fr-FR' }} {{ penalite.monnaie }}</del> 
+                                         </span>
                                     </span>
                                 </li>
                                 <li>
