@@ -93,9 +93,14 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void { 
+    var date = new Date(); 
+    var tomorrow = new Date(date);
+    tomorrow.setDate(date.getDate()+1);
+    // tomorrow.toLocaleDateString();
+
     this.dateRange = this._formBuilder.group({ 
-      start: new FormControl(new Date('2023-05-01')),
-      end: new FormControl(new Date()),
+      start: new FormControl(new Date('2023-08-01')),
+      end: new FormControl(tomorrow),
       categorie: new FormControl('All')
     });
 
@@ -103,13 +108,16 @@ export class DashboardComponent {
       next: (user) => {
         this.currentUser = user;
 
-        
         if (this.start_date == undefined && this.end_date == undefined) {
-          console.log('start_date', this.start_date, this.end_date);
-          this.start_date = formatDate(new Date('2023-05-01'), 'yyyy-MM-dd', 'en-US');
-          this.end_date= formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
 
+          this.start_date = formatDate(new Date('2023-08-01'), 'yyyy-MM-dd', 'en-US');
+          
+          this.end_date = formatDate(tomorrow, 'yyyy-MM-dd', 'en-US');
+
+        
           this.getTotalEmployE(this.start_date, this.end_date);
+
+          // console.log('date + 1', this.end_date);
         }
 
         

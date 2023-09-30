@@ -7,7 +7,13 @@
     class="mb-25 tagus-card top-instructors-box" *ngIf="!isLoading"
 >
     <mat-card-header>
-        <h4 class="mb-0">Pointage</h4>
+        <div>
+            <h4 class="mb-0">Pointage</h4>
+            <p class="position-relative" *ngIf="currentUser.site_locations">
+                Site: {{ currentUser.site_locations.site_location }}
+            </p>
+        </div>
+        
         <div class="flex-wrap d-flex align-items-center justify-content-space-between">
             
             <div class="pointage">

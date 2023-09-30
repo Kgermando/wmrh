@@ -177,7 +177,7 @@ const routes: Routes = [
     { path: 'salaires/calculate', component: CalculateComponent }, 
 
     { path: 'horaires', component: HorairesComponent, canActivate: [horaireGuard] },
-    { path: 'horaires/horaire-add', component: HoraireAddComponent, canActivate: [horaireGuard]},
+    { path: 'horaires/:id/horaire-edit', component: HoraireAddComponent, canActivate: [horaireGuard]},
 
     { path: 'performences', component: PerformencesComponent, canActivate: [performenceGuard] },
     { path: 'performences/:id/performence-view', component: PerformenceViewComponent , canActivate: [performenceGuard]},

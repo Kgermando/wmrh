@@ -66,7 +66,7 @@ export class PersonnelViewComponent implements OnInit {
               console.log(err);
             }
         });
-
+        this.toastr.success('Mise en corbeil avec succès!', 'Success!');
         // this.personnelService
         //   .delete(id)
         //   .subscribe({
@@ -85,7 +85,8 @@ export class PersonnelViewComponent implements OnInit {
     resetStatutPaie(id: number) {
       this.isLoading = true;
       this.personnelService.resetStatutPaie(this.currentUser.code_entreprise, id).subscribe(() => {
-          this.isLoading = false;
+        this.toastr.show('Reinitialisation effectuéé!', 'Success!');
+        this.isLoading = false;
       })
     }
    

@@ -10,6 +10,7 @@
         >
             <mat-card-header class="mb-5">
                 <h5 class="mb-0">{{ personne.prenom.toUpperCase() }} {{ personne.nom.toUpperCase() }}</h5>
+                <p *ngIf="personne.site_locations"> <strong>Site:</strong> {{ personne.site_locations.site_location }} </p>
             </mat-card-header> 
             <mat-card-content>
                 <div class="myTasksTable tagus-mat-table">

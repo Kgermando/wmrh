@@ -64,7 +64,7 @@ export class ListPaimentsComponent implements OnInit {
               .subscribe(res => {
                   this.personnelFilter = res;
                   this.ELEMENT_DATA = this.personnelFilter.filter(v => 
-                      parseFloat(v.salaire_base) > 0 && v.statut_paie != 'Disponible');
+                      parseFloat(v.salaire_base) > 0 && v.statut_paie == 'En attente');
                   this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
                   this.dataSource.sort = this.sort;
                   this.dataSource.paginator = this.paginator;  

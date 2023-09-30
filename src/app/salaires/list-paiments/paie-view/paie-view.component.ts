@@ -565,7 +565,7 @@ export class PaieViewComponent implements OnInit {
                   title: `Bulletin ${this.mois} en traitement.`,
                   // title: (this.personne.sexe == 'Homme') ? `Bonjour Monsieur ${this.personne.prenom.toUpperCase()} ${this.personne.nom.toUpperCase()} votre bulletin de paie est en traitement.`
                   //   : `Bonjour Madame ${this.personne.prenom.toUpperCase()} ${this.personne.nom.toUpperCase()} votre bulletin de paie est en traitement.`,
-                  route: `/layouts/salaires/traitement/${res['id']}/fiche-paie`, 
+                  route: `/layouts/salaires/traitement/${res['id']}/fiche-paie`,
                   signature: this.currentUser.matricule,
                   created: new Date(),
                   update_created: new Date(),

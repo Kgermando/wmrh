@@ -208,8 +208,7 @@ export class PresenceFormComponent {
       event.value === 'AM' || event.value === 'CC' || 
       event.value === 'CA' || event.value === 'S' || 
       event.value === 'O' || event.value === 'M') { 
-      this.isAbsense = true;  // Date de reprise pour les congés
-      this.isPresence = false;
+      this.isAbsense = true;  // Date de reprise pour des congés
     } else if(event.value === 'P' || event.value === 'A' || 
       event.value === 'AA') {
       this.isAbsense = false; 
@@ -217,7 +216,7 @@ export class PresenceFormComponent {
       this.isAbsense = false;
     } 
 
-    if(event.value === 'P' || event.value === 'AA') { 
+    if(event.value === 'P' || event.value === 'AA' || event.value === 'AM') { 
       this.isPresence = true;  // Prestation de la journée
     } else {
       this.isPresence = false;

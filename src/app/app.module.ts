@@ -8,6 +8,7 @@ import { provideToastr } from 'ngx-toastr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { QRCodeModule } from 'angularx-qrcode';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -172,7 +173,7 @@ import { ProfilPerformanceComponent } from './auth/profile/profil-performance/pr
 import { ProfilAvancesSalaireComponent } from './auth/profile/profil-avances-salaire/profil-avances-salaire.component';
 import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/profil-presences-view/profil-presences-view.component';
 import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/classeur-filter-disp.component';
-import { HorairesComponent } from './horaires/horaires.component'; 
+import { HoraireAddDialogBox, HorairesComponent } from './horaires/horaires.component'; 
 import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.component'; 
 import { HoraireViewComponent } from './horaires/horaire-view/horaire-view.component';
 import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
@@ -354,6 +355,7 @@ import { UserViewComponent } from './admin/users/user-view/user-view.component';
     UsersComponent, 
     UserViewComponent,
     UpdateInfoDialogBox,
+    HoraireAddDialogBox
   ],
   imports: [
     BrowserModule,
@@ -375,7 +377,8 @@ import { UserViewComponent } from './admin/users/user-view/user-view.component';
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }), 
+    NgxMaterialTimepickerModule.setOpts('fr-FR', 'latn')
   ],
   providers: [
     DatePipe,

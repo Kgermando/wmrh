@@ -63,14 +63,5 @@ export class PresenceCalendarComponent implements OnInit {
   
  
 }
-
-
-const dataList = [
-  { id: 1, 'apointement': 'P' },
-  { id: 2, 'apointement': 'AM' },
-  { id: 3, 'apointement': 'AA' },
-  { id: 4, 'apointement': 'A' },
-  { id: 5, 'apointement': 'CC' },
-  { id: 6, 'apointement': 'O' },
-]
+ 
 
