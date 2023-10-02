@@ -41,6 +41,10 @@ export class PersonnelService extends ApiService {
     return this.http.get(`${this.endpoint}/get-corbeil/${code_entreprise}`);
   }
 
+  getAllPerformance(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-all-performance/${code_entreprise}`);
+  }
+
 
   getAllWithSupport(): Observable<any> {
     return this.http.get(`${this.endpoint}/get-all-support`);

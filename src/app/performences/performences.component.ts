@@ -51,7 +51,7 @@ export class PerformencesComponent implements OnInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+                this.personnelService.getAllPerformance(this.currentUser.code_entreprise).subscribe(res => {
                   this.ELEMENT_DATA = res; 
                   this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
                   this.dataSource.sort = this.sort;
