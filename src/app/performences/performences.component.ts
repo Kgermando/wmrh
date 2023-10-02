@@ -47,24 +47,24 @@ export class PerformencesComponent implements OnInit {
 
 
   ngOnInit() { 
-        this.isLoading = true;
-        this.authService.user().subscribe({
-            next: (user) => {
-                this.currentUser = user;
-                this.personnelService.getAllPerformance(this.currentUser.code_entreprise).subscribe(res => {
-                  this.ELEMENT_DATA = res; 
-                  this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator;
-                  this.isLoading = false;
-              });
-            },
-            error: (error) => {
+    this.isLoading = true;
+    this.authService.user().subscribe({
+        next: (user) => {
+            this.currentUser = user;
+            this.personnelService.getAllPerformance(this.currentUser.code_entreprise).subscribe(res => {
+              this.ELEMENT_DATA = res; 
+              this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
               this.isLoading = false;
-              this.router.navigate(['/auth/login']);
-              console.log(error);
-            }
-          });  
+          });
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.router.navigate(['/auth/login']);
+          console.log(error);
+        }
+      });  
     }
 
  
