@@ -8,7 +8,9 @@ import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-mod
   styleUrls: ['./prime-filter.component.scss']
 })
 export class PrimeFilterComponent implements OnInit { 
-  @Input('element') element: PrimeModel; 
+  @Input('element') element: PrimeModel;
+  @Input('preference') preference: PreferenceModel;
+
  
 
   isValid = false; 
@@ -27,14 +29,17 @@ export class PrimeFilterComponent implements OnInit {
     const created = new Date(this.element.created);
     const moisSuivant = created.getMonth() + 1;
     const annee = created.getFullYear();
-    this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
-    this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
-    this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
-    this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
 
-
-
-    // Cette ligne ne prend pas en compte +1
+    if (this.preference.pris_en_compte_mois_plus_1) {
+      this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
+      this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
+      this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
+      this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
+  
+    } else {
+        // Cette ligne ne prend pas en compte +1
     this.isMoisPrecedent = created.getMonth() +1 < new Date().getMonth() + 1 && created.getFullYear() === new Date().getFullYear();
+    }
+  
   }
 }

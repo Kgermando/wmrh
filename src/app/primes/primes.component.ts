@@ -59,17 +59,17 @@ export class PrimesComponent implements OnInit {
         this.isLoading = true;
         this.authService.user().subscribe({
           next: (user) => {
-              this.currentUser = user;
+            this.currentUser = user;
+            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
+              this.preference = res;
               this.primeService.getAll(this.currentUser.code_entreprise).subscribe(res => {
                 this.ELEMENT_DATA = res; 
                 this.dataSource = new MatTableDataSource<PrimeModel>(this.ELEMENT_DATA);
                 this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator; 
-            });
-              this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-                this.preference = res; 
+                this.dataSource.paginator = this.paginator;
+                this.isLoading = false;
               });
-            this.isLoading = false;
+            });
           },
           error: (error) => {
             this.isLoading = false;

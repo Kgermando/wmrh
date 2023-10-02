@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { PrestationModel } from 'src/app/presences/models/prestation.model';
 
 
 @Component({
@@ -130,7 +131,11 @@ export class EditPresenceDialogBox implements OnInit {
 
   currentUser: PersonnelModel | any;
 
-  isAbsense = false;
+  prestationList: PrestationModel[] = []
+
+  // isAbsense = false;
+
+  // isPresence = false; //Si la personne est presente ou absence autorisée 
 
   apointementList: string[] = [
     'P',
@@ -153,11 +158,24 @@ export class EditPresenceDialogBox implements OnInit {
       private authService: AuthService, 
       private toastr: ToastrService,
       private presenceService: PresenceService,
-  ) {}
+  ) {
+    this.prestationList = [
+      { pres:'Journée entière', cote: 1},
+      { pres:'Demi-journée', cote: 0.5},
+    ]
+  }
 
 
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      apointement: [''],
+      prestation: [''],
+      date_entree: [''],
+      date_sortie: [''],
+      observation: [''] 
+    });
+    
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -167,26 +185,22 @@ export class EditPresenceDialogBox implements OnInit {
         console.log(error);
       }
     });
-    this.formGroup = this.formBuilder.group({
-      apointement: [''],
-      // date_entree: [''],
-      date_sortie: [''],
-      observation: [''] 
-    });
+  
 
     this.presenceService.get(parseInt(this.data['id'])).subscribe(item => {
-      if (
-        item.apointement === 'AM' || item.apointement === 'CC' || 
-        item.apointement === 'CA' || item.apointement === 'CO' || 
-        item.apointement === 'S' || item.apointement === 'O' || item.apointement === 'M') { 
-        this.isAbsense = true;
-      } else if(item.apointement === 'P' || item.apointement === 'A' || 
-      item.apointement === 'AA') {
-        this.isAbsense = false;
-      }
+      // if (
+      //   item.apointement === 'AM' || item.apointement === 'CC' || 
+      //   item.apointement === 'CA' || item.apointement === 'CO' || 
+      //   item.apointement === 'S' || item.apointement === 'O' || item.apointement === 'M') { 
+      //   this.isAbsense = true;
+      // } else if(item.apointement === 'P' || item.apointement === 'A' || 
+      // item.apointement === 'AA') {
+      //   this.isAbsense = false;
+      // }
       this.formGroup.patchValue({
-        apointement: item.apointement, 
-        date_entree: item.date_entree, 
+        apointement: item.apointement,
+        prestation: item.prestation, 
+        date_entree: item.date_entree,
         date_sortie: item.date_sortie,
         observation: item.observation, 
         signature: this.currentUser.matricule, 
@@ -197,15 +211,21 @@ export class EditPresenceDialogBox implements OnInit {
 
   onPresenceChange(event: any) {
     console.log(event.value);
-    if (
-      event.value === 'AM' || event.value === 'CC' || 
-      event.value === 'CA' || event.value === 'CO' || 
-      event.value === 'S' || event.value === 'O' || event.value === 'M') { 
-      this.isAbsense = true;
-    } else if(event.value === 'P' || event.value === 'A' || 
-      event.value === 'AA') {
-      this.isAbsense = false;
-    }
+    // if (
+    //   event.value === 'AM' || event.value === 'CC' || 
+    //   event.value === 'CA' || event.value === 'CO' || 
+    //   event.value === 'S' || event.value === 'O' || event.value === 'M') { 
+    //   this.isAbsense = true;
+    // } else if(event.value === 'P' || event.value === 'A' || 
+    //   event.value === 'AA') {
+    //   this.isAbsense = false;
+    // }
+
+    // if(event.value === 'P' || event.value === 'AA' || event.value === 'AM') { 
+    //   this.isPresence = true;  // Prestation de la journée
+    // } else {
+    //   this.isPresence = false;
+    // }
   }
 
 
@@ -235,5 +255,9 @@ export class EditPresenceDialogBox implements OnInit {
   close(){
       this.dialogRef.close(true);
   } 
+
+  compareFn(c1: PrestationModel, c2: PrestationModel): boolean {
+    return c1 && c2 ? c1.cote === c2.cote : c1 === c2;
+  }
 
 }

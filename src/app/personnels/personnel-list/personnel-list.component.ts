@@ -22,7 +22,7 @@ import { EntrepriseModel } from 'src/app/admin/entreprise/models/entreprise.mode
   styleUrls: ['./personnel-list.component.scss']
 })
 export class PersonnelListComponent implements OnInit {
-  displayedColumns: string[] = ['service', 'matricule', 'fullname', 'email', 'telephone', 'sexe', 'id'];
+  displayedColumns: string[] = ['numero', 'matricule', 'fullname', 'email', 'telephone', 'sexe', 'id'];
   
   ELEMENT_DATA: PersonnelModel[] = [];
   

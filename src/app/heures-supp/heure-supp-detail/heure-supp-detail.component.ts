@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { HeureSuppModel } from '../models/heure-supp-model';
 import { HeureSuppService } from '../heure-supp.service';
+import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
+import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
 
 @Component({
   selector: 'app-heure-supp-detail',
@@ -19,6 +21,8 @@ export class HeureSuppDetailComponent implements OnInit {
   isLoading = false;
 
   currentUser: PersonnelModel | any;
+
+  preference: PreferenceModel;
   
   heureSupp: HeureSuppModel;
 
@@ -38,7 +42,8 @@ export class HeureSuppDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private heureSuppService: HeureSuppService, 
+    private heureSuppService: HeureSuppService,
+    private reglageService: ReglageService,
     public dialog: MatDialog,
     private toastr: ToastrService) {}
 
@@ -48,21 +53,29 @@ export class HeureSuppDetailComponent implements OnInit {
       let id = this.route.snapshot.paramMap.get('id'); 
       this.authService.user().subscribe({
         next: (user) => {
-          this.currentUser = user; 
-          this.heureSuppService.get(Number(id)).subscribe(res => {
-            this.heureSupp = res;
-            const created = new Date(this.heureSupp.created);
-            const moisSuivant = created.getMonth() + 1;
-            const annee = created.getFullYear();
-            this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
-            this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
-            this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
-            this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
+          this.currentUser = user;
+          this.reglageService.preference(this.currentUser.code_entreprise).subscribe(pref => {
+            this.preference = pref;
+            this.heureSuppService.get(Number(id)).subscribe(res => {
+              this.heureSupp = res;
+              const created = new Date(this.heureSupp.created);
+              const moisSuivant = created.getMonth() + 1;
+              const annee = created.getFullYear();
 
-            // Cette ligne ne prend pas en compte +1
-            this.isMoisPrecedent  = created.getMonth() +1 < new Date().getMonth() + 1 && created.getFullYear() === new Date().getFullYear();
-            this.isLoading = false;
+              if (this.preference.pris_en_compte_mois_plus_1) {
+                this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
+                this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
+                this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
+                this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
+              } else {
+                 // Cette ligne ne prend pas en compte +1
+                this.isMoisPrecedent  = created.getMonth() +1 < new Date().getMonth() + 1 && created.getFullYear() === new Date().getFullYear();
+              }
+              
+              this.isLoading = false;
+            });
           });
+         
         },
         error: (error) => {
           this.isLoading = false;

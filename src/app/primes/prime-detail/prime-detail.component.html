@@ -70,7 +70,7 @@
                                 </li>
                                 <li>
                                     <span class="fw-semibold d-inline-block">Montant: </span>
-                                    <!-- <span class="gray-color">
+                                    <span class="gray-color" *ngIf="preference.pris_en_compte_mois_plus_1">
                                         <span class="badge text-soft-success" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
                                             {{ prime.montant | numberFormat:'fr-FR' }} {{ prime.monnaie }} <sup>+1</sup>
                                         </span>
@@ -82,13 +82,16 @@
                                         <span *ngIf="isMoisPrecedentValid && !isValid">
                                            <del>{{ prime.montant | numberFormat:'fr-FR' }} {{ prime.monnaie }}</del> 
                                         </span>
-                                    </span> -->
-                                    <span class="badge text-soft-success" *ngIf="!isMoisPrecedent">
-                                        {{ prime.montant | numberFormat:'fr-FR' }} {{ prime.monnaie }} <sup>+1</sup>
                                     </span>
-                                    <span *ngIf="isMoisPrecedent">
-                                        <del>{{ prime.montant | numberFormat:'fr-FR' }} {{ prime.monnaie }}</del> 
-                                     </span>
+                                    <span class="gray-color" *ngIf="!preference.pris_en_compte_mois_plus_1">
+                                        <span class="badge text-soft-success" *ngIf="!isMoisPrecedent">
+                                            {{ prime.montant | numberFormat:'fr-FR' }} {{ prime.monnaie }} <sup>+1</sup>
+                                        </span>
+                                        <span *ngIf="isMoisPrecedent">
+                                            <del>{{ prime.montant | numberFormat:'fr-FR' }} {{ prime.monnaie }}</del> 
+                                        </span>
+                                    </span>
+                                    
                                 </li> 
                                 <li>
                                     <span class="fw-semibold d-inline-block">Signature: </span>

@@ -60,14 +60,14 @@ export class PenalitesComponent implements OnInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.penaliteService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-                  this.ELEMENT_DATA = res; 
-                  this.dataSource = new MatTableDataSource<PenaliteModel>(this.ELEMENT_DATA);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator;
-                });
-                this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-                  this.preference = res;
+                this.reglageService.preference(this.currentUser.code_entreprise).subscribe(pref => {
+                  this.preference = pref;
+                  this.penaliteService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+                    this.ELEMENT_DATA = res; 
+                    this.dataSource = new MatTableDataSource<PenaliteModel>(this.ELEMENT_DATA);
+                    this.dataSource.sort = this.sort;
+                    this.dataSource.paginator = this.paginator;
+                  });
                 });
               this.isLoading = false;  
             },

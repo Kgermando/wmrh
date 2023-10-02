@@ -14,6 +14,8 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service'; 
 import { HeureSuppModel } from './models/heure-supp-model';
 import { HeureSuppService } from './heure-supp.service';
+import { PreferenceModel } from '../preferences/reglages/models/reglage-model';
+import { ReglageService } from '../preferences/reglages/reglage.service';
 
 @Component({
   selector: 'app-heures-supp',
@@ -33,13 +35,16 @@ export class HeuresSuppComponent implements OnInit {
 
   isLoading = false;
   currentUser: PersonnelModel | any; 
+
+  preference: PreferenceModel;
  
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
       private router: Router,
       private authService: AuthService,
-      private heureSuppService: HeureSuppService, 
+      private heureSuppService: HeureSuppService,
+      private reglageService: ReglageService,
       public dialog: MatDialog,
   ) {} 
   toggleTheme() {
@@ -52,13 +57,16 @@ export class HeuresSuppComponent implements OnInit {
         this.authService.user().subscribe({
             next: (user) => {
                 this.currentUser = user;
-                this.heureSuppService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-                  this.ELEMENT_DATA = res; 
-                  this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator; 
-              }); 
-              this.isLoading = false;
+                this.reglageService.preference(this.currentUser.code_entreprise).subscribe(pref => {
+                  this.preference = pref;
+                  this.heureSuppService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+                    this.ELEMENT_DATA = res; 
+                    this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
+                    this.dataSource.sort = this.sort;
+                    this.dataSource.paginator = this.paginator; 
+                    this.isLoading = false;
+                }); 
+                });
             },
             error: (error) => {
               this.isLoading = false;

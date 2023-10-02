@@ -57,23 +57,27 @@ export class PrimeDetailComponent implements OnInit {
       this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user; 
-            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-              this.preference = res; 
+            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(prefs => {
+              this.preference = prefs; 
+              this.primeService.get(Number(id)).subscribe(res => {
+                this.prime = res;
+                const created = new Date(this.prime.created);
+                const moisSuivant = created.getMonth() + 1;
+                const annee = created.getFullYear();
+                if (this.preference.pris_en_compte_mois_plus_1) {
+                  this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
+                  this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
+                  this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
+                  this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
+                } else {
+                   // Cette ligne ne prend pas en compte +1
+                this.isMoisPrecedent = created.getMonth() + 1 < new Date().getMonth() + 1 && created.getFullYear() === new Date().getFullYear();
+             
+                }
+                  this.isLoading = false;
+              });
             });
-            this.primeService.get(Number(id)).subscribe(res => {
-              this.prime = res;
-              const created = new Date(this.prime.created);
-              const moisSuivant = created.getMonth() + 1;
-              const annee = created.getFullYear();
-              this.isMoisSuivantValid = moisSuivant > this.dateMonth  && annee === this.dateAN; // Mois suivant pour payer
-              this.isMoisSuivantANValid = moisSuivant > this.dateMonth && annee < this.dateAN;
-              this.isValid = moisSuivant === this.dateMonth  && annee === this.dateAN; // Mois actual pour payer
-              this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
-
-                 // Cette ligne ne prend pas en compte +1
-              this.isMoisPrecedent = created.getMonth() + 1 < new Date().getMonth() + 1 && created.getFullYear() === new Date().getFullYear();
-              this.isLoading = false;
-            });
+           
           
         },
         error: (error) => {

@@ -19,7 +19,7 @@ import { SalaireService } from '../salaire.service';
   styleUrls: ['./list-paiments.component.scss']
 })
 export class ListPaimentsComponent implements OnInit {
-  displayedColumns: string[] = ['service', 'matricule', 'nom', 'postnom', 'prenom', 'email', 'telephone', 'sexe'];
+  displayedColumns: string[] = ['numero', 'matricule', 'nom', 'postnom', 'prenom', 'email', 'telephone', 'sexe'];
   
   personnelFilter: PersonnelModel[] = []; // Filter des personnels qui sont deja payé!
   ELEMENT_DATA: PersonnelModel[] = [];

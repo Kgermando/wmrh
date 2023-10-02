@@ -87,6 +87,14 @@
                             <span class="fw-semibold d-inline-block">Site de travail: </span>
                             <span class="gray-color" *ngIf="personne.site_locations">{{ personne.site_locations.site_location }}</span>
                         </li> 
+                        <li>
+                            <span class="fw-semibold">Date de creation: </span>
+                            <span class="gray-color">{{ personne.created | date: 'dd/MM/yyyy' }}</span>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold">Mise à jour le: </span>
+                            <span class="gray-color">{{ personne.update_created | date: 'dd/MM/yyyy HH:mm' }}</span>
+                        </li> 
                     </ul>  
                 </mat-card-content>
             </mat-card> 

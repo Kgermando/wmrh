@@ -20,7 +20,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./statuts-paie.component.scss']
 })
 export class StatutsPaieComponent implements OnInit {
-  displayedColumns: string[] = [ 'services', 'statut', 'matricule', 'fullname', 'departements', 'site_locations', 'created'];
+  displayedColumns: string[] = [ 'numero', 'statut', 'matricule', 'fullname', 'departements', 'site_locations', 'created'];
   
   ELEMENT_DATA: ReleveSalaireModel[] = [];
   
@@ -59,10 +59,10 @@ export class StatutsPaieComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.formGroup = this.formBuilder.group({
-      entreprise: new FormControl(''),
-      classeur: new FormControl(''),
-    });
+    // this.formGroup = this.formBuilder.group({
+    //   entreprise: new FormControl(''),
+    //   classeur: new FormControl(''),
+    // });
 
 
     this.authService.user().subscribe({
@@ -102,40 +102,49 @@ export class StatutsPaieComponent implements OnInit {
       }
   }
 
-  onFilter() {
-    var body = {
-      entreprise:  this.formGroup.value.entreprise,
-      classeur:  this.formGroup.value.classeur,
-    };
+  // onFilter() {
+  //   var body = {
+  //     entreprise:  this.formGroup.value.entreprise,
+  //     classeur:  this.formGroup.value.classeur,
+  //   };
     
-    if (body.classeur.month == undefined && body.classeur.year == undefined) { 
-      var date = new Date();
-      var month = date.getMonth() + 1;
-      var year = date.getFullYear(); 
-      this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
-        month.toString(), year.toString()).subscribe(res => { 
-          this.ELEMENT_DATA = res;
-          this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator; 
-        }
-      );
-    }
-    if (body.classeur.month != undefined && body.classeur.year != undefined) { 
-      this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
-        body.classeur.month, body.classeur.year).subscribe(res => { 
-          this.ELEMENT_DATA = res;
-          this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator; 
-        }
-      );
-    } 
-  } 
+  //   if (body.classeur.month == undefined && body.classeur.year == undefined) { 
+  //     var date = new Date();
+  //     var month = date.getMonth() + 1;
+  //     var year = date.getFullYear(); 
+  //     this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
+  //       month.toString(), year.toString()).subscribe(res => { 
+  //         this.ELEMENT_DATA = res;
+  //         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
+  //         this.dataSource.sort = this.sort;
+  //         this.dataSource.paginator = this.paginator; 
+  //       }
+  //     );
+  //   }
+  //   if (body.classeur.month != undefined && body.classeur.year != undefined) { 
+  //     this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
+  //       body.classeur.month, body.classeur.year).subscribe(res => { 
+  //         this.ELEMENT_DATA = res;
+  //         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
+  //         this.dataSource.sort = this.sort;
+  //         this.dataSource.paginator = this.paginator; 
+  //       }
+  //     );
+  //   } 
+  // } 
 
   onChangeFarde(event: any) {
-    this.onFilter();
-    console.log('Filter', 'ok');
+    // this.onFilter();
+    // console.log('Filter', 'ok');
+
+    this.salaireService.statutPaieOnly(
+      this.currentUser.code_entreprise, event.value.month, event.value.year).subscribe(res => { 
+        this.ELEMENT_DATA = res;
+        this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator; 
+      }
+    );
   }
 
  

@@ -14,6 +14,7 @@ import { formatDate } from '@angular/common';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { FormBuilder, FormGroup } from '@angular/forms';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -60,8 +61,13 @@ export class BulletinPaieComponent implements OnInit {
 
   mois = '';
 
+  formGroup!: FormGroup;
+
+  delaiEditBulletin: Date;
+  isValidDelai = false;
+
   @ViewChild('htmlData', { static: false}) htmlData!: ElementRef;
-    
+
 
   constructor(
     public themeService: CustomizerSettingsService,
@@ -70,10 +76,11 @@ export class BulletinPaieComponent implements OnInit {
     private authService: AuthService,
     private salaireService: SalaireService,
     private reglageService: ReglageService,
+    private _formBuilder: FormBuilder,
     private toastr: ToastrService) {}
 
 
-    ngOnInit(): void {
+    ngOnInit(): void { 
       this.isLoading = true;
       this.authService.user().subscribe({
         next: (user) => {
@@ -166,18 +173,47 @@ export class BulletinPaieComponent implements OnInit {
             // var impot_elide = parseFloat(this.salaire.impot_elide)  / parseFloat(this.salaire.taux_dollard);
             // this.impot_elideUSD = parseFloat(impot_elide.toFixed(2));
 
-            // Reglage
-            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
+
+              // Reglage
+           this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
               this.preference = reglage; 
+              var date = new Date(this.salaire.created); 
+              this.delaiEditBulletin = new Date(date);
+              this.delaiEditBulletin.setDate(date.getDate() + this.preference.delai_edit_bulletin);
+
+              var dateNow = new Date();
+
+              if (dateNow > date && dateNow < this.delaiEditBulletin) {
+                this.isValidDelai = true;
+                console.log('isValidDelai true', this.isValidDelai);
+              } else {
+                this.isValidDelai = false;
+                console.log('isValidDelai false', this.isValidDelai);
+              }
+              
             });
+
+            this.isLoading = false; 
+           
           }); 
-          this.isLoading = false; 
         },
         error: (error) => {
           this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
+      });
+    }
+
+    edit(id: number) {
+      var body = {
+        statut: 'Traitement', 
+        signature: this.currentUser.matricule, 
+        update_created: new Date(),
+      };
+      this.salaireService.update(id, body).subscribe(res => {
+        this.router.navigate(['/layouts/salaires/statuts-paies']);
+        this.toastr.info('Ce Bulletin est repassé en mode Traitement', 'Success!');
       });
     }
  

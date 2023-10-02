@@ -55,9 +55,9 @@ export class PerformencesComponent implements OnInit {
                   this.ELEMENT_DATA = res; 
                   this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
                   this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator; 
+                  this.dataSource.paginator = this.paginator;
+                  this.isLoading = false;
               });
-                this.isLoading = false;
             },
             error: (error) => {
               this.isLoading = false;

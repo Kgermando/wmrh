@@ -290,6 +290,18 @@ export class EditReglageDialogBox implements OnInit{
         montant_travailler_non_quadre: '',
       });
     }
+
+    if (this.data['reglage'] == 'Prise en Compte paiement ce mois') {
+      this.formGroup = this.formBuilder.group({
+        pris_en_compte_mois_plus_1: '',
+      });
+    }
+
+    if (this.data['reglage'] == 'Delai édition du bulletin') {
+      this.formGroup = this.formBuilder.group({
+        delai_edit_bulletin: '',
+      });
+    }
     
 
     this.authService.user().subscribe({
@@ -543,8 +555,21 @@ export class EditReglageDialogBox implements OnInit{
           });
         }
 
-        
+        if (this.data['reglage'] == 'Prise en Compte paiement ce mois') {
+          this.formGroup.patchValue({
+            pris_en_compte_mois_plus_1: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
 
+        if (this.data['reglage'] == 'Delai édition du bulletin') {
+          this.formGroup.patchValue({
+            delai_edit_bulletin: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        } 
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);

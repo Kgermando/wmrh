@@ -210,7 +210,7 @@ export class DashAllComponent implements OnInit{
                         show: false,
                     },
                     categories: this.prerformencePieList.map((item: PerformencePieYearModel) => {
-                         if (item.year == 1) {
+                        if (item.year == 1) {
                             return 'Jan';
                         } else if (item.year == 2) {
                             return 'Fev';

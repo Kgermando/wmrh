@@ -130,6 +130,8 @@ export class ReglageAdminAddComponent implements OnInit {
                 bareme_30: 3600000,
                 nbr_course: 6,
                 contre_valeur_logement: 30,
+                pris_en_compte_mois_plus_1: true,
+                delai_edit_bulletin: 3,
                 signature: this.currentUser.matricule,
                 created: "2023-07-19 08:45:59.632", 
                 update_created: "2023-07-19 08:45:59.632", 

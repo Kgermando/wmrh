@@ -134,76 +134,77 @@ export class PaieViewComponent implements OnInit {
           this.personne = res;
           this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
             this.preference = res;
+            this.salaireService.primeTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(prime => {
+              var primes  = prime;
+              primes.map((item: any) => this.primeUSD = parseFloat(item.sum));
+            });
+            this.salaireService.primeTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(prime => {
+              var primes  = prime;
+              primes.map((item: any) => this.primeCDF = parseFloat(item.sum));
+            });
+            this.salaireService.penaliteTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(penalite => {
+              var penalites  = penalite;
+              penalites.map((item: any) => this.penaliteUSD = parseFloat(item.sum));
+            });
+            this.salaireService.penaliteTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(penalite => {
+              var penalites  = penalite;
+              penalites.map((item: any) => this.penaliteCDF = parseFloat(item.sum));
+            });
+            this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(
+              heureSup => {
+                var heureSupp  = heureSup;
+                heureSupp.map((item: any) => this.nbrHeureSupp = parseFloat(item.sum));
+              }
+            );
+            this.salaireService.avanceSalaireTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
+              avanceSalaire => {
+                var avanceSalaires = avanceSalaire; 
+                avanceSalaires.map((item: any) => this.avanceSalaireUSD = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.avanceSalaireTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
+              avanceSalaire => {
+                var avanceSalaires = avanceSalaire; 
+                avanceSalaires.map((item: any) => this.avanceSalaireCDF = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.preEntrepriseUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
+              presEntreprise => {
+                var preEntrepriseUSDs = presEntreprise; 
+                preEntrepriseUSDs.map((item: any) => this.presEntrepriseUSD = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.preEntrepriseCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
+              presEntreprise => {
+                var preEntrepriseUSD = presEntreprise; 
+                preEntrepriseUSD.map((item: any) => this.presEntrepriseCDF = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.getJrPrestE(this.currentUser.code_entreprise, this.personne.matricule, datePaie).subscribe(
+              jrsPreste => {
+                var jrsPrestE = jrsPreste; 
+                jrsPrestE.map((item: any) => this.nbreJrsPreste = parseFloat(item.presence));
+              }
+            );
+            this.salaireService.getJrCongePayE(this.currentUser.code_entreprise, this.personne.matricule, datePaie).subscribe(
+              jrsCongE => {
+                var congepayes = jrsCongE; 
+                congepayes.map((item: any) => this.congepayeNbr = parseFloat(item.conge));
+              }
+            );
+            var date_debut_contrat_employE = (this.personne.date_debut_contrat) ? this.personne.date_debut_contrat : new Date(); 
+            var date_contrat = formatDate(date_debut_contrat_employE, 'yyyy-MM-dd', 'en-US');
+            this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_contrat, datePaie).subscribe(
+              date_debut_contrat => {
+                var date_debut_contrats = date_debut_contrat;
+                date_debut_contrats.map((item: any) => this.anciennete_nbr_age = parseFloat(item.age['years']));
+                if (Number.isNaN(this.anciennete_nbr_age)) {
+                  this.anciennete_nbr_age = 0;
+                } 
+              }
+            );
           });
-          this.salaireService.primeTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(prime => {
-            var primes  = prime;
-            primes.map((item: any) => this.primeUSD = parseFloat(item.sum));
-          });
-          this.salaireService.primeTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(prime => {
-            var primes  = prime;
-            primes.map((item: any) => this.primeCDF = parseFloat(item.sum));
-          });
-          this.salaireService.penaliteTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(penalite => {
-            var penalites  = penalite;
-            penalites.map((item: any) => this.penaliteUSD = parseFloat(item.sum));
-          });
-          this.salaireService.penaliteTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(penalite => {
-            var penalites  = penalite;
-            penalites.map((item: any) => this.penaliteCDF = parseFloat(item.sum));
-          });
-          this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            heureSup => {
-              var heureSupp  = heureSup;
-              heureSupp.map((item: any) => this.nbrHeureSupp = parseFloat(item.sum));
-            }
-          );
-          this.salaireService.avanceSalaireTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            avanceSalaire => {
-              var avanceSalaires = avanceSalaire; 
-              avanceSalaires.map((item: any) => this.avanceSalaireUSD = parseFloat(item.sum)); 
-            }
-          );
-          this.salaireService.avanceSalaireTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            avanceSalaire => {
-              var avanceSalaires = avanceSalaire; 
-              avanceSalaires.map((item: any) => this.avanceSalaireCDF = parseFloat(item.sum)); 
-            }
-          );
-          this.salaireService.preEntrepriseUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            presEntreprise => {
-              var preEntrepriseUSDs = presEntreprise; 
-              preEntrepriseUSDs.map((item: any) => this.presEntrepriseUSD = parseFloat(item.sum)); 
-            }
-          );
-          this.salaireService.preEntrepriseCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            presEntreprise => {
-              var preEntrepriseUSD = presEntreprise; 
-              preEntrepriseUSD.map((item: any) => this.presEntrepriseCDF = parseFloat(item.sum)); 
-            }
-          );
-          this.salaireService.getJrPrestE(this.currentUser.code_entreprise, this.personne.matricule, datePaie).subscribe(
-            jrsPreste => {
-              var jrsPrestE = jrsPreste; 
-              jrsPrestE.map((item: any) => this.nbreJrsPreste = parseFloat(item.presence));
-            }
-          );
-          this.salaireService.getJrCongePayE(this.currentUser.code_entreprise, this.personne.matricule, datePaie).subscribe(
-            jrsCongE => {
-              var congepayes = jrsCongE; 
-              congepayes.map((item: any) => this.congepayeNbr = parseFloat(item.conge));
-            }
-          );
-          var date_debut_contrat_employE = (this.personne.date_debut_contrat) ? this.personne.date_debut_contrat : new Date(); 
-          var date_contrat = formatDate(date_debut_contrat_employE, 'yyyy-MM-dd', 'en-US');
-          this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_contrat, datePaie).subscribe(
-            date_debut_contrat => {
-              var date_debut_contrats = date_debut_contrat;
-              date_debut_contrats.map((item: any) => this.anciennete_nbr_age = parseFloat(item.age['years']));
-              if (Number.isNaN(this.anciennete_nbr_age)) {
-                this.anciennete_nbr_age = 0;
-              } 
-            }
-          );
+          
         });
         
       }
@@ -216,76 +217,77 @@ export class PaieViewComponent implements OnInit {
           this.personne = res;
           this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
             this.preference = res;
+            this.salaireService.primeTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(prime => {
+              var primes  = prime;
+              primes.map((item: any) => this.primeUSD = parseFloat(item.sum));
+            });
+            this.salaireService.primeTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(prime => {
+              var primes  = prime;
+              primes.map((item: any) => this.primeCDF = parseFloat(item.sum));
+            });
+            this.salaireService.penaliteTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(penalite => {
+              var penalites  = penalite;
+              penalites.map((item: any) => this.penaliteUSD = parseFloat(item.sum));
+            });
+            this.salaireService.penaliteTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(penalite => {
+              var penalites  = penalite;
+              penalites.map((item: any) => this.penaliteCDF = parseFloat(item.sum));
+            });
+            this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.personne.id, datePaie, this.preference.pris_en_compte_mois_plus_1).subscribe(
+              heureSup => {
+                var heureSupp  = heureSup;
+                heureSupp.map((item: any) => this.nbrHeureSupp = parseFloat(item.sum));
+              }
+            );
+            this.salaireService.avanceSalaireTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
+              avanceSalaire => {
+                var avanceSalaires = avanceSalaire; 
+                avanceSalaires.map((item: any) => this.avanceSalaireUSD = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.avanceSalaireTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
+              avanceSalaire => {
+                var avanceSalaires = avanceSalaire; 
+                avanceSalaires.map((item: any) => this.avanceSalaireCDF = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.preEntrepriseUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
+              presEntreprise => {
+                var preEntrepriseUSDs = presEntreprise; 
+                preEntrepriseUSDs.map((item: any) => this.presEntrepriseUSD = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.preEntrepriseCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
+              presEntreprise => {
+                var preEntrepriseUSD = presEntreprise; 
+                preEntrepriseUSD.map((item: any) => this.presEntrepriseCDF = parseFloat(item.sum)); 
+              }
+            );
+            this.salaireService.getJrPrestE(this.currentUser.code_entreprise, this.personne.matricule, datePaie).subscribe(
+              jrsPreste => {
+                var jrsPrestE = jrsPreste; 
+                jrsPrestE.map((item: any) => this.nbreJrsPreste = parseFloat(item.presence));
+              }
+            );
+            this.salaireService.getJrCongePayE(this.currentUser.code_entreprise, this.personne.matricule, datePaie).subscribe(
+              jrsCongE => {
+                var congepayes = jrsCongE; 
+                congepayes.map((item: any) => this.congepayeNbr = parseFloat(item.conge));
+              }
+            );
+            var date_debut_contrat_employE = (this.personne.date_debut_contrat) ? this.personne.date_debut_contrat : new Date(); 
+            var date_contrat = formatDate(date_debut_contrat_employE, 'yyyy-MM-dd', 'en-US');
+            this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_contrat, datePaie).subscribe(
+              date_debut_contrat => {
+                var date_debut_contrats = date_debut_contrat;
+                date_debut_contrats.map((item: any) => this.anciennete_nbr_age = parseFloat(item.age['years']));
+                if (Number.isNaN(this.anciennete_nbr_age)) {
+                  this.anciennete_nbr_age = 0;
+                } 
+              }
+            );
           });
-          this.salaireService.primeTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(prime => {
-            var primes  = prime;
-            primes.map((item: any) => this.primeUSD = parseFloat(item.sum));
-          });
-          this.salaireService.primeTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(prime => {
-            var primes  = prime;
-            primes.map((item: any) => this.primeCDF = parseFloat(item.sum));
-          });
-          this.salaireService.penaliteTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(penalite => {
-            var penalites  = penalite;
-            penalites.map((item: any) => this.penaliteUSD = parseFloat(item.sum));
-          });
-          this.salaireService.penaliteTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(penalite => {
-            var penalites  = penalite;
-            penalites.map((item: any) => this.penaliteCDF = parseFloat(item.sum));
-          });
-          this.salaireService.nbrHeureSupp(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            heureSup => {
-              var heureSupp  = heureSup;
-              heureSupp.map((item: any) => this.nbrHeureSupp = parseFloat(item.sum));
-            }
-          );
-          this.salaireService.avanceSalaireTotalUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            avanceSalaire => {
-              var avanceSalaires = avanceSalaire; 
-              avanceSalaires.map((item: any) => this.avanceSalaireUSD = parseFloat(item.sum)); 
-            }
-          );
-          this.salaireService.avanceSalaireTotalCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            avanceSalaire => {
-              var avanceSalaires = avanceSalaire; 
-              avanceSalaires.map((item: any) => this.avanceSalaireCDF = parseFloat(item.sum)); 
-            }
-          );
-          this.salaireService.preEntrepriseUSD(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            presEntreprise => {
-              var preEntrepriseUSDs = presEntreprise; 
-              preEntrepriseUSDs.map((item: any) => this.presEntrepriseUSD = parseFloat(item.sum)); 
-            }
-          );
-          this.salaireService.preEntrepriseCDF(this.currentUser.code_entreprise, this.personne.id, datePaie).subscribe(
-            presEntreprise => {
-              var preEntrepriseUSD = presEntreprise; 
-              preEntrepriseUSD.map((item: any) => this.presEntrepriseCDF = parseFloat(item.sum)); 
-            }
-          );
-          this.salaireService.getJrPrestE(this.currentUser.code_entreprise, this.personne.matricule, datePaie).subscribe(
-            jrsPreste => {
-              var jrsPrestE = jrsPreste; 
-              jrsPrestE.map((item: any) => this.nbreJrsPreste = parseFloat(item.presence));
-            }
-          );
-          this.salaireService.getJrCongePayE(this.currentUser.code_entreprise, this.personne.matricule, datePaie).subscribe(
-            jrsCongE => {
-              var congepayes = jrsCongE; 
-              congepayes.map((item: any) => this.congepayeNbr = parseFloat(item.conge));
-            }
-          );
-          var date_debut_contrat_employE = (this.personne.date_debut_contrat) ? this.personne.date_debut_contrat : new Date(); 
-          var date_contrat = formatDate(date_debut_contrat_employE, 'yyyy-MM-dd', 'en-US');
-          this.salaireService.getAnciennete(this.currentUser.code_entreprise, this.personne.id, date_contrat, datePaie).subscribe(
-            date_debut_contrat => {
-              var date_debut_contrats = date_debut_contrat;
-              date_debut_contrats.map((item: any) => this.anciennete_nbr_age = parseFloat(item.age['years']));
-              if (Number.isNaN(this.anciennete_nbr_age)) {
-                this.anciennete_nbr_age = 0;
-              } 
-            }
-          );
+          
         });
 
       }); 

@@ -16,11 +16,11 @@
         <div class="mat-elevation-z8 tagus-mat-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
                
-                <ng-container matColumnDef="service">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Entreprise</th>
+                <ng-container matColumnDef="update_created">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date de suppression</th>
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/personnels/hors-usages', element.id, 'view']">
-                            {{element.service }}
+                            {{element.update_created | date: 'dd/MM/yyyy HH:mm' }}
                         </a>
                     </td>
                 </ng-container>
