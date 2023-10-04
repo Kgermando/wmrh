@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { DepartementService } from './departement.service';
 import { AuthService } from 'src/app/auth/auth.service';

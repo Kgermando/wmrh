@@ -51,7 +51,6 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
-                            
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Pointages')">
                                 <a routerLink="/layouts/presences/pointage" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Pointage presence
@@ -199,9 +198,14 @@
                                     Reglages
                                 </a>
                             </li>
+                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Entreprises')">
+                                <a routerLink="/layouts/preferences/corporates" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Entreprises
+                                </a>
+                            </li>
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Services')">
                                 <a routerLink="/layouts/preferences/services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Entreprises
+                                    Services
                                 </a>
                             </li>
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Sites location')">

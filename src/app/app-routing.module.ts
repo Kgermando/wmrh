@@ -62,6 +62,7 @@ import { archivesGuard,
   dashboardGuard, 
   departementsGuard, 
   emailsGuard, 
+  entrepriseGuard, 
   fonctionGuard, 
   heureSuppGuard, 
   horaireGuard, 
@@ -106,6 +107,8 @@ import { CorbeilComponent } from './corbeil/corbeil.component';
 import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
 import { UsersComponent } from './admin/users/users.component';
 import { UserViewComponent } from './admin/users/user-view/user-view.component';
+import { CorporateComponent } from './preferences/corporates/corporate/corporate.component';
+import { CorporateViewComponent } from './preferences/corporates/corporate-view/corporate-view.component';
  
 
 const routes: Routes = [
@@ -139,6 +142,8 @@ const routes: Routes = [
     { path: 'preferences/titles/:id/detail', component: TitleViewComponent, canActivate: [titresGuard] },
     { path: 'preferences/site-location', component: SiteLocationComponent, canActivate: [siteLocationGuard] },
     { path: 'preferences/site-location/:id/detail', component: SiteLocationViewComponent, canActivate: [siteLocationGuard] },
+    { path: 'preferences/corporates', component: CorporateComponent, canActivate: [entrepriseGuard]},
+    { path: 'preferences/corporates/:id/detail', component: CorporateViewComponent, canActivate: [entrepriseGuard]},
 
     { path: 'presences/pointage', component: PointageComponent, canActivate: [pointagesGuard] },
     { path: 'presences/pointage/:matricule', component: PointageViewComponent, canActivate: [pointagesGuard] },

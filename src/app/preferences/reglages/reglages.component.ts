@@ -38,8 +38,9 @@ export class ReglagesComponent implements OnInit {
           this.currentUser = user;
           this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
             this.preference = res; 
+            this.isLoading = false;
           });
-          this.isLoading = false;
+          
         },
         error: (error) => {
           this.isLoading = false;
@@ -53,7 +54,7 @@ export class ReglagesComponent implements OnInit {
     openEditEntrepriseDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
       this.dialog.open(EditEntrepriseDialogBox, {
         width: '600px',
-        height: '100%', 
+        height: '100%',
         enterAnimationDuration,
         exitAnimationDuration,
         data: {
