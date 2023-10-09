@@ -182,8 +182,9 @@ import { CorbeilComponent } from './corbeil/corbeil.component';
 import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
 import { UsersComponent } from './admin/users/users.component';
 import { UserViewComponent } from './admin/users/user-view/user-view.component';
-import { CorporateComponent, EditCorporateDialogBox } from './preferences/corporates/corporate/corporate.component';
-import { CorporateViewComponent } from './preferences/corporates/corporate-view/corporate-view.component';
+import { CoporateAddDialogBox, CorporateComponent } from './preferences/corporates/corporate/corporate.component';
+import { CorporateViewComponent, EditCorporateDialogBox } from './preferences/corporates/corporate-view/corporate-view.component';
+import { CorporateReglageComponent, EditCorporateReglageDialogBox } from './preferences/corporate-reglage/corporate-reglage.component';
 
 
 @NgModule({
@@ -360,7 +361,10 @@ import { CorporateViewComponent } from './preferences/corporates/corporate-view/
     HoraireAddDialogBox,
     CorporateComponent,
     CorporateViewComponent,
-    EditCorporateDialogBox
+    EditCorporateDialogBox,
+    CoporateAddDialogBox,
+    CorporateReglageComponent,
+    EditCorporateReglageDialogBox
   ],
   imports: [
     BrowserModule,

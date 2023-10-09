@@ -1,12 +1,20 @@
-<mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
+
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+</div>
+
+<mat-card class="mb-25 tagus-card" 
+[class.component-dark-theme]="themeService.isDark()"
+*ngIf="!isLoading">
     <mat-card-header>
-        <div>
+        <div *ngIf="corporate">
+            <h6 class="mb-0">{{corporate.corporate_name}}</h6>
             <h4 class="mb-0">Liste des Employés</h4>
-            <span *ngIf="entreprise">TOTAL: {{ELEMENT_DATA.length}} / {{entreprise.nbre_employe}}</span>
+            <span>TOTAL: {{ELEMENT_DATA.length}} / {{corporate.nbre_employe}}</span>
         </div>
         <div>
-            <button mat-flat-button class="default-btn tagus m-0 margin" 
-                routerLink="/layouts/personnels/personnel-add">
+            <button mat-flat-button class="default-btn tagus m-0 margin"  
+                [routerLink]="['/layouts/personnels', corporate.id, 'personnel-add']">
                 <i class="ri-add-fill"></i> Ajouter un employé
             </button>
             <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="iconMenu">
@@ -17,7 +25,7 @@
                 class="bg-transparent border-none position-relative"> 
                     <i class="ri-file-download-line"></i> Modèle
                 </button>
-                <button mat-menu-item type="button" 
+                <button mat-menu-item type="button"
                     class="bg-transparent border-none position-relative" 
                     (click)="openEditDialog('300ms', '100ms')">
                     <i class="ri-upload-2-line"></i> Importer
@@ -41,11 +49,11 @@
         <div class="mat-elevation-z8 tagus-mat-table">
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
                
-                <ng-container matColumnDef="service">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Entreprise</th>
-                    <td mat-cell *matCellDef="let element">
+                <ng-container matColumnDef="numero">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>N° </th>
+                    <td mat-cell *matCellDef="let element; let i = index">
                         <a [routerLink]="['/layouts/personnels', element.id, 'personnel-view']">
-                            {{element.service}}
+                            {{i +1}}
                         </a>
                     </td>
                 </ng-container>

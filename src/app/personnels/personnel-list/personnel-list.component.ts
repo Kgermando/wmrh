@@ -8,13 +8,13 @@ import { CustomizerSettingsService } from 'src/app/customizer-settings/customize
 import { PersonnelModel } from '../models/personnel-model';
 import { PersonnelService } from '../personnel.service'; 
 import { AuthService } from 'src/app/auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
-import { EntrepriseService } from 'src/app/admin/entreprise/entreprise.service';
-import { EntrepriseModel } from 'src/app/admin/entreprise/models/entreprise.model';
+import { CorporateService } from 'src/app/preferences/corporates/corporate.service';
+import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';
 
 @Component({
   selector: 'app-personnel-list',
@@ -22,7 +22,7 @@ import { EntrepriseModel } from 'src/app/admin/entreprise/models/entreprise.mode
   styleUrls: ['./personnel-list.component.scss']
 })
 export class PersonnelListComponent implements OnInit {
-  displayedColumns: string[] = ['service', 'matricule', 'fullname', 'email', 'telephone', 'sexe', 'id'];
+  displayedColumns: string[] = ['numero', 'matricule', 'fullname', 'email', 'telephone', 'sexe', 'id'];
   
   ELEMENT_DATA: PersonnelModel[] = [];
   
@@ -35,18 +35,17 @@ export class PersonnelListComponent implements OnInit {
 
   isLoading = false;
   currentUser: PersonnelModel | any;
- 
-  entreprise: EntrepriseModel;
+  corporate: CorporateModel;
+  
   isActive = false;
 
  
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
-      private router: Router,
-      private authService: AuthService,
-      private personnelService: PersonnelService,
-      private entrepriseService: EntrepriseService,
+      private route: ActivatedRoute,
+      private corporateService: CorporateService,
+      private personnelService: PersonnelService, 
       public dialog: MatDialog,
       private toastr: ToastrService,
   ) {}
@@ -58,33 +57,37 @@ export class PersonnelListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.isLoading = true;
-    this.authService.user().subscribe({
-        next: (user) => {
-            this.currentUser = user; 
-            this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-              this.ELEMENT_DATA = res; 
-              this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-
-              this.entrepriseService.getCodeEntreprise(this.currentUser.code_entreprise).subscribe(e => {
-                this.entreprise = e;
-              });
-          });
-          
-          this.isLoading = false;
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.router.navigate(['/auth/login']);
-          console.log(error);
-        }
-      });
-
+    this.route.params.subscribe(routeParams => { 
+      this.loadData(routeParams['id']);
+    });  
       
-    }
+  }
 
+
+  public loadData(id: any): void {
+    this.isLoading = true;
+    this.corporateService.get(Number(id)).subscribe(res => {
+      this.corporate = res;
+      this.ELEMENT_DATA = this.corporate.personnels;
+      this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.isLoading = false;
+    });
+  }
+
+  // public loadDadta(id: any) {
+  //   this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+  //     this.ELEMENT_DATA = res; 
+  //     this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+  //     this.dataSource.sort = this.sort;
+  //     this.dataSource.paginator = this.paginator;
+
+  //     this.entrepriseService.getCodeEntreprise(this.currentUser.code_entreprise).subscribe(e => {
+  //       this.entreprise = e;
+  //     });
+  // });
+  // }
  
   applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
@@ -100,9 +103,7 @@ export class PersonnelListComponent implements OnInit {
       }
   }
 
-  detail(id: number) {
-    this.router.navigate(['/layouts/personnels', id, 'personnel-edit'])
-  }
+ 
 
   openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PersonnelUploadCSVDialogBox, {

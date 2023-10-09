@@ -261,7 +261,7 @@ export class PresenceFormComponent {
             if(res['apointement'] === 'S') {
               this.openEditDialog('300ms', '100ms', this.personne.id);
             } 
-            this.router.navigate(['/layouts/presences/pointage']);
+            this.router.navigate(['/layouts/presences', this.personne.corporates.id, 'pointage']);
             this.isLoadingForm = false;
           },
           error: (err) => {

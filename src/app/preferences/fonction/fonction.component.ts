@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Validators } from 'ngx-editor';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { FonctionModel } from './models/fonction-model';
@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { FonctionService } from './fonction.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CorporateModel } from '../corporates/models/corporate.model';
+import { CorporateService } from '../corporates/corporate.service';
 
 @Component({
   selector: 'app-fonction',
@@ -16,32 +18,41 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
   styleUrls: ['./fonction.component.scss']
 })
 export class FonctionComponent implements OnInit {
+
+  isLoadingCorporate = false;
+
   isLoading = false;
 
   formGroup!: FormGroup;
+
+  corporate: CorporateModel;
 
   fonctionList: FonctionModel[] = [];
 
   currentUser: PersonnelModel | any;
 
-
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
       public themeService: CustomizerSettingsService,
       private authService: AuthService,
       private _formBuilder: FormBuilder,
       private fonctionService: FonctionService,
+      private corporateService: CorporateService,
       public dialog: MatDialog,
       private toastr: ToastrService
   ) {}
-
-
+ 
   ngOnInit(): void {
+    this.formGroup = this._formBuilder.group({
+      fonction: ['', Validators.required], 
+    });
+
     this.authService.user().subscribe({
       next: (user) => {
-        this.currentUser = user;
-        this.fonctionService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.fonctionList = res; 
+        this.currentUser = user; 
+        this.route.params.subscribe(routeParams => { 
+          this.loadData(routeParams['id']);
         });
       },
       error: (error) => {
@@ -49,18 +60,23 @@ export class FonctionComponent implements OnInit {
         console.log(error);
       }
     });
-
-    this.formGroup = this._formBuilder.group({
-      fonction: ['', Validators.required], 
-    });
   }
 
+  public loadData(id: any): void {
+    this.isLoadingCorporate = true;
+    this.corporateService.get(Number(id)).subscribe(res => {
+      this.corporate = res;
+      this.fonctionList = this.corporate.fonctions;
+      this.isLoadingCorporate = false;
+    });
+  }
 
   onSubmit() {
     try {
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
+          corporate: this.corporate.id,
           fonction: this.formGroup.value.fonction, 
           signature: this.currentUser.matricule,
           created: new Date(),

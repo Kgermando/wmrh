@@ -120,6 +120,11 @@ export class PointageComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value; 
     this.personnelFilter = [...this.personnelList.filter(personne => personne.matricule.includes(filterValue.trim().toLowerCase()))];
  }
+
+
+ onChange(event: any) {
+  console.log('', event.value)
+ }
     
 
 

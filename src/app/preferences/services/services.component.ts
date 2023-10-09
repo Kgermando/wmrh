@@ -2,12 +2,14 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServicePrefModel } from './models/service-models';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from './service.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CorporateService } from '../corporates/corporate.service';
+import { CorporateModel } from '../corporates/models/corporate.model';
 
 @Component({
   selector: 'app-services',
@@ -15,32 +17,41 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
   styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
+  isLoadingCorporate = false;
+
   isLoading = false;
 
   formGroup!: FormGroup;
+
+  corporate: CorporateModel;
 
   serviceList: ServicePrefModel[] = [];
 
   currentUser: PersonnelModel | any;
 
-
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
       public themeService: CustomizerSettingsService,
       private authService: AuthService,
       private _formBuilder: FormBuilder,
       private serviceService: ServiceService,
+      private corporateService: CorporateService,
       public dialog: MatDialog,
       private toastr: ToastrService
   ) {}
 
 
   ngOnInit(): void {
+    this.formGroup = this._formBuilder.group({
+      service: ['', Validators.required], 
+    });
+
     this.authService.user().subscribe({
       next: (user) => {
-        this.currentUser = user;
-        this.serviceService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.serviceList = res; 
+        this.currentUser = user; 
+        this.route.params.subscribe(routeParams => { 
+          this.loadData(routeParams['id']);
         });
       },
       error: (error) => {
@@ -48,9 +59,14 @@ export class ServicesComponent implements OnInit {
         console.log(error);
       }
     });
+  }
 
-    this.formGroup = this._formBuilder.group({
-      service: ['', Validators.required], 
+  public loadData(id: any): void {
+    this.isLoadingCorporate = true;
+    this.corporateService.get(Number(id)).subscribe(res => {
+      this.corporate = res;
+      this.serviceList = this.corporate.services;
+      this.isLoadingCorporate = false;
     });
   }
 
@@ -60,6 +76,7 @@ export class ServicesComponent implements OnInit {
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
+          corporate: this.corporate.id,
           service: this.formGroup.value.service.toUpperCase(), 
           signature: this.currentUser.matricule,
           created: new Date(),

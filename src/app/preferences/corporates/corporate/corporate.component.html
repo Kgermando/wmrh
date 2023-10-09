@@ -1,210 +1,58 @@
-<div
-    class="row justify-content-center"
-    [class.component-dark-theme]="themeService.isDark()" 
->
-    <div class="col-lg-5 col-xl-4 col-md-12">
-        <mat-card class="mb-25 tacking-box tagus-card">
-            <mat-card-header class="border-bottom">
-                <h5 class="mb-0">Ajout entreprise</h5>
-            </mat-card-header>
-            <mat-card-content>
-                <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Nom entreprise </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer le nom de l'entreprise</mat-label>
-                                    <input matInput type="text" formControlName="corporate_name" name="corporate_name">
-                                    <mat-error *ngIf="formGroup.controls['corporate_name'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Total employés </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer le nombre des employés</mat-label>
-                                    <input matInput type="text" formControlName="nbre_employe" name="nbre_employe">
-                                    <mat-error *ngIf="formGroup.controls['nbre_employe'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">RCCM </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer le numero rccm</mat-label>
-                                    <input matInput type="text" formControlName="rccm" name="rccm">
-                                    <mat-error *ngIf="formGroup.controls['rccm'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Id nat. </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer l'Id Nat'</mat-label>
-                                    <input matInput type="text" formControlName="id_nat" name="id_nat">
-                                    <mat-error *ngIf="formGroup.controls['id_nat'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Numero d'impôt </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer le numero d'impôt</mat-label>
-                                    <input matInput type="text" formControlName="numero_impot" name="numero_impot">
-                                    <mat-error *ngIf="formGroup.controls['numero_impot'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Numero CNSS </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer le numéro cnss</mat-label>
-                                    <input matInput type="text" formControlName="numero_cnss" name="numero_cnss">
-                                    <mat-error *ngIf="formGroup.controls['numero_cnss'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Nom du responsable </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer le nom du responsable</mat-label>
-                                    <input matInput type="text" formControlName="responsable" name="responsable">
-                                    <mat-error *ngIf="formGroup.controls['responsable'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Téléphone </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer le téléphone</mat-label>
-                                    <input matInput type="text" formControlName="telephone" name="telephone">
-                                    <mat-error *ngIf="formGroup.controls['telephone'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Email </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer l'email</mat-label>
-                                    <input matInput type="text" formControlName="email" name="email">
-                                    <mat-error *ngIf="formGroup.controls['email'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Adresse </label>
-                                <mat-form-field appearance="fill">
-                                    <i class="ri-edit-2-line"></i>
-                                    <mat-label>Entrer l'adresse</mat-label>
-                                    <input matInput type="text" formControlName="adresse" name="adresse">
-                                    <mat-error *ngIf="formGroup.controls['adresse'].hasError('required')">
-                                        Ce champs est obligatoire
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                     </div>
-                     <div class="d-flex justify-content-center" *ngIf="isLoading">
-                        <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
-                    </div>
-                    <div *ngIf="!isLoading">
-                        <div *ngIf="currentUser">
-                            <button mat-flat-button class="tagus d-block" *ngIf="currentUser.permission === 'C' || 
-                        currentUser.permission === 'CR' ||
-                        currentUser.permission === 'CRU' ||
-                        currentUser.permission === 'CRUD'">Soumettre</button> 
-                        </div>
-                        
-                    </div> 
-                </form> 
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="col-lg-7 col-xl-8 col-md-12">
-        <mat-card class="mb-25 tagus-card">
-            <mat-card-header>
-                <h5 class="mb-0">Liste des entreprises</h5>
-            </mat-card-header>
-            <mat-card-content>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="fw-semibold gray-color">N° </th> 
-                                <th class="fw-semibold gray-color text-start">Statut </th>
-                                <th class="fw-semibold gray-color text-start">Nom </th>
-                                <th class="fw-semibold gray-color">Code entreprise</th>
-                                <th class="fw-semibold gray-color">Total employés </th>
-                                <th class="fw-semibold gray-color">Signature </th>  
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of corporateList; index as i">
-                                <td class="gray-color">{{i + 1}}. </td> 
-                                <td class="text-start">
-                                    <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
-                                        <h5 class="fw-semibold mb-5" *ngIf="item.statut">Actif</h5>
-                                        <h5 class="fw-semibold mb-5" *ngIf="!item.statut">Désactivé</h5> 
-                                    </a>
-                                </td>
-                                <td class="text-start">
-                                    <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
-                                        <h5 class="fw-semibold mb-5">{{item.corporate_name}}</h5> 
-                                    </a>
-                                </td>
-                                <td class="text-start">
-                                    <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
-                                        <h5 class="fw-semibold mb-5">{{item.code_corporate}}</h5> 
-                                    </a>
-                                </td>
-                                <td class="text-start">
-                                    <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
-                                        <h5 class="fw-semibold mb-5">{{item.nbre_employe}}</h5> 
-                                    </a>
-                                </td>
-                                <td class="gray-color">{{item.signature}}</td>
-                            </tr> 
-                        </tbody>
-                    </table>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-</div>
+
+<mat-card class="mb-25 tagus-card">
+    <mat-card-header>
+        <h4 class="mb-0">Liste des entreprises</h4>
+        <button mat-flat-button class="default-btn text-soft-primary" (click)="openAddDialog('300ms', '100ms')">
+            <i class="ri-add-fill"></i> Ajouter une entreprise
+        </button>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="fw-semibold gray-color">N° </th> 
+                        <th class="fw-semibold gray-color">Statut </th>
+                        <th class="fw-semibold gray-color">Nom </th>
+                        <th class="fw-semibold gray-color">Code</th>
+                        <th class="fw-semibold gray-color">Total employés </th>
+                        <th class="fw-semibold gray-color">RCCM </th>
+                        <th class="fw-semibold gray-color">ID Nat </th>
+                        <th class="fw-semibold gray-color">Numero impôt </th>
+                        <th class="fw-semibold gray-color">Numero CNSS </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of corporateList; index as i">
+                        <td class="gray-color">{{i + 1}}. </td> 
+                        <td class="gray-color text-center">
+                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center text-center product-info"> 
+                                <h5 class="fw-semibold mb-5" *ngIf="item.statut">Actif</h5>
+                                <h5 class="fw-semibold mb-5" *ngIf="!item.statut">Désactivé</h5> 
+                            </a>
+                        </td>
+                        <td class="gray-color text-center">
+                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
+                                <h5 class="fw-semibold mb-5">{{item.corporate_name}}</h5>
+                            </a>
+                        </td>
+                        <td class="gray-color text-center">
+                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
+                                <h5 class="fw-semibold mb-5">{{item.code_corporate}}</h5> 
+                            </a>
+                        </td>
+                        <td class="gray-color text-center">
+                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
+                                <h5 class="fw-semibold mb-5">{{item.nbre_employe}}</h5> 
+                            </a>
+                        </td>
+                        <td class="gray-color">{{item.rccm}}</td>
+                        <td class="gray-color">{{item.id_nat}}</td>
+                        <td class="gray-color">{{item.numero_impot}}</td>
+                        <td class="gray-color">{{item.numero_cnss}}</td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>

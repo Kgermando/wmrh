@@ -27,7 +27,7 @@ export class RegistrePresenceComponent implements OnInit {
   @Input('personne') personne: PersonnelModel; 
   
   displayedColumns: string[] = ['site_location', 'matricule', 'apointement', 'prestation', 'date_entree', 'date_sortie', 'observation'];
-   
+  
   ELEMENT_DATA: ApointementModel[] = []; 
   
   dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);

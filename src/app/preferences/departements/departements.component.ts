@@ -6,8 +6,10 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { DepartementModel } from './model/departement-model';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CorporateService } from '../corporates/corporate.service';
+import { CorporateModel } from '../corporates/models/corporate.model';
 
 @Component({
   selector: 'app-departements',
@@ -16,31 +18,40 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 })
 export class DepartementsComponent implements OnInit {
 
+  isLoadingCorporate = false;
+
   isLoading = false;
 
   formGroup!: FormGroup;
+
+  corporate: CorporateModel;
 
   departmentList: DepartementModel[] = [];
 
   currentUser: PersonnelModel | any;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
-      public themeService: CustomizerSettingsService,
-      private authService: AuthService,
-      private _formBuilder: FormBuilder,
-      private departementService: DepartementService,
-      public dialog: MatDialog,
-      private toastr: ToastrService
+    public themeService: CustomizerSettingsService,
+    private authService: AuthService,
+    private _formBuilder: FormBuilder,
+    private corporateService: CorporateService,
+    private departementService: DepartementService,
+    public dialog: MatDialog,
+    private toastr: ToastrService
   ) {}
-
+ 
 
   ngOnInit(): void {
+    this.formGroup = this._formBuilder.group({
+      departement: ['', Validators.required], 
+    });
     this.authService.user().subscribe({
       next: (user) => {
-        this.currentUser = user;
-        this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.departmentList = res; 
+        this.currentUser = user; 
+        this.route.params.subscribe(routeParams => { 
+          this.loadData(routeParams['id']);
         });
       },
       error: (error) => {
@@ -49,8 +60,15 @@ export class DepartementsComponent implements OnInit {
       }
     });
 
-    this.formGroup = this._formBuilder.group({
-      departement: ['', Validators.required], 
+   
+  }
+
+  public loadData(id: any): void {
+    this.isLoadingCorporate = true;
+    this.corporateService.get(Number(id)).subscribe(res => {
+      this.corporate = res;
+      this.departmentList = this.corporate.departements;
+      this.isLoadingCorporate = false;
     });
   }
 
@@ -60,6 +78,7 @@ export class DepartementsComponent implements OnInit {
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
+          corporate: this.corporate.id, 
           departement: this.formGroup.value.departement, 
           signature: this.currentUser.matricule,
           created: new Date(),

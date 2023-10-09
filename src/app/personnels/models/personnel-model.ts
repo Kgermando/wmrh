@@ -3,6 +3,7 @@ import { HeureSuppModel } from "src/app/heures-supp/models/heure-supp-model";
 import { NotifyModel } from "src/app/notify/models/notify-model";
 import { PenaliteModel } from "src/app/penalites/models/penalite-model";
 import { PerformenceModel } from "src/app/performences/models/performence-model";
+import { CorporateModel } from "src/app/preferences/corporates/models/corporate.model";
 import { DepartementModel } from "src/app/preferences/departements/model/departement-model";
 import { FonctionModel } from "src/app/preferences/fonction/models/fonction-model";
 import { ServicePrefModel } from "src/app/preferences/services/models/service-models";
@@ -28,6 +29,7 @@ export interface PersonnelModel {
     statut_personnel: boolean;
     roles: string[];
     permission: string;
+    corporate_view: string[];
 
     numero_cnss: string;
     date_naissance: Date;
@@ -36,6 +38,7 @@ export interface PersonnelModel {
     etat_civile: string;
     nbr_dependants: number;
 
+    corporates: CorporateModel;
     departements: DepartementModel;
     titles: TitleModel;
     fonctions: FonctionModel;

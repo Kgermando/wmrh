@@ -2,7 +2,13 @@
     class="row justify-content-center"
     [class.component-dark-theme]="themeService.isDark()" 
 >
-    <div class="col-lg-5 col-xl-4 col-md-12">
+
+<div class="d-flex justify-content-center" *ngIf="isLoadingCorporate">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+</div>
+
+
+    <div class="col-lg-5 col-xl-4 col-md-12" *ngIf="!isLoadingCorporate">
         <mat-card class="mb-25 tacking-box tagus-card">
             <mat-card-header class="border-bottom">
                 <h5 class="mb-0">Ajout Fonction</h5>
@@ -42,7 +48,10 @@
     <div class="col-lg-7 col-xl-8 col-md-12">
         <mat-card class="mb-25 tagus-card">
             <mat-card-header>
-                <h5 class="mb-0">Liste des fonctions</h5>
+                <div>
+                    <h6 class="mb-0" *ngIf="corporate">{{corporate.corporate_name}}</h6>
+                    <h4 class="mb-0">Fonctions</h4>
+                </div>
             </mat-card-header>
             <mat-card-content>
                 <div class="table-responsive">
@@ -64,7 +73,7 @@
                                     </a>
                                 </td>  
                                 <td class="gray-color">{{item.signature}}</td> 
-                                <td class="gray-color" *ngIf="item.personnels.length == 0">
+                                <td class="gray-color" *ngIf="corporate.personnels.length == 0">
                                     <button mat-icon-button color="primary" 
                                     (click)="openEditDialog('300ms', '100ms', item.id)"
                                     *ngIf="currentUser.permission === 'U' || 
