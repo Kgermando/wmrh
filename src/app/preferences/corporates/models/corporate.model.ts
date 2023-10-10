@@ -27,7 +27,7 @@ export interface CorporateModel {
     titles: TitleModel[];
     fonctions: FonctionModel[];
     services: ServicePrefModel[];
-    site_locations: SiteLocationModel[]; 
+    site_locations: SiteLocationModel[];
     code_entreprise: string; 
     signature: string; 
     created: Date;

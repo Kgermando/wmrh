@@ -8,6 +8,10 @@ import { PresenceService } from '../presence.service';
 import { ApointementModel } from '../models/presence-model';
 import { PresencePAAAModel } from '../models/presence-pie-model';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CorporateService } from 'src/app/preferences/corporates/corporate.service';
+import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';
+import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
 
 
 @Component({
@@ -21,7 +25,7 @@ export class PointageComponent implements OnInit {
   currentUser: PersonnelModel | any; 
 
   personnelList: PersonnelModel[] = [];
-  personnelFilter: PersonnelModel[] = []; 
+  personnelFilter: PersonnelModel[] = [];
 
   presence: ApointementModel;
 
@@ -50,12 +54,21 @@ export class PointageComponent implements OnInit {
   numberS: number = 0;
   numberO: number = 0;
   numberM: number = 0; 
+
+  formGroup: FormGroup;
+  corporateList: CorporateModel[] = [];
+  corporate: CorporateModel;
+  siteLocationList: SiteLocationModel[] = [];
+  siteLocation: SiteLocationModel;
+
   
  
     constructor(
       public themeService: CustomizerSettingsService,
+      private formBuilder: FormBuilder,
       private router: Router,
       private authService: AuthService,
+      private corporateService: CorporateService,
       private personnelService: PersonnelService,
       private presenceService: PresenceService,
       private toastr: ToastrService
@@ -63,48 +76,15 @@ export class PointageComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     this.isLoading = true;
       this.authService.user().subscribe({
         next: (user) => {
-            this.currentUser = user;
-            if (this.currentUser.site_locations) {
-              this.personnelService.getAllLocation(this.currentUser.code_entreprise, this.currentUser.site_locations.site_location).subscribe(res => {
-                this.personnelList = res;
-                this.personnelFilter = [...this.personnelList];
-                this.presenceService.getItemsPAAA(this.currentUser.code_entreprise, this.currentUser.site_locations.site_location).subscribe(res => {
-                  this.itemsPAAAList = res;
-                  this.itemsPList = this.itemsPAAAList.filter(v => v.apointement === 'P');
-                  this.itemsAList = this.itemsPAAAList.filter(v => v.apointement === 'A');
-                  this.itemsAAList = this.itemsPAAAList.filter(v => v.apointement === 'AA');
-                  
-                  this.itemsPList.map((item: any) => this.numberP = item.count);
-                  this.itemsAList.map((item: any) => this.numberA = item.count);
-                  this.itemsAAList.map((item: any) => this.numberAA = item.count); 
-                });
-                this.presenceService.getItemsCongE(this.currentUser.code_entreprise, this.currentUser.site_locations.site_location).subscribe(res => {
-                  this.itemsCongeList = res;
-                  this.itemsAMList = this.itemsCongeList.filter(v => v.apointement === 'AM');
-                  this.itemsCCList = this.itemsCongeList.filter(v => v.apointement === 'CC');
-                  this.itemsCAList = this.itemsCongeList.filter(v => v.apointement === 'CA');
-                  this.itemsCOList = this.itemsCongeList.filter(v => v.apointement === 'CO');
-                  this.itemsSList = this.itemsCongeList.filter(v => v.apointement === 'S');
-                  this.itemsOList = this.itemsCongeList.filter(v => v.apointement === 'O');
-                  this.itemsMList = this.itemsCongeList.filter(v => v.apointement === 'M');
-  
-                  this.itemsAMList.map((item: any) => this.numberAM = item.count);
-                  this.itemsCCList.map((item: any) => this.numberCC = item.count);
-                  this.itemsCAList.map((item: any) => this.numberCA = item.count);
-                  this.itemsCOList.map((item: any) => this.numberCO = item.count);
-                  this.itemsSList.map((item: any) => this.numberS = item.count);
-                  this.itemsOList.map((item: any) => this.numberO = item.count);
-                  this.itemsMList.map((item: any) => this.numberM = item.count);
-                }); 
-              });
-            } else { 
-              this.toastr.warning('Vous n\'avez pas créé le site de travail!', 'Infos!');
-            }
-            
-          this.isLoading = false;
+          this.currentUser = user;
+          this.corporateService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+            this.corporateList = res;
+            this.isLoading = false;
+          });
         },
         error: (error) => {
           this.isLoading = false;
@@ -119,17 +99,78 @@ export class PointageComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value; 
     this.personnelFilter = [...this.personnelList.filter(personne => personne.matricule.includes(filterValue.trim().toLowerCase()))];
- }
-
-
- onChange(event: any) {
-  console.log('', event.value)
- }
-    
-
-
-  toggleTheme() {
-      this.themeService.toggleTheme();
   }
+
+
+  onChange(event: any) {
+    console.log('corporate', event.value);
+    this.corporate = event.value;
+    this.siteLocationList = this.corporate.site_locations;
+ 
+    // Initialisation des valeurs
+    this.personnelFilter = [];
+
+    this.numberP = 0;
+    this.numberA = 0;
+    this.numberAA = 0;
+
+    this.numberAM = 0;
+    this.numberCC = 0;
+    this.numberCA = 0;
+    this.numberCO = 0;
+    this.numberS = 0;
+    this.numberO = 0;
+    this.numberM = 0;
+  }
+
+  onChangeSiteLocation(event: any) { 
+    this.siteLocation = event.value; 
+
+    this.loadData(this.siteLocation.personnels, this.siteLocation.code_entreprise, this.siteLocation.site_location);
+   
+  }
+
+  loadData(personnelList: PersonnelModel[], code_entreprise: string, site_location: string) {
+    this.personnelList = personnelList;
+    this.personnelFilter = [...this.personnelList];
+
+      this.presenceService.getItemsPAAA(code_entreprise, site_location).subscribe(res => {
+        this.itemsPAAAList = res;
+        console.log('code_entreprise', this.corporate.code_entreprise);
+        console.log('site_location', this.siteLocation.site_location);
+        console.log('itemsPAAAList', this.itemsPAAAList);
+        this.itemsPList = this.itemsPAAAList.filter(v => v.apointement === 'P');
+        this.itemsAList = this.itemsPAAAList.filter(v => v.apointement === 'A');
+        this.itemsAAList = this.itemsPAAAList.filter(v => v.apointement === 'AA');
+        
+        this.itemsPList.map((item: any) => this.numberP = item.count);
+        this.itemsAList.map((item: any) => this.numberA = item.count);
+        this.itemsAAList.map((item: any) => this.numberAA = item.count); 
+      });
+      this.presenceService.getItemsCongE(code_entreprise, site_location).subscribe(res => {
+        this.itemsCongeList = res;
+        console.log('itemsCongeList', this.itemsCongeList);
+        this.itemsAMList = this.itemsCongeList.filter(v => v.apointement === 'AM');
+        this.itemsCCList = this.itemsCongeList.filter(v => v.apointement === 'CC');
+        this.itemsCAList = this.itemsCongeList.filter(v => v.apointement === 'CA');
+        this.itemsCOList = this.itemsCongeList.filter(v => v.apointement === 'CO');
+        this.itemsSList = this.itemsCongeList.filter(v => v.apointement === 'S');
+        this.itemsOList = this.itemsCongeList.filter(v => v.apointement === 'O');
+        this.itemsMList = this.itemsCongeList.filter(v => v.apointement === 'M');
+
+        this.itemsAMList.map((item: any) => this.numberAM = item.count);
+        this.itemsCCList.map((item: any) => this.numberCC = item.count);
+        this.itemsCAList.map((item: any) => this.numberCA = item.count);
+        this.itemsCOList.map((item: any) => this.numberCO = item.count);
+        this.itemsSList.map((item: any) => this.numberS = item.count);
+        this.itemsOList.map((item: any) => this.numberO = item.count);
+        this.itemsMList.map((item: any) => this.numberM = item.count);
+      });
+  }
+
+
+    toggleTheme() {
+        this.themeService.toggleTheme();
+    }
 
 }

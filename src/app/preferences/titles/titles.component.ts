@@ -86,8 +86,8 @@ export class TitlesComponent implements OnInit{
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
-          entreprise: this.currentUser.entreprise,
-          code_entreprise: this.currentUser.code_entreprise
+          entreprise: this.corporate.corporate_name,
+          code_entreprise: this.corporate.code_entreprise
         };
         this.titleService.create(body).subscribe({
           next: () => {

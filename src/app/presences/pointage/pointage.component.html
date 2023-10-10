@@ -13,69 +13,77 @@
                 Site: {{ currentUser.site_locations.site_location }}
             </p> -->
         </div>
-        
-        <div class="flex-wrap d-flex align-items-center justify-content-space-between">
-            <div class="pointage">
-                <h4>Stats: </h4>
-            </div>
-            <a routerLink="/layouts/presences/registre-presences">
-                <div class="pointage">
-                    <div class="box-present">P</div>
-                    <div class="box-value">{{numberP}}</div>
-                </div>
-                <div class="pointage">
-                    <div class="box-absence-sans-autorisation">A</div>
-                    <div class="box-value">{{numberA}}</div>
-                </div>
-                <div class="pointage">
-                    <div class="box-absence-autorisee">AA</div>
-                    <div class="box-value">{{numberAA}}</div>
-                </div>
-                <div class="pointage">
-                    <div class="box-absent-maladie">AM</div>
-                    <div class="box-value">{{numberAM}}</div>
-                </div>
-                <div class="pointage">
-                    <div class="box-conge-circonstanciel">CC</div>
-                    <div class="box-value">{{numberCC}}</div>
-                </div>
-                <div class="pointage">
-                    <div class="box-conge-annuel">CA</div>
-                    <div class="box-value">{{numberCA}}</div>
-                </div>
-                <div class="pointage">
-                    <div class="box-suspension">S</div>
-                    <div class="box-value">{{numberS}}</div>
-                </div>
-                <div class="pointage">
-                    <div class="box-service-off">O</div>
-                    <div class="box-value">{{numberO}}</div>
-                </div>
-                <div class="pointage">
-                    <div class="box-mission">M</div>
-                    <div class="box-value">{{numberM}}</div>
-                </div>
-            </a>
-        </div>
-    </mat-card-header>
-    <mat-card-content>
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-12">
-                <!-- <mat-form-field appearance="fill">
-                    <mat-label>Site de travail</mat-label>
-                    <mat-select >
-                        <mat-option *ngFor="let site of corporate.site_locations" [value]="site.site_location">
-                            {{site.site_location}}
+        <div class=""> 
+            <div class="d-md-flex align-items-center justify-content-end"> 
+                <mat-form-field style="height: 80px;" appearance="fill">
+                    <mat-label>Entreprise</mat-label>
+                    <mat-select (selectionChange)="onChange($event)">
+                        <mat-option *ngFor="let corporate of corporateList" [value]="corporate">
+                            {{corporate.corporate_name}}
                         </mat-option>
                     </mat-select>
-                </mat-form-field> -->
+                </mat-form-field>
+                <div class="box"></div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Site de travail</mat-label>
+                    <mat-select (selectionChange)="onChangeSiteLocation($event)">
+                        <mat-option *ngFor="let siteLocation of siteLocationList" [value]="siteLocation">
+                            {{siteLocation.site_location}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-12">
-                <form class="tagus-search-box">
-                    <input type="text" class="input-search border-radius" placeholder="Recherche par identifiant..." (keyup)="applyFilter($event)">
-                    <button type="submit"><i class="ri-search-line"></i></button>
-                </form>
+            <div class="flex-wrap d-flex align-items-center justify-content-end">
+                
+                <a routerLink="/layouts/presences/registre-presences">
+                    <div class="pointage">
+                        <div class="box-present">P</div>
+                        <div class="box-value">{{numberP}}</div>
+                    </div>
+                    <div class="pointage">
+                        <div class="box-absence-sans-autorisation">A</div>
+                        <div class="box-value">{{numberA}}</div>
+                    </div>
+                    <div class="pointage">
+                        <div class="box-absence-autorisee">AA</div>
+                        <div class="box-value">{{numberAA}}</div>
+                    </div>
+                    <div class="pointage">
+                        <div class="box-absent-maladie">AM</div>
+                        <div class="box-value">{{numberAM}}</div>
+                    </div>
+                    <div class="pointage">
+                        <div class="box-conge-circonstanciel">CC</div>
+                        <div class="box-value">{{numberCC}}</div>
+                    </div>
+                    <div class="pointage">
+                        <div class="box-conge-annuel">CA</div>
+                        <div class="box-value">{{numberCA}}</div>
+                    </div>
+                    <div class="pointage">
+                        <div class="box-suspension">S</div>
+                        <div class="box-value">{{numberS}}</div>
+                    </div>
+                    <div class="pointage">
+                        <div class="box-service-off">O</div>
+                        <div class="box-value">{{numberO}}</div>
+                    </div>
+                    <div class="pointage">
+                        <div class="box-mission">M</div>
+                        <div class="box-value">{{numberM}}</div>
+                    </div>
+                </a>
             </div>
+        </div>
+        
+    </mat-card-header>
+    <mat-card-content>
+        <div class="mb-25">
+            <form class="tagus-search-box">
+                <input type="text" class="input-search border-radius" placeholder="Recherche par identifiant..." 
+                    (keyup)="applyFilter($event)">
+                <button type="submit"><i class="ri-search-line"></i></button>
+            </form>
         </div>
         <div class="instructors-list d-flex flex-wrap">
             <div class="list-item" *ngFor="let item of personnelFilter">
@@ -96,10 +104,10 @@
             </div>
         </div>
     </mat-card-content>
-    <p class="text-center mt-20" *ngIf="!currentUser.site_locations">
+    <!-- <p class="text-center mt-20" *ngIf="!currentUser.site_locations">
         Ajoutez un site de travail en cliquant ici >
         <a routerLink="/layouts/preferences/site-location" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
             Sites de travail
         </a>
-    </p>
+    </p> -->
 </mat-card>
