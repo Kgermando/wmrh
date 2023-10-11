@@ -1,6 +1,10 @@
 <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark()">
     <mat-card-header>
-        <h4 class="mb-0">Liste des Performances</h4>
+        <div *ngIf="corporate">
+            <h6 class="mb-0">{{corporate.corporate_name}}</h6>
+            <h4 class="mb-0">Liste des Performances</h4>
+        </div> 
+        
         <!-- <div> 
             <button mat-icon-button class="tagus">
                 <mat-icon>print</mat-icon>

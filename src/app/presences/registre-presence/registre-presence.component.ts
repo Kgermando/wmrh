@@ -16,6 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
 import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
 import { SiteLocationService } from 'src/app/preferences/site-location/site-location.service';
+import { CorporateService } from 'src/app/preferences/corporates/corporate.service';
+import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';
  
 
 @Component({
@@ -36,6 +38,11 @@ export class RegistrePresenceComponent implements OnInit {
   isLoading = false;
   currentUser: PersonnelModel; 
 
+  corporateList: CorporateModel[] = [];
+  corporate: CorporateModel;
+  siteLocationList: SiteLocationModel[] = [];
+  siteLocation: SiteLocationModel;
+
   formGroup!: FormGroup;
   date_presence: any;
 
@@ -55,6 +62,7 @@ export class RegistrePresenceComponent implements OnInit {
       private router: Router,
       private authService: AuthService,
       private presenceService: PresenceService,
+      private corporateService: CorporateService,
       public dialog: MatDialog,
       private toastr: ToastrService,
   ) {}
@@ -103,10 +111,13 @@ export class RegistrePresenceComponent implements OnInit {
       this.authService.user().subscribe({
           next: (user) => {
             this.currentUser = user;
-            if (this.currentUser.site_locations) {
-              this.onChange();
-            }
-            this.isLoading = false;
+            this.corporateService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+              this.corporateList = res;
+              this.isLoading = false;
+            });
+            // if (this.currentUser.site_locations) {
+            //   this.onChange();
+            // }
           },
           error: (error) => {
             this.isLoading = false;
@@ -114,15 +125,32 @@ export class RegistrePresenceComponent implements OnInit {
             console.log(error);
           }
         }); 
-  } 
+  }
+
+
+  onChangeCorporate(event: any) {
+    this.corporate = event.value;
+    this.siteLocationList = this.corporate.site_locations;
+
+    // this.siteLocation = new SiteLocationModel();
+
+    this.ELEMENT_DATA = [];
+    this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
+  }
+
+  onChangeSiteLocation(event: any) {
+    // console.log('siteLocation', event.value);
+    this.siteLocation = event.value;
+
+    this.onChange(this.siteLocation);
+  }
 
  
-  onChange() {
+  onChange(siteLocation: SiteLocationModel) { 
     if (!this.date_presence) {
-      var datePresence = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); 
-        this.presenceService.getRegisterPresence(
-        this.currentUser.code_entreprise,
-        this.currentUser.site_locations.site_location, datePresence).subscribe(res => {
+      var datePresence = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+      this.presenceService.getRegisterPresence(
+          siteLocation.code_entreprise, siteLocation.site_location, datePresence).subscribe(res => {
           this.ELEMENT_DATA = res;
           this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
           this.dataSource.sort = this.sort;
@@ -133,9 +161,8 @@ export class RegistrePresenceComponent implements OnInit {
       this.date_presence = val.date_presence;
       var datePresence = formatDate(this.date_presence, 'yyyy-MM-dd', 'en-US'); 
       this.presenceService.getRegisterPresence(
-      this.currentUser.code_entreprise,
-      this.currentUser.site_locations.site_location, datePresence).subscribe(res => {
-          this.ELEMENT_DATA = res;
+        siteLocation.code_entreprise, siteLocation.site_location, datePresence).subscribe(res => {
+          this.ELEMENT_DATA = res; 
           this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;

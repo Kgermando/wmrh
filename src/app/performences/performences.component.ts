@@ -5,12 +5,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { PersonnelModel } from '../personnels/models/personnel-model';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog'; 
 import { PersonnelService } from '../personnels/personnel.service';
+import { CorporateModel } from '../preferences/corporates/models/corporate.model';
+import { CorporateService } from '../preferences/corporates/corporate.service';
 
 @Component({
   selector: 'app-performences',
@@ -28,15 +30,16 @@ export class PerformencesComponent implements OnInit {
   isLoading = false;
   currentUser: PersonnelModel | any;
 
+  corporate: CorporateModel;
+
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator; 
  
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
-      public themeService: CustomizerSettingsService,
-      private router: Router,
-      private authService: AuthService,
-      private personnelService: PersonnelService,
+      public themeService: CustomizerSettingsService, 
+      private route: ActivatedRoute,
+      private corporateService: CorporateService,   
       public dialog: MatDialog,
   ) {} 
 
@@ -47,24 +50,40 @@ export class PerformencesComponent implements OnInit {
 
 
   ngOnInit() { 
-        this.isLoading = true;
-        this.authService.user().subscribe({
-            next: (user) => {
-                this.currentUser = user;
-                this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-                  this.ELEMENT_DATA = res; 
-                  this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator; 
-              });
-                this.isLoading = false;
-            },
-            error: (error) => {
-              this.isLoading = false;
-              this.router.navigate(['/auth/login']);
-              console.log(error);
-            }
-          });  
+    this.route.params.subscribe(routeParams => { 
+      this.loadData(routeParams['id']);
+    }); 
+
+        // this.isLoading = true;
+        // this.authService.user().subscribe({
+        //     next: (user) => {
+        //         this.currentUser = user;
+        //         this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+        //           this.ELEMENT_DATA = res; 
+        //           this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+        //           this.dataSource.sort = this.sort;
+        //           this.dataSource.paginator = this.paginator; 
+        //       });
+        //         this.isLoading = false;
+        //     },
+        //     error: (error) => {
+        //       this.isLoading = false;
+        //       this.router.navigate(['/auth/login']);
+        //       console.log(error);
+        //     }
+        //   });  
+    }
+
+    public loadData(id: any): void {
+      this.isLoading = true;
+      this.corporateService.get(Number(id)).subscribe(res => {
+        this.corporate = res;
+        this.ELEMENT_DATA = this.corporate.personnels;  
+        this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.isLoading = false;
+      });
     }
 
  

@@ -38,7 +38,7 @@ export class SidebarComponent {
         Auth.userEmitter.subscribe(
             user => {
               this.currentUser = user;
-              this.corporateService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+              this.corporateService.allGetNavigation(this.currentUser.code_entreprise).subscribe(res => {
                 this.corporateList = res; 
                 this.loading = false;
               });

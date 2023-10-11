@@ -95,9 +95,9 @@ export class PerformenceAddDialogBox implements OnInit {
   isLoading = false;
 
   formGroup!: FormGroup;
- 
 
   currentUser: PersonnelModel | any;
+  personne: PersonnelModel;
 
   constructor( 
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -107,21 +107,25 @@ export class PerformenceAddDialogBox implements OnInit {
       private authService: AuthService, 
       private toastr: ToastrService, 
       private performenceService: PerformenceService,
+      private personnelService: PersonnelService,
   ) {}
-  
 
 
   ngOnInit(): void {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
+        this.personnelService.get(Number(this.data['id'])).subscribe(res => {
+          this.personne = res;
+          this.isLoading = false;
+        });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
     });
-    this.formGroup = this.formBuilder.group({  
+    this.formGroup = this.formBuilder.group({
       ponctualite: new FormControl('', [
         Validators.required,
         Validators.pattern('^[0-9]*$'), 
@@ -149,10 +153,8 @@ export class PerformenceAddDialogBox implements OnInit {
           Validators.max(10)
         ),
       ]),
-      observation: new FormControl('', [Validators.required]),  
-
-    }); 
- 
+      observation: new FormControl('', [Validators.required]),
+    });
   } 
 
   defaultValueOrRangeValidator(
@@ -174,7 +176,7 @@ export class PerformenceAddDialogBox implements OnInit {
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
-          personnel: this.data['id'],
+          personnel: this.personne.id,
           ponctualite: this.formGroup.value.ponctualite,
           hospitalite: this.formGroup.value.hospitalite,
           travail: this.formGroup.value.travail,
@@ -183,7 +185,8 @@ export class PerformenceAddDialogBox implements OnInit {
           created: new Date(),
           update_created: new Date(),
           entreprise: this.currentUser.entreprise,
-          code_entreprise: this.currentUser.code_entreprise
+          code_entreprise: this.currentUser.code_entreprise,
+          corporate: this.personne.corporates.id
         };
         this.performenceService.create(body).subscribe({
           next: () => {

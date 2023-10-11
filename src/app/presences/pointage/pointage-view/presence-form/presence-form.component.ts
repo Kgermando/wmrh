@@ -240,9 +240,9 @@ export class PresenceFormComponent {
     try {
       if (this.formGroup.valid) {
         this.isLoadingForm = true;
-        var body = { 
+        var body = {
           matricule: this.personne.matricule,
-          apointement: this.formGroup.value.apointement, 
+          apointement: this.formGroup.value.apointement,
           prestation: this.isPresence ? this.formGroup.value.prestation : 0,
           observation: this.formGroup.value.observation,
           date_entree: new Date(),

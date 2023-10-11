@@ -1,4 +1,4 @@
-export class HoraireModel {
+export class HoraireModel { 
     id: number; 
     name_horaire: string; // Horaire 
     personnel_shift_1: string[];

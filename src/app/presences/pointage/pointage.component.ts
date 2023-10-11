@@ -3,12 +3,10 @@ import { CustomizerSettingsService } from 'src/app/customizer-settings/customize
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
-import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { PresenceService } from '../presence.service';
 import { ApointementModel } from '../models/presence-model';
 import { PresencePAAAModel } from '../models/presence-pie-model';
-import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { CorporateService } from 'src/app/preferences/corporates/corporate.service';
 import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';
 import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
@@ -65,13 +63,10 @@ export class PointageComponent implements OnInit {
  
     constructor(
       public themeService: CustomizerSettingsService,
-      private formBuilder: FormBuilder,
       private router: Router,
       private authService: AuthService,
       private corporateService: CorporateService,
-      private personnelService: PersonnelService,
       private presenceService: PresenceService,
-      private toastr: ToastrService
   ) {}
 
 
@@ -170,7 +165,7 @@ export class PointageComponent implements OnInit {
 
 
     toggleTheme() {
-        this.themeService.toggleTheme();
+      this.themeService.toggleTheme();
     }
 
 }
