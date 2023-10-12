@@ -13,8 +13,8 @@
                 <div class="d-flex align-items-center justify-content-end">
                     <mat-form-field appearance="fill">
                         <mat-label>Select entreprise</mat-label>
-                        <mat-select (selectionChange)="onChangeClasser($event)" formControlName="entreprise">
-                            <mat-option *ngFor="let corporate of corporateList" [value]="corporate.corporate_name">
+                        <mat-select (selectionChange)="onChangeCorporate($event)" formControlName="entreprise">
+                            <mat-option *ngFor="let corporate of corporateList" [value]="corporate">
                                 {{corporate.corporate_name}}
                             </mat-option>
                         </mat-select>
@@ -177,7 +177,7 @@
         <thead>
             <tr>
                 <th class="fw-semibold gray-color">N°</th>
-                <th class="fw-semibold main-color">Entreprise</th>
+                <th class="fw-semibold main-color">Site de travail</th>
                 <th class="fw-semibold main-color">Matricule</th>
                 <th class="fw-semibold gray-color">Nom Complet</th>
                 <th class="fw-semibold gray-color">Departement</th>
@@ -205,7 +205,7 @@
                     {{ i + 1 }}
                 </td>
                 <td class="gray-color fw-semibold">
-                    {{ item.service }}
+                    {{ item.site_location }}
                 </td>
                 <td class="gray-color fw-semibold">
                     {{ item.matricule.toUpperCase() }}

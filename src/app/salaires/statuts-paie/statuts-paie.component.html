@@ -13,7 +13,7 @@
             <div class="d-md-flex align-items-center justify-content-end"> 
                 <mat-form-field appearance="fill">
                     <mat-label>Select entreprise</mat-label>
-                    <mat-select (selectionChange)="onChangeClasser($event)" formControlName="entreprise">
+                    <mat-select (selectionChange)="onChangeCorporate($event)" formControlName="entreprise">
                         <mat-option *ngFor="let corporate of corporateList" [value]="corporate">
                             {{corporate.corporate_name}}
                         </mat-option>

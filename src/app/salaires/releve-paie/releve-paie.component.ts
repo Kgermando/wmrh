@@ -77,7 +77,7 @@ export class RelevePaieComponent implements OnInit {
         this.currentUser = user;
         this.corporateService.getAll(this.currentUser.code_entreprise).subscribe(value => {
           this.corporateList = value;
-          
+          this.isLoading = false;
         });
       },
       error: (error) => {
@@ -87,6 +87,76 @@ export class RelevePaieComponent implements OnInit {
       }
     });
   }
+
+  onChangeCorporate(event: any) {
+    this.corporate = event.value; 
+    this.salaireService.classerDisponible(this.currentUser.code_entreprise, this.corporate.id).subscribe(classer => {
+      this.classerList = classer;
+      this.isLoading = false;
+    });
+
+    console.log('corporate', this.corporate);
+
+    console.log('classerList', this.classerList);
+  }
+
+  onChangeClasser(event: any) {
+    var month = event.value.month;
+    var year = event.value.year; 
+    this.salaireService.relevePaie(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(res => {
+      this.releveList = res;
+
+      this.salaireService.netAPayerTotal(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(
+        net_a_payer => {
+          var net_a_payE = net_a_payer;
+          net_a_payE.map((item: any) => this.net_a_payer = parseFloat(item.sum));  
+        }
+      );
+      this.salaireService.iprTotal(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(
+        ipr => {
+          var iprs = ipr;
+          iprs.map((item: any) => this.ipr = parseFloat(item.sum));
+        }
+      );
+      this.salaireService.cnssQPOTotal(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(
+        cnss => {
+          var cnssQPO = cnss; 
+          cnssQPO.map((item: any) => this.cnss = parseFloat(item.sum));
+        }
+      );
+      this.salaireService.rbiTotal(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(
+        rbi => {
+          var rbis = rbi; 
+          rbis.map((item: any) => this.rbi_total = parseFloat(item.sum));
+        }
+      );
+      this.salaireService.heureSuppTotal(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(
+        heure_supp => {
+          var heure_supps = heure_supp;
+          heure_supps.map((item: any) => this.heure_supp_total = parseFloat(item.sum));  
+        }
+      );
+      this.salaireService.primeTotal(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(
+        prime => {
+          var primes = prime;
+          primes.map((item: any) => this.prime_total = parseFloat(item.sum));
+        }
+      );
+      this.salaireService.penalitesTotal(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(
+        penalites => {
+          var penalitess = penalites; 
+          penalitess.map((item: any) => this.penalite_total = parseFloat(item.sum));
+        }
+      );
+      this.salaireService.syndicatTotal(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(
+        syndicat => {
+          var syndicats = syndicat; 
+          syndicats.map((item: any) => this.syndicat_total = parseFloat(item.sum));
+        }
+      ); 
+    });
+  } 
+ 
 
   onFilter() {
     var body = {
@@ -241,16 +311,6 @@ export class RelevePaieComponent implements OnInit {
   } 
 
 
-  onChangeClasser(event: any) {
-    this.corporate = event.value;
-    this.salaireService.classerDisponible(this.currentUser.code_entreprise, this.corporate.id).subscribe(farde => {
-      this.classerList = farde;
-      this.isLoading = false;
-    });
-    this.onFilter();
-    console.log('Filter', 'ok');
-  }
- 
 
 
   openExportDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

@@ -86,48 +86,61 @@ export class StatutsPaieComponent implements OnInit {
   }
 
 
-  onChangeClasser(event: any) {
-    this.corporate = event.value;
+  onChangeCorporate(event: any) {
+    this.corporate = event.value; 
     this.salaireService.classer(this.currentUser.code_entreprise, this.corporate.id).subscribe(classer => {
       this.classerList = classer;
       this.isLoading = false;
     });
-    
-    this.onFilter();
-    console.log('Filter', event.value);
-   
+
+    console.log('corporate', this.corporate);
   }
 
-  onFilter() {
-    var body = {
-      entreprise:  this.formGroup.value.entreprise,
-      classeur:  this.formGroup.value.classeur,
-    };
+  onChangeClasser(event: any) {
+    var month = event.value.month;
+    var year = event.value.year;
+    this.salaireService.statutPaie(
+      this.currentUser.code_entreprise,
+      this.corporate.code_corporate, month, year).subscribe(res => { 
+        this.ELEMENT_DATA = res;
+        this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator; 
+      }
+    ); 
+    // this.onFilter(); 
+  }
+
+  // onFilter() {
+  //   var body = {
+  //     entreprise:  this.formGroup.value.entreprise,
+  //     classeur:  this.formGroup.value.classeur,
+  //   };
     
-    if (body.classeur.month == undefined && body.classeur.year == undefined) { 
-      var date = new Date();
-      var month = date.getMonth() + 1;
-      var year = date.getFullYear(); 
-      this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
-          month.toString(), year.toString()).subscribe(res => {
-          this.ELEMENT_DATA = res;
-          this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      );
-    }
-    if (body.classeur.month != undefined && body.classeur.year != undefined) { 
-      this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
-        body.classeur.month, body.classeur.year).subscribe(res => { 
-          this.ELEMENT_DATA = res;
-          this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator; 
-        }
-      );
-    } 
-  } 
+  //   if (body.classeur.month == undefined && body.classeur.year == undefined) { 
+  //     var date = new Date();
+  //     var month = date.getMonth() + 1;
+  //     var year = date.getFullYear(); 
+  //     this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
+  //         month.toString(), year.toString()).subscribe(res => {
+  //         this.ELEMENT_DATA = res;
+  //         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
+  //         this.dataSource.sort = this.sort;
+  //         this.dataSource.paginator = this.paginator;
+  //       }
+  //     );
+  //   }
+  //   if (body.classeur.month != undefined && body.classeur.year != undefined) { 
+  //     this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
+  //       body.classeur.month, body.classeur.year).subscribe(res => { 
+  //         this.ELEMENT_DATA = res;
+  //         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
+  //         this.dataSource.sort = this.sort;
+  //         this.dataSource.paginator = this.paginator; 
+  //       }
+  //     );
+  //   } 
+  // } 
 
 
 
