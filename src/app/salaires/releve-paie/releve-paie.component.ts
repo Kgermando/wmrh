@@ -9,6 +9,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReleveSalaireModel } from '../models/releve-salaire-model';
+import { CorporateService } from 'src/app/preferences/corporates/corporate.service';
+import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';
 
 @Component({
   selector: 'app-releve-paie',
@@ -22,9 +24,10 @@ export class RelevePaieComponent implements OnInit {
   isLoading = false;
   currentUser: PersonnelModel | any;
 
-  entrepriseList: any[] = []; 
-  fardeList: any[] = []; 
-  dateFarde: any;
+  corporateList: CorporateModel[] = []; 
+  corporate: CorporateModel;
+  classerList: any[] = []; 
+  dateClasser: any;
   dateNow = new Date();
   dateMonth = 0;
   dateYear: any; 
@@ -51,6 +54,7 @@ export class RelevePaieComponent implements OnInit {
       private formBuilder: FormBuilder,
       private router: Router,
       private authService: AuthService,
+      private corporateService: CorporateService,
       private salaireService: SalaireService, 
       public dialog: MatDialog,
   ) {}
@@ -71,12 +75,9 @@ export class RelevePaieComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.salaireService.listeService(this.currentUser.code_entreprise).subscribe(entreprise => {
-          this.entrepriseList = entreprise;
-          this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
-            this.fardeList = farde;
-            this.isLoading = false;
-          });
+        this.corporateService.getAll(this.currentUser.code_entreprise).subscribe(value => {
+          this.corporateList = value;
+          
         });
       },
       error: (error) => {
@@ -103,10 +104,10 @@ export class RelevePaieComponent implements OnInit {
       var year = date.getFullYear(); 
       this.salaireService.relevePaie(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(res => {
         this.releveList = res;
-        var datePaieList = this.fardeList.filter((v) => v.month == month.toString() && v.year == year.toString());
-        this.dateFarde = datePaieList[datePaieList.length-1];
-        this.dateMonth = new Date(this.dateFarde).getMonth();
-          this.dateYear =  new Date(this.dateFarde).getFullYear();
+        var datePaieList = this.classerList.filter((v) => v.month == month.toString() && v.year == year.toString());
+        this.dateClasser = datePaieList[datePaieList.length-1];
+        this.dateMonth = new Date(this.dateClasser).getMonth();
+          this.dateYear =  new Date(this.dateClasser).getFullYear();
         if (this.dateMonth === 1) {
             this.mois = 'Janvier';
         } else if(this.dateMonth === 2) {
@@ -240,7 +241,12 @@ export class RelevePaieComponent implements OnInit {
   } 
 
 
-  onChangeFarde(event: any) {
+  onChangeClasser(event: any) {
+    this.corporate = event.value;
+    this.salaireService.classerDisponible(this.currentUser.code_entreprise, this.corporate.id).subscribe(farde => {
+      this.classerList = farde;
+      this.isLoading = false;
+    });
     this.onFilter();
     console.log('Filter', 'ok');
   }
@@ -273,7 +279,7 @@ export class SalaireExportXLSXDialogBox implements OnInit {
   // });
   dateRange!: FormGroup;
 
-  fardeList: any[] = [];
+  classerList: any[] = [];
 
   constructor( 
       public dialogRef: MatDialogRef<SalaireExportXLSXDialogBox>,

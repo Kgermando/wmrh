@@ -13,23 +13,22 @@ export class SalaireService extends ApiService {
     return this.http.get(`${this.endpoint}/get-mes-bulletins/${code_entreprise}/${matricule}`);
   }
 
-
-  farde(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-farde-paie/${code_entreprise}`);
+  classer(code_entreprise: string, corporate_id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-classer-paie/${code_entreprise}/${corporate_id}`);
   }
 
-  listeService(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-list-services/${code_entreprise}`);
+  classerDisponible(code_entreprise: string, corporate_id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-classer-disponible-paie/${code_entreprise}/${corporate_id}`);
   }
+
+  // listeService(code_entreprise: string): Observable<any> {
+  //   return this.http.get(`${this.endpoint}/get-list-services/${code_entreprise}`);
+  // }
 
   // fardeIsPaieDisponible(code_entreprise: string): Observable<any> {
   //   return this.http.get(`${this.endpoint}/get-farde-paie-disponible-only/${code_entreprise}`);
   // }
-  
-  fardeDisponible(code_entreprise: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/get-farde-disponible-paie/${code_entreprise}`);
-  }
-  
+
   // fardeMaxValue(code_entreprise: string): Observable<any> {
   //   return this.http.get(`${this.endpoint}/get-farde-max-value/${code_entreprise}`);
   // }

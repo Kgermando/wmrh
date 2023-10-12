@@ -92,7 +92,7 @@ export class PersonnelAddComponent implements OnInit {
           update_created: new Date(),
           corporates: this.corporate.id,
           entreprise: this.corporate.corporate_name,
-          code_entreprise: this.corporate.code_corporate
+          code_entreprise: this.corporate.code_entreprise
         };
         this.personnelService.create(body).subscribe({
           next: () => {

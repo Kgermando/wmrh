@@ -103,7 +103,7 @@
                         *ngIf="currentUser.roles.includes('Liste de paiements')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                <i class="ri-hourglass-2-fill"></i>
+                                <i class="ri-list-ordered-2"></i>
                                 <span class="title">Liste de paie</span>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
@@ -120,7 +120,7 @@
                         *ngIf="currentUser.roles.includes('Avances salaires')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                <i class="ri-hourglass-2-fill"></i>
+                                <i class="ri-coupon-3-line"></i>
                                 <span class="title">Av. sur salaire</span>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
@@ -137,7 +137,7 @@
                         *ngIf="currentUser.roles.includes('Primes divers')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                <i class="ri-hourglass-2-fill"></i>
+                                <i class="ri-price-tag-2-line"></i>
                                 <span class="title">Primes diverses</span>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
@@ -154,7 +154,7 @@
                         *ngIf="currentUser.roles.includes('Pénalites')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                <i class="ri-hourglass-2-fill"></i>
+                                <i class="ri-price-tag-line"></i>
                                 <span class="title">Penalités</span>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
@@ -171,7 +171,7 @@
                         *ngIf="currentUser.roles.includes('Pret entreprise')">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                <i class="ri-hourglass-2-fill"></i>
+                                <i class="ri-vip-crown-line"></i>
                                 <span class="title">Prêt entreprise</span>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
@@ -186,19 +186,19 @@
                     <a routerLink="/layouts/salaires/statuts-paies" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Statuts de paies')">
-                        <i class="ri-user-follow-line"></i>
+                        <i class="ri-bank-card-line"></i>
                         <span class="title">Statuts de paie</span>
                     </a>
                     <a routerLink="/layouts/salaires/releve-paie" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Relevés de paies')">
-                        <i class="ri-user-follow-line"></i>
+                        <i class="ri-bank-card-2-line"></i>
                         <span class="title">Relevé de paie</span>
                     </a>
                     <a routerLink="/layouts/salaires/indemnites" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Indemnités')">
-                        <i class="ri-user-follow-line"></i>
+                        <i class="ri-wallet-line"></i>
                         <span class="title">Indemnités</span>
                     </a>
 

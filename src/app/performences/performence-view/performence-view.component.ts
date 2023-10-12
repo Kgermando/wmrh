@@ -185,7 +185,7 @@ export class PerformenceAddDialogBox implements OnInit {
           created: new Date(),
           update_created: new Date(),
           entreprise: this.currentUser.entreprise,
-          code_entreprise: this.currentUser.code_entreprise,
+          code_entreprise: this.personne.corporates.code_entreprise,
           corporate: this.personne.corporates.id
         };
         this.performenceService.create(body).subscribe({

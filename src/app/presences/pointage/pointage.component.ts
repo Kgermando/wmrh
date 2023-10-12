@@ -11,7 +11,6 @@ import { CorporateService } from 'src/app/preferences/corporates/corporate.servi
 import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';
 import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
 
-
 @Component({
   selector: 'app-pointage',
   templateUrl: './pointage.component.html',
@@ -61,12 +60,12 @@ export class PointageComponent implements OnInit {
 
   
  
-    constructor(
-      public themeService: CustomizerSettingsService,
-      private router: Router,
-      private authService: AuthService,
-      private corporateService: CorporateService,
-      private presenceService: PresenceService,
+  constructor(
+    public themeService: CustomizerSettingsService,
+    private router: Router,
+    private authService: AuthService,
+    private corporateService: CorporateService,
+    private presenceService: PresenceService,
   ) {}
 
 

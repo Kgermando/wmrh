@@ -13,18 +13,18 @@
                 <div class="d-flex align-items-center justify-content-end">
                     <mat-form-field appearance="fill">
                         <mat-label>Select entreprise</mat-label>
-                        <mat-select (selectionChange)="onChangeFarde($event)" formControlName="entreprise">
-                            <mat-option *ngFor="let entreprise of entrepriseList" [value]="entreprise.service">
-                                {{entreprise.service}}
+                        <mat-select (selectionChange)="onChangeClasser($event)" formControlName="entreprise">
+                            <mat-option *ngFor="let corporate of corporateList" [value]="corporate.corporate_name">
+                                {{corporate.corporate_name}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                     <div class="box"></div>
                     <mat-form-field appearance="fill">
                         <mat-label>Select classeur</mat-label>
-                        <mat-select (selectionChange)="onChangeFarde($event)" formControlName="classeur">
-                            <mat-option *ngFor="let farde of fardeList" [value]="farde">
-                                <app-classeur-filter-disp [farde]="farde"></app-classeur-filter-disp>
+                        <mat-select (selectionChange)="onChangeClasser($event)" formControlName="classeur">
+                            <mat-option *ngFor="let classer of classerList" [value]="classer">
+                                <app-classeur-filter-disp [classer]="classer" [corporate]="corporate"></app-classeur-filter-disp>
                             </mat-option>
                         </mat-select>
                     </mat-form-field> 

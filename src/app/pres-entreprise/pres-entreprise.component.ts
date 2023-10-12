@@ -46,7 +46,7 @@ export class PresEntrepriseComponent implements OnInit {
       public themeService: CustomizerSettingsService,
       private router: Router, 
       private route: ActivatedRoute,
-      private corporateService: CorporateService,   
+      private corporateService: CorporateService,
       public dialog: MatDialog,
   ) {}
 
@@ -198,7 +198,7 @@ export class PresEntrepriseAddDialogBox implements OnInit {
           created: new Date(),
           update_created: new Date(),
           entreprise: this.currentUser.entreprise,
-          code_entreprise: this.currentUser.code_entreprise,
+          code_entreprise: this.data.corporate.code_entreprise,
           corporate: this.data.corporate.id
         };
         this.presEntrepriseService.create(body).subscribe({
