@@ -199,9 +199,9 @@ export class CoporateAddDialogBox implements OnInit {
         };
         this.corporateService.create(body).subscribe({ 
           next: (res) => { 
-            var reglage = {
+            var body = {
               company: res.id,
-              date_paie: "2023-06-27 15:45:59.632",
+              date_paie: "2023-10-27 15:45:59.632",
               cnss_qpp: "13",
               inpp: "2",
               onem: "0.2",
@@ -209,7 +209,7 @@ export class CoporateAddDialogBox implements OnInit {
               cnss_qpo: "5",
               monnaie: "USD",
               nbre_heure_travail: "45",
-              taux_dollard: "2400",
+              taux_dollard: "2500",
               new_year: "2024-01-01 15:45:59.632",
               noel: "2023-12-25 15:45:59.632",
               martyr_day: "2024-01-04 15:45:59.632",
@@ -242,12 +242,12 @@ export class CoporateAddDialogBox implements OnInit {
               nbr_course: 6,
               contre_valeur_logement: 30,
               signature: this.currentUser.matricule,
-              created: "2023-10-05 08:45:59.632", 
-              update_created: "2023-10-05 08:45:59.632", 
-              entreprise: this.preference.entreprise,
+              created: "2023-10-12 08:45:59.632", 
+              update_created: "2023-10-12 08:45:59.632", 
+              entreprise: this.currentUser.entreprise,
               code_entreprise: res.code_corporate
             };
-            this.corporateReglageService.create(reglage).subscribe({
+            this.reglageService.create(body).subscribe({
               next: (r) => {
                 this.isLoading = false;
                 this.formGroup.reset();

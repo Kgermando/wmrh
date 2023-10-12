@@ -71,10 +71,11 @@ export class StatutsPaieComponent implements OnInit {
 
     this.authService.user().subscribe({
         next: (user) => {
-            this.currentUser = user;
-            this.corporateService.getAll(this.currentUser.code_entreprise).subscribe(value => {
-              this.corporateList = value; 
-            });
+          this.currentUser = user;
+          this.corporateService.getAll(this.currentUser.code_entreprise).subscribe(value => {
+            this.corporateList = value; 
+            this.isLoading = false;
+          });
         },
         error: (error) => {
           this.isLoading = false;
