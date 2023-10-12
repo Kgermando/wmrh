@@ -25,24 +25,24 @@
                 <tbody>
                     <tr *ngFor="let item of corporateList; index as i">
                         <td class="gray-color">{{i + 1}}. </td> 
-                        <td class="gray-color text-center">
-                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center text-center product-info"> 
+                        <td class="gray-color">
+                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="gray-color product-info"> 
                                 <h5 class="fw-semibold mb-5" *ngIf="item.statut">Actif</h5>
                                 <h5 class="fw-semibold mb-5" *ngIf="!item.statut">Désactivé</h5> 
                             </a>
                         </td>
-                        <td class="gray-color text-center">
-                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
+                        <td class="gray-color">
+                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="gray-color product-info">
                                 <h5 class="fw-semibold mb-5">{{item.corporate_name}}</h5>
                             </a>
                         </td>
-                        <td class="gray-color text-center">
-                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
+                        <td class="gray-color">
+                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="gray-color product-info"> 
                                 <h5 class="fw-semibold mb-5">{{item.code_corporate}}</h5> 
                             </a>
                         </td>
-                        <td class="gray-color text-center">
-                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="d-flex align-items-center product-info"> 
+                        <td class="gray-color">
+                            <a [routerLink]="['/layouts/preferences/corporates', item.id, 'detail']" class="gray-color product-info"> 
                                 <h5 class="fw-semibold mb-5">{{item.nbre_employe}}</h5> 
                             </a>
                         </td>
