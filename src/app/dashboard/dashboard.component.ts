@@ -9,6 +9,9 @@ import { PresencePAAAModel } from '../presences/models/presence-pie-model';
 import { PresenceService } from '../presences/presence.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';
+import { CorporateService } from 'src/app/preferences/corporates/corporate.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -17,21 +20,21 @@ import { formatDate } from '@angular/common';
 })
 export class DashboardComponent {
 
-
   categoryList = [
     'All',
-    'Employés', 
+    'Employés',
     'Finances', 
     
   ];
+  corporateList: CorporateModel[] = [];
+  corporate: CorporateModel;
   // 'Presences',  
   // 'Autres', 
 
   // dureeList = ['All', 'Année', 'Mois'];
   dateRange!: FormGroup;
   start_date: any;
-  end_date: any;
-
+  end_date: any; 
 
   isSelectCategory = 'All';
 
@@ -85,6 +88,7 @@ export class DashboardComponent {
     private _formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
+    private corporateService: CorporateService,
     private dashAllService: DashAllService,
     private financeService: FinanceService,
     private presenceService: PresenceService
@@ -96,115 +100,121 @@ export class DashboardComponent {
     var date = new Date(); 
     var tomorrow = new Date(date);
     tomorrow.setDate(date.getDate()+1);
-    // tomorrow.toLocaleDateString();
-
-    this.dateRange = this._formBuilder.group({ 
-      start: new FormControl(new Date('2023-08-01')),
-      end: new FormControl(tomorrow),
-      categorie: new FormControl('All')
-    });
-
+    // tomorrow.toLocaleDateString(); 
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-
-        if (this.start_date == undefined && this.end_date == undefined) {
-
-          this.start_date = formatDate(new Date('2023-08-01'), 'yyyy-MM-dd', 'en-US');
-          
-          this.end_date = formatDate(tomorrow, 'yyyy-MM-dd', 'en-US');
-
-        
-          this.getTotalEmployE(this.start_date, this.end_date);
-
-          // console.log('date + 1', this.end_date);
-        }
-
-        
+        this.corporateService.getAll(this.currentUser.code_entreprise).subscribe(value => {
+          this.corporateList = value;
+          this.corporate = value[0];
+          if (this.start_date == undefined && this.end_date == undefined) {
+            this.start_date = formatDate(new Date('2023-08-01'), 'yyyy-MM-dd', 'en-US');
+            this.end_date = formatDate(tomorrow, 'yyyy-MM-dd', 'en-US');
+            this.getTotalEmployE(this.corporate, this.start_date, this.end_date);
+            // console.log('date + 1', this.end_date);
+          }
+        });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
-    });   
-  } 
+    }); 
+
+    this.dateRange = this._formBuilder.group({
+      corporate: new FormControl(this.corporate),
+      start: new FormControl(new Date('2023-08-01')),
+      end: new FormControl(tomorrow),
+      categorie: new FormControl('All')
+    });
+   
+  }
+
+  // onSelectCorporateChange(event: any) {
+  //   console.log('Corporate', event.value);
+  //   this.corporate = event.value;
+  // }
 
   
     onSelectCategoryChange(event: any) { 
       var body = {
+        corporate: this.dateRange.value.corporate,
         start: this.dateRange.value.start,
         end: this.dateRange.value.end,
         categorie: this.dateRange.value.categorie,
       }
 
+      this.corporate = body.corporate;
       this.start_date = formatDate(body.start, 'yyyy-MM-dd', 'en-US');
       this.end_date = formatDate(body.end, 'yyyy-MM-dd', 'en-US'); 
 
-      if(body.categorie === 'All') {
-        this.isSelectCategory = 'All'; 
-        this.getTotalEmployE(this.start_date, this.end_date);
-
-      } else if (body.categorie === 'Employés') {
-        this.isSelectCategory = 'Employés';
-        this.getTotalEmployE(this.start_date, this.end_date);
-
-      } else if(body.categorie === 'Finances') {
-        this.isSelectCategory = 'Finances';
-        this.getTotalFinance(this.start_date, this.end_date); 
-
-      } else if(body.categorie === 'Presences') {
-        this.isSelectCategory = 'Presences';
-        this.getPresence();
-        
-      } else if(body.categorie === 'Autres') {
-        this.isSelectCategory = 'Autres';
+      if (this.corporate) {
+        if(body.categorie === 'All') {
+          this.isSelectCategory = 'All'; 
+          this.getTotalEmployE(this.corporate, this.start_date, this.end_date);
+  
+        } else if (body.categorie === 'Employés') {
+          this.isSelectCategory = 'Employés';
+          this.getTotalEmployE(this.corporate, this.start_date, this.end_date);
+  
+        } else if(body.categorie === 'Finances') {
+          this.isSelectCategory = 'Finances';
+          this.getTotalFinance(this.corporate, this.start_date, this.end_date); 
+  
+        } else if(body.categorie === 'Presences') {
+          this.isSelectCategory = 'Presences';
+          this.getPresence();
+          
+        } else if(body.categorie === 'Autres') {
+          this.isSelectCategory = 'Autres';
+        }
       }
     }
  
 
-    getTotalEmployE(start_date: string, end_date: string) {
-      this.dashAllService.totalEnmployesAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+    getTotalEmployE(corporate: CorporateModel, start_date: string, end_date: string) {
+      this.dashAllService.totalEnmployesAll(this.currentUser.code_entreprise, corporate.id, start_date, end_date).subscribe(
         res =>  {
             this.totalEmployeAllList = res;
             this.totalEmployeAllList.map((item: any) => this.totalEmployeAll = parseFloat(item.total));
         }
       ); 
 
-      this.dashAllService.totalEnmployeFemmeAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+      this.dashAllService.totalEnmployeFemmeAll(this.currentUser.code_entreprise, corporate.id, start_date, end_date).subscribe(
         res =>  {
           this.totalEmployeFemmeAllList = res;
           this.totalEmployeFemmeAllList.map((item: any) => this.totalEmployeFemmeAll = parseFloat(item.total));
         }
       );
 
-      this.dashAllService.totalEnmployeHommeAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+      this.dashAllService.totalEnmployeHommeAll(this.currentUser.code_entreprise, corporate.id, start_date, end_date).subscribe(
         res =>  {
           this.totalEmployeHommeAllList = res;
             this.totalEmployeHommeAllList.map((item: any) => this.totalEmployeHommeAll = parseFloat(item.total));
         }
-      ); 
+      );
     }
 
 
 
-    getTotalFinance(start_date: string, end_date: string) {
-      this.dashAllService.masseSalarialAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
-          res =>  {
-              this.netAPayerAllList = res;
-              this.netAPayerAllList.map((item: any) => this.netAPayerAll = parseFloat(item.net_a_payer));
-          }
+    getTotalFinance(corporate: CorporateModel, start_date: string, end_date: string) {
+      this.dashAllService.masseSalarialAll(this.currentUser.code_entreprise, corporate.id, start_date, end_date).subscribe(
+        res =>  {
+            this.netAPayerAllList = res;
+            this.netAPayerAllList.map((item: any) => this.netAPayerAll = parseFloat(item.net_a_payer));
+        }
       );  
 
-        // IPR
-      this.financeService.iprAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+      // IPR
+      this.financeService.iprAll(this.currentUser.code_entreprise, corporate.id, start_date, end_date).subscribe(
         res =>  {
             this.iprAllList = res;
             this.iprAllList.map((item: any) => this.iprAll = parseFloat(item.total));
         }
       ); 
 
-        // CNSS QQPO
-      this.financeService.cnssQPOAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+      // CNSS QQPO
+      this.financeService.cnssQPOAll(this.currentUser.code_entreprise, corporate.id, start_date, end_date).subscribe(
         res =>  {
             this.cnssQPOAllList = res;
             this.cnssQPOAllList.map((item: any) => this.cnssQPOAll = parseFloat(item.total));

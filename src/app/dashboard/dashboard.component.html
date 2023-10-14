@@ -3,6 +3,15 @@
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" class="col">
         <mat-card class="tagus-card mb-25" style="background-color: aquamarine !important; height: 80%;"> 
             <form [formGroup]="dateRange">
+                <mat-form-field appearance="fill">
+                    <mat-label>Entreprise</mat-label>
+                    <mat-select type="button" mat-button formControlName="corporate">
+                        <mat-option *ngFor="let corporate of corporateList" [value]="corporate">
+                            <span *ngIf="corporate">{{corporate.corporate_name.toUpperCase()}}</span>
+                            <span *ngIf="!corporate">{{corporateList[0].corporate_name.toUpperCase()}}</span>
+                        </mat-option>
+                    </mat-select> 
+                </mat-form-field>
                 <mat-form-field>
                     <mat-label>Choisir la plage de Date</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
@@ -11,7 +20,7 @@
                     </mat-date-range-input>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker> 
-                </mat-form-field>
+                </mat-form-field> 
                 <mat-form-field appearance="fill">
                     <mat-label>Choisir le module</mat-label>
                     <mat-select type="button" mat-button
@@ -268,13 +277,13 @@
 
 
 <div *ngIf="isSelectCategory == 'All'">
-    <app-dash-all [start_date]="start_date" [end_date]="end_date"></app-dash-all>
+    <app-dash-all [corporate]="corporate"  [start_date]="start_date" [end_date]="end_date"></app-dash-all>
 </div>
 <div *ngIf="isSelectCategory == 'Employés'">
-    <app-employes-all [start_date]="start_date" [end_date]="end_date"></app-employes-all>
+    <app-employes-all [corporate]="corporate" [start_date]="start_date" [end_date]="end_date"></app-employes-all>
 </div>
 <div *ngIf="isSelectCategory == 'Finances'">
-    <app-finance-all [start_date]="start_date" [end_date]="end_date"></app-finance-all>
+    <app-finance-all [corporate]="corporate" [start_date]="start_date" [end_date]="end_date"></app-finance-all>
 </div>
 
 
