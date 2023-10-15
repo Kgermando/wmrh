@@ -1,3 +1,5 @@
+import { CorporateModel } from "src/app/preferences/corporates/models/corporate.model";
+
 export class HoraireModel { 
     id: number; 
     name_horaire: string; // Horaire 
@@ -15,4 +17,5 @@ export class HoraireModel {
     update_created : Date;
     entreprise: string;
     code_entreprise: string;
+    corporate: CorporateModel;
 }

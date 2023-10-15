@@ -49,12 +49,29 @@
                             'Registre de presences' ||
                             'Heure suplementaires')"
                     >Présences</span>
-                    <a routerLink="/layouts/presences/horaires" class="sidebar-menu-link" 
+                    <mat-expansion-panel (opened)="panelOpenState = true" 
+                                (closed)="panelOpenState = true"
+                            *ngIf="currentUser.roles.includes('Horaires')">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="ri-group-line"></i>
+                                <span class="title">Horaire</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item" *ngFor="let coporation of corporateList">
+                                <a [routerLink]="['/layouts/presences', coporation.id, 'horaires']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    {{ coporation.corporate_name }}
+                                </a>
+                            </li>
+                        </ul>
+                    </mat-expansion-panel>
+                    <!-- <a routerLink="/layouts/presences/horaires" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Horaires')">
                         <i class="ri-calendar-todo-line"></i>
                         <span class="title">Horaire</span>
-                    </a>
+                    </a> -->
                     <a routerLink="/layouts/presences/pointage" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Pointages')">

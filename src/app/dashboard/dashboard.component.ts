@@ -12,7 +12,6 @@ import { formatDate } from '@angular/common';
 import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';
 import { CorporateService } from 'src/app/preferences/corporates/corporate.service';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -20,16 +19,17 @@ import { CorporateService } from 'src/app/preferences/corporates/corporate.servi
 })
 export class DashboardComponent {
 
+  panelOpenState = false;
+
   categoryList = [
     'All',
     'Employés',
     'Finances', 
-    
+    // 'Presences',  
+    // 'Autres', 
   ];
   corporateList: CorporateModel[] = [];
   corporate: CorporateModel;
-  // 'Presences',  
-  // 'Autres', 
 
   // dureeList = ['All', 'Année', 'Mois'];
   dateRange!: FormGroup;
@@ -37,7 +37,6 @@ export class DashboardComponent {
   end_date: any; 
 
   isSelectCategory = 'All';
-
 
   currentUser: PersonnelModel | any;
 
@@ -81,7 +80,7 @@ export class DashboardComponent {
   numberS: number = 0;
   numberO: number = 0;
   numberM: number = 0;
- 
+
 
   constructor(
     public themeService: CustomizerSettingsService,
@@ -96,11 +95,11 @@ export class DashboardComponent {
       
   }
 
-  ngOnInit(): void { 
-    var date = new Date(); 
+  ngOnInit(): void {
+    var date = new Date();
     var tomorrow = new Date(date);
     tomorrow.setDate(date.getDate()+1);
-    // tomorrow.toLocaleDateString(); 
+    // tomorrow.toLocaleDateString();
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -148,26 +147,20 @@ export class DashboardComponent {
       this.start_date = formatDate(body.start, 'yyyy-MM-dd', 'en-US');
       this.end_date = formatDate(body.end, 'yyyy-MM-dd', 'en-US'); 
 
-      if (this.corporate) {
-        if(body.categorie === 'All') {
-          this.isSelectCategory = 'All'; 
-          this.getTotalEmployE(this.corporate, this.start_date, this.end_date);
-  
-        } else if (body.categorie === 'Employés') {
-          this.isSelectCategory = 'Employés';
-          this.getTotalEmployE(this.corporate, this.start_date, this.end_date);
-  
-        } else if(body.categorie === 'Finances') {
-          this.isSelectCategory = 'Finances';
-          this.getTotalFinance(this.corporate, this.start_date, this.end_date); 
-  
-        } else if(body.categorie === 'Presences') {
-          this.isSelectCategory = 'Presences';
-          this.getPresence();
-          
-        } else if(body.categorie === 'Autres') {
-          this.isSelectCategory = 'Autres';
-        }
+      if(body.categorie === 'All') {
+        this.isSelectCategory = 'All'; 
+        this.getTotalEmployE(this.corporate, this.start_date, this.end_date);
+      } else if (body.categorie === 'Employés') {
+        this.isSelectCategory = 'Employés';
+        this.getTotalEmployE(this.corporate, this.start_date, this.end_date); 
+      } else if(body.categorie === 'Finances') {
+        this.isSelectCategory = 'Finances';
+        this.getTotalFinance(this.corporate, this.start_date, this.end_date);  
+      } else if(body.categorie === 'Presences') {
+        this.isSelectCategory = 'Presences';
+        this.getPresence(); 
+      } else if(body.categorie === 'Autres') {
+        this.isSelectCategory = 'Autres'; 
       }
     }
  

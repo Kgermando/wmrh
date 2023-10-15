@@ -10,7 +10,7 @@ import { HoraireModel } from '../models/horaire-model';
 })
 export class HoraireComponent {
   // @Input('horaire') horaire?: HoraireModel;
-  @Input('horaireList') horaireList: HoraireModel[];
+  // @Input('horaireList') horaireList: HoraireModel[];
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',

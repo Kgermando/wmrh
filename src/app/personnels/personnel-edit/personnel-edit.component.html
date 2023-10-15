@@ -475,7 +475,7 @@
                                     <mat-label>Select acreditation entreprise</mat-label>
                                     <i class="ri-list-check"></i>
                                     <mat-select [compareWith]="compareFnCorporate" formControlName="corporate_view" multiple>
-                                        <mat-option *ngFor="let corporate of corporateList" [value]="corporate.id">{{corporate.corporate_name}}</mat-option>
+                                        <mat-option *ngFor="let corporate of corporateList" [value]="corporate.corporate_name">{{corporate.corporate_name}}</mat-option>
                                     </mat-select> 
                                 </mat-form-field>
                             </div> 

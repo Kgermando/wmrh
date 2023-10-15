@@ -109,6 +109,7 @@ import { UsersComponent } from './admin/users/users.component';
 import { UserViewComponent } from './admin/users/user-view/user-view.component';
 import { CorporateComponent } from './preferences/corporates/corporate/corporate.component';
 import { CorporateViewComponent } from './preferences/corporates/corporate-view/corporate-view.component';
+import { HoraireComponent } from './horaires/horaire/horaire.component';
  
 
 const routes: Routes = [
@@ -151,8 +152,9 @@ const routes: Routes = [
     { path: 'presences/:id/heures-supp', component: HeuresSuppComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/heures-supp/:id/detail', component: HeureSuppDetailComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/pointage-profil/:matricule/detail', component: ProfilPresencesViewComponent }, // C'est le lien du profil, donc pas de guard
-    { path: 'presences/horaires', component: HorairesComponent, canActivate: [horaireGuard] },
-    { path: 'presences/horaires/:id/horaire-edit', component: HoraireAddComponent, canActivate: [horaireGuard]},                                                                                                                                                                     
+    { path: 'presences/:id/horaires', component: HorairesComponent, canActivate: [horaireGuard] },
+    { path: 'presences/horaires/:id/horaire-edit', component: HoraireAddComponent, canActivate: [horaireGuard]},
+    { path: 'presences/:id/horaires/:id/calendar', component: HoraireComponent, canActivate: [horaireGuard]},
 
     { path: 'recrutements/postes', component: PostesComponent, canActivate: [postesGuard] },
     { path: 'recrutements/postes/poste-add', component: PosteAddComponent, canActivate: [postesGuard] },

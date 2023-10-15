@@ -41,7 +41,7 @@ export class HeuresSuppComponent implements OnInit {
       public themeService: CustomizerSettingsService,
       private router: Router, 
       private route: ActivatedRoute,
-      private corporateService: CorporateService, 
+      private corporateService: CorporateService,
       public dialog: MatDialog,
   ) {} 
   toggleTheme() {
@@ -112,7 +112,7 @@ export class HeuresSuppComponent implements OnInit {
         corporate: corporate
       }
     }); 
-  } 
+  }
 }
 
 
