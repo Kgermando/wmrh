@@ -102,12 +102,12 @@ export class ListPaimentsComponent implements OnInit {
   }
 
   /** Announce the change in sort state for assistive technology. */
-    announceSortChange(sortState: Sort) { 
-      if (sortState.direction) {
-          this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-      } else {
-          this._liveAnnouncer.announce('Sorting cleared');
-      }
+  announceSortChange(sortState: Sort) { 
+    if (sortState.direction) {
+        this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+        this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
  
 

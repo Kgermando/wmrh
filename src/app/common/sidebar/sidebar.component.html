@@ -70,7 +70,7 @@
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Horaires')">
                         <i class="ri-calendar-todo-line"></i>
-                        <span class="title">Horaire</span>
+                        <span class="title">Horaire</span> 
                     </a> -->
                     <a routerLink="/layouts/presences/pointage" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
@@ -200,6 +200,23 @@
                             </li>
                         </ul>
                     </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" 
+                    (closed)="panelOpenState = true"
+                    *ngIf="currentUser.roles.includes('Indemnités')">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="ri-vip-crown-line"></i>
+                            <span class="title">Indemnités</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ul class="sidebar-sub-menu">
+                        <li class="sidemenu-item" *ngFor="let coporation of corporateList">
+                            <a [routerLink]="['/layouts/salaires', coporation.id, 'indemnites']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                {{ coporation.corporate_name }}
+                            </a>
+                        </li>
+                    </ul>
+                </mat-expansion-panel>
                     <a routerLink="/layouts/salaires/statuts-paies" class="sidebar-menu-link" 
                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         *ngIf="currentUser.roles.includes('Statuts de paies')">
@@ -211,12 +228,6 @@
                         *ngIf="currentUser.roles.includes('Relevés de paies')">
                         <i class="ri-bank-card-2-line"></i>
                         <span class="title">Relevé de paie</span>
-                    </a>
-                    <a routerLink="/layouts/salaires/indemnites" class="sidebar-menu-link" 
-                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-                        *ngIf="currentUser.roles.includes('Indemnités')">
-                        <i class="ri-wallet-line"></i>
-                        <span class="title">Indemnités</span>
                     </a>
 
                     <a routerLink="/layouts/personnels/syndicats" class="sidebar-menu-link" 

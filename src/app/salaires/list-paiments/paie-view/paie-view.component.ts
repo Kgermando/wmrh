@@ -608,7 +608,12 @@ export class PaieViewComponent implements OnInit {
         this.isLoadingSubmit = false;
         console.log(error);
       }
-    } 
+    }
+
+
+    createIndemnite() {
+      alert('Indemnite crated!');
+    }
   
     toggleTheme() {
       this.themeService.toggleTheme();

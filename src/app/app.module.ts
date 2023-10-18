@@ -186,6 +186,7 @@ import { CoporateAddDialogBox, CorporateComponent } from './preferences/corporat
 import { CorporateViewComponent, EditCorporateDialogBox } from './preferences/corporates/corporate-view/corporate-view.component';
 import { CorporateReglageComponent, EditCorporateReglageDialogBox } from './preferences/corporate-reglage/corporate-reglage.component';
 import { HoraireAddDialogBox, HoraireSidebarComponent } from './horaires/horaire-sidebar/horaire-sidebar.component';
+import { IndemniteEditComponent } from './salaires/indemnites/indemnite-edit/indemnite-edit.component';
 
 
 @NgModule({
@@ -367,7 +368,8 @@ import { HoraireAddDialogBox, HoraireSidebarComponent } from './horaires/horaire
     CorporateReglageComponent,
     EditCorporateReglageDialogBox,
     HoraireSidebarComponent,
-    HoraireInfoDialogBox
+    HoraireInfoDialogBox,
+    IndemniteEditComponent
   ],
   imports: [
     BrowserModule,

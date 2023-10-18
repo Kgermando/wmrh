@@ -11,8 +11,9 @@ import { AvanceSalaireModel } from "src/app/avance-salaires/models/avance-salair
 import { HeureSuppModel } from "src/app/heures-supp/models/heure-supp-model";
 import { SalaireModel } from "src/app/salaires/models/salaire-model";
 import { PerformenceModel } from "src/app/performences/models/performence-model";
-import { PresEntrepriseModel } from "src/app/pres-entreprise/models/pres-entreprise-model";
-import { HoraireModel } from "src/app/horaires/models/horaire-model";
+import { PresEntrepriseModel } from "src/app/pres-entreprise/models/pres-entreprise-model"; 
+import { HoraireModel } from "src/app/horaires/models/horaire.model";
+import { IndeminteModel } from "src/app/salaires/indemnites/models/indemnite.model";
 
 export interface CorporateModel {
     id: number;
@@ -41,6 +42,7 @@ export interface CorporateModel {
     avances_salaires: AvanceSalaireModel[];
     heures_supp: HeureSuppModel[];
     pres_entreprises: PresEntrepriseModel[];
+    indemnites: IndeminteModel[];
     horaires: HoraireModel[];
     salaires: SalaireModel[];
     performences: PerformenceModel[]; 

@@ -180,8 +180,9 @@ const routes: Routes = [
     { path: 'salaires/releve-paie', component: RelevePaieComponent, canActivate: [relevePaieGuard]},
     { path: 'salaires/:id/pres-entreprise', component: PresEntrepriseComponent, canActivate: [presEntrepriseGuard] },
     { path: 'salaires/pres-entreprise/:id/detail', component: PresEntrepriseViewComponent, canActivate: [presEntrepriseGuard] },
-    { path: 'salaires/indemnites', component: IndemnitesComponent, canActivate: [indemniteGuard]},
-    { path: 'salaires/indemnites/:id/indemnite-paie', component: IndemnitesComponent, canActivate: [indemniteGuard]},
+    { path: 'salaires/:id/indemnites', component: IndemnitesComponent, canActivate: [indemniteGuard]},
+    { path: 'salaires/indemnites/traitement/:id/indemnite-paie', component: IndemnitesComponent, canActivate: [indemniteGuard]},
+    { path: 'salaires/indemnites/disponible/:id/indemnite-paie', component: IndemnitesComponent, canActivate: [indemniteGuard]},
     { path: 'salaires/calculate', component: CalculateComponent }, 
 
     { path: ':id/performences', component: PerformencesComponent, canActivate: [performenceGuard] },

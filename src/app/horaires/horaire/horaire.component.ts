@@ -43,7 +43,7 @@ export class HoraireComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user; 
-        this.calendarOptions.events = [];
+        // this.calendarOptions.events = [];
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
