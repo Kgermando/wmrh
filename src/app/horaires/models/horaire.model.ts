@@ -2,7 +2,9 @@ import { CorporateModel } from "src/app/preferences/corporates/models/corporate.
 
 export class HoraireModel { 
     id: number; 
-    name_horaire: string; // Horaire 
+    name_horaire: string; // Horaire
+    events: HoraireEventModel[];
+    
     personnel_shift_1: string[];
     date_shift_1: string[];
     time_1: string;
@@ -18,4 +20,11 @@ export class HoraireModel {
     entreprise: string;
     code_entreprise: string;
     corporate: CorporateModel;
+}
+
+export class HoraireEventModel { 
+    time: string;
+    date: Date;
+    backgroundColor: string;
+    textColor: string;
 }

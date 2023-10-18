@@ -11,9 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PersonnelService } from 'src/app/personnels/personnel.service'; 
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model'; 
-import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
-import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
 import { PenaliteModel } from './models/penalite-model';
 import { PenaliteService } from './penalite.service';
 import { monnaieDataList } from '../shared/tools/monnaie-list';
@@ -37,19 +35,14 @@ export class PenalitesComponent implements OnInit {
   isLoading = false;
   currentUser: PersonnelModel | any;
 
-  corporate: CorporateModel;
-
-  // preference: PreferenceModel;
+  corporate: CorporateModel; 
   
   constructor(
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
-      private router: Router,
-      private authService: AuthService,
+      private router: Router, 
       private route: ActivatedRoute,
-      private corporateService: CorporateService, 
-      private penaliteService: PenaliteService,
-      private reglageService: ReglageService,
+      private corporateService: CorporateService,  
       public dialog: MatDialog,
   ) {
   } 
@@ -65,7 +58,7 @@ export class PenalitesComponent implements OnInit {
         this.isLoading = true;
         this.route.params.subscribe(routeParams => { 
           this.loadData(routeParams['id']);
-        }); 
+        });
         // this.authService.user().subscribe({
         //     next: (user) => {
         //         this.currentUser = user;

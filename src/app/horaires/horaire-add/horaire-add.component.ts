@@ -7,7 +7,7 @@ import { HoraireService } from '../horaire.service';
 import { ToastrService } from 'ngx-toastr';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { formatDate } from '@angular/common';
-import { HoraireModel } from '../models/horaire-model';
+import { HoraireModel } from '../models/horaire.model';
 
 @Component({
   selector: 'app-horaire-add',
@@ -50,9 +50,13 @@ export class HoraireAddComponent implements OnInit {
     private toastr: ToastrService) {}
 
 
+    // """"""""""""""""""""""""""""""""""""""""""""""""
+    // Ne pas oublier Ajouter 'DESC' dans l'api de l'horaire
+    // """"""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id']; 
+    this.id = this.route.snapshot.params['horaire_id']; 
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;

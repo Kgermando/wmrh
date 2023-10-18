@@ -87,7 +87,8 @@ export class PersonnelAddComponent implements OnInit {
           adresse: this.formGroup.value.adresse, 
           matricule: identifiant.toLowerCase(),  
           category: this.formGroup.value.category,
-          signature: this.currentUser.matricule,
+          statut_paie: 'En attente',
+          signature: this.currentUser.matricule, 
           created: new Date(),
           update_created: new Date(),
           corporates: this.corporate.id,
@@ -103,7 +104,7 @@ export class PersonnelAddComponent implements OnInit {
           },
           error: (err) => {
             this.isLoading = false;
-            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+      this      .toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });

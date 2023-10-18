@@ -17,8 +17,8 @@ export class PersonnelService extends ApiService {
     return this.http.get(`${this.endpoint}/get-syndicat/${code_entreprise}`);
   }
 
-  resetStatutPaieAll(code_entreprise: string): Observable<any> {
-    return this.http.put(`${this.endpoint}/reset-statut-paie-all/${code_entreprise}`, {});
+  resetStatutPaieAll(code_entreprise: string, corporate_id: number): Observable<any> {
+    return this.http.put(`${this.endpoint}/reset-statut-paie-all/${code_entreprise}/${corporate_id}`, {});
   }
 
   resetStatutPaie(code_entreprise: string, id: number): Observable<any> {

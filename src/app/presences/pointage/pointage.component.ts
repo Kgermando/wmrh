@@ -70,7 +70,6 @@ export class PointageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
     this.isLoading = true;
       this.authService.user().subscribe({
         next: (user) => {
@@ -124,8 +123,8 @@ export class PointageComponent implements OnInit {
    
   }
 
-  loadData(personnelList: PersonnelModel[], code_entreprise: string, site_location: string) {
-    this.personnelList = personnelList;
+  loadData(personnels: PersonnelModel[], code_entreprise: string, site_location: string) {
+    this.personnelList = personnels;
     this.personnelFilter = [...this.personnelList];
 
       this.presenceService.getItemsPAAA(code_entreprise, site_location).subscribe(res => {

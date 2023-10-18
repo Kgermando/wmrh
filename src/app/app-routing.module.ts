@@ -152,10 +152,10 @@ const routes: Routes = [
     { path: 'presences/:id/heures-supp', component: HeuresSuppComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/heures-supp/:id/detail', component: HeureSuppDetailComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/pointage-profil/:matricule/detail', component: ProfilPresencesViewComponent }, // C'est le lien du profil, donc pas de guard
-    { path: 'presences/:id/horaires', component: HorairesComponent, canActivate: [horaireGuard] },
-    { path: 'presences/horaires/:id/horaire-edit', component: HoraireAddComponent, canActivate: [horaireGuard]},
-    { path: 'presences/:id/horaires/:id/calendar', component: HoraireComponent, canActivate: [horaireGuard]},
-
+    { path: 'presences/:id/horaires', component: HorairesComponent, children: [
+      { path: ':horaire_id/calendar', component: HoraireComponent},
+      { path: ':horaire_id/horaire-edit', component: HoraireAddComponent},
+    ], canActivate: [horaireGuard]},
     { path: 'recrutements/postes', component: PostesComponent, canActivate: [postesGuard] },
     { path: 'recrutements/postes/poste-add', component: PosteAddComponent, canActivate: [postesGuard] },
     { path: 'recrutements/postes/:id/poste-edit', component: PosteEditComponent, canActivate: [postesGuard] },

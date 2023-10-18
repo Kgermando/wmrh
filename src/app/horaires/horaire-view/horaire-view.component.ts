@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HoraireService } from '../horaire.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
-import { HoraireModel } from '../models/horaire-model';
+import { HoraireModel } from '../models/horaire.model';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { ToastrService } from 'ngx-toastr';
 import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';

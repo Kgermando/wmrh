@@ -81,7 +81,7 @@ import { EditPenaliteDialogBox, PenaliteDetailComponent } from './penalites/pena
 import { PenaliteTableComponent } from './penalites/penalite-detail/penalite-table/penalite-table.component';
 import { EditHeureSuppDialogBox, HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
 import { HeureSuppTableComponent } from './heures-supp/heure-supp-detail/heure-supp-table/heure-supp-table.component';
-import { HoraireComponent } from './horaires/horaire/horaire.component';
+import { HoraireComponent, HoraireInfoDialogBox } from './horaires/horaire/horaire.component';
 import { PrimeFilterComponent } from './primes/prime-filter/prime-filter.component';
 import { PenaliteFilterComponent } from './penalites/penalite-filter/penalite-filter.component';
 import { HeureSuppFilterComponent } from './heures-supp/heure-supp-filter/heure-supp-filter.component';
@@ -173,7 +173,7 @@ import { ProfilPerformanceComponent } from './auth/profile/profil-performance/pr
 import { ProfilAvancesSalaireComponent } from './auth/profile/profil-avances-salaire/profil-avances-salaire.component';
 import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/profil-presences-view/profil-presences-view.component';
 import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/classeur-filter-disp.component';
-import { HoraireAddDialogBox, HorairesComponent } from './horaires/horaires.component'; 
+import { HorairesComponent } from './horaires/horaires.component'; 
 import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.component'; 
 import { HoraireViewComponent } from './horaires/horaire-view/horaire-view.component';
 import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
@@ -185,6 +185,7 @@ import { UserViewComponent } from './admin/users/user-view/user-view.component';
 import { CoporateAddDialogBox, CorporateComponent } from './preferences/corporates/corporate/corporate.component';
 import { CorporateViewComponent, EditCorporateDialogBox } from './preferences/corporates/corporate-view/corporate-view.component';
 import { CorporateReglageComponent, EditCorporateReglageDialogBox } from './preferences/corporate-reglage/corporate-reglage.component';
+import { HoraireAddDialogBox, HoraireSidebarComponent } from './horaires/horaire-sidebar/horaire-sidebar.component';
 
 
 @NgModule({
@@ -364,7 +365,9 @@ import { CorporateReglageComponent, EditCorporateReglageDialogBox } from './pref
     EditCorporateDialogBox,
     CoporateAddDialogBox,
     CorporateReglageComponent,
-    EditCorporateReglageDialogBox
+    EditCorporateReglageDialogBox,
+    HoraireSidebarComponent,
+    HoraireInfoDialogBox
   ],
   imports: [
     BrowserModule,

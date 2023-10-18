@@ -1,0 +1,39 @@
+
+
+<div fxLayout="row" fxLayoutGap="25px" fxLayout.xs="column" fxLayoutGap.xs="0" fxLayout.sm="column" fxLayoutGap.sm="0">
+    <div fxFlex="33.33%" fxFlex.xl="20%" fxFlex.xs="100%" fxFlex.sm="100%" class="col">
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header>
+                <h4 class="mb-0">SHIFT 1</h4>
+                <p>Heure: {{ data.horaire.time_1 }} </p>
+            </mat-card-header>
+            <mat-card-content>
+                <div *ngFor="let personne of personnel_shift_1">
+                    {{ personne }}
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex="33.33%" fxFlex.xl="80%" fxFlex.xs="100%" fxFlex.sm="100%" class="col">
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header>
+                <h4 class="mb-0">SHIFT 2</h4>
+                <p>Heure: {{ data.horaire.time_2 }} </p>
+            </mat-card-header>
+            <mat-card-content>
+                
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex="33.33%" fxFlex.xl="80%" fxFlex.xs="100%" fxFlex.sm="100%" class="col">
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header>
+                <h4 class="mb-0">SHIFT 3</h4>
+                <p>Heure: {{ data.horaire.time_3 }} </p>
+            </mat-card-header>
+            <mat-card-content>
+                
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
