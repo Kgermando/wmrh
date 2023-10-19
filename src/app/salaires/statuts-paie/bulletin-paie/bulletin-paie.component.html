@@ -310,14 +310,14 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                Impôt Professionnel sur les Rémunérations (IPR)
+                                                IPR
                                             </td>
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.ipr | numberFormat:'fr-FR' }} FC</td>  
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ iprUSD | numberFormat:'fr-FR' }} $</td> 
                                         </tr> 
                                         <tr>
                                             <td class="text-start">
-                                                Avances salaire
+                                                Avances sur salaire
                                             </td> 
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'CDF'">{{ salaire.avance_slaire | numberFormat:'fr-FR' }} FC</td>  
                                             <td class="gray-color text-end" *ngIf="salaire.monnaie == 'USD'">{{ avanceSalaireNbrUSD | numberFormat:'fr-FR' }} $</td> 
@@ -345,7 +345,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                Pret entreprise
+                                                Prèt entreprise
                                             </td> 
                                             <td class="gray-color text-end">{{ salaire.pres_entreprise | numberFormat:'fr-FR' }} FC</td>  
                                         </tr>

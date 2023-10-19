@@ -56,5 +56,8 @@ export class PerformenceService extends ApiService {
   travailTotalALL(code_entreprise: string, id: number): Observable<any> {
     return this.http.get(`${this.endpoint}/get-travail-total-all/${code_entreprise}/${id}`);
   }
- 
+
+  cumulTotal(code_entreprise: string, id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-cumul-total/${code_entreprise}/${id}`);
+  }
 }

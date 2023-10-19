@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { PresentrepriseModel } from './models/pres-entreprise-model';
+import { PresEntrepriseModel } from './models/pres-entreprise-model';
 import { PersonnelModel } from '../personnels/models/personnel-model';
 import { PreferenceModel } from '../preferences/reglages/models/reglage-model';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
@@ -26,10 +26,10 @@ import { monnaieDataList } from '../shared/tools/monnaie-list';
 export class PresEntrepriseComponent implements OnInit {
   displayedColumns: string[] = ['matricule','fullname', 'intitule', 'date_limit', 'created', 'id'];
   
-  ELEMENT_DATA: PresentrepriseModel[] = [];
+  ELEMENT_DATA: PresEntrepriseModel[] = [];
   
-  dataSource = new MatTableDataSource<PresentrepriseModel>(this.ELEMENT_DATA);
-  selection = new SelectionModel<PresentrepriseModel>(true, []);
+  dataSource = new MatTableDataSource<PresEntrepriseModel>(this.ELEMENT_DATA);
+  selection = new SelectionModel<PresEntrepriseModel>(true, []);
 
   isLoading = false;
   currentUser: PersonnelModel | any;
@@ -60,7 +60,7 @@ export class PresEntrepriseComponent implements OnInit {
                 this.currentUser = user;
                 this.presEntrepriseService.getAll(this.currentUser.code_entreprise).subscribe(res => {
                   this.ELEMENT_DATA = res; 
-                  this.dataSource = new MatTableDataSource<PresentrepriseModel>(this.ELEMENT_DATA);
+                  this.dataSource = new MatTableDataSource<PresEntrepriseModel>(this.ELEMENT_DATA);
                   this.dataSource.sort = this.sort;
                   this.dataSource.paginator = this.paginator; 
               });

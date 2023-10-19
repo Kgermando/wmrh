@@ -150,10 +150,8 @@ export class PerformenceAddDialogBox implements OnInit {
         ),
       ]),
       observation: new FormControl('', [Validators.required]),  
-
-    }); 
- 
-  } 
+    });
+  }
 
   defaultValueOrRangeValidator(
     defaultValue: number,

@@ -78,6 +78,7 @@ export class PersonnelAddComponent implements OnInit {
           adresse: this.formGroup.value.adresse, 
           matricule: identifiant.toLowerCase(),  
           category: this.formGroup.value.category,
+          statut_paie: 'En attente',
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),

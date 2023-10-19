@@ -69,12 +69,12 @@
                                         {{ personne.site_locations.site_location }}
                                     </span>
                                 </li>
-                                <li>
-                                    <span class="fw-semibold d-inline-block">Cumul des points: </span>
-                                    <span class="gray-color">
-                                        {{ cumuls }} / 30
-                                    </span>
-                                </li>
+                                <li> 
+                                    <span class="fw-semibold d-inline-block">Cumul des points obtenus: </span>
+                                    <span class="badge text-soft-primary"> 
+                                        <app-cumul [element]="personne"></app-cumul>
+                                    </span>  
+                                </li> 
                             </ul>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">

@@ -191,17 +191,17 @@
                 <mat-card-content>
                     <ul class="list ps-0 mb-0">
                         <li>
-                            <span class="fw-semibold d-inline-block">Entreprise: </span>
-                            <span class="gray-color" *ngIf="personne.services">
-                                {{ personne.services.service }}
-                            </span>
-                        </li> 
-                        <li>
                             <span class="fw-semibold d-inline-block">Departement: </span>
                             <span class="gray-color" *ngIf="personne.departements">
                                 {{ personne.departements.departement }}
                             </span>
                         </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Service: </span>
+                            <span class="gray-color" *ngIf="personne.services">
+                                {{ personne.services.service }}
+                            </span>
+                        </li> 
                         <li>
                             <span class="fw-semibold d-inline-block">Fonction: </span>
                             <span class="gray-color" *ngIf="personne.fonctions">

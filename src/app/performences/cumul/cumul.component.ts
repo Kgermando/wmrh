@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { PerformenceService } from '../performence.service';
+import { PerformenceModel } from '../models/performence-model';
 
 @Component({
   selector: 'app-cumul',
@@ -17,6 +18,8 @@ export class CumulComponent implements OnInit {
 
   currentUser: PersonnelModel | any;
 
+  performenceList: PerformenceModel[] = [];
+  plafondCumul = 0;
   cumuls = 0;
 
   hospitaliteTotal = 0;
@@ -37,6 +40,10 @@ export class CumulComponent implements OnInit {
       this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user;
+          this.performenceService.cumulTotal(this.currentUser.code_entreprise, this.element.id).subscribe(res => {
+            var cumulCount = res;
+            this.plafondCumul = cumulCount[0].count * 30; 
+          });
           this.performenceService.hospitaliteTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
             h => {
               this.performenceService.ponctualiteTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
@@ -51,11 +58,10 @@ export class CumulComponent implements OnInit {
                       travail.map((item: any) => this.travailTotal = parseFloat(item.sum)); 
 
                       this.cumuls = this.hospitaliteTotal + this.ponctualiteTotal + this.travailTotal;
+ 
                       this.isLoading = false;
                     }
                   );
-    
-                  
                 }
               ); 
             }

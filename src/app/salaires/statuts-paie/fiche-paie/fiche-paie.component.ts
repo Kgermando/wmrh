@@ -63,6 +63,7 @@ export class FichePaieComponent implements OnInit {
   penalites = 0;
   avance_slaire = 0;
   prise_en_charge_frais_bancaire = 0; 
+  pres_entreprise = 0;
   net_a_payer = 0;
 
 
@@ -122,6 +123,7 @@ export class FichePaieComponent implements OnInit {
         penalites: ['', Validators.required],
         avance_slaire: ['', Validators.required],
         prise_en_charge_frais_bancaire: ['', Validators.required],
+        pres_entreprise: ['', Validators.required],
         net_a_payer: ['', Validators.required],
         statut: this.isPublie ? 'Disponible' : 'Traitement',  
       });
@@ -181,6 +183,7 @@ export class FichePaieComponent implements OnInit {
                 penalites: parseFloat(this.salaire.penalites),  // Sanctions sur le salaire net à payer
                 avance_slaire: parseFloat(this.salaire.avance_slaire),
                 prise_en_charge_frais_bancaire:  parseFloat(this.salaire.prise_en_charge_frais_bancaire),
+                pres_entreprise: parseFloat(this.salaire.pres_entreprise),
                 net_a_payer: parseFloat(this.salaire.net_a_payer),
                 statut: this.isPublie ? 'Disponible' : 'Traitement',
                 signature: this.currentUser.matricule,
@@ -351,7 +354,12 @@ export class FichePaieComponent implements OnInit {
         this.prise_en_charge_frais_bancaire = parseFloat(this.salaire.personnel.frais_bancaire);
       }
 
-      var deductions = this.ipr + this.penalites + this.avance_slaire + this.syndicat;
+      this.penalites = +val.penalites;
+      this.avance_slaire = +val.avance_slaire;
+      this.syndicat = +val.syndicat;
+      this.pres_entreprise = +val.pres_entreprise;
+      
+      var deductions = this.ipr + this.penalites + this.avance_slaire + this.syndicat + this.pres_entreprise;
 
       var avantageSocials = +this.alloc_logement + +this.alloc_familliale  +  +val.primes +
         +this.prime_anciennete + +this.heure_supplementaire_monnaie + 
@@ -388,6 +396,7 @@ export class FichePaieComponent implements OnInit {
           penalites: this.penalites,
           avance_slaire: this.avance_slaire,
           prise_en_charge_frais_bancaire: this.prise_en_charge_frais_bancaire,
+          pres_entreprise: this.pres_entreprise,
           net_a_payer: this.net_a_payer,
           statut: this.isPublie ? 'Disponible' : 'Traitement', 
           signature: this.currentUser.matricule, 

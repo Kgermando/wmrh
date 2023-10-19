@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
-import { PresentrepriseModel } from '../models/pres-entreprise-model';
+import { PresEntrepriseModel } from '../models/pres-entreprise-model';
 import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class PresEntrepriseViewComponent implements OnInit {
 
   currentUser: PersonnelModel | any;
   
-  presEntreprise: PresentrepriseModel;
+  presEntreprise: PresEntrepriseModel;
 
   preference: PreferenceModel;
 
