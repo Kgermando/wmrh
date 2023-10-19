@@ -51,6 +51,7 @@ export class IndemnitesComponent implements OnInit {
     this.corporateService.get(Number(id)).subscribe(res => {
       this.corporate = res;
       this.ELEMENT_DATA = this.corporate.indemnites;
+      console.log('List', this.ELEMENT_DATA)
       this.dataSource = new MatTableDataSource<IndeminteModel>(this.ELEMENT_DATA);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator; 

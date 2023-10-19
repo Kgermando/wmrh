@@ -27,11 +27,11 @@
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/salaires/indemnites/traitement',element.id, 'indemnite-paie']" 
                                 *ngIf="element.statut == 'Traitement'">
-                            {{element.matricule.toUpperCase()}}
+                                {{element.personnel.matricule.toUpperCase()}}
                         </a>
                         <a [routerLink]="['/layouts/salaires/indemnites/disponible',element.id, 'indemnite-paie']" 
                                                     *ngIf="element.statut == 'Disponible'">
-                            {{element.matricule.toUpperCase()}}
+                            {{element.personnel.matricule.toUpperCase()}}
                         </a> 
                     </td>
                 </ng-container>
@@ -40,11 +40,11 @@
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/salaires/indemnites/traitement',element.id, 'indemnite-paie']"
                                 *ngIf="element.statut == 'Traitement'">
-                            {{element.nom}} {{element.postnom}} {{element.prenom}}
+                                {{element.personnel.nom}} {{element.personnel.postnom}} {{element.personnel.prenom}}
                         </a>
                         <a [routerLink]="['/layouts/salaires/indemnites/disponible',element.id, 'indemnite-paie']" 
                                                     *ngIf="element.statut == 'Disponible'">
-                            {{element.nom}} {{element.postnom}} {{element.prenom}}
+                            {{element.personnel.nom}} {{element.personnel.postnom}} {{element.personnel.prenom}}
                         </a>
                     </td>
                 </ng-container>
@@ -53,11 +53,15 @@
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/salaires/indemnites/traitement', element.id, 'indemnite-paie']" 
                                 *ngIf="element.statut == 'Traitement'">
-                                {{ element.departement }}
+                                <span *ngIf="element.personnel.departements">
+                                    {{ element.personnel.departements.departement }}
+                                </span>  
                         </a>
                         <a [routerLink]="['/layouts/salaires/indemnites/disponible', element.id, 'indemnite-paie']" 
                                                     *ngIf="element.statut == 'Disponible'">
-                            {{ element.departement }}
+                            <span *ngIf="element.personnel.departements">
+                                {{ element.personnel.departements.departement }}
+                            </span>  
                         </a>
                     </td>
                 </ng-container> 

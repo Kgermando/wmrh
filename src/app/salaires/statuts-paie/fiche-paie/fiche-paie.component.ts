@@ -12,14 +12,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonnelService } from 'src/app/personnels/personnel.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { formatDate } from '@angular/common'; 
+import { NotifyService } from 'src/app/notify/notify.service';
 
 import jsPDF from "jspdf";
 // import html2canvas from 'html2canvas'; 
-
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { formatDate } from '@angular/common'; 
-import { NotifyService } from 'src/app/notify/notify.service';
+
+
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
  
 

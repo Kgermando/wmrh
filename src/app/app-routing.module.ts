@@ -110,6 +110,8 @@ import { UserViewComponent } from './admin/users/user-view/user-view.component';
 import { CorporateComponent } from './preferences/corporates/corporate/corporate.component';
 import { CorporateViewComponent } from './preferences/corporates/corporate-view/corporate-view.component';
 import { HoraireComponent } from './horaires/horaire/horaire.component';
+import { IndemniteEditComponent } from './salaires/indemnites/indemnite-edit/indemnite-edit.component';
+import { IndemniteViewComponent } from './salaires/indemnites/indemnite-view/indemnite-view.component';
  
 
 const routes: Routes = [
@@ -181,9 +183,9 @@ const routes: Routes = [
     { path: 'salaires/:id/pres-entreprise', component: PresEntrepriseComponent, canActivate: [presEntrepriseGuard] },
     { path: 'salaires/pres-entreprise/:id/detail', component: PresEntrepriseViewComponent, canActivate: [presEntrepriseGuard] },
     { path: 'salaires/:id/indemnites', component: IndemnitesComponent, canActivate: [indemniteGuard]},
-    { path: 'salaires/indemnites/traitement/:id/indemnite-paie', component: IndemnitesComponent, canActivate: [indemniteGuard]},
-    { path: 'salaires/indemnites/disponible/:id/indemnite-paie', component: IndemnitesComponent, canActivate: [indemniteGuard]},
-    { path: 'salaires/calculate', component: CalculateComponent }, 
+    { path: 'salaires/indemnites/traitement/:id/indemnite-paie', component: IndemniteEditComponent, canActivate: [indemniteGuard]},
+    { path: 'salaires/indemnites/disponible/:id/indemnite-paie', component: IndemniteViewComponent, canActivate: [indemniteGuard]},
+    { path: 'salaires/calculate', component: CalculateComponent },
 
     { path: ':id/performences', component: PerformencesComponent, canActivate: [performenceGuard] },
     { path: 'performences/:id/performence-view', component: PerformenceViewComponent , canActivate: [performenceGuard]},
