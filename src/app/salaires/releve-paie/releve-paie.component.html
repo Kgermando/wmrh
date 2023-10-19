@@ -186,7 +186,6 @@
                 <th class="fw-semibold gray-color">CNSS(QPO)</th>
                 <th class="fw-semibold gray-color">RNI</th>
                 <th class="fw-semibold gray-color">IPR</th>
-                <th class="fw-semibold gray-color">Net à payer</th>
                 <th class="fw-semibold gray-color">Heures supp.</th>
                 <th class="fw-semibold gray-color">Heures Monnaie</th>
                 <th class="fw-semibold gray-color">Primes d'ancienneté</th>
@@ -194,8 +193,9 @@
                 <th class="fw-semibold gray-color">Pénalités</th>
                 <th class="fw-semibold gray-color">Avances salaire</th>
                 <th class="fw-semibold gray-color">Syndicats</th>
-                <th class="fw-semibold gray-color">Compte</th>
                 <th class="fw-semibold gray-color">Frais bancaire</th>
+                <th class="fw-semibold gray-color">Net à payer</th>
+                <th class="fw-semibold gray-color">Compte</th>
                 <th class="fw-semibold gray-color">Banque</th>
             </tr>
         </thead>
@@ -231,9 +231,7 @@
                 <td class="gray-color fw-semibold">
                     {{ item.ipr | numberFormat:'fr-FR'}} FC
                 </td>
-                <td class="gray-color fw-semibold">
-                    {{ item.net_a_payer | numberFormat:'fr-FR'}} FC
-                </td>
+                
                 <td class="gray-color fw-semibold">
                     {{ item.heures_supp }} H
                 </td>
@@ -256,10 +254,13 @@
                     {{ item.syndicat | numberFormat:'fr-FR'}} FC
                 </td>
                 <td class="gray-color fw-semibold">
-                    {{ item.compte_bancaire }}
+                    {{ item.frais_bancaire | numberFormat:'fr-FR'}} FC
                 </td>
                 <td class="gray-color fw-semibold">
-                    {{ item.frais_bancaire | numberFormat:'fr-FR'}} FC
+                    {{ item.net_a_payer | numberFormat:'fr-FR'}} FC
+                </td>
+                <td class="gray-color fw-semibold">
+                    {{ item.compte_bancaire }}
                 </td>
                 <td class="gray-color fw-semibold">
                     {{ item.nom_banque }}
