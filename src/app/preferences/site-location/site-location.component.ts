@@ -89,7 +89,7 @@ export class SiteLocationComponent implements OnInit{
           created: new Date(),
           update_created: new Date(),
           entreprise: this.corporate.corporate_name,
-          code_entreprise: this.corporate.code_entreprise
+          code_entreprise: this.corporate.code_corporate
         }; 
         this.siteLocationService.create(body).subscribe({
           next: () => {

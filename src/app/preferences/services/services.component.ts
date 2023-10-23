@@ -82,7 +82,7 @@ export class ServicesComponent implements OnInit {
           created: new Date(),
           update_created: new Date(),
           entreprise: this.corporate.corporate_name,
-          code_entreprise: this.corporate.code_entreprise
+          code_entreprise: this.corporate.code_corporate
         };
         this.serviceService.create(body).subscribe({
           next: () => {

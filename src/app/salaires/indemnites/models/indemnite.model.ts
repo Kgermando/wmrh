@@ -1,5 +1,6 @@
 import { PersonnelModel } from "src/app/personnels/models/personnel-model";
 import { CorporateModel } from "src/app/preferences/corporates/models/corporate.model";
+import { IndemniteContentModel } from "./indemnite-content.model";
 
 export interface IndeminteModel {
     id: number;
@@ -10,6 +11,7 @@ export interface IndeminteModel {
     monnaie: string;
     taux_dollard: string;
     content: IndemniteContentModel[];
+    total_a_payer: string;
     signature: string;
     created: Date;
     update_created: Date;
@@ -17,7 +19,3 @@ export interface IndeminteModel {
     code_entreprise: string;
 }
 
-export interface IndemniteContentModel {
-    nom: string;
-    montant: string;
-}

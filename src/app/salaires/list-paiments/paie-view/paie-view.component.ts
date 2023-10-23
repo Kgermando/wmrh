@@ -557,7 +557,7 @@ export class PaieViewComponent implements OnInit {
           created: new Date(),
           update_created: new Date(),
           entreprise: this.currentUser.entreprise,
-          code_entreprise: this.personne.corporates.code_entreprise,
+          code_entreprise: this.personne.corporates.code_corporate,
           corporate: this.personne.corporates.id
         };
         this.salaireService.create(body).subscribe({
@@ -567,8 +567,6 @@ export class PaieViewComponent implements OnInit {
               statut_paie: 'Traitement',
               signature: this.currentUser.matricule,
               update_created: new Date(),
-              entreprise: this.currentUser.entreprise,
-              code_entreprise: this.currentUser.code_entreprise
             };
             this.personnelService.update(this.personne.id, personnel).subscribe({
               next: () => {
@@ -583,7 +581,7 @@ export class PaieViewComponent implements OnInit {
                   created: new Date(),
                   update_created: new Date(),
                   entreprise: this.currentUser.entreprise,
-                  code_entreprise: this.currentUser.code_entreprise
+                  code_entreprise: this.personne.corporates.code_corporate,
                 };
                 this.notifyService.create(bodyNotifyN).subscribe(
                   () => {  
@@ -622,12 +620,11 @@ export class PaieViewComponent implements OnInit {
           intitule: 'Indemnité de ...',
           statut: 'Traitement',
           taux_dollard: this.preference.taux_dollard,
-          content: {},
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
           entreprise: this.currentUser.entreprise,
-          code_entreprise: this.currentUser.code_entreprise,
+          code_entreprise: this.personne.corporates.code_corporate,
         }
         this.indemniteService.create(body).subscribe(res => {
           this.isLoadingSubmit = false;

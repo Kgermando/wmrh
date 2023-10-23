@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PerformenceModel } from './models/performence-model';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -6,11 +6,9 @@ import { PersonnelModel } from '../personnels/models/personnel-model';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog'; 
-import { PersonnelService } from '../personnels/personnel.service';
+import { MatDialog } from '@angular/material/dialog';  
 import { CorporateModel } from '../preferences/corporates/models/corporate.model';
 import { CorporateService } from '../preferences/corporates/corporate.service';
 

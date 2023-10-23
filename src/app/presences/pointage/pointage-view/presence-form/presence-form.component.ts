@@ -252,7 +252,7 @@ export class PresenceFormComponent {
           created: new Date(),
           update_created: new Date(),
           entreprise: this.personne.entreprise,
-          code_entreprise: this.personne.corporates.code_entreprise,
+          code_entreprise: this.personne.corporates.code_corporate,
           personnel: this.personne.id,
           corporate: this.personne.corporates.id
         };

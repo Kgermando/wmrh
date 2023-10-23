@@ -119,7 +119,13 @@
                                     <td class="text-start">
                                         Monnaie:
                                     </td>
-                                    <td class="gray-color text-start">{{ indemnite.monnaie }}</td>
+                                    <td class="gray-color text-start">
+                                        <mat-select formControlName="monnaie" (selectionChange)="onChange($event)">
+                                            <mat-option *ngFor="let monnaie of monnaieList" [value]="monnaie">
+                                                {{monnaie}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="text-start">
@@ -129,73 +135,45 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <mat-divider></mat-divider>
                         <ul class="list ps-0 mb-0 mt-25">
-                            <div class="table-responsive mb-10"> 
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-start fontSize">
-                                                CONTENT
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                                Monnaie
-                                            </td>
-                                            <td>
-                                                <mat-select formControlName="monnaie">
-                                                    <mat-option *ngFor="let monnaie of monnaieList" [value]="monnaie">
-                                                        {{monnaie}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </td>
-                                        </tr>
-                                        <tr  formArrayName="content" *ngFor="let item of formData.controls; let i = index; let c = count"> 
-                                            <td class="text-start">
-                                                <input class="form-control" 
-                                                type="text"
-                                                aria-label="Sizing example input" 
-                                                aria-describedby="inputGroup-sizing-sm"
-                                                formControlName="nom" 
-                                                placeholder="Nom de cette ligne"> 
-                                            </td>
-                                            <td class="gray-color text-end">
-                                                <input class="form-control" 
-                                                    type="number"
-                                                    aria-label="Sizing example input" 
-                                                    aria-describedby="inputGroup-sizing-sm"
-                                                    formControlName="montant"
-                                                    placeholder="Montant"
-                                                >
-                                                <button mat-icon-button color="warn" 
-                                                    matTooltip="Supprimer cette ligne"
-                                                    *ngIf="c > 1" 
-                                                        (click)="deleteItemLine($event, i)">
-                                                    <mat-icon>close</mat-icon>
-                                                </button> 
-                                            </td>  
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button type="button" (click)="addItem($event)">Ajouter une ligne</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table> 
-                            </div>
+                            <li class="fontSize">
+                                COMPOSER ICI LA FICHE D'INDEMNITE
+                            </li>
+                        </ul>  
+
+                        <table class="table mb-25" *ngIf="indemnite.content">
+                            <tbody>
+                                <tr *ngFor="let item of indemnite.content">
+                                    <td class="text-start">
+                                        {{item.nom}}:
+                                    </td>
+                                    <td class="gray-color text-end mr-5">
+                                        {{item.montant}} {{ monnaie }}
+                                        <a mat-icon-button color="accent" (click)="openEditDialog('300ms', '100ms', item.id)" 
+                                          matTooltip="Modifier">
+                                            <mat-icon>edit</mat-icon>
+                                        </a>
+                                        <a mat-icon-button color="warn" (click)="deleteItem(item.id)"  matTooltip="Retirer">
+                                            <mat-icon>close</mat-icon>
+                                        </a>
+                                    </td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                        <app-idemnite-content [indemnite]="indemnite" [currentUser]="currentUser"></app-idemnite-content>
+                        <ul class="list ps-0 mb-0 mt-25"> 
                             <li class="fw-semibold net_a_payer d-flex align-items-center justify-content-space-between">
                                 Total :
                                 <span>
-                                    <span  class="gray-color fontSize">{{ total | numberFormat:'fr-FR' }} FC</span>
+                                    <span  class="gray-color fontSize">{{ total | numberFormat:'fr-FR' }} {{ monnaie }}</span>
                                 </span>
                             </li>
-                        </ul>
-                        
+                        </ul> 
                         <div class="col-lg-6 col-md-12 col-sm-12 mt-25"> 
                             <mat-slide-toggle style="background: color= red;"
                                 [checked]="isActive" (change)="toggle($event)"
-                            >Cocher la case pour publié!</mat-slide-toggle>
+                            >Cocher la case pour rendre disponible!</mat-slide-toggle>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mt-25" 
                             *ngIf="currentUser.permission === 'U' || 
@@ -203,14 +181,13 @@
                             currentUser.permission === 'CRU' ||
                             currentUser.permission === 'RUD' ||
                             currentUser.permission === 'CRUD'">
-                            <button mat-flat-button class="tagus" *ngIf="isActive">Publier</button>
+                            <button mat-flat-button class="tagus" *ngIf="isActive">Disponible</button>
                             <p></p>
                             <button mat-stroked-button class="tagus" *ngIf="!isActive">Brouillon</button>
-                        </div> 
+                        </div>
                     </mat-card-content>
                 </mat-card>  
             </form>
-               
         </div> 
     
     </div>

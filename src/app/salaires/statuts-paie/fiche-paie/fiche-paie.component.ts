@@ -402,7 +402,7 @@ export class FichePaieComponent implements OnInit {
           avance_slaire: this.avance_slaire,
           prise_en_charge_frais_bancaire: this.prise_en_charge_frais_bancaire,
           net_a_payer: this.net_a_payer,
-          statut: this.isPublie ? 'Disponible' : 'Traitement', 
+          statut: this.isPublie ? 'Disponible' : 'Traitement',
           signature: this.currentUser.matricule, 
           update_created: new Date(),
         });

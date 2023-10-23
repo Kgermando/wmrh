@@ -17,9 +17,10 @@ import jsPDF from "jspdf";
 // import html2canvas from 'html2canvas'; 
 
 import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts'; 
-import { NotifyService } from 'src/app/notify/notify.service';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
+import { IdemniteContentService } from '../idemnite-content.service';
+import { EditIndemniteDialogBox } from '../idemnite-content/idemnite-content.component';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -40,12 +41,11 @@ export class IndemniteEditComponent {
   indemnite: IndeminteModel;
   preference: PreferenceModel;
   monnaieList = monnaieDataList;
+  monnaie: string;
 
   @ViewChild('htmlData', { static: false}) htmlData!: ElementRef;
 
   total = 0;
-
- 
 
   constructor(
       private formBuilder: FormBuilder,
@@ -53,6 +53,7 @@ export class IndemniteEditComponent {
       private authService: AuthService,
       private route: ActivatedRoute, 
       private indemniteService: IndemniteService,
+      private idemniteContentService: IdemniteContentService,
       private reglageService: ReglageService,
       public dialog: MatDialog,
       private toastr: ToastrService, 
@@ -64,8 +65,6 @@ export class IndemniteEditComponent {
     this.formGroup = this.formBuilder.group({ 
       intitule: [''],
       monnaie: [''],
-      taux_dollard: [''],
-      content: this.formBuilder.array([this.createItem()]),
     }); 
 
     this.authService.user().subscribe({
@@ -75,15 +74,19 @@ export class IndemniteEditComponent {
           this.indemnite = item;
           this.reglageService.preference(this.indemnite.personnel.corporates.code_corporate).subscribe(reglage => {
             this.preference = reglage;
+            this.monnaie = this.indemnite.monnaie;
             this.formGroup.patchValue({
-              intitule: this.capitalizeTest(this.indemnite.intitule),
+              intitule: this.capitalizeText(this.indemnite.intitule),
               monnaie: this.indemnite.monnaie,
               taux_dollard: this.indemnite.taux_dollard,
               statut: this.indemnite.statut,
-              content: this.indemnite.content, 
-              signature: this.currentUser.matricule, 
+              signature: this.currentUser.matricule,
               update_created: new Date()
             });
+
+            for (let item of this.indemnite.content) {
+              this.total += parseFloat(item.montant);
+            }
           }); 
         });
       },
@@ -97,64 +100,66 @@ export class IndemniteEditComponent {
 
   public toggle(event: MatSlideToggleChange) {
     this.isActive = event.checked;
+  }  
+
+  onChange(event:any) {
+    this.monnaie = event.value;
   }
 
-  get formData() {
-    return <FormArray>this.formGroup.get('content');
-  }
- 
 
-  createItem(): FormGroup {
-    return this.formBuilder.group({
-      nom: '', 
-      montant: ''
-    });
-  }
-
-   // Au clic de l'utilisateur sur le bouton "Ajouter une ligne"
-  addItem(event: any): void {
-    this.content = this.formGroup.get('content') as FormArray;
-    this.content.push(this.createItem());
-  }
-
-  // Au clic de l'utilisateur sur le bouton "X" pour supprimer une ligne
-  deleteItemLine(e: any, i: any): void {
-    e.preventDefault();
-    this.content = this.formGroup.get('content') as FormArray;
-    console.log(this.content);
-    this.content.removeAt(i);
-  }
-
-  /************************************************/
-  // Fonction utilitaire pour afficher le prix total
-  getTotalPrice() {
-    this.content = this.formGroup.get('content') as FormArray;
-    let contents = this.content.value;
-    let total = 0;
-    for (let item of contents) {
-      total += parseFloat(item.montant);
-    }
-    if (!isNaN(total)) {
-      return total.toFixed(2);
-    } else {
-      return 0
+  onSubmit() {
+    try {
+      this.isLoading = true;
+      var body = {
+        intitule: this.capitalizeText(this.formGroup.value.intitule),
+        statut: this.isActive ? 'Disponible' : 'Traitement', 
+        taux_dollard: this.preference.taux_dollard,
+        monnaie: this.monnaie,
+        total_a_payer: this.total,
+        signature: this.currentUser.matricule,
+        created: new Date(),
+        update_created: new Date(),
+        entreprise: this.currentUser.entreprise,
+        code_entreprise: this.currentUser.code_entreprise,
+      };
+      this.indemniteService.update(this.id, body).subscribe({
+        next: () => {
+          this.toastr.success('Document enregistré!', 'Success!');
+          this.router.navigate(['/layouts/salaires', this.indemnite.corporate.id, 'indemnites']);
+          this.isLoading = false;
+        },
+        error: err => {
+          console.log(err);
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+          this.isLoading = false;
+        }
+      });
+       // this.isLoading = false;
+    } catch (error) {
+      this.isLoading = false;
+      console.log(error);
     }
   }
 
-  onSubmit() {}
+
+  deleteItem(id: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { 
+      this.idemniteContentService.delete(id).subscribe({
+        next:  res => {
+          this.toastr.info('Retirer avec succès!', 'Supprimée!');
+          window.location.reload();
+        },
+        error: err => { 
+          this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+          console.log(err);
+        }
+      });
+    }
+  }
 
 
   delete(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { 
-
-      var personnel = {
-        date_paie: new Date(),
-        statut_paie: 'En attente',
-        signature: this.currentUser.matricule,
-        update_created: new Date(),
-        entreprise: this.currentUser.entreprise,
-        code_entreprise: this.currentUser.code_entreprise
-      };
       this.indemniteService.delete(id).subscribe({
         next:  res => {
           this.toastr.info('Supprimé avec succès!', 'Supprimée!');
@@ -167,6 +172,17 @@ export class IndemniteEditComponent {
       });
     }
   }
+
+  openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
+    this.dialog.open(EditIndemniteDialogBox, {
+      width: '600px', 
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        id: id
+      }
+    }); 
+  } 
 
   public openPDF(): void {
     let pdf = new jsPDF("p", "pt", "a4");
@@ -187,7 +203,7 @@ export class IndemniteEditComponent {
 
 
 
-  capitalizeTest(text: string): string {
+  capitalizeText(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
  

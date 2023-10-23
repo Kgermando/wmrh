@@ -154,13 +154,13 @@ export class PersonnelEditComponent implements OnInit {
           this.siteLocationList = this.personne.corporates.site_locations;
 
           this.formGroup.patchValue({
-            nom: this.capitalizeTest(item.nom),
-            postnom: this.capitalizeTest(item.postnom),
-            prenom: this.capitalizeTest(item.prenom),
-            email: this.capitalizeTest(item.email),
+            nom: this.capitalizeText(item.nom),
+            postnom: this.capitalizeText(item.postnom),
+            prenom: this.capitalizeText(item.prenom),
+            email: this.capitalizeText(item.email),
             telephone: item.telephone,
             sexe: item.sexe,
-            adresse: this.capitalizeTest(item.adresse),
+            adresse: this.capitalizeText(item.adresse),
             category: item.category,
             signature: this.currentUser.matricule, 
             update_created: new Date()
@@ -169,7 +169,7 @@ export class PersonnelEditComponent implements OnInit {
             numero_cnss: item.numero_cnss,
             date_naissance: item.date_naissance,
             lieu_naissance: item.lieu_naissance,
-            nationalite: this.capitalizeTest(item.nationalite),
+            nationalite: this.capitalizeText(item.nationalite),
             etat_civile: item.etat_civile,
             nbr_dependants: item.nbr_dependants,
             signature: this.currentUser.matricule,
@@ -195,7 +195,7 @@ export class PersonnelEditComponent implements OnInit {
             alloc_familliale: (item.alloc_familliale) ? item.alloc_familliale : '0',
             soins_medicaux: (item.soins_medicaux) ? item.soins_medicaux : '0',
             compte_bancaire: item.compte_bancaire,
-            nom_banque: this.capitalizeTest(item.nom_banque),
+            nom_banque: this.capitalizeText(item.nom_banque),
             frais_bancaire: (item.frais_bancaire) ? item.frais_bancaire : '0',
             syndicat: item.syndicat,
             cv_url: item.cv_url,
@@ -360,7 +360,7 @@ export class PersonnelEditComponent implements OnInit {
   }
 
   
-  capitalizeTest(text: string): string {
+  capitalizeText(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 }

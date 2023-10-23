@@ -176,8 +176,7 @@ import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/cla
 import { HorairesComponent } from './horaires/horaires.component'; 
 import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.component'; 
 import { HoraireViewComponent } from './horaires/horaire-view/horaire-view.component';
-import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
-import { IndemnitePaieComponent } from './salaires/indemnite-paie/indemnite-paie.component';
+import { IndemnitesComponent } from './salaires/indemnites/indemnites.component'; 
 import { CorbeilComponent } from './corbeil/corbeil.component';
 import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
 import { UsersComponent } from './admin/users/users.component';
@@ -188,6 +187,7 @@ import { CorporateReglageComponent, EditCorporateReglageDialogBox } from './pref
 import { HoraireAddDialogBox, HoraireSidebarComponent } from './horaires/horaire-sidebar/horaire-sidebar.component';
 import { IndemniteEditComponent } from './salaires/indemnites/indemnite-edit/indemnite-edit.component';
 import { IndemniteViewComponent } from './salaires/indemnites/indemnite-view/indemnite-view.component';
+import { EditIndemniteDialogBox, IdemniteContentComponent } from './salaires/indemnites/idemnite-content/idemnite-content.component';
 
 
 @NgModule({
@@ -354,8 +354,7 @@ import { IndemniteViewComponent } from './salaires/indemnites/indemnite-view/ind
     HoraireAddComponent, 
     HorairesComponent, 
     HoraireViewComponent, 
-    IndemnitesComponent, 
-    IndemnitePaieComponent, 
+    IndemnitesComponent,
     CorbeilComponent, 
     CorbeilViewComponent, 
     UsersComponent, 
@@ -371,7 +370,9 @@ import { IndemniteViewComponent } from './salaires/indemnites/indemnite-view/ind
     HoraireSidebarComponent,
     HoraireInfoDialogBox,
     IndemniteEditComponent,
-    IndemniteViewComponent
+    IndemniteViewComponent,
+    IdemniteContentComponent,
+    EditIndemniteDialogBox
   ],
   imports: [
     BrowserModule,

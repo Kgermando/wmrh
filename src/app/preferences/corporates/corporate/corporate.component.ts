@@ -123,8 +123,7 @@ export class CoporateAddDialogBox implements OnInit {
       private authService: AuthService, 
       private toastr: ToastrService,
       private corporateService: CorporateService,
-      private reglageService: ReglageService,
-      private corporateReglageService: CorporateReglageService
+      private reglageService: ReglageService
   ) {}
   
 
@@ -179,7 +178,7 @@ export class CoporateAddDialogBox implements OnInit {
         var body = {
           entreprise_id: this.preference.company.id,
           logo: '-',
-          corporate_name: this.capitalizeTest(this.formGroup.value.corporate_name), // Nom de la corporate 
+          corporate_name: this.capitalizeText(this.formGroup.value.corporate_name), // Nom de la corporate 
           statut: true, // statut entreprise sous traitant
           code_corporate: code_corporate,
           nbre_employe: this.formGroup.value.nbre_employe, 
@@ -274,7 +273,7 @@ export class CoporateAddDialogBox implements OnInit {
       this.dialogRef.close(true);
   } 
 
-  capitalizeTest(text: string): string {
+  capitalizeText(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 

@@ -78,9 +78,9 @@ export class PersonnelAddComponent implements OnInit {
         var mat = this.formGroup.value.matricule;
         var identifiant = `${mat}-${codeEntreprise}`;
         var body = {
-          nom: this.capitalizeTest(this.formGroup.value.nom),
-          postnom: this.capitalizeTest(this.formGroup.value.postnom),
-          prenom: this.capitalizeTest(this.formGroup.value.prenom),
+          nom: this.capitalizeText(this.formGroup.value.nom),
+          postnom: this.capitalizeText(this.formGroup.value.postnom),
+          prenom: this.capitalizeText(this.formGroup.value.prenom),
           email: this.formGroup.value.email,
           telephone: this.formGroup.value.telephone,
           sexe: this.formGroup.value.sexe,
@@ -93,7 +93,7 @@ export class PersonnelAddComponent implements OnInit {
           update_created: new Date(),
           corporates: this.corporate.id,
           entreprise: this.corporate.corporate_name,
-          code_entreprise: this.corporate.code_entreprise
+          code_entreprise: this.corporate.code_corporate
         };
         this.personnelService.create(body).subscribe({
           next: () => {
@@ -116,7 +116,7 @@ export class PersonnelAddComponent implements OnInit {
   } 
 
 
-  capitalizeTest(text: string): string {
+  capitalizeText(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 

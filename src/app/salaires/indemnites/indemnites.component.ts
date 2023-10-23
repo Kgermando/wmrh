@@ -19,7 +19,7 @@ import { CorporateService } from 'src/app/preferences/corporates/corporate.servi
   styleUrls: ['./indemnites.component.scss']
 })
 export class IndemnitesComponent implements OnInit {
-  displayedColumns: string[] = ['statut', 'matricule', 'fullname', 'departements', 'created'];
+  displayedColumns: string[] = ['statut', 'matricule', 'fullname', 'intitule', 'created'];
   
   ELEMENT_DATA: IndeminteModel[] = [];
   

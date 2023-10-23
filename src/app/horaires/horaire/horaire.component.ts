@@ -55,37 +55,15 @@ export class HoraireComponent implements OnInit {
   public loadData(id: any): void {
     this.isLoadingView = true;
     this.horaireService.get(Number(id)).subscribe(res => {
-      this.horaire = res; 
-      this.isLoadingView = false; 
+      this.horaire = res;
+      this.isLoadingView = false;
     });
   }
 
-  edit(id: number): void { 
-    this.router.navigate(['/layouts/presences', this.horaire.corporate.id, 'horaires', this.horaire.id, 'horaire-edit']);
-  }
- 
-  delete(id: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-      this.horaireService
-        .delete(id)
-        .subscribe({
-          next: () => {
-            this.toastr.info('Success!', 'Supprimé avec succès!');
-            // this.router.navigate(['/layouts/presences', this.horaire.corporate.id, 'horaires']); 
-            window.location.reload();
-          },
-          error: err => {
-            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-          }
-        }
-      );
-    }
-  }
-
   calendarOptions: CalendarOptions = {
-    plugins: [ 
+    plugins: [
       dayGridPlugin,
-      interactionPlugin, 
+      interactionPlugin,
     ],
     initialView: 'dayGridMonth',
     weekends: true,
@@ -109,6 +87,28 @@ export class HoraireComponent implements OnInit {
         horaire: this.horaire
       }
     }); 
+  }
+
+  edit(id: number): void { 
+    this.router.navigate(['/layouts/presences', this.horaire.corporate.id, 'horaires', this.horaire.id, 'horaire-edit']);
+  }
+ 
+  delete(id: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
+      this.horaireService
+        .delete(id)
+        .subscribe({
+          next: () => {
+            this.toastr.info('Success!', 'Supprimé avec succès!');
+            // this.router.navigate(['/layouts/presences', this.horaire.corporate.id, 'horaires']); 
+            window.location.reload();
+          },
+          error: err => {
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+          }
+        }
+      );
+    }
   }
 
 }

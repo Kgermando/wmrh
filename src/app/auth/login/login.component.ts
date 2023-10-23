@@ -42,7 +42,8 @@ export class LoginComponent {
       this.isLoading = true;  
       var mat = this.form.value.matricule;
       var code = mat.split("-");
-      var code_entreprise = code[code.length - 1];
+      // var code_entreprise = code[code.length - 1];
+      var code_entreprise = code[1];
       var body = {
         matricule: this.form.value.matricule.toLowerCase(),
         password: this.form.value.password,

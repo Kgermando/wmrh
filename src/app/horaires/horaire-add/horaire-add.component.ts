@@ -67,7 +67,7 @@ export class HoraireAddComponent implements OnInit {
           });
           this.date_horaire_1List = item.date_shift_1;
           this.formGroup.patchValue({
-            name_horaire: this.capitalizeTest(item.name_horaire),
+            name_horaire: this.capitalizeText(item.name_horaire),
             signature: this.currentUser.matricule, 
             update_created: new Date()
           });
@@ -168,7 +168,7 @@ export class HoraireAddComponent implements OnInit {
     try {
       this.isLoading = true;
       var body = {
-        name_horaire: this.capitalizeTest(this.formGroup.value.name_horaire),
+        name_horaire: this.capitalizeText(this.formGroup.value.name_horaire),
         signature: this.currentUser.matricule,
         created: new Date(),
         update_created: new Date(),
@@ -286,7 +286,7 @@ export class HoraireAddComponent implements OnInit {
   }
 
 
-  capitalizeTest(text: string): string {
+  capitalizeText(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 

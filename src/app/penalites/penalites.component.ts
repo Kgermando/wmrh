@@ -148,8 +148,7 @@ export class PenaliteAddDialogBox implements OnInit {
       private formBuilder: FormBuilder,
       private router: Router,
       private authService: AuthService, 
-      private toastr: ToastrService,
-      private personnelService: PersonnelService,
+      private toastr: ToastrService, 
       private penaliteService: PenaliteService,
   ) {}
   
@@ -189,7 +188,7 @@ export class PenaliteAddDialogBox implements OnInit {
           created: new Date(),
           update_created: new Date(),
           entreprise: this.currentUser.entreprise,
-          code_entreprise: this.data.corporate.code_entreprise,
+          code_entreprise: this.data.corporate.code_corporate,
           corporate: this.data.corporate.id
         };
         this.penaliteService.create(body).subscribe({
