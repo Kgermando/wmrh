@@ -103,15 +103,16 @@ export class DashboardComponent {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.corporateService.getAll(this.currentUser.code_entreprise).subscribe(value => {
+        this.corporateService.allGetNavigation(this.currentUser.code_entreprise).subscribe(value => {
           this.corporateList = value;
+          console.log('corporate', this.corporateList);
           this.corporate = value[0];
           if (this.start_date == undefined && this.end_date == undefined) {
             this.start_date = formatDate(new Date('2023-08-01'), 'yyyy-MM-dd', 'en-US');
             this.end_date = formatDate(tomorrow, 'yyyy-MM-dd', 'en-US');
             this.getTotalEmployE(this.corporate, this.start_date, this.end_date);
             // console.log('date + 1', this.end_date);
-          }
+          } 
         });
       },
       error: (error) => {
@@ -127,12 +128,7 @@ export class DashboardComponent {
       categorie: new FormControl('All')
     });
    
-  }
-
-  // onSelectCorporateChange(event: any) {
-  //   console.log('Corporate', event.value);
-  //   this.corporate = event.value;
-  // }
+  } 
 
   
     onSelectCategoryChange(event: any) { 

@@ -92,14 +92,15 @@ applyFilter(event: Event) {
   } 
 
 
-  openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
+  openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number, currentUser: PersonnelModel): void {
     this.dialog.open(EditPerformenceDialogBox, {
       width: '600px',
         height: '100%',
       enterAnimationDuration,
       exitAnimationDuration,
       data: {
-        id: id
+        id: id,
+        currentUser: currentUser
       }
     }); 
   } 
@@ -141,24 +142,13 @@ export class EditPerformenceDialogBox implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialogRef<EditPerformenceDialogBox>,
       private formBuilder: FormBuilder,
-      private router: Router,
-      private authService: AuthService, 
       private toastr: ToastrService,
       private performenceService: PerformenceService,
   ) {}
   
 
 
-  ngOnInit(): void {
-    this.authService.user().subscribe({
-      next: (user) => {
-        this.currentUser = user;
-      },
-      error: (error) => {
-        this.router.navigate(['/auth/login']);
-        console.log(error);
-      }
-    });
+  ngOnInit(): void { 
     this.formGroup = this.formBuilder.group({ 
       ponctualite: new FormControl('', [
         Validators.required,
@@ -197,7 +187,7 @@ export class EditPerformenceDialogBox implements OnInit{
         hospitalite: item.hospitalite,
         travail: item.travail,
         observation: item.observation,
-        signature: this.currentUser.matricule,
+        signature: this.data.currentUser.matricule,
         update_created: new Date(),
       });
     });
