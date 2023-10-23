@@ -40,14 +40,13 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.form.valid) {
       this.isLoading = true;  
-      var mat = this.form.value.matricule;
-      var code = mat.split("-");
+      // var mat = this.form.value.matricule;
+      // var code = mat.split("-");
       // var code_entreprise = code[code.length - 1];
-      var code_entreprise = code[1];
+      // var code_entreprise = code[1];
       var body = {
         matricule: this.form.value.matricule.toLowerCase(),
-        password: this.form.value.password,
-        code_entreprise: code_entreprise
+        password: this.form.value.password
       };
       this.authService.login(body).subscribe({
           next: (res) => { 
