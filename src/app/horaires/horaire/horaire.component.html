@@ -33,23 +33,41 @@
        
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <h6>SHIFT 1</h6>
+                <div class="d-md-flex align-items-center justify-content-space-between">
+                    <h6>SHIFT 1</h6>
+                    <button mat-icon-button color="primary" 
+                        (click)="openEditDialog('300ms', '100ms', horaire.personnel_shift_1, 1, horaire.time_1)">
+                        <mat-icon>group</mat-icon>
+                    </button>
+                </div>
                 <div class="tagus-form-group">
-                    <mat-calendar [dateClass]="dateClass"></mat-calendar>
+                    <mat-calendar [dateClass]="dateClass" [matTooltip]="horaire.time_1"></mat-calendar>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <h6>SHIFT 2</h6>
+                <div class="d-md-flex align-items-center justify-content-space-between">
+                    <h6>SHIFT 2</h6>
+                    <button mat-icon-button color="primary" 
+                        (click)="openEditDialog('300ms', '100ms', horaire.personnel_shift_2, 2, horaire.time_2)">
+                        <mat-icon>group</mat-icon>
+                    </button>
+                </div> 
                 <div class="tagus-form-group">
-                    <mat-calendar [dateClass]="dateClass"></mat-calendar>
-                </div>
+                    <mat-calendar [dateClass]="dateClass2" [matTooltip]="horaire.time_2"></mat-calendar>
+                </div> 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <h6 class="pt-25">SHIFT 3</h6>
+                <div class="d-md-flex align-items-center justify-content-space-between">
+                    <h6 class="pt-25">SHIFT 3</h6>
+                    <button mat-icon-button color="primary" 
+                        (click)="openEditDialog('300ms', '100ms', horaire.personnel_shift_3, 3, horaire.time_3)">
+                        <mat-icon>group</mat-icon>
+                    </button>
+                </div>
                 <div class="tagus-form-group">
-                    <mat-calendar [dateClass]="dateClass"></mat-calendar>
+                    <mat-calendar [dateClass]="dateClass3" [matTooltip]="horaire.time_3"></mat-calendar>
                 </div>
             </div>
         </div>
     </mat-card-content>
-</mat-card> 
+</mat-card>

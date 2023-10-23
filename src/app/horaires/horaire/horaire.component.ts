@@ -1,8 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid'; 
-import timeGrigPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core'; 
 import { HoraireModel } from '../models/horaire.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HoraireService } from '../horaire.service';
@@ -16,7 +12,8 @@ import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 @Component({
   selector: 'app-horaire',
   templateUrl: './horaire.component.html',
-  styleUrls: ['./horaire.component.scss']
+  styleUrls: ['./horaire.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HoraireComponent implements OnInit {
 
@@ -60,86 +57,98 @@ export class HoraireComponent implements OnInit {
       this.isLoadingView = false;
     });
   }
+ 
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     // Only highligh dates inside the month view.
     if (view === 'month') {
-      const date = cellDate.getDate();
+      var date = cellDate.getDate();
+      var dateMonth = cellDate.getMonth();
+      var dateYear = cellDate.getFullYear();  
+      var day: any;
+      var dayMonth: any;
+      var dayYear: any; 
 
-      // Highlight the 1st and 20th day of each month.
-      return (date === 1 || date === 20) ? 'example-custom-date-class' : '';
+      let dataCSS = '';
+
+      for (let index of this.horaire.date_shift_1) { 
+        date = cellDate.getDate();
+        dateMonth = cellDate.getMonth();
+        dateYear = cellDate.getFullYear(); 
+        const dy = new Date(index);
+        day = dy.getDate();
+        dayMonth = dy.getMonth();
+        dayYear = dy.getFullYear(); 
+        if (date === day && dateMonth === dayMonth && dateYear === dayYear) {
+          dataCSS = "shift_1";
+        }
+      }
+      return dataCSS;
     }
 
     return '';
   }
 
-  // dateClass: MatCalendarCellClassFunction<Date>  = (cellDate, view) => {  
-  //   let dataCSS = '';
-  //     if(view == 'month') {
-  //       for (let index of this.horaire.personnel_shift_1) {
-  //         const date = cellDate.getDate();
-  //         const dateMonth = cellDate.getMonth();
-  //         const dateYear = cellDate.getFullYear(); 
-  //         const dy = new Date(index.date_entree);
-  //         const day = dy.getDate();
-  //         const dayMonth = dy.getMonth();
-  //         const dayYear = dy.getFullYear(); 
-  //         // if (date === day && dateMonth === dayMonth && dateYear === dayYear) {
-  //         //   if (index.apointement === 'P') {
-  //         //     dataCSS = "present";
-  //         //   } else if (index.apointement === 'A') {
-  //         //     dataCSS = "absence-sans-autorisation";
-  //         //   } else if (index.apointement === 'AA') {
-  //         //     dataCSS = "absence-autorisee";
-  //         //   } else if (index.apointement === 'AM') {
-  //         //     dataCSS = "absent-maladie";
-  //         //   } else if (index.apointement === 'CC') {
-  //         //     dataCSS = "conge-circonstanciel";
-  //         //   } else if (index.apointement === 'CA') {
-  //         //     dataCSS = "conge-annuel";
-  //         //   } else if (index.apointement === 'S') {
-  //         //     dataCSS = "suspension";
-  //         //   } else if (index.apointement === 'O') {
-  //         //     dataCSS = "service-off";
-  //         //   }else if (index.apointement === 'M') {
-  //         //     dataCSS = "mission";
-  //         //   }
-  //         // }
-  //       }
-  //       return dataCSS;
-  //     } 
-  //   return '';
-  // } 
-  
+  dateClass2: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
+    // Only highligh dates inside the month view.
+    if (view === 'month') {
+      var date = cellDate.getDate();
+      var dateMonth = cellDate.getMonth();
+      var dateYear = cellDate.getFullYear();  
+      var day: any;
+      var dayMonth: any;
+      var dayYear: any; 
 
-  // calendarOptions: CalendarOptions = {
-  //   plugins: [
-  //     dayGridPlugin,
-  //     interactionPlugin,
-  //   ],
-  //   initialView: 'dayGridMonth',
-  //   weekends: true,
-  //   selectable: true, 
-  //   events: [
-  //     { title: '08:00', date: '2023-10-16', backgroundColor: 'green', textColor: 'white'},
-  //     { title: `16:00`, date: '2023-10-16', backgroundColor: 'blue', textColor: 'white'},
-  //     { title: `24:00`, date: '2023-10-16', backgroundColor: 'orange', textColor: 'white'},
-  //   ],
-  //   dateClick: this.handleDateClick.bind(this),
-  //   select: function(info) { 
-  //     console.log("select mạnh đã ở đây"); 
-  //   },
-  // };
+      let dataCSS = '';
 
-  handleDateClick(arg: { dateStr: any; }) {
-    const dialogRef = this.dialog.open(HoraireInfoDialogBox, {
-      width: '80%',
-      data: {
-        date: arg.dateStr,
-        horaire: this.horaire
+      for (let index of this.horaire.date_shift_2) { 
+        date = cellDate.getDate();
+        dateMonth = cellDate.getMonth();
+        dateYear = cellDate.getFullYear(); 
+        const dy = new Date(index);
+        day = dy.getDate();
+        dayMonth = dy.getMonth();
+        dayYear = dy.getFullYear(); 
+        if (date === day && dateMonth === dayMonth && dateYear === dayYear) {
+          dataCSS = "shift_2";
+        }
       }
-    }); 
+      return dataCSS;
+    }
+
+    return '';
   }
+
+  dateClass3: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
+    // Only highligh dates inside the month view.
+    if (view === 'month') {
+      var date = cellDate.getDate();
+      var dateMonth = cellDate.getMonth();
+      var dateYear = cellDate.getFullYear();  
+      var day: any;
+      var dayMonth: any;
+      var dayYear: any; 
+
+      let dataCSS = '';
+
+      for (let index of this.horaire.date_shift_3) { 
+        date = cellDate.getDate();
+        dateMonth = cellDate.getMonth();
+        dateYear = cellDate.getFullYear(); 
+        const dy = new Date(index);
+        day = dy.getDate();
+        dayMonth = dy.getMonth();
+        dayYear = dy.getFullYear(); 
+        if (date === day && dateMonth === dayMonth && dateYear === dayYear) {
+          dataCSS = "shift_3";
+        }
+      }
+      return dataCSS;
+    }
+
+    return '';
+  } 
+  
 
   edit(id: number): void { 
     this.router.navigate(['/layouts/presences', this.horaire.corporate.id, 'horaires', this.horaire.id, 'horaire-edit']);
@@ -163,6 +172,20 @@ export class HoraireComponent implements OnInit {
     }
   }
 
+  openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, 
+      personnel_shift: any, shift: number, time: any): void {
+    this.dialog.open(HoraireInfoDialogBox, {
+      width: '600px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        personnel_shift: personnel_shift,
+        shift: shift,
+        time: time
+      }
+    }); 
+  } 
+
 }
 
 
@@ -176,9 +199,9 @@ export class HoraireInfoDialogBox implements OnInit {
   date: string;
   horaire: HoraireModel;
 
-  personnel_shift_1: string[] = [];
-  personnel_shift_2: string[] = [];
-  personnel_shift_3: string[] = [];
+  personnel_shift: string[] = []; 
+  shift: number;
+  time: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -187,22 +210,23 @@ export class HoraireInfoDialogBox implements OnInit {
   ) {}
 
   ngOnInit(): void { 
-    this.horaire = this.data;
-    console.log('date', this.data.date)
-    console.log('horaire', this.data.horaire)
+    // this.personnel_shift = this.data.personnel_shift;
+    // this.shift = this.data.shift;
+    // this.time = this.data.time;
+    
 
-    if (this.horaire.date_shift_1.includes(this.date)) {
-      this.personnel_shift_1.push(...this.horaire.personnel_shift_1)
-    } else if (this.horaire.date_shift_2.includes(this.date)) {
-      this.personnel_shift_2.push(...this.horaire.personnel_shift_2)
-    } else if (this.horaire.date_shift_3.includes(this.date)) {
-      this.personnel_shift_3.push(...this.horaire.personnel_shift_3)
-    }
+    // if (this.horaire.date_shift_1.includes(this.date)) {
+    //   this.personnel_shift_1.push(...this.horaire.personnel_shift_1)
+    // } else if (this.horaire.date_shift_2.includes(this.date)) {
+    //   this.personnel_shift_2.push(...this.horaire.personnel_shift_2)
+    // } else if (this.horaire.date_shift_3.includes(this.date)) {
+    //   this.personnel_shift_3.push(...this.horaire.personnel_shift_3)
+    // }
   }
 
   
   close(){
-      this.dialogRef.close(true);
+    this.dialogRef.close(true);
   } 
  
 
