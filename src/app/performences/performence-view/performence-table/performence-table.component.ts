@@ -111,7 +111,7 @@ applyFilter(event: Event) {
         .subscribe({
           next: () => {
             this.toastr.info('Success!', 'Supprimé avec succès!');
-            this.router.navigate(['/layouts/performences']);
+            this.router.navigate(['/layouts', this.personne.corporates.id, 'performences']);  
           },
           error: err => {
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
