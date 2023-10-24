@@ -139,7 +139,7 @@ export class RegistrePresenceComponent implements OnInit {
   }
 
   onChangeSiteLocation(event: any) {
-    // console.log('siteLocation', event.value);
+    console.log('siteLocation', event.value);
     this.siteLocation = event.value;
 
     this.onChange(this.siteLocation);
