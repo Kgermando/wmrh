@@ -177,7 +177,7 @@ export class BulletinPaieComponent implements OnInit {
               // Reglage
            this.reglageService.preference(this.currentUser.code_entreprise).subscribe(reglage => {
               this.preference = reglage; 
-              var date = new Date(this.salaire.created); 
+              var date = new Date(this.salaire.update_created); 
               this.delaiEditBulletin = new Date(date);
               this.delaiEditBulletin.setDate(date.getDate() + this.preference.delai_edit_bulletin);
 
