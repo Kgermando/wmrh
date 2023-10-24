@@ -53,6 +53,7 @@ export class HoraireSidebarComponent implements OnInit {
   openAddEventDialog(enterAnimationDuration: string, exitAnimationDuration: string, corporate: any): void {
     this.dialog.open(HoraireAddDialogBox, {
       width: '600px',
+      height: '100%',
       enterAnimationDuration,
       exitAnimationDuration,
       data: {
