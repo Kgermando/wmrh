@@ -37,7 +37,11 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                <a [routerLink]="['/layouts/personnels', coporation.id, 'personnel-list']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a [routerLink]="['/layouts/personnels', coporation.id, 'personnel-list']" 
+                                    routerLinkActive="active" 
+                                    [routerLinkActiveOptions]="{exact: true}" 
+                                    class="sidemenu-link" 
+                                    *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                     {{ coporation.corporate_name }}
                                 </a>
                             </li>
@@ -60,7 +64,10 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                <a [routerLink]="['/layouts/presences', coporation.id, 'horaires']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a [routerLink]="['/layouts/presences', coporation.id, 'horaires']" 
+                                    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                    class="sidemenu-link"
+                                    *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                     {{ coporation.corporate_name }}
                                 </a>
                             </li>
@@ -95,7 +102,10 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                <a [routerLink]="['/layouts/presences', coporation.id, 'heures-supp']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a [routerLink]="['/layouts/presences', coporation.id, 'heures-supp']" 
+                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                class="sidemenu-link"
+                                *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                     {{ coporation.corporate_name }}
                                 </a>
                             </li>
@@ -126,7 +136,10 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                <a [routerLink]="['/layouts/salaires', coporation.id, 'liste-paiements']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a [routerLink]="['/layouts/salaires', coporation.id, 'liste-paiements']" 
+                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                class="sidemenu-link"
+                                *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                     {{ coporation.corporate_name }}
                                 </a>
                             </li>
@@ -143,7 +156,10 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                <a [routerLink]="['/layouts/salaires', coporation.id, 'avance-salaire']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a [routerLink]="['/layouts/salaires', coporation.id, 'avance-salaire']" 
+                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                class="sidemenu-link"
+                                *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                     {{ coporation.corporate_name }}
                                 </a>
                             </li>
@@ -160,7 +176,10 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                <a [routerLink]="['/layouts/salaires', coporation.id, 'primes']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a [routerLink]="['/layouts/salaires', coporation.id, 'primes']" 
+                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                class="sidemenu-link"
+                                *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                     {{ coporation.corporate_name }}
                                 </a>
                             </li>
@@ -177,7 +196,10 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                <a [routerLink]="['/layouts/salaires', coporation.id, 'penalites']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a [routerLink]="['/layouts/salaires', coporation.id, 'penalites']" 
+                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                class="sidemenu-link"
+                                *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                     {{ coporation.corporate_name }}
                                 </a>
                             </li>
@@ -194,7 +216,10 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                <a [routerLink]="['/layouts/salaires', coporation.id, 'pres-entreprise']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a [routerLink]="['/layouts/salaires', coporation.id, 'pres-entreprise']" 
+                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                class="sidemenu-link"
+                                *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                     {{ coporation.corporate_name }}
                                 </a>
                             </li>
@@ -211,7 +236,10 @@
                     </mat-expansion-panel-header>
                     <ul class="sidebar-sub-menu">
                         <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                            <a [routerLink]="['/layouts/salaires', coporation.id, 'indemnites']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                            <a [routerLink]="['/layouts/salaires', coporation.id, 'indemnites']" 
+                            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                            class="sidemenu-link" 
+                            *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                 {{ coporation.corporate_name }}
                             </a>
                         </li>
@@ -252,7 +280,10 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                <a [routerLink]="['/layouts', coporation.id, 'performences']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a [routerLink]="['/layouts', coporation.id, 'performences']" 
+                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                class="sidemenu-link"
+                                *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                     {{ coporation.corporate_name }}
                                 </a>
                             </li>
@@ -311,43 +342,17 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Reglages')">
-                                <a routerLink="/layouts/preferences/reglages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a routerLink="/layouts/preferences/reglages" routerLinkActive="active" 
+                                [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Reglages
                                 </a>
                             </li>
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Entreprises')">
-                                <a routerLink="/layouts/preferences/corporates" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a routerLink="/layouts/preferences/corporates" routerLinkActive="active" 
+                                [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Entreprises
                                 </a>
                             </li>
-                            
-                            <!-- <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Departements')">
-                                <a routerLink="/layouts/preferences/departement" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Départements
-                                </a>
-                            </li> -->
-                            <!-- <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Services')">
-                                <a routerLink="/layouts/preferences/services" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Services
-                                </a>
-                            </li> -->
-                            <!-- <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Fonctions')">
-                                <a routerLink="/layouts/preferences/fonction" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Fonctions
-                                </a>
-                            </li>
-                            
-                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Titres')">
-                                <a routerLink="/layouts/preferences/titles" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Titres
-                                </a>
-                            </li> -->
-                            <!-- <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Sites location')">
-                                <a routerLink="/layouts/preferences/site-location" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Sites de travail
-                                </a>
-                            </li> -->
-                            
                         </ul>
                     </mat-expansion-panel>
                     <mat-expansion-panel (opened)="panelOpenState = true" 
@@ -361,7 +366,10 @@
                                 </mat-expansion-panel-header>
                                 <ul class="sidebar-sub-menu">
                                     <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'departements']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'departements']" 
+                                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                        class="sidemenu-link"
+                                        *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                             {{ coporation.corporate_name }}
                                         </a>
                                     </li>
@@ -378,7 +386,10 @@
                                 </mat-expansion-panel-header>
                                 <ul class="sidebar-sub-menu">
                                     <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'services']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'services']" 
+                                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                        class="sidemenu-link"
+                                        *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                             {{ coporation.corporate_name }}
                                         </a>
                                     </li>
@@ -395,7 +406,10 @@
                                 </mat-expansion-panel-header>
                                 <ul class="sidebar-sub-menu">
                                     <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'fonction']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'fonction']" 
+                                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                        class="sidemenu-link"
+                                        *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                             {{ coporation.corporate_name }}
                                         </a>
                                     </li>
@@ -412,7 +426,9 @@
                                 </mat-expansion-panel-header>
                                 <ul class="sidebar-sub-menu">
                                     <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'titles']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'titles']" routerLinkActive="active" 
+                                        [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link"
+                                        *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                             {{ coporation.corporate_name }}
                                         </a>
                                     </li>
@@ -429,7 +445,10 @@
                                 </mat-expansion-panel-header>
                                 <ul class="sidebar-sub-menu">
                                     <li class="sidemenu-item" *ngFor="let coporation of corporateList">
-                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'site-location']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                        <a [routerLink]="['/layouts/preferences', coporation.id, 'site-location']"
+                                         routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+                                         class="sidemenu-link"
+                                         *ngIf="currentUser.corporate_view.includes(coporation.corporate_name)">
                                             {{ coporation.corporate_name }}
                                         </a>
                                     </li>
