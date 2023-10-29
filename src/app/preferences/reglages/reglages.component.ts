@@ -35,10 +35,12 @@ export class ReglagesComponent implements OnInit {
       this.isLoading = true;
       this.authService.user().subscribe({
         next: (user) => {
-          this.currentUser = user;
-          this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-            this.preference = res; 
+          this.currentUser = user; 
+          this.reglageService.refreshData$.subscribe(() => {
+            this.getData(this.currentUser.code_entreprise);
           });
+          this.getData(this.currentUser.code_entreprise);
+           
           this.isLoading = false;
         },
         error: (error) => {
@@ -49,6 +51,11 @@ export class ReglagesComponent implements OnInit {
       });  
     }
 
+    private getData(code_entreprise: string) {
+      this.reglageService.preference(code_entreprise).subscribe(res => {
+        this.preference = res; 
+      });
+    }
 
     openEditEntrepriseDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
       this.dialog.open(EditEntrepriseDialogBox, {
@@ -586,8 +593,9 @@ export class EditReglageDialogBox implements OnInit{
       .subscribe({ 
         next: () => {
           this.isLoading = false;
-          window.location.reload(); 
+          // window.location.reload(); 
           this.toastr.success('Reglage enregistré!', 'Success!');
+          this.close();
         },
         error: err => {
           console.log(err);

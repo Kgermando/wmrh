@@ -39,9 +39,10 @@ export class SiteLocationComponent implements OnInit{
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.siteLocationService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.siteLocationList = res;
+        this.siteLocationService.refreshDataList$.subscribe(() => {
+          this.getAllData(this.currentUser.code_entreprise);
         });
+        this.getAllData(this.currentUser.code_entreprise);
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -55,6 +56,13 @@ export class SiteLocationComponent implements OnInit{
       adresse: ['', Validators.required],
     });
   }
+
+  private getAllData(code_entreprise: string) {
+    this.siteLocationService.getAll(code_entreprise).subscribe(res => {
+      this.siteLocationList = res; 
+    });
+  }
+
 
 
   onSubmit() {
@@ -76,7 +84,7 @@ export class SiteLocationComponent implements OnInit{
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!');
-            window.location.reload();
+            // window.location.reload();
           },
           error: (err) => {
             this.isLoading = false;
@@ -90,7 +98,6 @@ export class SiteLocationComponent implements OnInit{
       console.log(error);
     }
   }
-
  
   delete(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
@@ -99,7 +106,7 @@ export class SiteLocationComponent implements OnInit{
         .subscribe({
           next: () => {
             this.toastr.info('Success!', 'Supprimé avec succès!');
-            window.location.reload();
+            // window.location.reload();
           },
           error: err => {
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
@@ -189,7 +196,7 @@ export class EditSiteLocationDialogBox implements OnInit{
         next: () => {
           this.isLoading = false;
           this.toastr.success('Modification enregistré!', 'Success!');
-          window.location.reload(); 
+          this.close(); 
         },
         error: err => {
           console.log(err);

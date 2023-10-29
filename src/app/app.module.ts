@@ -81,7 +81,6 @@ import { EditPenaliteDialogBox, PenaliteDetailComponent } from './penalites/pena
 import { PenaliteTableComponent } from './penalites/penalite-detail/penalite-table/penalite-table.component';
 import { EditHeureSuppDialogBox, HeureSuppDetailComponent } from './heures-supp/heure-supp-detail/heure-supp-detail.component';
 import { HeureSuppTableComponent } from './heures-supp/heure-supp-detail/heure-supp-table/heure-supp-table.component';
-import { HoraireComponent } from './horaires/horaire/horaire.component';
 import { PrimeFilterComponent } from './primes/prime-filter/prime-filter.component';
 import { PenaliteFilterComponent } from './penalites/penalite-filter/penalite-filter.component';
 import { HeureSuppFilterComponent } from './heures-supp/heure-supp-filter/heure-supp-filter.component';
@@ -173,16 +172,18 @@ import { ProfilPerformanceComponent } from './auth/profile/profil-performance/pr
 import { ProfilAvancesSalaireComponent } from './auth/profile/profil-avances-salaire/profil-avances-salaire.component';
 import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/profil-presences-view/profil-presences-view.component';
 import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/classeur-filter-disp.component';
-import { HoraireAddDialogBox, HorairesComponent } from './horaires/horaires.component'; 
-import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.component'; 
-import { HoraireViewComponent } from './horaires/horaire-view/horaire-view.component';
 import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
-import { IndemnitePaieComponent } from './salaires/indemnite-paie/indemnite-paie.component';
 import { CorbeilComponent } from './corbeil/corbeil.component';
 import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
 import { UsersComponent } from './admin/users/users.component';
 import { UserViewComponent } from './admin/users/user-view/user-view.component';
-
+import { IndemniteEditComponent } from './salaires/indemnites/indemnite-edit/indemnite-edit.component';
+import { IndemniteViewComponent } from './salaires/indemnites/indemnite-view/indemnite-view.component';
+import { EditIndemniteDialogBox, IndemniteContentComponent } from './salaires/indemnites/indemnite-content/indemnite-content.component';
+import { HorairesComponent } from './horaires/horaires.component';
+import { HoraireComponent, HoraireInfoDialogBox } from './horaires/horaire/horaire.component';
+import { HoraireAddDialogBox, HoraireSidebarComponent } from './horaires/horaire-sidebar/horaire-sidebar.component';
+import { HoraireEditComponent } from './horaires/horaire-edit/horaire-edit.component';
 
 @NgModule({
   declarations: [
@@ -265,7 +266,6 @@ import { UserViewComponent } from './admin/users/user-view/user-view.component';
     HeureSuppTableComponent,
     HeureSuppAddDialogBox,
     EditHeureSuppDialogBox,
-    HoraireComponent,
     PrimeFilterComponent,
     PenaliteFilterComponent,
     HeureSuppFilterComponent,
@@ -344,18 +344,23 @@ import { UserViewComponent } from './admin/users/user-view/user-view.component';
     ProfilPerformanceComponent,
     ProfilAvancesSalaireComponent,
     ProfilPresencesViewComponent, 
-    ClasseurFilterDispComponent, 
-    HoraireAddComponent, 
-    HorairesComponent, 
-    HoraireViewComponent, 
-    IndemnitesComponent, 
-    IndemnitePaieComponent, 
+    ClasseurFilterDispComponent,
+    IndemnitesComponent,
     CorbeilComponent, 
     CorbeilViewComponent, 
     UsersComponent, 
     UserViewComponent,
-    UpdateInfoDialogBox,
-    HoraireAddDialogBox
+    UpdateInfoDialogBox, 
+    IndemniteEditComponent,
+    IndemniteViewComponent,
+    IndemniteContentComponent,
+    EditIndemniteDialogBox,
+    HorairesComponent,
+    HoraireComponent,
+    HoraireInfoDialogBox,
+    HoraireSidebarComponent,
+    HoraireAddDialogBox,
+    HoraireEditComponent
   ],
   imports: [
     BrowserModule,

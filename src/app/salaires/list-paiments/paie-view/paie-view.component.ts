@@ -11,6 +11,7 @@ import { SalaireService } from '../../salaire.service';
 import { formatDate } from '@angular/common';
 import { NotifyService } from 'src/app/notify/notify.service'; 
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { IndemniteService } from '../../indemnites/indemnite.service';
 
 @Component({
   selector: 'app-paie-view',
@@ -64,6 +65,7 @@ export class PaieViewComponent implements OnInit {
     private personnelService: PersonnelService,
     private salaireService: SalaireService,
     private reglageService: ReglageService,
+    private indemniteService: IndemniteService,
     private notifyService: NotifyService,
     private toastr: ToastrService) {}
  
@@ -600,6 +602,32 @@ export class PaieViewComponent implements OnInit {
         console.log(error);
       }
     } 
+
+
+    createIndemnite() {
+      try {
+        this.isLoadingSubmit = true;
+        var body = {
+          personnel: this.personne.id,
+          intitule: 'Indemnité de ...',
+          statut: 'Traitement',
+          taux_dollard: this.preference.taux_dollard,
+          signature: this.currentUser.matricule,
+          created: new Date(),
+          update_created: new Date(),
+          entreprise: this.currentUser.entreprise,
+          code_entreprise: this.currentUser.code_entreprise,
+        }
+        this.indemniteService.create(body).subscribe(res => {
+          this.isLoadingSubmit = false;
+          this.toastr.success('Genéré avec succès!', 'Success!'); 
+          this.router.navigate(['/layouts/salaires/indemnites/traitement', res['id'], 'indemnite-paie']);
+        });
+      } catch (error) {
+        this.isLoadingSubmit = false;
+        console.log(error);
+      }
+    }
   
     toggleTheme() {
       this.themeService.toggleTheme();

@@ -1,6 +1,7 @@
-export class HoraireModel {
+export class HoraireModel { 
     id: number; 
     name_horaire: string; // Horaire 
+    
     personnel_shift_1: string[];
     date_shift_1: string[];
     time_1: string;
@@ -14,5 +15,6 @@ export class HoraireModel {
     created: Date;
     update_created : Date;
     entreprise: string;
-    code_entreprise: string;
+    code_entreprise: string; 
 }
+ 

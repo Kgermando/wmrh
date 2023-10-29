@@ -81,7 +81,7 @@
                                 <ul class="list ps-0 mb-0" *ngFor="let date of date_horaire_1List">
                                     <li>
                                         <span class="fw-semibold">
-                                            {{ date }} 
+                                            {{ date | date: 'dd/MM/yyyy' }} 
                                             <button mat-icon-button color=""
                                                 (click)="removeAtDate1(date)"
                                                 class="mat-icon" style="margin: 0; padding: 0;">
@@ -89,14 +89,7 @@
                                             </button>
                                         </span> 
                                     </li>
-                                </ul>
-                                <!-- <div *ngFor="let date of horaire.date_shift_1">
-                                    <ul>
-                                        <li>
-                                            {{ date }}
-                                        </li> 
-                                    </ul>
-                                </div> -->
+                                </ul> 
                             </div>
                         </div>
                     </div>
@@ -116,7 +109,7 @@
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Shift 2</ng-template>
-                <form [formGroup]="formGroup_2" (ngSubmit)="onSubmit1()">
+                <form [formGroup]="formGroup_2" (ngSubmit)="onSubmit2()">
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="tagus-form-group">
@@ -155,15 +148,20 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
-                            <div class="date_horaire_List">
+                            <div class="date_horaire_List personal-info-card">
                                 <h5>DATE</h5>
-                                <div *ngFor="let date of date_horaire_2List">
-                                    <ul>
-                                        <li>
-                                            {{ date }}
-                                        </li> 
-                                    </ul>
-                                </div>
+                                <ul class="list ps-0 mb-0" *ngFor="let date of date_horaire_2List">
+                                    <li>
+                                        <span class="fw-semibold">
+                                            {{ date | date: 'dd/MM/yyyy' }} 
+                                            <button mat-icon-button color=""
+                                                (click)="removeAtDate2(date)"
+                                                class="mat-icon" style="margin: 0; padding: 0;">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                        </span> 
+                                    </li>
+                                </ul> 
                             </div>
                         </div>
                     </div>
@@ -222,15 +220,20 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
-                            <div class="date_horaire_List">
+                            <div class="date_horaire_List personal-info-card">
                                 <h5>DATE</h5>
-                                <div *ngFor="let date of date_horaire_3List">
-                                    <ul>
-                                        <li>
-                                            {{ date }}
-                                        </li> 
-                                    </ul>
-                                </div>
+                                <ul class="list ps-0 mb-0" *ngFor="let date of date_horaire_3List">
+                                    <li>
+                                        <span class="fw-semibold">
+                                            {{ date | date: 'dd/MM/yyyy' }} 
+                                            <button mat-icon-button color=""
+                                                (click)="removeAtDate3(date)"
+                                                class="mat-icon" style="margin: 0; padding: 0;">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                        </span> 
+                                    </li>
+                                </ul> 
                             </div>
                         </div>
                     </div>
@@ -250,6 +253,6 @@
                     </div> 
                 </form>
             </mat-step>
-        </mat-stepper> 
+        </mat-stepper>
     </mat-card-content>
 </mat-card>

@@ -7,5 +7,4 @@ import { environment } from 'src/environments/environment';
 })
 export class HoraireService extends ApiService {
   endpoint: string = `${environment.apiURL}/horaires`;
- 
 }

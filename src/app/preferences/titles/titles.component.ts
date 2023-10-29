@@ -39,9 +39,10 @@ export class TitlesComponent implements OnInit{
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.titleService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.titleList = res; 
+        this.titleService.refreshDataList$.subscribe(() => {
+          this.getAllData(this.currentUser.code_entreprise);
         });
+        this.getAllData(this.currentUser.code_entreprise);
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -51,6 +52,12 @@ export class TitlesComponent implements OnInit{
 
     this.formGroup = this._formBuilder.group({
       title: ['', Validators.required], 
+    });
+  }
+
+  private getAllData(code_entreprise: string) {
+    this.titleService.getAll(code_entreprise).subscribe(res => {
+      this.titleList = res; 
     });
   }
 
@@ -72,7 +79,7 @@ export class TitlesComponent implements OnInit{
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!');
-            window.location.reload();
+            // window.location.reload();
           },
           error: (err) => {
             this.isLoading = false;
@@ -94,7 +101,7 @@ export class TitlesComponent implements OnInit{
         .subscribe({
           next: () => {
             this.toastr.info('Success!', 'Supprimé avec succès!');
-            window.location.reload();
+            // window.location.reload();
           },
           error: err => {
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
@@ -178,7 +185,7 @@ export class EditTitleDialogBox implements OnInit{
         next: () => {
           this.isLoading = false;
           this.toastr.success('Modification enregistré!', 'Success!');
-          window.location.reload(); 
+         this.close(); 
         },
         error: err => {
           console.log(err);

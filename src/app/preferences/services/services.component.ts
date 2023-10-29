@@ -39,9 +39,10 @@ export class ServicesComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.serviceService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.serviceList = res; 
+        this.serviceService.refreshDataList$.subscribe(() => {
+          this.getAllData(this.currentUser.code_entreprise);
         });
+        this.getAllData(this.currentUser.code_entreprise);
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -51,6 +52,12 @@ export class ServicesComponent implements OnInit {
 
     this.formGroup = this._formBuilder.group({
       service: ['', Validators.required], 
+    });
+  }
+
+  private getAllData(code_entreprise: string) {
+    this.serviceService.getAll(code_entreprise).subscribe(res => {
+      this.serviceList = res; 
     });
   }
 
@@ -72,7 +79,7 @@ export class ServicesComponent implements OnInit {
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!'); 
-            window.location.reload();
+            // window.location.reload();
           },
           error: (err) => {
             this.isLoading = false;
@@ -95,7 +102,7 @@ export class ServicesComponent implements OnInit {
         .subscribe({
           next: () => {
             this.toastr.info('Success!', 'Supprimé avec succès!');
-            window.location.reload();
+            // window.location.reload();
           },
           error: err => {
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
@@ -181,7 +188,7 @@ export class EditServiceDialogBox implements OnInit{
         next: () => {
           this.isLoading = false;
           this.toastr.success('Modification enregistré!', 'Success!');
-          window.location.reload(); 
+          this.close(); 
         },
         error: err => {
           console.log(err);

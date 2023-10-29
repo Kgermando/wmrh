@@ -32,13 +32,7 @@
                         *ngIf="currentUser.roles.includes('Personnels')">
                         <i class="ri-group-line"></i>
                         <span class="title">Personnel</span>
-                    </a>
-                    <!-- <a routerLink="/layouts/horaires" class="sidebar-menu-link" 
-                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-                        *ngIf="currentUser.roles.includes('Horaires')">
-                        <i class="ri-calendar-todo-line"></i>
-                        <span class="title">Horaire</span>
-                    </a> -->
+                    </a> 
                     <mat-expansion-panel (opened)="panelOpenState = true" 
                     (closed)="panelOpenState = true"
                     *ngIf="currentUser.roles.includes('Pointages' || 
@@ -52,6 +46,11 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             
+                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Horaires')">
+                                <a routerLink="/layouts/presences/horaires" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Horaire
+                                </a>
+                            </li>
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Pointages')">
                                 <a routerLink="/layouts/presences/pointage" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Pointage presence

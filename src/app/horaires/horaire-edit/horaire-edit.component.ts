@@ -5,16 +5,15 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { HoraireService } from '../horaire.service';
 import { ToastrService } from 'ngx-toastr';
-import { PersonnelService } from 'src/app/personnels/personnel.service';
-import { formatDate } from '@angular/common';
-import { HoraireModel } from '../models/horaire-model';
+import { PersonnelService } from 'src/app/personnels/personnel.service'; 
+import { HoraireModel } from '../models/horaire.model';
 
 @Component({
-  selector: 'app-horaire-add',
-  templateUrl: './horaire-add.component.html',
-  styleUrls: ['./horaire-add.component.scss']
+  selector: 'app-horaire-edit',
+  templateUrl: './horaire-edit.component.html',
+  styleUrls: ['./horaire-edit.component.scss']
 })
-export class HoraireAddComponent implements OnInit {
+export class HoraireEditComponent implements OnInit {
   isLoading: boolean = false; 
   currentUser: PersonnelModel | any; 
   horaire: HoraireModel;
@@ -50,6 +49,10 @@ export class HoraireAddComponent implements OnInit {
     private toastr: ToastrService) {}
 
 
+    // """"""""""""""""""""""""""""""""""""""""""""""""
+    // Ne pas oublier Ajouter 'DESC' dans l'api de l'horaire
+    // """"""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id']; 
@@ -61,9 +64,12 @@ export class HoraireAddComponent implements OnInit {
           this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
             this.personnelList = res;
           });
-          this.date_horaire_1List = item.date_shift_1;
+          this.date_horaire_1List = this.horaire.date_shift_1;
+          this.date_horaire_2List = this.horaire.date_shift_2;
+          this.date_horaire_3List = this.horaire.date_shift_3;
+
           this.formGroup.patchValue({
-            name_horaire: this.capitalizeTest(item.name_horaire),
+            name_horaire: this.capitalizeText(item.name_horaire),
             signature: this.currentUser.matricule, 
             update_created: new Date()
           });
@@ -133,7 +139,7 @@ export class HoraireAddComponent implements OnInit {
   onChange() {
     this.formDate1Group.valueChanges.subscribe(val => {
       this.date_horaire_1 = val.date_horaire_1;
-      this.date_horaire_1List.push(formatDate(this.date_horaire_1, 'dd-MM-yyyy', 'en-US'));
+      this.date_horaire_1List.push(this.date_horaire_1);
       console.log('date_horaire_1List', this.date_horaire_1List);
     });
     this.formDate2Group.valueChanges.subscribe(val => {
@@ -142,7 +148,7 @@ export class HoraireAddComponent implements OnInit {
       console.log('date_horaire_2List', this.date_horaire_2List);
     });
     this.formDate3Group.valueChanges.subscribe(val => {
-      this.date_horaire_3 = val.date_horaire_1;
+      this.date_horaire_3 = val.date_horaire_3;
       this.date_horaire_3List.push(this.date_horaire_3);
       console.log('date_horaire_3List', this.date_horaire_3List);
     });
@@ -154,9 +160,25 @@ export class HoraireAddComponent implements OnInit {
 
     if (index !== -1) {
       this.date_horaire_1List.splice(index, 1);
-    }
+    } 
+  }
 
-    console.log('this.date_horaire_1List', this.date_horaire_1List);
+  removeAtDate2(date: string) { 
+    const index = this.date_horaire_2List.indexOf(date);
+    console.log(index); // 👉️ 1
+
+    if (index !== -1) {
+      this.date_horaire_2List.splice(index, 1);
+    } 
+  }
+
+  removeAtDate3(date: string) { 
+    const index = this.date_horaire_3List.indexOf(date);
+    console.log(index); // 👉️ 1
+
+    if (index !== -1) {
+      this.date_horaire_3List.splice(index, 1);
+    } 
   }
  
 
@@ -164,7 +186,7 @@ export class HoraireAddComponent implements OnInit {
     try {
       this.isLoading = true;
       var body = {
-        name_horaire: this.capitalizeTest(this.formGroup.value.name_horaire),
+        name_horaire: this.capitalizeText(this.formGroup.value.name_horaire),
         signature: this.currentUser.matricule,
         created: new Date(),
         update_created: new Date(),
@@ -266,6 +288,7 @@ export class HoraireAddComponent implements OnInit {
       this.horairervice.update(this.id, body)
       .subscribe({
         next: () => {
+          this.router.navigate(['/layouts/presences/horaires', this.horaire.id, 'calendar'])
           this.toastr.success('Horaire du shift 3 ajouté!', 'Success!');
           this.isLoading = false;
         },
@@ -274,7 +297,7 @@ export class HoraireAddComponent implements OnInit {
           this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
           this.isLoading = false;
         }
-      }); 
+      });
     } catch (error) {
       this.isLoading = false;
       console.log(error);
@@ -282,11 +305,10 @@ export class HoraireAddComponent implements OnInit {
   }
 
 
-  capitalizeTest(text: string): string {
+  capitalizeText(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 
 
 }
-
 

@@ -39,9 +39,11 @@ export class DepartementsComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.departmentList = res; 
+        this.departementService.refreshDataList$.subscribe(() => {
+          this.getAllData(this.currentUser.code_entreprise);
         });
+        this.getAllData(this.currentUser.code_entreprise);
+        
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -51,6 +53,12 @@ export class DepartementsComponent implements OnInit {
 
     this.formGroup = this._formBuilder.group({
       departement: ['', Validators.required], 
+    });
+  }
+
+  private getAllData(code_entreprise: string) {
+    this.departementService.getAll(code_entreprise).subscribe(res => {
+      this.departmentList = res; 
     });
   }
 
@@ -72,7 +80,7 @@ export class DepartementsComponent implements OnInit {
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!'); 
-            window.location.reload();
+            // window.location.reload(); 
           },
           error: (err) => {
             this.isLoading = false;
@@ -94,7 +102,7 @@ export class DepartementsComponent implements OnInit {
         .subscribe({
           next: () => {
             this.toastr.info('Success!', 'Supprimé avec succès!');
-            window.location.reload();
+            // window.location.reload();
           },
           error: err => {
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
@@ -178,7 +186,8 @@ export class EditDepartementDialogBox implements OnInit{
         next: () => {
           this.isLoading = false;
           this.toastr.success('Modification enregistré!', 'Success!');
-          window.location.reload(); 
+          // window.location.reload(); 
+          this.close();
         },
         error: err => {
           console.log(err);
