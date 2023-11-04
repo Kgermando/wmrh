@@ -8,10 +8,15 @@ export const authGuard: CanActivateFn = (route, state) => {
   let access = false;
   Auth.userEmitter.subscribe(
     user => {
-      currentUser = user;  
+      currentUser = user; 
+      if (currentUser) {
+        access = true;
+      } else {
+        access = false;
+      } 
     }
   );
-  return true;
+  return access;
 };
 
 
