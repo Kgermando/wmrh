@@ -17,24 +17,20 @@ import { formatDate } from '@angular/common';
 })
 export class DashboardComponent {
 
-
   categoryList = [
     'All',
-    'Employés', 
-    'Finances', 
-    
+    'Employés',
+    'Finances',
   ];
   // 'Presences',  
-  // 'Autres', 
+  // 'Autres',
 
   // dureeList = ['All', 'Année', 'Mois'];
   dateRange!: FormGroup;
   start_date: any;
   end_date: any;
 
-
   isSelectCategory = 'All';
-
 
   currentUser: PersonnelModel | any;
 
@@ -53,7 +49,6 @@ export class DashboardComponent {
 
   cnssQPOAllList:any[] = [];
   cnssQPOAll = 0;
-
 
   itemsPAAAList: PresencePAAAModel[] = [];
   itemsPList: PresencePAAAModel[] = [];
@@ -78,7 +73,6 @@ export class DashboardComponent {
   numberS: number = 0;
   numberO: number = 0;
   numberM: number = 0;
- 
 
   constructor(
     public themeService: CustomizerSettingsService,
@@ -88,12 +82,10 @@ export class DashboardComponent {
     private dashAllService: DashAllService,
     private financeService: FinanceService,
     private presenceService: PresenceService
-  ) {
-      
-  }
+  ) { }
 
-  ngOnInit(): void { 
-    var date = new Date(); 
+  ngOnInit(): void {
+    var date = new Date();
     var tomorrow = new Date(date);
     tomorrow.setDate(date.getDate()+1);
     // tomorrow.toLocaleDateString();
@@ -114,7 +106,6 @@ export class DashboardComponent {
           
           this.end_date = formatDate(tomorrow, 'yyyy-MM-dd', 'en-US');
 
-        
           this.getTotalEmployE(this.start_date, this.end_date);
 
           // console.log('date + 1', this.end_date);

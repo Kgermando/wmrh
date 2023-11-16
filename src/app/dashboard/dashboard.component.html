@@ -16,12 +16,13 @@
                     <mat-label>Choisir le module</mat-label>
                     <mat-select type="button" mat-button
                         (selectionChange)="onSelectCategoryChange($event)" formControlName="categorie">
-                        <mat-option *ngFor="let category of categoryList" [value]="category">{{category.toUpperCase()}}</mat-option>
-                    </mat-select> 
+                        <mat-option *ngFor="let category of categoryList" [value]="category">
+                            {{category.toUpperCase()}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
             </form>
         </mat-card>
-
         <div *ngIf="isSelectCategory == 'Presences'">
             <mat-card
                 class="mb-25 tagus-card user-activities-box"
