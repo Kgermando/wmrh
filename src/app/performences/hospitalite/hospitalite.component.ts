@@ -19,13 +19,11 @@ export class HospitaliteComponent implements OnInit{
 
   hospitaliteTotal = 0;
 
-
   constructor(
     public themeService: CustomizerSettingsService, 
     private router: Router,
     private authService: AuthService,
     private performenceService: PerformenceService,) {}
-
 
 
   ngOnInit(): void {
@@ -35,7 +33,7 @@ export class HospitaliteComponent implements OnInit{
           this.currentUser = user;
           this.performenceService.hospitaliteTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
             res => {
-              var hospitalites = res; 
+              var hospitalites = res;
               hospitalites.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum)); 
             }
           );

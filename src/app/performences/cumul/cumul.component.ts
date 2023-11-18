@@ -42,30 +42,34 @@ export class CumulComponent implements OnInit {
           this.currentUser = user;
           this.performenceService.cumulTotal(this.currentUser.code_entreprise, this.element.id).subscribe(res => {
             var cumulCount = res;
-            this.plafondCumul = cumulCount[0].count * 30; 
-          });
-          this.performenceService.hospitaliteTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
-            h => {
-              this.performenceService.ponctualiteTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
-                p => {
-                  this.performenceService.travailTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
-                    t => {
-                      var travail = t;
-                      var ponctualite = p;  
-                      var hospitalite = h; 
-                      ponctualite.map((item: any) => this.ponctualiteTotal = parseFloat(item.sum));
-                      hospitalite.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum)); 
-                      travail.map((item: any) => this.travailTotal = parseFloat(item.sum)); 
+            this.plafondCumul = cumulCount[0].count * 30;
+            this.performenceService.hospitaliteTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
+              h => {
+                this.performenceService.ponctualiteTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
+                  p => {
+                    this.performenceService.travailTotal(this.currentUser.code_entreprise, this.element.id).subscribe(
+                      t => {
+                        var travail = t;
+                        var ponctualite = p;  
+                        var hospitalite = h; 
+                        ponctualite.map((item: any) => this.ponctualiteTotal = parseFloat(item.sum));
+                        hospitalite.map((item: any) => this.hospitaliteTotal = parseFloat(item.sum)); 
+                        travail.map((item: any) => this.travailTotal = parseFloat(item.sum));
+  
+                        this.cumuls = this.hospitaliteTotal + this.ponctualiteTotal + this.travailTotal;
 
-                      this.cumuls = this.hospitaliteTotal + this.ponctualiteTotal + this.travailTotal;
- 
-                      this.isLoading = false;
-                    }
-                  );
-                }
-              ); 
-            }
-          );  
+                        console.log('ponctualite',ponctualite);
+                        console.log('hospitalite',hospitalite);
+                        console.log('travail',travail);
+   
+                        this.isLoading = false;
+                      }
+                    );
+                  }
+                ); 
+              }
+            );
+          });
         },
         error: (error) => {
           this.isLoading = false;
