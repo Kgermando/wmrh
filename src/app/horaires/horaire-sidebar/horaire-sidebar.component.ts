@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { HoraireModel } from '../models/horaire.model'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,10 +14,12 @@ import { HoraireService } from '../horaire.service';
   templateUrl: './horaire-sidebar.component.html',
   styleUrls: ['./horaire-sidebar.component.scss']
 })
-export class HoraireSidebarComponent implements OnInit { 
-  @Input('horaireList') horaireList: HoraireModel[] = [];
+export class HoraireSidebarComponent implements OnChanges { 
+  @Input() horaireList: HoraireModel[] = [];
 
-  horaireFilterList: HoraireModel[] = [];
+  searchText: string;
+
+  // horaireFilterList: HoraireModel[] = [];
 
   // currentUser: PersonnelModel | any;
 
@@ -28,25 +30,16 @@ export class HoraireSidebarComponent implements OnInit {
     public dialog: MatDialog,
   ) {}
 
-  ngOnInit(): void {
-    // this.authService.user().subscribe({
-    //   next: (user) => {
-    //     this.currentUser = user; 
-    //     this.horaireFilterList = this.horaireList;
-    //   },
-    //   error: (error) => {
-    //     this.router.navigate(['/auth/login']);
-    //     console.log(error);
-    //   }
-    // }); 
-    
-  }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.horaireFilterList = this.horaireList.filter(horaire => horaire.name_horaire.
-      includes(filterValue.trim().toLowerCase()));
-  }
+  ngOnChanges(changes: SimpleChanges): void { 
+  } 
+
+  
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.horaireFilterList = this.horaireList.filter(horaire => horaire.name_horaire.
+  //     includes(filterValue.trim().toLowerCase()));
+  // }
 
   openAddEventDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(HoraireAddDialogBox, {

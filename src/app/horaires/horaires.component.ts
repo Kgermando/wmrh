@@ -54,7 +54,7 @@ export class HorairesComponent {
     }); 
   }
 
-  private getAllData(code_entreprise: string) {
+  getAllData(code_entreprise: string) {
     this.horaireService.getAll(code_entreprise).subscribe(res => {
       this.horaireList = res;
     });
