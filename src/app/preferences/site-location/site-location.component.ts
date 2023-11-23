@@ -70,7 +70,7 @@ export class SiteLocationComponent implements OnInit{
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
-          site_location: this.formGroup.value.site_location,
+          site_location: this.capitalizeTest(this.formGroup.value.site_location),
           manager: this.formGroup.value.manager,
           adresse: this.formGroup.value.adresse,
           signature: this.currentUser.matricule,
@@ -129,6 +129,11 @@ export class SiteLocationComponent implements OnInit{
   toggleTheme() {
     this.themeService.toggleTheme();
   }
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
+
 }
 
 
@@ -169,7 +174,7 @@ export class EditSiteLocationDialogBox implements OnInit{
         this.currentUser = user;
         this.siteLocationService.get(parseInt(this.data['id'])).subscribe(item => {
           this.formGroup.patchValue({
-            site_location: item.site_location,
+            site_location: this.capitalizeTest(item.site_location),
             manager: item.manager,
             adresse: item.adresse,
             signature: this.currentUser.matricule, 
@@ -213,5 +218,9 @@ export class EditSiteLocationDialogBox implements OnInit{
   close(){
       this.dialogRef.close(true);
   } 
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
 
 }

@@ -35,7 +35,6 @@
                         currentUser.permission === 'CRU' ||
                         currentUser.permission === 'CRUD'">Soumettre</button> 
                         </div>
-                       
                     </div> 
                 </form> 
             </mat-card-content>
@@ -84,7 +83,8 @@
                                         currentUser.permission === 'CRUD'" matTooltip="Supprimer ce document">
                                         <mat-icon>delete</mat-icon>
                                     </button>
-                                </td> 
+                                </td>
+                                <td class="gray-color" *ngIf="item.personnels.length > 0">--</td>
                             </tr> 
                         </tbody>
                     </table>

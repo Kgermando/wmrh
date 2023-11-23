@@ -70,7 +70,7 @@ export class FonctionComponent implements OnInit {
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
-          fonction: this.formGroup.value.fonction, 
+          fonction: this.capitalizeTest(this.formGroup.value.fonction), 
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
@@ -127,6 +127,11 @@ export class FonctionComponent implements OnInit {
   toggleTheme() {
     this.themeService.toggleTheme();
   }
+
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
 }
 
 
@@ -164,7 +169,7 @@ export class EditFonctionDialogBox implements OnInit{
         this.currentUser = user;
         this.fonctionService.get(parseInt(this.data['id'])).subscribe(item => {
           this.formGroup.patchValue({
-            fonction: item.fonction, 
+            fonction: this.capitalizeTest(item.fonction), 
             signature: this.currentUser.matricule, 
             update_created: new Date(),
           });
@@ -203,7 +208,11 @@ export class EditFonctionDialogBox implements OnInit{
   }
 
   close(){
-      this.dialogRef.close(true);
-  } 
+    this.dialogRef.close(true);
+  }
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
 
 }

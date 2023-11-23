@@ -68,7 +68,7 @@ export class DepartementsComponent implements OnInit {
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
-          departement: this.formGroup.value.departement, 
+          departement: this.capitalizeTest(this.formGroup.value.departement), 
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
@@ -122,6 +122,10 @@ export class DepartementsComponent implements OnInit {
     }); 
   } 
 
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
+
 
   toggleTheme() {
       this.themeService.toggleTheme();
@@ -164,7 +168,7 @@ export class EditDepartementDialogBox implements OnInit{
         this.currentUser = user;
         this.departementService.get(parseInt(this.data['id'])).subscribe(item => {
           this.formGroup.patchValue({
-            departement: item.departement, 
+            departement: this.capitalizeTest(item.departement), 
             signature: this.currentUser.matricule, 
             update_created: new Date(),
           });
@@ -204,5 +208,10 @@ export class EditDepartementDialogBox implements OnInit{
   close(){
       this.dialogRef.close(true);
   } 
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
+
 
 }

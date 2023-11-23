@@ -67,7 +67,7 @@ export class TitlesComponent implements OnInit{
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
-          title: this.formGroup.value.title, 
+          title: this.capitalizeTest(this.formGroup.value.title), 
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
@@ -124,6 +124,11 @@ export class TitlesComponent implements OnInit{
   toggleTheme() {
     this.themeService.toggleTheme();
   }
+
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
 }
 
 
@@ -162,7 +167,7 @@ export class EditTitleDialogBox implements OnInit{
         this.currentUser = user;
         this.titleService.get(parseInt(this.data['id'])).subscribe(item => {
           this.formGroup.patchValue({
-            title: item.title, 
+            title: this.capitalizeTest(item.title), 
             signature: this.currentUser.matricule, 
             update_created: new Date(),
           });
@@ -203,5 +208,9 @@ export class EditTitleDialogBox implements OnInit{
   close(){
       this.dialogRef.close(true);
   } 
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
 
 }

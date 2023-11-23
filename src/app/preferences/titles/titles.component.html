@@ -84,7 +84,8 @@
                                         currentUser.permission === 'CRUD'" matTooltip="Supprimer ce document">
                                         <mat-icon>delete</mat-icon>
                                     </button>
-                                </td> 
+                                </td>
+                                <td class="gray-color" *ngIf="item.personnels.length > 0">--</td>
                             </tr> 
                         </tbody>
                     </table>

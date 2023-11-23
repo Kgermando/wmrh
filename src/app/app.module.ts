@@ -174,7 +174,7 @@ import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/pr
 import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/classeur-filter-disp.component';
 import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
 import { CorbeilComponent } from './corbeil/corbeil.component';
-import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
+import { CorbeilViewComponent, RestaurerPersonnelDialogBox } from './corbeil/corbeil-view/corbeil-view.component';
 import { UsersComponent } from './admin/users/users.component';
 import { UserViewComponent } from './admin/users/user-view/user-view.component';
 import { IndemniteEditComponent } from './salaires/indemnites/indemnite-edit/indemnite-edit.component';
@@ -362,7 +362,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     HoraireInfoDialogBox,
     HoraireSidebarComponent,
     HoraireAddDialogBox,
-    HoraireEditComponent
+    HoraireEditComponent,
+    RestaurerPersonnelDialogBox
   ],
   imports: [
     BrowserModule,

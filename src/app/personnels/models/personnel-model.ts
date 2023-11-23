@@ -61,6 +61,7 @@ export interface PersonnelModel {
     cv_url: string; 
 
     password: string;
+    is_delete: boolean;
 
     date_paie: Date; // La fade de la masse salariale deja généré
     statut_paie: string;

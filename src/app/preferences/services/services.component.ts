@@ -67,7 +67,7 @@ export class ServicesComponent implements OnInit {
       if (this.formGroup.valid) {
         this.isLoading = true;
         var body = {
-          service: this.formGroup.value.service.toUpperCase(), 
+          service: this.capitalizeTest(this.formGroup.value.service), 
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
@@ -123,7 +123,11 @@ export class ServicesComponent implements OnInit {
   } 
 
   toggleTheme() {
-      this.themeService.toggleTheme();
+    this.themeService.toggleTheme();
+  }
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 
 }
@@ -164,7 +168,7 @@ export class EditServiceDialogBox implements OnInit{
         this.currentUser = user;
         this.serviceService.get(parseInt(this.data['id'])).subscribe(item => {
           this.formGroup.patchValue({
-            service: item.service, 
+            service: this.capitalizeTest(item.service), 
             signature: this.currentUser.matricule, 
             update_created: new Date(),
           });
@@ -206,5 +210,10 @@ export class EditServiceDialogBox implements OnInit{
   close(){
       this.dialogRef.close(true);
   } 
+
+
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
 
 }
