@@ -10,7 +10,7 @@
                 <i class="ri-add-fill"></i> Ajouter un employé
             </button>
             <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="iconMenu">
-                <i class="ri-printer-line"></i>
+                <i class="ri-menu-line"></i>
             </button>
             <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu" xPosition="before">
                 <button mat-menu-item type="button" (click)="downloadModelReport()"
@@ -25,7 +25,8 @@
                 <button mat-menu-item type="button" 
                 class="bg-transparent border-none position-relative"
                 (click)="openExportDialog('300ms', '100ms')">
-                    <i class="ri-download-2-line"></i> Exporter
+                <i class="ri-printer-line"></i>
+                 Exporter
                 </button>
             </mat-menu>
         </div>
