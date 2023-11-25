@@ -9,6 +9,8 @@ import { Auth } from 'src/app/classes/auth';
 import { NotifyService } from 'src/app/notify/notify.service';
 import { NotifyModel } from 'src/app/notify/models/notify-model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { SalaireService } from 'src/app/salaires/salaire.service';
+import { SalaireModel } from 'src/app/salaires/models/salaire-model';
 
 @Component({
     selector: 'app-header',
@@ -34,10 +36,13 @@ export class HeaderComponent {
     currentUser: PersonnelModel | any;
 
     isNotify = false;
-    notifyList: NotifyModel[] = [];
+    // notifyList: NotifyModel[] = [];
+    notifyList: SalaireModel[] = [];
 
     formGroup!: FormGroup;
     isLoading = false;
+
+    mois = '';
     
     constructor(
         private toggleService: ToggleService,
@@ -45,7 +50,7 @@ export class HeaderComponent {
         public themeService: CustomizerSettingsService,
         private authService: AuthService,
         private notifyService: NotifyService,
-        private formBuilder: FormBuilder,
+        private salaireService: SalaireService,
     ) {
         this.toggleService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -58,46 +63,87 @@ export class HeaderComponent {
             user => {
               this.currentUser = user; 
               console.log(this.currentUser);
-              this.notifyService.getAllNotify(this.currentUser.code_entreprise, this.currentUser.matricule).subscribe(
-                res => {
-                    var dataList: NotifyModel[] = res;
-                    this.notifyList = dataList.filter(n => n.is_read === false);
-                    if (this.notifyList.length > 0) {
-                        this.isNotify = true;
-                    } else {
-                        this.isNotify = false;
-                    }
-                }
-              )
+ 
+            this.salaireService.isNotify(this.currentUser.id).subscribe((res) => {
+                this.notifyList = res; 
+                if (this.notifyList.length > 0) {
+                    this.isNotify = true;
+                } 
+                this.loading = false;
+            });
+
+            //   this.notifyService.getAllNotify(this.currentUser.code_entreprise, this.currentUser.matricule).subscribe(
+            //     res => {
+            //         var dataList: NotifyModel[] = res;
+            //         this.notifyList = dataList.filter(n => n.is_read === false);
+            //         if (this.notifyList.length > 0) {
+            //             this.isNotify = true;
+            //         } else {
+            //             this.isNotify = false;
+            //         }
+            //     }
+            //   )
             }
           );
         this.loading = false;
     }
 
-
-    isRead(id: number) {
-        try {
-            this.isLoading = true;
-            var body = {
-                is_read: true,
-                signature: this.currentUser.matricule, 
-                update_created: new Date(),
-            }
-            console.log('isread', id);
-            this.notifyService.update(id, body).subscribe({
-                next: (res) => {
-                    this.isLoading = false;
-                },
-                error: err => {
-                    console.log('Notify', err); 
-                    this.isLoading = false;
-                }
-            });
-        } catch (error) {
-            this.isLoading = false;
-            console.log(error);
+    getMonth(created: Date) {
+        var date = new Date(created).getMonth();
+        var year = new Date(created).getFullYear();
+        if (date === 1) {
+          return this.mois = `Janvier/${year}`;
+        } else if(date === 2) {
+            return this.mois = `Fevrier/${year}`;
+        } else if(date === 3) {
+            return this.mois = `Mars/${year}`;
+        } else if(date === 4) {
+            return this.mois = `Avril/${year}`;
+        } else if(date === 5) {
+            return this.mois = `Mai/${year}`;
+        } else if(date === 6) {
+            return this.mois = `Juin/${year}`;
+        } else if(date === 7) {
+            return this.mois = `Juillet/${year}`;
+        } else if(date === 8) {
+            return this.mois = `Aôut/${year}`;
+        } else if(date === 9) {
+            return this.mois = `Septembre/${year}`;
+        } else if(date === 10) {
+            return this.mois = `Octobre/${year}`;
+        } else if(date === 11) {
+            return this.mois = `Novembre/${year}`;
+        } else if(date === 12) {
+            return this.mois = `Décembre/${year}`;
+        } else {
+            return '';
         }
     }
+
+
+    // isRead(id: number) {
+    //     try {
+    //         this.isLoading = true;
+    //         var body = {
+    //             is_read: true,
+    //             signature: this.currentUser.matricule, 
+    //             update_created: new Date(),
+    //         }
+    //         console.log('isread', id);
+    //         this.notifyService.update(id, body).subscribe({
+    //             next: (res) => {
+    //                 this.isLoading = false;
+    //             },
+    //             error: err => {
+    //                 console.log('Notify', err); 
+    //                 this.isLoading = false;
+    //             }
+    //         });
+    //     } catch (error) {
+    //         this.isLoading = false;
+    //         console.log(error);
+    //     }
+    // }
   
     logOut() {
         this.authService.logout().subscribe(res => {

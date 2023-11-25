@@ -22,6 +22,10 @@ export class SalaireService extends ApiService {
     return this.http.get(`${this.endpoint}/get-list-services/${code_entreprise}`);
   }
 
+  isNotify(id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-notify/${id}`);
+  }
+ 
   // fardeIsPaieDisponible(code_entreprise: string): Observable<any> {
   //   return this.http.get(`${this.endpoint}/get-farde-paie-disponible-only/${code_entreprise}`);
   // }
