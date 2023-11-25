@@ -29,7 +29,7 @@
                  <ng-container matColumnDef="nbr_heures">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre d'heures</th>
                     <td mat-cell *matCellDef="let element">
-                        <app-heure-supp-filter [element]="element"></app-heure-supp-filter>
+                        <app-heure-supp-filter [element]="element" [preference]="preference"></app-heure-supp-filter>
                     </td>
                 </ng-container>
   

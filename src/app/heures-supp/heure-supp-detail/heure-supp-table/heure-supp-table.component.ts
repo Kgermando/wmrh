@@ -10,6 +10,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { PersonnelService } from 'src/app/personnels/personnel.service';  
 import { HeureSuppModel } from '../../models/heure-supp-model';
+import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-model';
 
 @Component({
   selector: 'app-heure-supp-table',
@@ -17,7 +18,8 @@ import { HeureSuppModel } from '../../models/heure-supp-model';
   styleUrls: ['./heure-supp-table.component.scss']
 })
 export class HeureSuppTableComponent implements OnInit {
-  @Input('heureSupp') heureSupp: HeureSuppModel;  
+  @Input() heureSupp: HeureSuppModel;
+  @Input() preference: PreferenceModel;
 
   displayedColumns: string[] = ['motif', 'nbr_heures', 'created', 'update_created'];
   
@@ -27,7 +29,7 @@ export class HeureSuppTableComponent implements OnInit {
   selection = new SelectionModel<HeureSuppModel>(true, []);
 
   @ViewChild(MatSort) sort: MatSort;
-@ViewChild(MatPaginator) paginator: MatPaginator; 
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
 
 
   isLoading = false;
@@ -41,38 +43,40 @@ export class HeureSuppTableComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private personnelService: PersonnelService, 
-) {} 
-toggleTheme() {
-  this.themeService.toggleTheme();
-}
+) {}
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
 
 
-ngOnInit() { 
-      this.isLoading = true;
-      this.authService.user().subscribe({
-          next: (user) => {
-              this.currentUser = user;
-              this.personnelService.get(this.heureSupp.personnel.id).subscribe(res => {
-                this.personne = res;
-                  this.ELEMENT_DATA = this.personne.heures_supp; 
-                  this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator;
-              }); 
-              this.isLoading = false; 
-          },
-          error: (error) => {
+  ngOnInit() {
+    this.isLoading = true;
+    this.authService.user().subscribe({
+        next: (user) => {
+          this.currentUser = user;
+          this.personnelService.get(this.heureSupp.personnel.id).subscribe(res => {
+            this.personne = res;
+            this.ELEMENT_DATA = this.personne.heures_supp; 
+            this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
             this.isLoading = false; 
-            this.router.navigate(['/auth/login']);
-            console.log(error);
-          }
-        });
+          });
+        },
+        error: (error) => {
+          this.isLoading = false; 
+          this.router.navigate(['/auth/login']);
+          console.log(error);
+        }
+      }
+    );
   }
 
 
   applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /** Announce the change in sort state for assistive technology. */
@@ -87,4 +91,4 @@ ngOnInit() {
   detail(id: number) {
     this.router.navigate(['/layouts/presences/heures-supp', id, 'detail']) 
   } 
-} 
+}

@@ -37,13 +37,23 @@
                                     <span class="gray-color">{{ penalite.personnel.matricule.toUpperCase() }}</span>
                                 </li>
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Nom complet: </span>
+                                    <span class="fw-semibold d-inline-block">Prénom: </span>
                                     <span class="gray-color">
-                                        {{ penalite.personnel.nom }}
-                                        {{ penalite.personnel.postnom }}
                                         {{ penalite.personnel.prenom }}
                                     </span>
-                                </li> 
+                                </li>
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Nom: </span>
+                                    <span class="gray-color">
+                                        {{ penalite.personnel.nom }}
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="fw-semibold d-inline-block">Postnom: </span>
+                                    <span class="gray-color"> 
+                                        {{ penalite.personnel.postnom }} 
+                                    </span>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">

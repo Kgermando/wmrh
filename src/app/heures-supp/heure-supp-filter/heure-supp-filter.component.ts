@@ -9,7 +9,7 @@ import { PreferenceModel } from 'src/app/preferences/reglages/models/reglage-mod
 })
 export class HeureSuppFilterComponent implements OnInit {
   @Input('element') element: HeureSuppModel;
-  @Input('preference') preference: PreferenceModel;
+  @Input() preference: PreferenceModel;
 
   
 
@@ -37,7 +37,6 @@ export class HeureSuppFilterComponent implements OnInit {
       this.isMoisPrecedentValid  = created.getMonth() < this.dateMonth && annee === this.dateAN; // Deja bouffé!  
   
     } else {
-
       // Cette ligne ne prend pas en compte +1
       this.isMoisPrecedent = created.getMonth() +1 < new Date().getMonth() + 1 && created.getFullYear() === new Date().getFullYear();
       

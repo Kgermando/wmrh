@@ -7,14 +7,12 @@
             <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                 <mat-card class="mb-25 tagus-card"> 
                     <mat-card-header> 
-                        <h4 class="mb-0 text-center">
-                            <input class="form-control" 
-                                type="text"
-                                aria-label="Sizing example input" 
-                                aria-describedby="inputGroup-sizing-sm"
-                                formControlName="intitule">
-                        </h4>
-                        <div> 
+                        <input class="form-control" style="width: 300px !important;"
+                            type="text"
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-lg"
+                            formControlName="intitule">
+                        <div>
                             <button mat-icon-button color="primary" 
                                     (click)="openDialog()">
                                 <mat-icon>calculate</mat-icon>
@@ -29,7 +27,6 @@
                         </div>
                     </mat-card-header>
                     <mat-card-content class="example-buttons">
-                        
                         <div class="d-flex flex-nowrap mb-25 align-items-center justify-content-space-between">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <table class="table"> 
@@ -142,14 +139,14 @@
                             </li>
                         </ul>  
 
-                        <table class="table mb-25" *ngIf="indemnite.content">
+                        <table class="table mb-25">
                             <tbody>
-                                <tr *ngFor="let item of indemnite.content">
+                                <tr *ngFor="let item of idemniteContentList">
                                     <td class="text-start">
                                         {{item.nom}}:
                                     </td>
                                     <td class="gray-color text-end mr-5">
-                                        {{item.montant}} {{ monnaie }}
+                                        {{item.montant | numberFormat:'fr-FR'}} {{ monnaie }}
                                         <a mat-icon-button color="accent" (click)="openEditDialog('300ms', '100ms', item.id)" 
                                           matTooltip="Modifier">
                                             <mat-icon>edit</mat-icon>

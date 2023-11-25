@@ -185,6 +185,7 @@ import { HoraireComponent, HoraireInfoDialogBox } from './horaires/horaire/horai
 import { HoraireAddDialogBox, HoraireSidebarComponent } from './horaires/horaire-sidebar/horaire-sidebar.component';
 import { HoraireEditComponent } from './horaires/horaire-edit/horaire-edit.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { SupportComponent } from './helps/support/support.component';
 
 @NgModule({
   declarations: [
@@ -363,7 +364,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     HoraireSidebarComponent,
     HoraireAddDialogBox,
     HoraireEditComponent,
-    RestaurerPersonnelDialogBox
+    RestaurerPersonnelDialogBox,
+    SupportComponent
   ],
   imports: [
     BrowserModule,

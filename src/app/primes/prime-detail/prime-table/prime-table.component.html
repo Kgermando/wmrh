@@ -31,7 +31,7 @@
                 <ng-container matColumnDef="montant">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Montant</th>
                     <td mat-cell *matCellDef="let element"> 
-                        <app-prime-filter [element]="element"></app-prime-filter> 
+                        <app-prime-filter [element]="element" [preference]="preference"></app-prime-filter> 
                     </td>
                 </ng-container>
   

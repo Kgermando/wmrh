@@ -109,6 +109,7 @@ import { IndemniteEditComponent } from './salaires/indemnites/indemnite-edit/ind
 import { IndemniteViewComponent } from './salaires/indemnites/indemnite-view/indemnite-view.component';
 import { HoraireEditComponent } from './horaires/horaire-edit/horaire-edit.component';
 import { HoraireComponent } from './horaires/horaire/horaire.component';
+import { SupportComponent } from './helps/support/support.component';
 
 
 const routes: Routes = [
@@ -208,6 +209,8 @@ const routes: Routes = [
 
     { path: 'notify', component: NotifyComponent },
     { path: 'notify/:matricule/:id/notify-view', component: NotifyViewComponent },
+
+    { path: 'helps/support', component: SupportComponent},
     
     { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   ]},

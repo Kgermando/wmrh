@@ -21,6 +21,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
 import { IdemniteContentService } from '../indemnite-content.service';
 import { EditIndemniteDialogBox } from '../indemnite-content/indemnite-content.component';
+import { IndemniteContentModel } from '../models/indemnite-content.model';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -34,6 +35,8 @@ export class IndemniteEditComponent implements OnInit {
 
   formGroup!: FormGroup;
   content: FormArray;
+
+  idemniteContentList: IndemniteContentModel[] = [];
 
   currentUser: PersonnelModel | any; 
   isActive: boolean = false;
@@ -75,6 +78,11 @@ ngOnInit(): void {
         this.getData(this.currentUser.code_entreprise);
       });
       this.getData(this.currentUser.code_entreprise);
+
+      this.idemniteContentService.refreshData$.subscribe(() => {
+        this.getIndemniteContent();
+      });
+      this.getIndemniteContent();
     },
     error: (error) => {
       this.router.navigate(['/auth/login']);
@@ -83,27 +91,32 @@ ngOnInit(): void {
   });
 }
 
-private getData(code_entreprise: string) {
-  this.indemniteService.get(this.id).subscribe(item => {
-    this.indemnite = item;
-    this.reglageService.preference(code_entreprise).subscribe(reglage => {
-      this.preference = reglage;
-      this.monnaie = this.indemnite.monnaie;
-      this.formGroup.patchValue({
-        intitule: this.capitalizeText(this.indemnite.intitule),
-        monnaie: this.indemnite.monnaie,
-        taux_dollard: this.indemnite.taux_dollard,
-        statut: this.indemnite.statut,
-        signature: this.currentUser.matricule,
-        update_created: new Date()
-      });
+  getData(code_entreprise: string) {
+    this.indemniteService.get(this.id).subscribe(item => {
+      this.indemnite = item;
+      this.reglageService.preference(code_entreprise).subscribe(reglage => {
+        this.preference = reglage;
+        this.monnaie = this.indemnite.monnaie;
+        this.formGroup.patchValue({
+          intitule: this.capitalizeText(this.indemnite.intitule),
+          monnaie: this.indemnite.monnaie,
+          taux_dollard: this.indemnite.taux_dollard,
+          statut: this.indemnite.statut,
+          signature: this.currentUser.matricule,
+          update_created: new Date()
+        }); 
+      }); 
+    });
+  }
 
-      for (let item of this.indemnite.content) {
-        this.total += parseFloat(item.montant);
-      }
-    }); 
-  });
-}
+  getIndemniteContent() {
+    this.idemniteContentService.getAllIndemniteByID(this.id).subscribe(res => {
+      this.idemniteContentList = res;
+      this.total = this.idemniteContentList.reduce(function(sum, value){
+        return sum + parseFloat(value.montant); // montant
+       }, 0); 
+    });
+  }
 
 public toggle(event: MatSlideToggleChange) {
   this.isActive = event.checked;

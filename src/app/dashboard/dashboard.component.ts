@@ -91,7 +91,7 @@ export class DashboardComponent {
     // tomorrow.toLocaleDateString();
 
     this.dateRange = this._formBuilder.group({ 
-      start: new FormControl(new Date('2023-08-01')),
+      start: new FormControl(new Date('2023-09-01')),
       end: new FormControl(tomorrow),
       categorie: new FormControl('All')
     });
@@ -100,25 +100,23 @@ export class DashboardComponent {
       next: (user) => {
         this.currentUser = user;
 
-        if (this.start_date == undefined && this.end_date == undefined) {
+        if (this.start_date === undefined && this.end_date === undefined) {
 
-          this.start_date = formatDate(new Date('2023-08-01'), 'yyyy-MM-dd', 'en-US');
+          this.start_date = formatDate(new Date('2023-09-01'), 'yyyy-MM-dd', 'en-US');
           
           this.end_date = formatDate(tomorrow, 'yyyy-MM-dd', 'en-US');
 
-          this.getTotalEmployE(this.start_date, this.end_date);
+          this.getTotalEmployE(this.start_date, this.end_date); 
 
-          // console.log('date + 1', this.end_date);
-        }
-
-        
+          this.onSelectCategoryChange(this.start_date);
+        } 
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
     });   
-  } 
+  }
 
   
     onSelectCategoryChange(event: any) { 

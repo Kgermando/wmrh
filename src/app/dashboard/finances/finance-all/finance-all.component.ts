@@ -352,6 +352,13 @@ isLoading = false;
                         show: false,
                     }
                 },
+                tooltip: {
+                    y: {
+                        formatter: function (val: string) {
+                            return "" + val + " " + "FC";
+                        },
+                    },
+                },
                 colors: [
                     "#2DB6F5", "#F765A3", "#757FEF"
                 ],
@@ -395,7 +402,35 @@ isLoading = false;
                             fontSize: "14px",
                         }
                     },
-                    categories: this.depensePayEList.map((item: any) => item.year_ans),
+                    categories: this.depensePayEList.map((item: any) => {
+                        if (item.month == 1) {
+                            return 'Jan';
+                        } else if (item.month == 2) {
+                            return 'Fev';
+                        } else if (item.month == 3) {
+                            return 'Mar';
+                        } else if (item.month == 4) {
+                            return 'Avr';
+                        } else if (item.month == 5) {
+                            return 'Mai';
+                        } else if (item.month == 6) {
+                            return 'Jui';
+                        } else if (item.month == 7) {
+                            return 'Juil';
+                        } else if (item.month == 8) {
+                            return 'Aout';
+                        } else if (item.month == 9) {
+                            return 'Sep';
+                        } else if (item.month == 10) {
+                            return 'Oct';
+                        } else if (item.month == 11) {
+                            return 'Nov';
+                        } else if (item.month == 12) {
+                            return 'Dec';
+                        } else {
+                            return '';
+                        }
+                    }),
                 },
                 grid: {
                     show: true,

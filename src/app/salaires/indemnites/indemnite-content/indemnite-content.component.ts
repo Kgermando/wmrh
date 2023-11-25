@@ -154,7 +154,8 @@ export class EditIndemniteDialogBox implements OnInit{
         next: () => {
           this.isLoadingContent = false;
           this.toastr.success('Modification effectuée!', 'Success!');
-          window.location.reload(); 
+          this.close();
+          // window.location.reload();
         },
         error: err => {
           console.log(err);
