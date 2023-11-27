@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { SalaireExportXLSXDialogBox } from '../releve-paie/releve-paie.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReleveSalaireModel } from '../models/releve-salaire-model';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-statuts-paie',
@@ -58,22 +58,26 @@ export class StatutsPaieComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-
-    // this.formGroup = this.formBuilder.group({
-    //   entreprise: new FormControl(''),
-    //   classeur: new FormControl(''),
-    // });
+    
+    var date = new Date();
+    var dateMonth = date.getMonth() + 1;
+    var dateYear = date.getFullYear();
 
 
     this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user;
-            this.salaireService.listeService(this.currentUser.code_entreprise).subscribe(entreprise => {
-              this.entrepriseList = entreprise;
-              this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
-                this.fardeList = farde;
-                this.isLoading = false;
-              });
+            this.salaireService.farde(this.currentUser.code_entreprise).subscribe(farde => {
+              this.fardeList = farde; 
+              this.salaireService.statutPaieOnly(
+                this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(res => { 
+                  this.ELEMENT_DATA = res;
+                  this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
+                  this.dataSource.sort = this.sort;
+                  this.dataSource.paginator = this.paginator; 
+                }
+              ); 
+              this.isLoading = false;
             });
         },
         error: (error) => {
@@ -101,37 +105,6 @@ export class StatutsPaieComponent implements OnInit {
           this._liveAnnouncer.announce('Sorting cleared');
       }
   }
-
-  // onFilter() {
-  //   var body = {
-  //     entreprise:  this.formGroup.value.entreprise,
-  //     classeur:  this.formGroup.value.classeur,
-  //   };
-    
-  //   if (body.classeur.month == undefined && body.classeur.year == undefined) { 
-  //     var date = new Date();
-  //     var month = date.getMonth() + 1;
-  //     var year = date.getFullYear(); 
-  //     this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
-  //       month.toString(), year.toString()).subscribe(res => { 
-  //         this.ELEMENT_DATA = res;
-  //         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
-  //         this.dataSource.sort = this.sort;
-  //         this.dataSource.paginator = this.paginator; 
-  //       }
-  //     );
-  //   }
-  //   if (body.classeur.month != undefined && body.classeur.year != undefined) { 
-  //     this.salaireService.statutPaie(this.currentUser.code_entreprise, body.entreprise, 
-  //       body.classeur.month, body.classeur.year).subscribe(res => { 
-  //         this.ELEMENT_DATA = res;
-  //         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
-  //         this.dataSource.sort = this.sort;
-  //         this.dataSource.paginator = this.paginator; 
-  //       }
-  //     );
-  //   } 
-  // } 
 
   onChangeFarde(event: any) {
     // this.onFilter();

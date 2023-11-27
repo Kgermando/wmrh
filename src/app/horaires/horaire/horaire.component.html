@@ -6,14 +6,14 @@
         <h4 class="mb-0">{{ horaire.name_horaire.toLocaleUpperCase() }}</h4>
         <span *ngIf="currentUser">
             <button mat-icon-button color="accent" 
-             (click)="edit(horaire.id)"
+                (click)="edit(horaire.id)"
                 *ngIf="currentUser.permission === 'U' || 
-                currentUser.permission === 'RU' ||
-                currentUser.permission === 'CRU' ||
-                currentUser.permission === 'RUD' ||
-                currentUser.permission === 'CRUD'" 
-                matTooltip="Modifier l'horaire"
-                class="mat-icon">
+                    currentUser.permission === 'RU' ||
+                    currentUser.permission === 'CRU' ||
+                    currentUser.permission === 'RUD' ||
+                    currentUser.permission === 'CRUD'" 
+                    matTooltip="Modifier l'horaire"
+                    class="mat-icon">
                     <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" 

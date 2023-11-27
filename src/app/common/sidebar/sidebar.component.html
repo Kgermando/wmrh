@@ -117,11 +117,6 @@
                                     Statuts de paie
                                 </a>
                             </li>
-                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Mes Bulletins')">
-                                <a routerLink="/layouts/salaires/mes-bulletins-salaires" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Mes bulletins de paie
-                                </a>
-                            </li>
                             <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Relevés de paies')">
                                 <a routerLink="/layouts/salaires/releve-paie" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Relevé de paie
@@ -132,11 +127,11 @@
                                     Indemnités de paie
                                 </a>
                             </li>
-                            <!-- <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Relevés de paies')">
-                                <a routerLink="/layouts/salaires/releve-frais-divers" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Relevé de frais divers
+                            <li class="sidemenu-item" *ngIf="currentUser.roles.includes('Mes Bulletins')">
+                                <a routerLink="/layouts/salaires/mes-bulletins-salaires" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Mes bulletins de paie
                                 </a>
-                            </li> -->
+                            </li>
                         </ul>
                     </mat-expansion-panel>
                   

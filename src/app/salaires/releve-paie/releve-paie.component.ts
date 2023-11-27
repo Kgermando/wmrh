@@ -62,6 +62,9 @@ export class RelevePaieComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
+    var date = new Date();
+    var dateMonth = date.getMonth() + 1;
+    var dateYear = date.getFullYear();
 
     this.formGroup = this.formBuilder.group({
       entreprise: new FormControl(''),
@@ -71,12 +74,63 @@ export class RelevePaieComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
-        this.salaireService.listeService(this.currentUser.code_entreprise).subscribe(entreprise => {
-          this.entrepriseList = entreprise;
-          this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
-            this.fardeList = farde;
-            this.isLoading = false;
-          });
+        this.salaireService.fardeDisponible(this.currentUser.code_entreprise).subscribe(farde => {
+          this.fardeList = farde;
+
+          this.salaireService.relevePaieOnly(this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(res => {
+            this.releveList = res;
+      
+            this.salaireService.netAPayerTotalOnly(this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(
+              net_a_payer => {
+                var net_a_payE = net_a_payer;
+                net_a_payE.map((item: any) => this.net_a_payer = parseFloat(item.sum));  
+              }
+            );
+            this.salaireService.iprTotalOnly(this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(
+              ipr => {
+                var iprs = ipr;
+                iprs.map((item: any) => this.ipr = parseFloat(item.sum));
+              }
+            );
+            this.salaireService.cnssQPOTotalOnly(this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(
+              cnss => {
+                var cnssQPO = cnss; 
+                cnssQPO.map((item: any) => this.cnss = parseFloat(item.sum));
+              }
+            );
+            this.salaireService.rbiTotalOnly(this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(
+              rbi => {
+                var rbis = rbi; 
+                rbis.map((item: any) => this.rbi_total = parseFloat(item.sum));
+              }
+            );
+            this.salaireService.heureSuppTotalOnly(this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(
+              heure_supp => {
+                var heure_supps = heure_supp;
+                heure_supps.map((item: any) => this.heure_supp_total = parseFloat(item.sum));  
+              }
+            );
+            this.salaireService.primeTotalOnly(this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(
+              prime => {
+                var primes = prime;
+                primes.map((item: any) => this.prime_total = parseFloat(item.sum));
+              }
+            );
+            this.salaireService.penalitesTotalOnly(this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(
+              penalites => {
+                var penalitess = penalites; 
+                penalitess.map((item: any) => this.penalite_total = parseFloat(item.sum));
+              }
+            );
+            this.salaireService.syndicatTotalOnly(this.currentUser.code_entreprise, dateMonth.toString(), dateYear.toString()).subscribe(
+              syndicat => {
+                var syndicats = syndicat; 
+                syndicats.map((item: any) => this.syndicat_total = parseFloat(item.sum));
+              }
+            ); 
+          }); 
+
+          this.isLoading = false;
         });
       },
       error: (error) => {
@@ -87,157 +141,7 @@ export class RelevePaieComponent implements OnInit {
     });
   }
 
-  // onFilter() {
-  //   var body = {
-  //     entreprise: this.formGroup.value.entreprise,
-  //     classeur: this.formGroup.value.classeur,
-  //   };
-
-  //   // console.log('body', this.formGroup.value.entreprise);
-
-  //   // console.log('entreprise', body.entreprise);
-    
-  //   if (body.classeur.month == undefined && body.classeur.year == undefined) { 
-  //     var date = new Date();
-  //     var month = date.getMonth() + 1;
-  //     var year = date.getFullYear(); 
-  //     this.salaireService.relevePaie(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(res => {
-  //       this.releveList = res;
-  //       var datePaieList = this.fardeList.filter((v) => v.month == month.toString() && v.year == year.toString());
-  //       this.dateFarde = datePaieList[datePaieList.length-1];
-  //       this.dateMonth = new Date(this.dateFarde).getMonth();
-  //         this.dateYear =  new Date(this.dateFarde).getFullYear();
-  //       if (this.dateMonth === 1) {
-  //           this.mois = 'Janvier';
-  //       } else if(this.dateMonth === 2) {
-  //           this.mois = 'Fevrier';
-  //       } else if(this.dateMonth === 3) {
-  //           this.mois = 'Mars';
-  //       } else if(this.dateMonth === 4) {
-  //           this.mois = 'Avril';
-  //       } else if(this.dateMonth === 5) {
-  //           this.mois = 'Mai';
-  //       } else if(this.dateMonth === 6) {
-  //           this.mois = 'Juin';
-  //       } else if(this.dateMonth === 7) {
-  //           this.mois = 'Juillet';
-  //       } else if(this.dateMonth === 8) {
-  //           this.mois = 'Aôut';
-  //       } else if(this.dateMonth === 9) {
-  //           this.mois = 'Septembre';
-  //       } else if(this.dateMonth === 10) {
-  //           this.mois = 'Octobre';
-  //       } else if(this.dateMonth === 11) {
-  //         this.mois = 'Novembre';
-  //       } else if(this.dateMonth === 12) {
-  //         this.mois = 'Décembre';
-  //       }
-        
-  //       this.salaireService.netAPayerTotal(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(
-  //         net_a_payer => {
-  //           var net_a_payE = net_a_payer;
-  //           net_a_payE.map((item: any) => this.net_a_payer = parseFloat(item.sum));  
-  //         }
-  //       );
-  //       this.salaireService.iprTotal(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(
-  //         ipr => {
-  //           var iprs = ipr;
-  //           iprs.map((item: any) => this.ipr = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.cnssQPOTotal(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(
-  //         cnss => {
-  //           var cnssQPO = cnss; 
-  //           cnssQPO.map((item: any) => this.cnss = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.rbiTotal(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(
-  //         rbi => {
-  //           var rbis = rbi; 
-  //           rbis.map((item: any) => this.rbi_total = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.heureSuppTotal(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(
-  //         heure_supp => {
-  //           var heure_supps = heure_supp;
-  //           heure_supps.map((item: any) => this.heure_supp_total = parseFloat(item.sum));  
-  //         }
-  //       );
-  //       this.salaireService.primeTotal(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(
-  //         prime => {
-  //           var primes = prime;
-  //           primes.map((item: any) => this.prime_total = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.penalitesTotal(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(
-  //         penalites => {
-  //           var penalitess = penalites; 
-  //           penalitess.map((item: any) => this.penalite_total = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.syndicatTotal(this.currentUser.code_entreprise, body.entreprise, month.toString(), year.toString()).subscribe(
-  //         syndicat => {
-  //           var syndicats = syndicat; 
-  //           syndicats.map((item: any) => this.syndicat_total = parseFloat(item.sum));
-  //         }
-  //       ); 
-  //     });
-  //   }
-  //   if (body.classeur.month != undefined && body.classeur.year != undefined) { 
-  //     this.salaireService.relevePaie(this.currentUser.code_entreprise, body.entreprise, body.classeur.month, body.classeur.year).subscribe(res => {
-  //       this.releveList = res;
-
-  //       this.salaireService.netAPayerTotal(this.currentUser.code_entreprise, body.entreprise, body.classeur.month, body.classeur.year).subscribe(
-  //         net_a_payer => {
-  //           var net_a_payE = net_a_payer;
-  //           net_a_payE.map((item: any) => this.net_a_payer = parseFloat(item.sum));  
-  //         }
-  //       );
-  //       this.salaireService.iprTotal(this.currentUser.code_entreprise, body.entreprise, body.classeur.month, body.classeur.year).subscribe(
-  //         ipr => {
-  //           var iprs = ipr;
-  //           iprs.map((item: any) => this.ipr = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.cnssQPOTotal(this.currentUser.code_entreprise, body.entreprise, body.classeur.month, body.classeur.year).subscribe(
-  //         cnss => {
-  //           var cnssQPO = cnss; 
-  //           cnssQPO.map((item: any) => this.cnss = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.rbiTotal(this.currentUser.code_entreprise, body.entreprise, body.classeur.month, body.classeur.year).subscribe(
-  //         rbi => {
-  //           var rbis = rbi; 
-  //           rbis.map((item: any) => this.rbi_total = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.heureSuppTotal(this.currentUser.code_entreprise, body.entreprise, body.classeur.month, body.classeur.year).subscribe(
-  //         heure_supp => {
-  //           var heure_supps = heure_supp;
-  //           heure_supps.map((item: any) => this.heure_supp_total = parseFloat(item.sum));  
-  //         }
-  //       );
-  //       this.salaireService.primeTotal(this.currentUser.code_entreprise, body.entreprise, body.classeur.month, body.classeur.year).subscribe(
-  //         prime => {
-  //           var primes = prime;
-  //           primes.map((item: any) => this.prime_total = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.penalitesTotal(this.currentUser.code_entreprise, body.entreprise, body.classeur.month, body.classeur.year).subscribe(
-  //         penalites => {
-  //           var penalitess = penalites; 
-  //           penalitess.map((item: any) => this.penalite_total = parseFloat(item.sum));
-  //         }
-  //       );
-  //       this.salaireService.syndicatTotal(this.currentUser.code_entreprise, body.entreprise, body.classeur.month, body.classeur.year).subscribe(
-  //         syndicat => {
-  //           var syndicats = syndicat; 
-  //           syndicats.map((item: any) => this.syndicat_total = parseFloat(item.sum));
-  //         }
-  //       ); 
-  //     });
-  //   } 
-  // } 
+ 
 
 
   onChangeFarde(event: any) {

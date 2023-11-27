@@ -185,7 +185,11 @@ import { HoraireComponent, HoraireInfoDialogBox } from './horaires/horaire/horai
 import { HoraireAddDialogBox, HoraireSidebarComponent } from './horaires/horaire-sidebar/horaire-sidebar.component';
 import { HoraireEditComponent } from './horaires/horaire-edit/horaire-edit.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import { SupportComponent } from './helps/support/support.component';
+import { AddModuleSupportDialogBox, SupportComponent } from './helps/support/support.component';
+import { EditSupportModuleDialogBox, SupportSectionComponent } from './helps/support-section/support-section.component';
+import { SupportDocumentationComponent } from './helps/support-documentation/support-documentation.component';
+import { SuppurtAddComponent } from './helps/support/suppurt-add/suppurt-add.component';
+import { SuppurtEditComponent } from './helps/support/suppurt-edit/suppurt-edit.component';
 
 @NgModule({
   declarations: [
@@ -365,7 +369,13 @@ import { SupportComponent } from './helps/support/support.component';
     HoraireAddDialogBox,
     HoraireEditComponent,
     RestaurerPersonnelDialogBox,
-    SupportComponent
+    SupportComponent,
+    SupportSectionComponent,
+    SupportDocumentationComponent,
+    SuppurtAddComponent,
+    SuppurtEditComponent,
+    AddModuleSupportDialogBox,
+    EditSupportModuleDialogBox
   ],
   imports: [
     BrowserModule,

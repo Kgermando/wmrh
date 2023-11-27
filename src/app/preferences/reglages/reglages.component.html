@@ -404,7 +404,7 @@
                         </li>
                         <li>
                             <span class="fw-semibold">Taux d'échange USD: </span> 
-                            <span class="gray-color">{{ preference.taux_dollard }}</span>
+                            <span class="gray-color">1$ = {{ preference.taux_dollard }} FC</span>
                             <button mat-icon-button color="warn" 
                                 (click)="openEditDialog('300ms', '100ms', 'Taux dollard USD/CDF', preference.taux_dollard)" *ngIf="currentUser.permission === 'U' || 
                                 currentUser.permission === 'RU' ||

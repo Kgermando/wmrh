@@ -167,7 +167,7 @@ export class PersonnelEditComponent implements OnInit {
             nom: this.capitalizeTest(item.nom),
             postnom: this.capitalizeTest(item.postnom),
             prenom: this.capitalizeTest(item.prenom),
-            email: this.capitalizeTest(item.email),
+            email: item.email.toLowerCase(),
             telephone: item.telephone,
             sexe: item.sexe,
             adresse: this.capitalizeTest(item.adresse),

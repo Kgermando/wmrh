@@ -53,11 +53,11 @@ export class PresEntrepriseViewComponent implements OnInit {
 
               var moisDejaPayE = 0;
 
-              moisDejaPayE = new Date().getMonth() - new Date(this.presEntreprise.date_debut).getMonth();
+              moisDejaPayE = new Date().getMonth() + 1 - new Date(this.presEntreprise.date_debut).getMonth();
 
-              this.totalDejaPayE = +this.presEntreprise.deboursement * moisDejaPayE;
+              this.totalDejaPayE = parseFloat(this.presEntreprise.deboursement) * moisDejaPayE;
               
-              this.reste = +this.presEntreprise.total_empreints - this.totalDejaPayE;
+              this.reste = this.totalDejaPayE - parseFloat(this.presEntreprise.total_empreints);
 
             });
             this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {

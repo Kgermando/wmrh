@@ -34,10 +34,10 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="tagus-form-group">
-                    <label class="d-block mb-12 fw-semibold gray-color">Montant total preté</label>
+                    <label class="d-block mb-12 fw-semibold gray-color">Montant à remboursé</label>
                     <mat-form-field appearance="fill">
                         <i class="ri-edit-2-line"></i>
-                        <mat-label>Entrer le montant preté </mat-label>
+                        <mat-label>Entrer le montant à remboursé </mat-label>
                         <input matInput type="number" formControlName="total_empreints" name="total_empreints">
                         <mat-error *ngIf="formGroup.controls['total_empreints'].hasError('required')">
                             Ce champs est obligatoire
@@ -47,10 +47,10 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="tagus-form-group">
-                    <label class="d-block mb-12 fw-semibold gray-color">Montant à debourser par mois </label>
+                    <label class="d-block mb-12 fw-semibold gray-color">Mensualité </label>
                     <mat-form-field appearance="fill">
                         <i class="ri-edit-2-line"></i>
-                        <mat-label>Entrer le montant à debourser </mat-label>
+                        <mat-label>Entrer mensualité </mat-label>
                         <input matInput type="number" formControlName="deboursement" name="deboursement">
                         <mat-error *ngIf="formGroup.controls['deboursement'].hasError('required')">
                             Ce champs est obligatoire
@@ -60,7 +60,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="tagus-form-group">
-                    <label class="d-block mb-12 fw-semibold gray-color">Date choisie  pour debut des paiements </label>
+                    <label class="d-block mb-12 fw-semibold gray-color">Debut mensualité </label>
                     <mat-form-field appearance="fill" class="date-input">
                         <mat-label>MM/DD/YYYY</mat-label>
                         <input matInput [matDatepicker]="pickerDebut1" id="date_debut" 

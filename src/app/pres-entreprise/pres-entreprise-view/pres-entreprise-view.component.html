@@ -63,7 +63,9 @@
                             </ul>
                         </div>
                     </div>
-                </mat-card-content>
+                </mat-card-content> 
+            </mat-card> 
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
                 <mat-card-content> 
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -73,23 +75,18 @@
                                     <span class="gray-color">{{ presEntreprise.intitule }}</span>
                                 </li>
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Total Pret entreprise: </span>
+                                    <span class="fw-semibold d-inline-block">Montant à rembourser: </span>
                                     <span class="gray-color">
                                         {{ presEntreprise.total_empreints | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
                                     </span>
                                 </li>
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Montant à payer chaque mois: </span>
+                                    <span class="fw-semibold d-inline-block">Mensualité: </span>
                                     <span class="gray-color">
                                         {{ presEntreprise.deboursement | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
                                     </span>
                                 </li>
-                                <li>
-                                    <span class="fw-semibold d-inline-block">Total déjà payé: </span>
-                                    <span class="gray-color">
-                                        {{ totalDejaPayE | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
-                                    </span>
-                                </li>
+                               
                             </ul>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -101,7 +98,7 @@
                                     </span>
                                 </li>
                                 <li>
-                                    <span class="fw-semibold d-inline-block">Date choisie  pour le debut des paiements: </span>
+                                    <span class="fw-semibold d-inline-block">Debut mensualité: </span>
                                     <span class="gray-color">
                                         {{ presEntreprise.date_debut | date: 'dd/MM/yyyy' }} 
                                     </span>
@@ -113,10 +110,25 @@
                                         {{ presEntreprise.date_limit | date: 'dd/MM/yyyy' }}  
                                     </span>
                                 </li> 
-                                
+                                <!-- <li>
+                                    <span class="fw-semibold d-inline-block">TOTAL REMBOURSÉ: </span>
+                                    <span class="badge rounded-pill text-soft-success gray-color" style="font-size: 20px;"> 
+                                        {{ totalDejaPayE | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
+                                    </span>
+                                </li> -->
                                 
                             </ul>
-                        </div> 
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <ul class="list ps-0 mb-0 mt-25">
+                                <li class="fw-semibold net_a_payer d-flex align-items-center justify-content-space-between">
+                                    TOTAL REMBOURSÉ:
+                                    <span  class="badge rounded-pill text-soft-success gray-color" style="font-size: 20px;">
+                                        {{ totalDejaPayE | numberFormat:'fr-FR' }} {{ presEntreprise.monnaie }}
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>  
                 </mat-card-content>
             </mat-card> 
@@ -124,7 +136,5 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
             <!-- <app-presEntreprise-table [presEntreprise]="presEntreprise" [preference]="preference"></app-presEntreprise-table> -->
         </div>
-
-         
     </div>
 </div>

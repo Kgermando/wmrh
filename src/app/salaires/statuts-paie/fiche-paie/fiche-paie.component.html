@@ -173,7 +173,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>  
+                            </div>
                             <div class="table-responsive mb-10">
                                 <table class="table"> 
                                     <tbody>
@@ -195,7 +195,7 @@
                                                formControlName="salaire_base"
                                                >  |
                                             <span *ngIf="salaire.monnaie == 'USD'">
-                                                    {{ +salaire.personnel.salaire_base * +salaire.taux_dollard | numberFormat:'fr-FR' }}
+                                                {{ +salaire.personnel.salaire_base * +salaire.taux_dollard | numberFormat:'fr-FR' }}
                                             </span>
                                             <span *ngIf="salaire.monnaie == 'CDF'">
                                                 {{ salaire.personnel.salaire_base | numberFormat:'fr-FR' }}

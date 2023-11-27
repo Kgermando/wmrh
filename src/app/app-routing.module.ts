@@ -110,6 +110,10 @@ import { IndemniteViewComponent } from './salaires/indemnites/indemnite-view/ind
 import { HoraireEditComponent } from './horaires/horaire-edit/horaire-edit.component';
 import { HoraireComponent } from './horaires/horaire/horaire.component';
 import { SupportComponent } from './helps/support/support.component';
+import { SuppurtAddComponent } from './helps/support/suppurt-add/suppurt-add.component';
+import { SuppurtEditComponent } from './helps/support/suppurt-edit/suppurt-edit.component';
+import { SupportSectionComponent } from './helps/support-section/support-section.component';
+import { SupportDocumentationComponent } from './helps/support-documentation/support-documentation.component';
 
 
 const routes: Routes = [
@@ -211,6 +215,10 @@ const routes: Routes = [
     { path: 'notify/:matricule/:id/notify-view', component: NotifyViewComponent },
 
     { path: 'helps/support', component: SupportComponent},
+    { path: 'helps/support/:id_module/section', component: SupportSectionComponent },
+    { path: 'helps/support/:id/documentation', component: SupportDocumentationComponent },
+    { path: 'helps/support/:id_module/add', component: SuppurtAddComponent },
+    { path: 'helps/support/:id/edit', component: SuppurtEditComponent },
     
     { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   ]},

@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonnelModel } from '../models/personnel-model';
 import { ToastrService } from 'ngx-toastr';
-import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel';
-import { SalaireService } from 'src/app/salaires/salaire.service';
+import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel'; 
 
 @Component({
   selector: 'app-personnel-add',
@@ -72,7 +71,7 @@ export class PersonnelAddComponent implements OnInit {
           nom: this.capitalizeTest(this.formGroup.value.nom),
           postnom: this.capitalizeTest(this.formGroup.value.postnom),
           prenom: this.capitalizeTest(this.formGroup.value.prenom),
-          email: this.formGroup.value.email,
+          email: this.formGroup.value.email.toLowerCase(),
           telephone: this.formGroup.value.telephone,
           sexe: this.formGroup.value.sexe,
           adresse: this.formGroup.value.adresse, 
