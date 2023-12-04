@@ -120,7 +120,12 @@ export class PointageComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value; 
     this.personnelFilter = [...this.personnelList.filter(personne => personne.matricule.includes(filterValue.trim().toLowerCase()))];
  }
-    
+
+ getMatriculeSplit(matriculeItem: string) {
+    var mat = matriculeItem.split("-");
+    var matricule = mat[0];
+    return matricule;
+ }
 
 
   toggleTheme() {

@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
 import { EntrepriseService } from 'src/app/admin/entreprise/entreprise.service';
 import { EntrepriseModel } from 'src/app/admin/entreprise/models/entreprise.model';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-personnel-list',
@@ -22,7 +23,7 @@ import { EntrepriseModel } from 'src/app/admin/entreprise/models/entreprise.mode
   styleUrls: ['./personnel-list.component.scss']
 })
 export class PersonnelListComponent implements OnInit {
-  displayedColumns: string[] = ['numero', 'matricule', 'fullname', 'email', 'telephone', 'sexe', 'id'];
+  displayedColumns: string[] = ['matricule', 'fullname', 'email', 'telephone', 'sexe', 'id'];
   
   ELEMENT_DATA: PersonnelModel[] = [];
   
@@ -167,7 +168,10 @@ export class PersonnelListComponent implements OnInit {
   templateUrl: './personnel-upload-csv.html',
 })
 export class PersonnelUploadCSVDialogBox {
-  isLoading = false; 
+  isLoading = false;
+
+  percentDone: number;
+  uploadSuccess: boolean;
 
   constructor( 
       public dialogRef: MatDialogRef<PersonnelUploadCSVDialogBox>, 
@@ -176,7 +180,7 @@ export class PersonnelUploadCSVDialogBox {
   ) {}
 
   upload(event: Event) {
-    this.isLoading = true;
+    // this.isLoading = true;
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
     console.log({files});
@@ -184,27 +188,35 @@ export class PersonnelUploadCSVDialogBox {
     const file = files.item(0);
     const data = new FormData();
     // @ts-ignore
-    data.append('file', file); 
+    data.append('file', file);
 
-    this.personnelService.uploadCSV(data).subscribe({
-      next: () => { 
-        window.location.reload();
-        this.toastr.success('Success!', 'Ajouté avec succès!');
-        this.isLoading = false; 
-        // this.close();
-      },
-      error: (e) => {
-        this.isLoading = false;
-        this.close();
-        this.toastr.error(`${e.error.message}`, 'Oupss!');
-        window.alert(e.error.message);
-        console.log(e);
-        
+    this.personnelService.uploadCSV(data).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.percentDone = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        this.uploadSuccess = true;
       }
-    });
+  });
+
+    // .subscribe({
+    //   next: (res) => { 
+    //     // window.location.reload();
+    //     console.log('Uploading', res)
+    //     this.toastr.success('Success!', 'Ajouté avec succès!');
+    //     this.isLoading = false; 
+    //     // this.close();
+    //   },
+    //   error: (e) => {
+    //     this.isLoading = false;
+    //     this.close();
+    //     this.toastr.error(`${e.error.message}`, 'Oupss!');
+    //     window.alert(e.error.message);
+    //     console.log(e);
+        
+    //   }
+    // });
   } 
-
-
+ 
   close(){
       this.dialogRef.close(true);
   } 

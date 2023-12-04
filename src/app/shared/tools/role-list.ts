@@ -1,5 +1,4 @@
 export const RoleDataList: string[] = [
-    
     'Dashboard',
     'Mes Bulletins',
     'Personnels',

@@ -26,7 +26,7 @@ export class PersonnelService extends ApiService {
   }
 
   uploadCSV(data: any): Observable<any> {
-    return this.http.post(`${this.endpoint}/upload-csv`, data);
+    return this.http.post(`${this.endpoint}/upload-csv`, data, {reportProgress: true, observe: 'events'});
   }
 
   downloadReport(code_entreprise: string, start_date: string, end_date: string): Observable<any> {

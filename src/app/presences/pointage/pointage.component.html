@@ -73,7 +73,7 @@
                             <img src="assets/img/user/user13.jpg" class="border-radius" alt="user" *ngIf="!item.photo">
                             <img [src]="item.photo" class="border-radius" alt="user" *ngIf="item.photo">
                             <div class="info">
-                                <h5>{{ item.matricule }}</h5>
+                                <h5>{{ getMatriculeSplit(item.matricule) }}</h5> 
                                 <span class="d-block muted-color">{{ item.prenom }} {{ item.nom }}</span>
                             </div>
                         </div>

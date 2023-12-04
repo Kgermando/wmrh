@@ -41,10 +41,10 @@ export class PersonnelEditComponent implements OnInit {
 
   typeContrat: string = 'CDD';
 
- 
   sexeList: string[] = [
     'Femme', 'Homme'
   ];
+
   etatCivileList: string[] = [
     'Marié(e)', 'Celibataire', 'Divorcé(e)'
   ];
