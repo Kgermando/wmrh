@@ -50,7 +50,7 @@ import { EditFonctionDialogBox, FonctionComponent } from './preferences/fonction
 import { EditServiceDialogBox, ServicesComponent } from './preferences/services/services.component';
 import { EditSiteLocationDialogBox, SiteLocationComponent } from './preferences/site-location/site-location.component';
 import { PointageComponent } from './presences/pointage/pointage.component'; 
-import { PenaliteSAddDialogBox, PresenceFormComponent } from './presences/pointage/pointage-view/presence-form/presence-form.component';
+import { PenaliteSAddDialogBox, PresenceFormComponent, PresenceHeureSuppAddDialogBox } from './presences/pointage/pointage-view/presence-form/presence-form.component';
 import { PresenceCalendarComponent } from './presences/pointage/pointage-view/presence-calendar/presence-calendar.component';
 import { PresencePieMonthComponent } from './presences/pointage/pointage-view/presences-pie/presence-pie-month/presence-pie-month.component';
 import { PresencePieYearComponent } from './presences/pointage/pointage-view/presences-pie/presence-pie-year/presence-pie-year.component';
@@ -375,7 +375,8 @@ import { SuppurtEditComponent } from './helps/support/suppurt-edit/suppurt-edit.
     SuppurtAddComponent,
     SuppurtEditComponent,
     AddModuleSupportDialogBox,
-    EditSupportModuleDialogBox
+    EditSupportModuleDialogBox,
+    PresenceHeureSuppAddDialogBox
   ],
   imports: [
     BrowserModule,

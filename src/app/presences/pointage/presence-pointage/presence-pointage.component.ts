@@ -65,7 +65,11 @@ export class PresencePointageComponent implements OnInit{
           if (dateEntreeDay === day && dateEntreeMonth === dayMonth && dateEntreeYear === dayYear) {
             this.isAAToday = true;
           }
-        }
+        } else if(this.presence.apointement === 'O'){
+          if (dateEntreeDay === day && dateEntreeMonth === dayMonth && dateEntreeYear === dayYear) {
+            this.isOToday = true;
+          }
+        } 
         
         
         else if(this.presence.apointement === 'AM'){
@@ -87,10 +91,6 @@ export class PresencePointageComponent implements OnInit{
         } else if(this.presence.apointement === 'S'){
           if (datePresenceSortie > dateToday) {
             this.isSToday = true;
-          }
-        } else if(this.presence.apointement === 'O'){
-          if (datePresenceSortie > dateToday) {
-            this.isOToday = true;
           }
         } else if(this.presence.apointement === 'M'){
           if (datePresenceSortie > dateToday) {

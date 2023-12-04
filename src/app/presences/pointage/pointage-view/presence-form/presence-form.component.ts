@@ -12,6 +12,7 @@ import { PenaliteService } from 'src/app/penalites/penalite.service';
 import { monnaieDataList } from 'src/app/shared/tools/monnaie-list';
 import { ApointementModel } from 'src/app/presences/models/presence-model';
 import { PresenceService } from 'src/app/presences/presence.service';
+import { HeureSuppService } from 'src/app/heures-supp/heure-supp.service';
 
 @Component({
   selector: 'app-presence-form',
@@ -134,7 +135,14 @@ export class PresenceFormComponent {
               if (dateEntreeDay < day && dateEntreeMonth === dayMonth && dateEntreeYear === dayYear) {
                 this.isAATodayForm = true;
               }
-            }
+            } else if(this.apointementItem.apointement === 'O'){
+              if (dateEntreeDay === day && dateEntreeMonth === dayMonth && dateEntreeYear === dayYear) {
+                this.isOToday = true;
+              }
+              if (dateEntreeDay < day && dateEntreeMonth === dayMonth && dateEntreeYear === dayYear) {
+                this.isOTodayForm = true;
+              }
+            } 
             
             
             else if(this.apointementItem.apointement === 'AM'){
@@ -164,13 +172,6 @@ export class PresenceFormComponent {
               }
               if (datePresenceSortie <= dateAujourdui) {
                 this.isSTodayForm = true;
-              }
-            } else if(this.apointementItem.apointement === 'O'){
-              if (dataSortie > dateToday) {
-                this.isOToday = true;
-              }
-              if (datePresenceSortie <= dateAujourdui) {
-                this.isOTodayForm = true;
               }
             } else if(this.apointementItem.apointement === 'M'){
               if (dataSortie > dateToday) {
@@ -203,14 +204,14 @@ export class PresenceFormComponent {
     
   }
 
-  onPresenceChange(event: any) { 
+  onPresenceChange(event: any) {
     if (
       event.value === 'AM' || event.value === 'CC' || 
       event.value === 'CA' || event.value === 'S' || 
-      event.value === 'O' || event.value === 'M') { 
+      event.value === 'M') { 
       this.isAbsense = true;  // Date de reprise pour des congés
     } else if(event.value === 'P' || event.value === 'A' || 
-      event.value === 'AA') {
+      event.value === 'AA' || event.value === 'O') {
       this.isAbsense = false; 
     } else {
       this.isAbsense = false;
@@ -232,7 +233,18 @@ export class PresenceFormComponent {
         personnel: personnel
       }
     }); 
-  } 
+  }
+  
+  openHeureSuppDialog(enterAnimationDuration: string, exitAnimationDuration: string, personnel: number): void {
+    this.dialog.open(PresenceHeureSuppAddDialogBox, {
+      width: '600px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        personnel: personnel
+      }
+    }); 
+  }
 
 
   onSubmit() {
@@ -260,7 +272,10 @@ export class PresenceFormComponent {
             this.toastr.success('Success!', 'Ajouté avec succès!');
             if(res['apointement'] === 'S') {
               this.openEditDialog('300ms', '100ms', this.personne.id);
-            } 
+            }
+            if(res['apointement'] === 'O') {
+              this.openHeureSuppDialog('300ms', '100ms', this.personne.id);
+            }
             this.router.navigate(['/layouts/presences/pointage']);
             this.isLoadingForm = false;
           },
@@ -342,6 +357,92 @@ export class PenaliteSAddDialogBox implements OnInit {
           code_entreprise: this.currentUser.code_entreprise
         };
         this.penaliteService.create(body).subscribe({
+          next: () => {
+            this.isLoading = false;
+            this.formGroup.reset();
+            this.toastr.success('Success!', 'Ajouté avec succès!'); 
+            window.location.reload();
+          },
+          error: (err) => {
+            this.isLoading = false;
+            this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
+            console.log(err);
+          }
+        });
+      } 
+    } catch (error) {
+      this.isLoading = false;
+      console.log(error);
+    }
+  }
+
+  close(){
+      this.dialogRef.close(true);
+  } 
+
+}
+
+
+
+@Component({
+  selector: 'heure-supp-dialog',
+  templateUrl: './presence_heure_supp_o.html',
+})
+export class PresenceHeureSuppAddDialogBox implements OnInit {
+  isLoading = false;
+
+  formGroup!: FormGroup;
+ 
+
+  currentUser: PersonnelModel | any;
+
+  personneList: PersonnelModel[] = [];
+
+  constructor( 
+    @Inject(MAT_DIALOG_DATA) public data: any,
+      public dialogRef: MatDialogRef<PresenceHeureSuppAddDialogBox>,
+      private formBuilder: FormBuilder,
+      private router: Router,
+      private authService: AuthService, 
+      private toastr: ToastrService,
+      private heureSuppService: HeureSuppService,
+  ) {}
+  
+
+
+  ngOnInit(): void {
+    this.authService.user().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
+    }); 
+    this.formGroup = this.formBuilder.group({
+      motif: ['', Validators.required],
+      nbr_heures: ['', Validators.required], 
+    }); 
+ 
+  } 
+
+
+  onSubmit() {
+    try {
+      if (this.formGroup.valid) {
+        this.isLoading = true;
+        var body = {
+          personnel: this.data['personnel'],
+          motif: this.formGroup.value.motif,
+          nbr_heures: this.formGroup.value.nbr_heures,
+          signature: this.currentUser.matricule,
+          created: new Date(),
+          update_created: new Date(),
+          entreprise: this.currentUser.entreprise,
+          code_entreprise: this.currentUser.code_entreprise
+        };
+        this.heureSuppService.create(body).subscribe({
           next: () => {
             this.isLoading = false;
             this.formGroup.reset();

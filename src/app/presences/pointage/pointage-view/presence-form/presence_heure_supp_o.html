@@ -7,23 +7,6 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="tagus-form-group">
-                    <label class="d-block mb-12 fw-semibold gray-color">Personnel <span>*</span></label>
-                    <mat-form-field appearance="fill">
-                        <i class="ri-edit-2-line"></i>
-                        <mat-label>Select agent</mat-label>
-                        <mat-select formControlName="personnel">
-                            <mat-option *ngFor="let personne of personneList" [value]="personne.id">
-                                {{personne.prenom}} {{personne.nom}}  <<{{personne.matricule}}>> 
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="formGroup.controls['personnel'].hasError('required')">
-                            Ce champs est obligatoire
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="tagus-form-group">
                     <label class="d-block mb-12 fw-semibold gray-color">Motif </label>
                     <mat-form-field appearance="fill">
                         <i class="ri-edit-2-line"></i>
@@ -54,10 +37,14 @@
         </div>
         <div class="text-end" *ngIf="!isLoading && currentUser">
             <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
-            <button type="submit" *ngIf="currentUser.permission === 'C' || 
-                currentUser.permission === 'CR' ||
-                currentUser.permission === 'CRU' ||
-                currentUser.permission === 'CRUD'"><i class="ri-edit-fill"></i> Soumettre
+            <button type="submit"
+                *ngIf="currentUser.permission === 'U' ||
+                    currentUser.permission === 'RU' ||
+                    currentUser.permission === 'CRU' ||
+                    currentUser.permission === 'RUD' ||
+                    currentUser.permission === 'CRUD'">
+                <i class="ri-edit-fill"></i> 
+                ajouter
             </button>
         </div>
     </form> 
