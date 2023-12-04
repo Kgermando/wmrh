@@ -147,12 +147,12 @@ export class DashboardComponent {
  
 
     getTotalEmployE(start_date: string, end_date: string) {
-      this.dashAllService.totalEnmployesAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
-        res =>  {
-            this.totalEmployeAllList = res;
-            this.totalEmployeAllList.map((item: any) => this.totalEmployeAll = parseFloat(item.total));
-        }
-      ); 
+      // this.dashAllService.totalEnmployesAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+      //   res =>  {
+      //       this.totalEmployeAllList = res;
+      //       this.totalEmployeAllList.map((item: any) => this.totalEmployeAll = parseFloat(item.total));
+      //   }
+      // ); 
 
       this.dashAllService.totalEnmployeFemmeAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
         res =>  {
