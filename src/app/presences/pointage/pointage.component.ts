@@ -123,6 +123,7 @@ export class PointageComponent implements OnInit {
 
  getMatriculeSplit(matriculeItem: string) {
     var mat = matriculeItem.split("-");
+    // var matricule = mat[mat.length - 1];
     var matricule = mat[0];
     return matricule;
  }
