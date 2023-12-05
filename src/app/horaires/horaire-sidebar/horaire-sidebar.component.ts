@@ -24,15 +24,12 @@ export class HoraireSidebarComponent implements OnChanges {
   // currentUser: PersonnelModel | any;
 
   constructor(
-    public themeService: CustomizerSettingsService,
-    private router: Router,
-      private authService: AuthService,
+    public themeService: CustomizerSettingsService, 
     public dialog: MatDialog,
   ) {}
 
 
-  ngOnChanges(changes: SimpleChanges): void { 
-  } 
+  ngOnChanges(changes: SimpleChanges): void { } 
 
   
   // applyFilter(event: Event) {
