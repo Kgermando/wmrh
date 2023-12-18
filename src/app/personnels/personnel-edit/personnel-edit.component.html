@@ -201,7 +201,7 @@
                                 <mat-form-field appearance="fill">
                                     <i class="ri-edit-2-line"></i>
                                     <mat-label>Select departement</mat-label>
-                                    <mat-select [compareWith]="compareFn" formControlName="departements">
+                                    <mat-select [compareWith]="compareFn" formControlName="departements" (selectionChange)="onDepartementChange($event)">
                                         <mat-option *ngFor="let departement of departementList" [value]="departement">
                                             {{departement.departement}}
                                         </mat-option>

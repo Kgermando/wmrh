@@ -15,8 +15,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
   styleUrls: ['./departements.component.scss']
 })
 export class DepartementsComponent implements OnInit {
-
   isLoading = false;
+  isLoadingForm = false;
 
   formGroup!: FormGroup;
 
@@ -36,6 +36,7 @@ export class DepartementsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -46,6 +47,7 @@ export class DepartementsComponent implements OnInit {
         
       },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
@@ -58,7 +60,8 @@ export class DepartementsComponent implements OnInit {
 
   private getAllData(code_entreprise: string) {
     this.departementService.getAll(code_entreprise).subscribe(res => {
-      this.departmentList = res; 
+      this.departmentList = res;
+      this.isLoading = false; 
     });
   }
 
@@ -66,7 +69,7 @@ export class DepartementsComponent implements OnInit {
   onSubmit() {
     try {
       if (this.formGroup.valid) {
-        this.isLoading = true;
+        this.isLoadingForm = true;
         var body = {
           departement: this.capitalizeTest(this.formGroup.value.departement), 
           signature: this.currentUser.matricule,
@@ -77,20 +80,19 @@ export class DepartementsComponent implements OnInit {
         };
         this.departementService.create(body).subscribe({
           next: () => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.formGroup.reset();
-            this.toastr.success('Success!', 'Ajouté avec succès!'); 
-            // window.location.reload(); 
+            this.toastr.success('Success!', 'Ajouté avec succès!');  
           },
           error: (err) => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });
       } 
     } catch (error) {
-      this.isLoading = false;
+      this.isLoadingForm = false;
       console.log(error);
     }
   } 

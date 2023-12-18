@@ -39,6 +39,8 @@ export class PersonnelEditComponent implements OnInit {
 
   personne: PersonnelModel;
 
+  departement: DepartementModel;
+
   typeContrat: string = 'CDD';
 
   sexeList: string[] = [
@@ -148,15 +150,16 @@ export class PersonnelEditComponent implements OnInit {
         this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.departementList = res; 
         });
-        this.fonctionService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.fonctionList = res; 
-        });
+        // this.fonctionService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+        //   this.fonctionList = res; 
+        // });
+        // this.serviceService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+        //   this.serviceList = res;
+        // });
+
         this.titleService.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.titleList = res; 
-        });
-        this.serviceService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.serviceList = res;
-        });
+        }); 
         this.siteLocation.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.siteLocationList = res;
         });
@@ -228,6 +231,17 @@ export class PersonnelEditComponent implements OnInit {
       }
     });
  
+  }
+
+  onDepartementChange(event: any) {
+    var departementt = event.value;
+    this.departementService.get(departementt.id).subscribe(res => {
+      this.departement = res;
+      console.log('departementt', departementt);
+      console.log('departement', this.departement);
+      this.serviceList = this.departement.services;
+      this.fonctionList = this.departement.fonctions;
+    });
   }
 
   onSubmit() {

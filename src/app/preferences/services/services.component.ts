@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from './service.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DepartementService } from '../departements/departement.service';
+import { DepartementModel } from '../departements/model/departement-model';
 
 @Component({
   selector: 'app-services',
@@ -16,10 +18,13 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 })
 export class ServicesComponent implements OnInit {
   isLoading = false;
+  isLoadingForm = false;
 
   formGroup!: FormGroup;
 
   serviceList: ServicePrefModel[] = [];
+
+  departmentList: DepartementModel[] = [];
 
   currentUser: PersonnelModel | any;
 
@@ -30,12 +35,14 @@ export class ServicesComponent implements OnInit {
       private authService: AuthService,
       private _formBuilder: FormBuilder,
       private serviceService: ServiceService,
+      private departementService: DepartementService,
       public dialog: MatDialog,
       private toastr: ToastrService
   ) {}
 
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -45,6 +52,7 @@ export class ServicesComponent implements OnInit {
         this.getAllData(this.currentUser.code_entreprise);
       },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
@@ -52,12 +60,17 @@ export class ServicesComponent implements OnInit {
 
     this.formGroup = this._formBuilder.group({
       service: ['', Validators.required], 
+      departement: ['', Validators.required], 
     });
   }
 
   private getAllData(code_entreprise: string) {
     this.serviceService.getAll(code_entreprise).subscribe(res => {
       this.serviceList = res; 
+      this.departementService.getAll(code_entreprise).subscribe(res => {
+        this.departmentList = res; 
+        this.isLoading = false;
+      });
     });
   }
 
@@ -65,9 +78,10 @@ export class ServicesComponent implements OnInit {
   onSubmit() {
     try {
       if (this.formGroup.valid) {
-        this.isLoading = true;
+        this.isLoadingForm = true;
         var body = {
           service: this.capitalizeTest(this.formGroup.value.service), 
+          departement: this.formGroup.value.departement,
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
@@ -76,20 +90,19 @@ export class ServicesComponent implements OnInit {
         };
         this.serviceService.create(body).subscribe({
           next: () => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.formGroup.reset();
-            this.toastr.success('Success!', 'Ajouté avec succès!'); 
-            // window.location.reload();
+            this.toastr.success('Success!', 'Ajouté avec succès!');  
           },
           error: (err) => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });
       } 
     } catch (error) {
-      this.isLoading = false;
+      this.isLoadingForm = false;
       console.log(error);
     }
   }
@@ -130,8 +143,7 @@ export class ServicesComponent implements OnInit {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 
-}
-
+} 
 
 
 @Component({
@@ -142,6 +154,8 @@ export class EditServiceDialogBox implements OnInit{
   isLoading = false;
 
   formGroup!: FormGroup;
+
+  departmentList: DepartementModel[] = [];
  
 
   currentUser: PersonnelModel | any;
@@ -154,21 +168,27 @@ export class EditServiceDialogBox implements OnInit{
       private authService: AuthService, 
       private toastr: ToastrService,
       private serviceService: ServiceService,
+      private departementService: DepartementService,
   ) {}
   
 
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({  
-      service: ''
+      service: '',
+      departement: '',
     });
 
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
+        this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.departmentList = res; 
+        });
         this.serviceService.get(parseInt(this.data['id'])).subscribe(item => {
           this.formGroup.patchValue({
-            service: this.capitalizeTest(item.service), 
+            service: this.capitalizeTest(item.service),
+            departement: item.departement,
             signature: this.currentUser.matricule, 
             update_created: new Date(),
           });
@@ -211,6 +231,9 @@ export class EditServiceDialogBox implements OnInit{
       this.dialogRef.close(true);
   } 
 
+  compareFn(c1: DepartementModel, c2: DepartementModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
 
   capitalizeTest(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;

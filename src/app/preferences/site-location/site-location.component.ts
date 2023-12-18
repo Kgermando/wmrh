@@ -16,6 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 })
 export class SiteLocationComponent implements OnInit{
   isLoading = false;
+  isLoadingForm = false;
 
   formGroup!: FormGroup;
 
@@ -36,6 +37,7 @@ export class SiteLocationComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -45,6 +47,7 @@ export class SiteLocationComponent implements OnInit{
         this.getAllData(this.currentUser.code_entreprise);
       },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
@@ -59,7 +62,8 @@ export class SiteLocationComponent implements OnInit{
 
   private getAllData(code_entreprise: string) {
     this.siteLocationService.getAll(code_entreprise).subscribe(res => {
-      this.siteLocationList = res; 
+      this.siteLocationList = res;
+      this.isLoading = false;
     });
   }
 
@@ -68,7 +72,7 @@ export class SiteLocationComponent implements OnInit{
   onSubmit() {
     try {
       if (this.formGroup.valid) {
-        this.isLoading = true;
+        this.isLoadingForm = true;
         var body = {
           site_location: this.capitalizeTest(this.formGroup.value.site_location),
           manager: this.formGroup.value.manager,
@@ -81,20 +85,19 @@ export class SiteLocationComponent implements OnInit{
         };
         this.siteLocationService.create(body).subscribe({
           next: () => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.formGroup.reset();
-            this.toastr.success('Success!', 'Ajouté avec succès!');
-            // window.location.reload();
+            this.toastr.success('Success!', 'Ajouté avec succès!'); 
           },
           error: (err) => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });
       }  
     } catch (error) {
-      this.isLoading = false;
+      this.isLoadingForm = false;
       console.log(error);
     }
   }

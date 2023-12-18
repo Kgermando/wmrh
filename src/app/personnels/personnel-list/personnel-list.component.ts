@@ -171,7 +171,7 @@ export class PersonnelUploadCSVDialogBox {
   isLoading = false;
 
   percentDone: number;
-  uploadSuccess: boolean;
+  uploadSuccess = false;
 
   constructor( 
       public dialogRef: MatDialogRef<PersonnelUploadCSVDialogBox>, 
@@ -180,7 +180,7 @@ export class PersonnelUploadCSVDialogBox {
   ) {}
 
   upload(event: Event) {
-    // this.isLoading = true;
+    this.isLoading = true;
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
     console.log({files});
@@ -196,6 +196,7 @@ export class PersonnelUploadCSVDialogBox {
       } else if (event instanceof HttpResponse) {
         this.uploadSuccess = true;
       }
+      this.isLoading = false;
   });
 
     // .subscribe({

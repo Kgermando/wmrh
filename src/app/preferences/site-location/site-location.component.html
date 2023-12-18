@@ -1,7 +1,11 @@
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+</div>
 
 <div
     class="row justify-content-center"
-    [class.component-dark-theme]="themeService.isDark()" 
+    [class.component-dark-theme]="themeService.isDark()"
+    *ngIf="!isLoading"
 >
     <div class="col-lg-4 col-xl-4 col-md-12">
         <mat-card class="mb-25 tacking-box tagus-card">
@@ -51,10 +55,10 @@
                             </div> 
                         </div>
                      </div>
-                     <div class="d-flex justify-content-center" *ngIf="isLoading">
+                     <div class="d-flex justify-content-center" *ngIf="isLoadingForm">
                         <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
                     </div>
-                    <div *ngIf="!isLoading">
+                    <div *ngIf="!isLoadingForm">
                         <div *ngIf="currentUser">
                              <button mat-flat-button class="tagus d-block" *ngIf="currentUser.permission === 'C' || 
                         currentUser.permission === 'CR' ||
@@ -78,9 +82,9 @@
                         <thead>
                             <tr>
                                 <th class="fw-semibold gray-color">N° </th>
-                                <th class="fw-semibold gray-color text-start">Nom </th>
-                                <th class="fw-semibold gray-color text-start">Manager </th>
-                                <th class="fw-semibold gray-color text-start">Adresse </th>
+                                <th class="fw-semibold gray-color">Nom </th>
+                                <th class="fw-semibold gray-color">Manager </th>
+                                <th class="fw-semibold gray-color">Adresse </th>
                                 <th class="fw-semibold gray-color">Signature </th>
                                 <th class="fw-semibold gray-color">Action </th> 
                             </tr>
@@ -88,9 +92,9 @@
                         <tbody>
                             <tr *ngFor="let item of siteLocationList; index as i">
                                 <td class="gray-color">{{i + 1}}. </td> 
-                                <td class="text-start">
-                                    <a [routerLink]="['/layouts/preferences/site-location', item.id, 'detail']" class="d-flex align-items-center product-info"> 
-                                        <h5 class="fw-semibold mb-5">{{ item.site_location }}</h5> 
+                                <td>
+                                    <a [routerLink]="['/layouts/preferences/site-location', item.id, 'detail']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                        {{ item.site_location }}
                                     </a>
                                 </td>
                                 <td class="gray-color">{{item.manager}}</td>

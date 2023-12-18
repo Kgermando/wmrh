@@ -16,6 +16,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 })
 export class TitlesComponent implements OnInit{
   isLoading = false;
+  isLoadingForm = false;
 
   formGroup!: FormGroup;
 
@@ -36,6 +37,7 @@ export class TitlesComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -45,6 +47,7 @@ export class TitlesComponent implements OnInit{
         this.getAllData(this.currentUser.code_entreprise);
       },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
@@ -58,6 +61,7 @@ export class TitlesComponent implements OnInit{
   private getAllData(code_entreprise: string) {
     this.titleService.getAll(code_entreprise).subscribe(res => {
       this.titleList = res; 
+      this.isLoading = false;
     });
   }
 
@@ -65,7 +69,7 @@ export class TitlesComponent implements OnInit{
   onSubmit() {
     try {
       if (this.formGroup.valid) {
-        this.isLoading = true;
+        this.isLoadingForm = true;
         var body = {
           title: this.capitalizeTest(this.formGroup.value.title), 
           signature: this.currentUser.matricule,
@@ -76,20 +80,20 @@ export class TitlesComponent implements OnInit{
         };
         this.titleService.create(body).subscribe({
           next: () => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!');
             // window.location.reload();
           },
           error: (err) => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });
       }  
     } catch (error) {
-      this.isLoading = false;
+      this.isLoadingForm = false;
       console.log(error);
     }
   }

@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="text-center">
-            <mat-progress-bar mode="determinate" [value]="percentDone"></mat-progress-bar>
-            <span *ngIf="uploadSuccess">{{percentDone}} %</span>
+            <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+            <span>{{percentDone}} %</span>
         </div>
         <!-- <div class="text-end mt-25">
             <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>

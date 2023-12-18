@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { FonctionService } from './fonction.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DepartementService } from '../departements/departement.service';
+import { DepartementModel } from '../departements/model/departement-model';
 
 @Component({
   selector: 'app-fonction',
@@ -17,10 +19,13 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 })
 export class FonctionComponent implements OnInit {
   isLoading = false;
+  isLoadingForm = false;
 
   formGroup!: FormGroup;
 
   fonctionList: FonctionModel[] = [];
+
+  departmentList: DepartementModel[] = [];
 
   currentUser: PersonnelModel | any;
 
@@ -31,12 +36,14 @@ export class FonctionComponent implements OnInit {
       private authService: AuthService,
       private _formBuilder: FormBuilder,
       private fonctionService: FonctionService,
+      private departementService: DepartementService,
       public dialog: MatDialog,
       private toastr: ToastrService
   ) {}
 
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -47,19 +54,25 @@ export class FonctionComponent implements OnInit {
         
       },
       error: (error) => {
+        this.isLoading = false;
         this.router.navigate(['/auth/login']);
         console.log(error);
       }
     });
 
     this.formGroup = this._formBuilder.group({
-      fonction: ['', Validators.required], 
+      fonction: ['', Validators.required],
+      departement: ['', Validators.required],
     });
   }
 
   private getAllData(code_entreprise: string) {
     this.fonctionService.getAll(code_entreprise).subscribe(res => {
       this.fonctionList = res; 
+      this.departementService.getAll(code_entreprise).subscribe(res => {
+        this.departmentList = res;
+        this.isLoading = false;
+      });
     });
   }
 
@@ -68,9 +81,10 @@ export class FonctionComponent implements OnInit {
   onSubmit() {
     try {
       if (this.formGroup.valid) {
-        this.isLoading = true;
+        this.isLoadingForm = true;
         var body = {
-          fonction: this.capitalizeTest(this.formGroup.value.fonction), 
+          fonction: this.capitalizeTest(this.formGroup.value.fonction),
+          departement: this.formGroup.value.departement,
           signature: this.currentUser.matricule,
           created: new Date(),
           update_created: new Date(),
@@ -79,20 +93,20 @@ export class FonctionComponent implements OnInit {
         };
         this.fonctionService.create(body).subscribe({
           next: () => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!');
             // window.location.reload();
           },
           error: (err) => {
-            this.isLoading = false;
+            this.isLoadingForm = false;
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
             console.log(err);
           }
         });
       }  
     } catch (error) {
-      this.isLoading = false;
+      this.isLoadingForm = false;
       console.log(error);
     }
   }
@@ -143,6 +157,8 @@ export class EditFonctionDialogBox implements OnInit{
   isLoading = false;
 
   formGroup!: FormGroup;
+
+  departmentList: DepartementModel[] = [];
  
 
   currentUser: PersonnelModel | any;
@@ -155,21 +171,27 @@ export class EditFonctionDialogBox implements OnInit{
       private authService: AuthService, 
       private toastr: ToastrService,
       private fonctionService: FonctionService,
+      private departementService: DepartementService,
   ) {}
   
 
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({  
-      fonction: ''
+      fonction: '',
+      departement: '',
     });
 
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
+        this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
+          this.departmentList = res; 
+        });
         this.fonctionService.get(parseInt(this.data['id'])).subscribe(item => {
           this.formGroup.patchValue({
-            fonction: this.capitalizeTest(item.fonction), 
+            fonction: this.capitalizeTest(item.fonction),
+            departement: item.departement,
             signature: this.currentUser.matricule, 
             update_created: new Date(),
           });
@@ -209,6 +231,10 @@ export class EditFonctionDialogBox implements OnInit{
 
   close(){
     this.dialogRef.close(true);
+  }
+
+  compareFn(c1: DepartementModel, c2: DepartementModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   capitalizeTest(text: string): string {
