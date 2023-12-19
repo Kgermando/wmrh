@@ -142,30 +142,30 @@ export class PersonnelEditComponent implements OnInit {
       permission: [''],
     });
 
-    this.id = this.route.snapshot.params['id']; 
+    this.id = this.route.snapshot.params['id'];
     this.authService.user().subscribe({
       next: (user) => {
-        this.currentUser = user; 
-
+        this.currentUser = user;
         this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.departementList = res; 
+          this.departementList = res;
         });
-        // this.fonctionService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-        //   this.fonctionList = res; 
-        // });
-        // this.serviceService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-        //   this.serviceList = res;
-        // });
 
         this.titleService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-          this.titleList = res; 
-        }); 
+          this.titleList = res;
+        });
         this.siteLocation.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.siteLocationList = res;
         });
 
-        this.personnelService.get(this.id).subscribe(item => { 
-          this.personne = item; 
+        this.personnelService.get(this.id).subscribe(item => {                                                                                                                                                                                                                                       
+          this.personne = item;
+
+          this.departementService.get(item.departements.id).subscribe(res => {
+            this.departement = res;
+            this.serviceList = this.departement.services;
+            this.fonctionList = this.departement.fonctions;
+          });
+
           this.formGroup.patchValue({
             nom: this.capitalizeTest(item.nom),
             postnom: this.capitalizeTest(item.postnom),
@@ -178,7 +178,7 @@ export class PersonnelEditComponent implements OnInit {
             signature: this.currentUser.matricule, 
             update_created: new Date()
           });
-          this.formGroup2.patchValue({ 
+          this.formGroup2.patchValue({
             numero_cnss: item.numero_cnss,
             date_naissance: item.date_naissance,
             lieu_naissance: item.lieu_naissance,
@@ -190,17 +190,17 @@ export class PersonnelEditComponent implements OnInit {
           });
           this.formGroup3.patchValue({
             departements: item.departements,
-            titles: item.titles,
             fonctions: item.fonctions,
             services: item.services,
             site_locations: item.site_locations,
+            titles: item.titles, 
             type_contrat: item.type_contrat,
             date_debut_contrat: item.date_debut_contrat,
             date_fin_contrat: (this.typeContrat === 'CDI') ? '2099-01-01' : item.date_fin_contrat,
             signature: this.currentUser.matricule,
             update_created: new Date()
           });
-          this.formGroup4.patchValue({ 
+          this.formGroup4.patchValue({
             monnaie: item.monnaie,
             salaire_base: (item.salaire_base) ? item.salaire_base : '0',
             alloc_logement: (item.alloc_logement) ? item.alloc_logement : '0',
@@ -237,10 +237,11 @@ export class PersonnelEditComponent implements OnInit {
     var departementt = event.value;
     this.departementService.get(departementt.id).subscribe(res => {
       this.departement = res;
-      console.log('departementt', departementt);
-      console.log('departement', this.departement);
       this.serviceList = this.departement.services;
       this.fonctionList = this.departement.fonctions;
+
+      console.log('serviceList', this.serviceList);
+      console.log('fonctionList', this.fonctionList);
     });
   }
 

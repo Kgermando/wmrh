@@ -173,49 +173,41 @@ export class PersonnelUploadCSVDialogBox {
   percentDone: number;
   uploadSuccess = false;
 
+  selectedFiles: FileList;
+  currentFile: File | null;
+  progress = 0;
+  message = '';
+
   constructor( 
       public dialogRef: MatDialogRef<PersonnelUploadCSVDialogBox>, 
       private toastr: ToastrService,
       private personnelService: PersonnelService, 
   ) {}
 
-  upload(event: Event) {
-    this.isLoading = true;
+  upload(event: any) { 
+    this.progress = 0;
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
-    console.log({files});
+    console.log({files}); 
 
-    const file = files.item(0);
-    const data = new FormData();
-    // @ts-ignore
-    data.append('file', file);
+    this.selectedFiles = event.target.files as FileList;
+    this.currentFile = this.selectedFiles.item(0);
 
-    this.personnelService.uploadCSV(data).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.percentDone = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        this.uploadSuccess = true;
+    this.personnelService.uploadCSV(this.currentFile!).subscribe(
+       (event) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress = Math.round(100 * event.loaded / event.total!);
+        } else if (event instanceof HttpResponse) {
+          this.message = event.body.message;
+  
+          this.uploadSuccess = true;
+        } 
+      }, 
+      (err) => {
+        this.progress = 0;
+        this.message = 'Could not upload the file!';
       }
-      this.isLoading = false;
-  });
-
-    // .subscribe({
-    //   next: (res) => { 
-    //     // window.location.reload();
-    //     console.log('Uploading', res)
-    //     this.toastr.success('Success!', 'Ajouté avec succès!');
-    //     this.isLoading = false; 
-    //     // this.close();
-    //   },
-    //   error: (e) => {
-    //     this.isLoading = false;
-    //     this.close();
-    //     this.toastr.error(`${e.error.message}`, 'Oupss!');
-    //     window.alert(e.error.message);
-    //     console.log(e);
-        
-    //   }
-    // });
+    ); 
   } 
  
   close(){

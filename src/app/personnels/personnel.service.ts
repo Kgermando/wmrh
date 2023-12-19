@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../shared/services/api.service';
 import { Observable } from 'rxjs';
+import { HttpEvent, HttpRequest } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,18 @@ export class PersonnelService extends ApiService {
     return this.http.put(`${this.endpoint}/reset-statut-paie/${code_entreprise}/${id}`, {});
   }
 
-  uploadCSV(data: any): Observable<any> {
-    return this.http.post(`${this.endpoint}/upload-csv`, data, {reportProgress: true, observe: 'events'});
+  // uploadCSV(data: any): Observable<any> {
+  //   return this.http.post(`${this.endpoint}/upload-csv`, data, {reportProgress: true, observe: 'events'});
+  // }
+
+  uploadCSV(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const req = new HttpRequest('POST', `${this.endpoint}/upload-csv`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
   }
 
   downloadReport(code_entreprise: string, start_date: string, end_date: string): Observable<any> {

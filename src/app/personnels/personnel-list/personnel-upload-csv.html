@@ -13,19 +13,23 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="tagus-form-group">
                     <input type="file" class="upload" (change)="upload($event)" accept=".csv">
-                </div> 
+                </div>
             </div>
         </div>
         <div class="text-center">
-            <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
-            <span>{{percentDone}} %</span>
+            <div *ngIf="currentFile" class="progress">
+                <div
+                  class="progress-bar progress-bar-info progress-bar-striped"
+                  role="progressbar"
+                  attr.aria-valuenow="{{ progress }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  [ngStyle]="{ width: progress + '%' }"
+                >
+                  {{ progress }} %
+                </div>
+            </div>
         </div>
-        <!-- <div class="text-end mt-25">
-            <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Annuler</button>
-            <button type="submit" (click)="onSubmit()"> 
-                <i class="ri-download-2-line"></i>
-                Importer
-            </button>
-        </div> -->
+        <div class="alert alert-light" role="alert">{{ message }}</div>
     </form> 
 </div>
