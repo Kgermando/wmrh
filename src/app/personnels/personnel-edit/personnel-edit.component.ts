@@ -149,7 +149,6 @@ export class PersonnelEditComponent implements OnInit {
         this.departementService.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.departementList = res;
         });
-
         this.titleService.getAll(this.currentUser.code_entreprise).subscribe(res => {
           this.titleList = res;
         });
@@ -157,14 +156,18 @@ export class PersonnelEditComponent implements OnInit {
           this.siteLocationList = res;
         });
 
+        console.log('id', this.id)
         this.personnelService.get(this.id).subscribe(item => {                                                                                                                                                                                                                                       
           this.personne = item;
 
-          this.departementService.get(item.departements.id).subscribe(res => {
-            this.departement = res;
-            this.serviceList = this.departement.services;
-            this.fonctionList = this.departement.fonctions;
-          });
+          if (item.departements) {
+            this.departementService.get(item.departements.id).subscribe(res => {
+              this.departement = res;
+              this.serviceList = this.departement.services;
+              this.fonctionList = this.departement.fonctions;
+            });
+          }
+          
 
           this.formGroup.patchValue({
             nom: this.capitalizeTest(item.nom),
