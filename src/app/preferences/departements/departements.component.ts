@@ -44,7 +44,6 @@ export class DepartementsComponent implements OnInit {
           this.getAllData(this.currentUser.code_entreprise);
         });
         this.getAllData(this.currentUser.code_entreprise);
-        
       },
       error: (error) => {
         this.isLoading = false;

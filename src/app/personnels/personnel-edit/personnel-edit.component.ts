@@ -230,7 +230,6 @@ export class PersonnelEditComponent implements OnInit {
         console.log(error);
       }
     });
- 
   }
 
   onDepartementChange(event: any) {
@@ -239,9 +238,6 @@ export class PersonnelEditComponent implements OnInit {
       this.departement = res;
       this.serviceList = this.departement.services;
       this.fonctionList = this.departement.fonctions;
-
-      console.log('serviceList', this.serviceList);
-      console.log('fonctionList', this.fonctionList);
     });
   }
 

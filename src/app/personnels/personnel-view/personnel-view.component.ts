@@ -65,8 +65,7 @@ export class PersonnelViewComponent implements OnInit {
               this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
               console.log(err);
             }
-        });
-        this.toastr.success('Mise en corbeil avec succès!', 'Success!');
+        }); 
         // this.personnelService
         //   .delete(id)
         //   .subscribe({

@@ -16,7 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
 import { SiteLocationModel } from 'src/app/preferences/site-location/models/site-location-model';
 import { SiteLocationService } from 'src/app/preferences/site-location/site-location.service';
- 
+import * as xls from 'xlsx'; 
+import { PersonnelService } from 'src/app/personnels/personnel.service';
 
 @Component({
   selector: 'app-registre-presence',
@@ -104,7 +105,10 @@ export class RegistrePresenceComponent implements OnInit {
           next: (user) => {
             this.currentUser = user;
             if (this.currentUser.site_locations) {
-              this.onChange();
+              this.presenceService.refreshDataList$.subscribe(() => {
+                this.onChange(this.currentUser.code_entreprise);
+              });
+              this.onChange(this.currentUser.code_entreprise);
             }
             this.isLoading = false;
           },
@@ -117,11 +121,11 @@ export class RegistrePresenceComponent implements OnInit {
   } 
 
  
-  onChange() {
+ 
+  onChange(code_entreprise: string) {
     if (!this.date_presence) {
       var datePresence = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); 
-        this.presenceService.getRegisterPresence(
-        this.currentUser.code_entreprise,
+        this.presenceService.getRegisterPresence(code_entreprise,
         this.currentUser.site_locations.site_location, datePresence).subscribe(res => {
           this.ELEMENT_DATA = res;
           this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
@@ -132,8 +136,7 @@ export class RegistrePresenceComponent implements OnInit {
     this.formGroup.valueChanges.subscribe(val => {
       this.date_presence = val.date_presence;
       var datePresence = formatDate(this.date_presence, 'yyyy-MM-dd', 'en-US'); 
-      this.presenceService.getRegisterPresence(
-      this.currentUser.code_entreprise,
+      this.presenceService.getRegisterPresence(code_entreprise,
       this.currentUser.site_locations.site_location, datePresence).subscribe(res => {
           this.ELEMENT_DATA = res;
           this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
@@ -237,53 +240,135 @@ export class RegistrePresenceComponent implements OnInit {
 
 
 @Component({
-  selector: 'presence-upload-csv-dialog',
-  templateUrl: './presence-upload-csv.html',
+  selector: 'presence-upload-xlsx-dialog',
+  templateUrl: './presence-upload-xlsx.html',
 })
-export class PresenceUploadCSVDialogBox {
+export class PresenceUploadCSVDialogBox implements OnInit {
   isLoading = false; 
+  presenceList: ApointementModel[] = [];
+  currentUser: PersonnelModel | any;
+  personneList: PersonnelModel[] = [];
+  personne: PersonnelModel;
+
+  pourcent = 0;
 
   constructor( 
       public dialogRef: MatDialogRef<PresenceUploadCSVDialogBox>, 
       private toastr: ToastrService,
+      private router: Router,
+      private authService: AuthService,
       private presenceService: PresenceService,
+      private personnelService: PersonnelService
   ) {}
 
-
-  upload(event: Event) {
-    this.isLoading = true;
-    const target = event.target as HTMLInputElement;
-    const files = target.files as FileList;
-    console.log({files});
-
-    const file = files.item(0);
-    const data = new FormData();
-    // @ts-ignore
-    data.append('file', file); 
-
-    this.presenceService.uploadCSV(data).subscribe({
-      next: () => {
-        this.toastr.success('Success!', 'Ajouté avec succès!');
-        // window.location.reload();
-        this.isLoading = false; 
-        this.close();
+  ngOnInit() { 
+    this.authService.user().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+        this.personnelService.getAll(this.currentUser.code_entreprise).subscribe((res) => {
+          this.personneList = res;
+        });
       },
-      error: (e) => {
-        this.isLoading = false;
-        this.close();
-        this.toastr.error(`${e.error.message}`, 'Oupss!');
-        window.alert(e.error.message);
-        console.log(e);
-        
+      error: (error) => { 
+        this.router.navigate(['/auth/login']);
+        console.log(error);
       }
-    });
-  } 
+    }); 
+  }
+
+
+  upload(event: any) {
+    this.isLoading = true;
+    const file = event.target.files[0];
+    let fileRedaer = new  FileReader();
+    fileRedaer.readAsArrayBuffer(file);
+    fileRedaer.onload = () => {
+      let data = fileRedaer.result; 
+      let workBook = xls.read(data, {type: 'array'});
+      const sheetName = workBook.SheetNames[0];
+      const sheet1 = workBook.Sheets[sheetName];
+      this.presenceList = xls.utils.sheet_to_json(sheet1, {raw : true});
+      console.log(this.presenceList);
+      if (this.presenceList.length > 0) {
+        for (let index = 0; index < this.presenceList.length; index++) {
+          const element = this.presenceList[index];
+          this.personne = this.personneList.filter((v) => v.matricule == element.matricule)[0];
+          if (this.personne) {
+            console.log('personne', this.personne);
+            var body = {
+              matricule: this.personne.matricule,
+              apointement: element.apointement, 
+              prestation: element.prestation,
+              observation: element.observation,
+              date_entree: element.date_entree,
+              date_sortie: element.date_sortie,
+              site_location: this.currentUser.site_locations.site_location,
+              signature: this.currentUser.matricule,
+              created: new Date(),
+              update_created: new Date(),
+              entreprise: this.currentUser.entreprise,
+              code_entreprise: this.currentUser.code_entreprise,
+              personnel: this.personne.id
+            };
+            this.presenceService.create(body).subscribe({
+              next: (res) => { 
+                var pourcents = (index + 1) * 100 / this.presenceList.length;
+                this.pourcent = parseInt(pourcents.toFixed(0));
+                if (this.pourcent == 100) {
+                  this.toastr.success('Ajouter avec succès!', 'Success!');
+                }
+              },
+              error: (err) => { 
+                this.isLoading = false;
+                this.toastr.error(`${err.error.message}`, 'Oupss!');
+                console.log(err);
+                this.close();
+              }
+            });
+          } else {
+            this.toastr.info(`Verifiez les matricules`, 'Oupss!');
+            this.close();
+          }
+          
+        }
+      }
+      this.isLoading = false; 
+    }
+
+    
+    // this.isLoading = true;
+    // const target = event.target as HTMLInputElement;
+    // const files = target.files as FileList;
+    // console.log({files});
+
+    // const file = files.item(0);
+    // const data = new FormData();
+    // // @ts-ignore
+    // data.append('file', file); 
+
+    // this.presenceService.uploadCSV(data).subscribe({
+    //   next: () => {
+    //     this.toastr.success('Success!', 'Ajouté avec succès!');
+    //     // window.location.reload();
+    //     this.isLoading = false; 
+    //     this.close();
+    //   },
+    //   error: (e) => {
+    //     this.isLoading = false;
+    //     this.close();
+    //     this.toastr.error(`${e.error.message}`, 'Oupss!');
+    //     window.alert(e.error.message);
+    //     console.log(e);
+        
+    //   }
+    // });
+  }
  
 
 
   close(){
       this.dialogRef.close(true);
-  } 
+  }
 
 }
 

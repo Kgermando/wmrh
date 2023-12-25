@@ -66,7 +66,6 @@ export class PersonnelAddComponent implements OnInit {
         var codeEntreprise = this.currentUser.code_entreprise;
         var mat = this.formGroup.value.matricule;
         var identifiant = `${mat}-${codeEntreprise}`;
-        
         var body = {
           nom: this.capitalizeTest(this.formGroup.value.nom),
           postnom: this.capitalizeTest(this.formGroup.value.postnom),
