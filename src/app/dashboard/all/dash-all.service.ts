@@ -26,14 +26,13 @@ export class DashAllService extends ApiService {
   }
 
   // Finances 
-
   masseSalarialAll(code_entreprise: string, start_date: string, end_date: string): Observable<any> {
     return this.http.get(`${this.endpoint}/masse-salarial-all/${code_entreprise}/${start_date}/${end_date}`);
   }
 
   statutPaieAll(code_entreprise: string, start_date: string, end_date: string): Observable<any> {
     return this.http.get(`${this.endpoint}/statut-paie-all/${code_entreprise}/${start_date}/${end_date}`);
-  } 
+  }
 
   allocationALl(code_entreprise: string, start_date: string, end_date: string): Observable<any> {
     return this.http.get(`${this.endpoint}/allocation-all/${code_entreprise}/${start_date}/${end_date}`);

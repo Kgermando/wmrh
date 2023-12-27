@@ -356,15 +356,15 @@ export class FichePaieComponent implements OnInit {
           prise_en_charge_frais_bancaire: this.prise_en_charge_frais_bancaire,
           pres_entreprise: this.pres_entreprise,
           net_a_payer: this.net_a_payer,
-          statut: this.isPublie ? 'Disponible' : 'Traitement', 
+          statut: this.isPublie ? 'Disponible' : 'Traitement',
           signature: this.currentUser.matricule, 
           update_created: new Date(),
         });
         this.salaireService.update(this.salaire.id, this.formGroup.getRawValue())
         .subscribe({
-          next: () => {
+          next: (res) => {
             var personnel = {  
-              statut_paie: 'Disponible',
+              statut_paie: this.isPublie ? 'Disponible' : 'Traitement',
               signature: this.currentUser.matricule,
               update_created: new Date(),
               entreprise: this.currentUser.entreprise,
