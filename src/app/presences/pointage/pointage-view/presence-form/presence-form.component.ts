@@ -97,7 +97,7 @@ export class PresenceFormComponent {
         this.currentUser = user;
         this.presenceService.getLastItem(this.personne.code_entreprise, this.personne.matricule).subscribe((res: ApointementModel[]) => {
           this.apointementLastItem = res;
-          this.apointementItem = this.apointementLastItem[0]; 
+          this.apointementItem = this.apointementLastItem[0];
           if(this.apointementItem != null) {
             const dateToday = new Date();
             const day = dateToday.getDate();
@@ -112,7 +112,7 @@ export class PresenceFormComponent {
             var dataSortie = new Date(this.apointementItem.date_sortie);
       
             const datePresenceSortie = formatDate(dataSortie, 'dd-MM-yyyy', 'en-US');
-            const dateAujourdui = formatDate(dateToday, 'dd-MM-yyyy', 'en-US'); 
+            const dateAujourdui = formatDate(dateToday, 'dd-MM-yyyy', 'en-US');
       
             if (this.apointementItem.apointement === 'P') {
               if (dateEntreeDay === day && dateEntreeMonth === dayMonth && dateEntreeYear === dayYear) {

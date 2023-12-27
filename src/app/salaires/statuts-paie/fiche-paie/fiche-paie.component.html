@@ -139,7 +139,9 @@
                                             <td class="text-start">
                                                 Jours prestés :
                                             </td> 
-                                            <td class="gray-color text-end">{{ salaire.nbre_jrs_preste }}</td>
+                                            <td class="gray-color text-end"> 
+                                                {{ salaire.nbre_jrs_preste }}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="text-start">
@@ -189,17 +191,19 @@
                                             </td> 
                                            <td class="gray-color text-end">
                                             <input class="form-control" 
-                                            type="number" 
-                                               aria-label="Sizing example input" 
+                                                type="number" 
+                                               aria-label="Sizing example input"
+                                               [valueAsNumber]="salaire_base"
                                                aria-describedby="inputGroup-sizing-sm"
-                                               formControlName="salaire_base"
-                                               >  |
-                                            <span *ngIf="salaire.monnaie == 'USD'">
+                                               formControlName="salaire_base"  
+                                               >
+                                            <!-- <span *ngIf="salaire.monnaie == 'USD'">
                                                 {{ +salaire.personnel.salaire_base * +salaire.taux_dollard | numberFormat:'fr-FR' }}
                                             </span>
                                             <span *ngIf="salaire.monnaie == 'CDF'">
                                                 {{ salaire.personnel.salaire_base | numberFormat:'fr-FR' }}
-                                            </span>  FC
+                                            </span>   -->
+                                            FC
                                            </td>
                                         </tr>
                                         <tr>
@@ -261,29 +265,15 @@
                                         <tr> 
                                             <td class="text-start">
                                                 Contre-valeur logement :
-                                            </td> 
-                                            <!-- <td class="gray-color text-end" *ngIf="(this.alloc_logement > this.alloc_logementPlafond)">
-                                                <input class="form-control" 
-                                                type="number"
-                                                   aria-label="Sizing example input" 
-                                                   aria-describedby="inputGroup-sizing-sm"
-                                                   formControlName="alloc_logement" 
-                                                   >
-                                                   / {{ alloc_logementPlafond | numberFormat:'fr-FR' }} FC
-                                              </td> -->
+                                            </td>  
                                               <td class="gray-color text-end">
                                                 <input class="form-control" 
                                                 type="number"
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
                                                    formControlName="alloc_logement" 
-                                                   >
-                                                   / {{ alloc_logementPlafond | numberFormat:'fr-FR' }} FC
-                                              </td>
-                                            <!-- <td class="gray-color text-end" *ngIf="this.alloc_logement <= this.alloc_logementPlafond"
-                                              >{{ alloc_logement | numberFormat:'fr-FR' }} FC
-                                              / {{ alloc_logementPlafond | numberFormat:'fr-FR' }} FC
-                                          </td> -->
+                                                   > FC
+                                              </td> 
                                         </tr> 
                                         <tr>
                                             <td class="text-start">
@@ -295,23 +285,8 @@
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
                                                    formControlName="alloc_transport"
-                                                   >
-                                                   / {{ alloc_transportPlafond | numberFormat:'fr-FR' }} FC
-                                              </td> 
-
-                                            <!-- <td class="gray-color text-end" *ngIf="this.alloc_transport > this.alloc_transportPlafond">
-                                                <input class="form-control" 
-                                                type="number"
-                                                   aria-label="Sizing example input" 
-                                                   aria-describedby="inputGroup-sizing-sm"
-                                                   formControlName="alloc_transport"
-                                                   >
-                                                   / {{ alloc_transportPlafond | numberFormat:'fr-FR' }} FC
-                                              </td> 
-                                              <td class="gray-color text-end" *ngIf="this.alloc_transport <= this.alloc_transportPlafond"
-                                              >{{ alloc_transport | numberFormat:'fr-FR' }} FC 
-                                              / {{ alloc_transportPlafond | numberFormat:'fr-FR' }} FC
-                                            </td>  -->
+                                                   >  FC
+                                              </td>  
                                         </tr>
                                         <tr>
                                             <td class="text-start">
@@ -323,8 +298,7 @@
                                                    aria-label="Sizing example input" 
                                                    aria-describedby="inputGroup-sizing-sm"
                                                    formControlName="alloc_familliale" 
-                                                   > 
-                                                   <!-- / {{ alloc_famillialePlafond | numberFormat:'fr-FR' }} FC -->
+                                                   >  FC
                                               </td> 
                                         </tr>
                                         <tr>
@@ -338,38 +312,11 @@
                                                    aria-describedby="inputGroup-sizing-sm"
                                                    formControlName="soins_medicaux" 
                                                    > FC
-                                              </td>
-                                              <!-- <td class="gray-color text-end"
-                                                >{{ salaire.soins_medicaux | numberFormat:'fr-FR' }} FC
-                                            </td>  -->
+                                              </td> 
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                            <div class="table-responsive mb-10">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-start fontSize">
-                                                IMPÔT ÉLIDE
-                                            </td>
-                                            <td></td>
-                                        </tr> 
-                                        <tr>
-                                            <td class="text-start">
-                                                Redressement du RNI
-                                            </td>
-                                            <td class="gray-color text-end">{{ redressement | numberFormat:'fr-FR' }} FC</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                                Économie d'impôts
-                                            </td>
-                                            <td class="gray-color text-end">{{ impot_elide | numberFormat:'fr-FR' }} FC</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            </div> 
                             <div class="table-responsive mb-10">
                                 <table class="table">
                                     <tbody>
@@ -387,9 +334,27 @@
                                         </tr> 
                                         <tr>
                                             <td class="text-start">
+                                                Redressement du RNI
+                                            </td>
+                                            <td class="gray-color text-end">{{ redressement | numberFormat:'fr-FR' }} FC</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">
                                                 Remunération Nette Imposable(RNI)
                                             </td>
                                             <td class="gray-color fontSize text-end">{{ rni | numberFormat:'fr-FR' }} FC</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive mb-10">
+                                <table class="table">
+                                    <tbody> 
+                                        <tr>
+                                            <td class="text-start">
+                                                Impôts non déclarés
+                                            </td>
+                                            <td class="gray-color text-end">{{ impot_elide | numberFormat:'fr-FR' }} FC</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -411,7 +376,7 @@
                                         </tr>
                                         <tr>
                                             <td class="text-start">
-                                                Avances salaire
+                                                Avances sur salaire
                                             </td> 
                                             <td class="gray-color text-end">
                                                 <input class="form-control" 

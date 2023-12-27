@@ -200,6 +200,7 @@ export class PersonnelUploadCSVDialogBox implements OnInit {
       console.log(this.personnelList);
       if (this.personnelList.length > 0) {
         for (let index = 0; index < this.personnelList.length; index++) {
+          const length = this.personnelList.length;
           const element = this.personnelList[index];
           
           var codeEntreprise = this.currentUser.code_entreprise;
@@ -259,7 +260,7 @@ export class PersonnelUploadCSVDialogBox implements OnInit {
           };
           this.personnelService.create(body).subscribe({
             next: () => {
-              var pourcents = (index + 1) * 100 / this.personnelList.length;
+              var pourcents = (index + 1) * 100 / length;
               this.pourcent = parseInt(pourcents.toFixed(0));
               if (this.pourcent == 100) {
                 this.toastr.success('Ajouter avec succès!', 'Success!');

@@ -284,24 +284,24 @@ export class PresenceUploadCSVDialogBox implements OnInit {
     fileRedaer.readAsArrayBuffer(file);
     fileRedaer.onload = () => {
       let data = fileRedaer.result; 
-      let workBook = xls.read(data, {type: 'array'});
+      let workBook = xls.read(data, {type: 'array', cellDates: true});
       const sheetName = workBook.SheetNames[0];
       const sheet1 = workBook.Sheets[sheetName];
       this.presenceList = xls.utils.sheet_to_json(sheet1, {raw : true});
       console.log(this.presenceList);
       if (this.presenceList.length > 0) {
         for (let index = 0; index < this.presenceList.length; index++) {
+          const length = this.presenceList.length;
           const element = this.presenceList[index];
           this.personne = this.personneList.filter((v) => v.matricule == element.matricule)[0];
           if (this.personne) {
-            console.log('personne', this.personne);
             var body = {
               matricule: this.personne.matricule,
               apointement: element.apointement, 
               prestation: element.prestation,
               observation: element.observation,
-              date_entree: element.date_entree,
-              date_sortie: element.date_sortie,
+              date_entree: new Date(element.date_entree),
+              date_sortie: new Date(element.date_sortie),
               site_location: this.currentUser.site_locations.site_location,
               signature: this.currentUser.matricule,
               created: new Date(),
@@ -311,14 +311,15 @@ export class PresenceUploadCSVDialogBox implements OnInit {
               personnel: this.personne.id
             };
             this.presenceService.create(body).subscribe({
-              next: (res) => { 
-                var pourcents = (index + 1) * 100 / this.presenceList.length;
+              next: (res) => {
+                var pourcents = (index + 1) * 100 / length;
                 this.pourcent = parseInt(pourcents.toFixed(0));
-                if (this.pourcent == 100) {
+                if (this.pourcent === 100) {
                   this.toastr.success('Ajouter avec succès!', 'Success!');
+                  this.close();
                 }
               },
-              error: (err) => { 
+              error: (err) => {
                 this.isLoading = false;
                 this.toastr.error(`${err.error.message}`, 'Oupss!');
                 console.log(err);
@@ -326,42 +327,13 @@ export class PresenceUploadCSVDialogBox implements OnInit {
               }
             });
           } else {
-            this.toastr.info(`Verifiez les matricules`, 'Oupss!');
+            this.toastr.info(`Verifiez les matricules`, 'Un soucis!');
             this.close();
           }
-          
         }
       }
       this.isLoading = false; 
     }
-
-    
-    // this.isLoading = true;
-    // const target = event.target as HTMLInputElement;
-    // const files = target.files as FileList;
-    // console.log({files});
-
-    // const file = files.item(0);
-    // const data = new FormData();
-    // // @ts-ignore
-    // data.append('file', file); 
-
-    // this.presenceService.uploadCSV(data).subscribe({
-    //   next: () => {
-    //     this.toastr.success('Success!', 'Ajouté avec succès!');
-    //     // window.location.reload();
-    //     this.isLoading = false; 
-    //     this.close();
-    //   },
-    //   error: (e) => {
-    //     this.isLoading = false;
-    //     this.close();
-    //     this.toastr.error(`${e.error.message}`, 'Oupss!');
-    //     window.alert(e.error.message);
-    //     console.log(e);
-        
-    //   }
-    // });
   }
  
 

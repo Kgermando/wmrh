@@ -81,7 +81,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="fw-semibold gray-color">N° </th>
+                                <th class="fw-semibold gray-color">ID </th>
                                 <th class="fw-semibold gray-color">Nom </th>
                                 <th class="fw-semibold gray-color">Manager </th>
                                 <th class="fw-semibold gray-color">Adresse </th>
@@ -91,7 +91,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of siteLocationList; index as i">
-                                <td class="gray-color">{{i + 1}}. </td> 
+                                <td class="gray-color">{{item.id}} </td> 
                                 <td>
                                     <a [routerLink]="['/layouts/preferences/site-location', item.id, 'detail']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                         {{ item.site_location }}

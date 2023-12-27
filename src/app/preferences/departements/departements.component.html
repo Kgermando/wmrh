@@ -55,7 +55,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="fw-semibold gray-color">N° </th> 
+                                <th class="fw-semibold gray-color">ID </th> 
                                 <th class="fw-semibold gray-color">Nom </th>
                                 <th class="fw-semibold gray-color">Signature </th> 
                                 <th class="fw-semibold gray-color">Action </th> 
@@ -63,7 +63,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of departmentList; index as i">
-                                <td class="gray-color">{{i + 1}}. </td> 
+                                <td class="gray-color">{{item.id}} </td> 
                                 <td>
                                     <a [routerLink]="['/layouts/preferences/departement', item.id, 'detail']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                         {{item.departement}}

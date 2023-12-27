@@ -55,19 +55,27 @@ export class PointageTableComponent implements OnInit {
     this.authService.user().subscribe({
         next: (user) => {
             this.currentUser = user;
-            this.presenceService.getMatricule(this.currentUser.code_entreprise, this.personne.matricule).subscribe(res => {
-              this.ELEMENT_DATA = res;
-              this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator; 
-          });
-          this.isLoading = false;
+            this.presenceService.refreshDataList$.subscribe(() => {
+              this.getAllData(this.currentUser.code_entreprise);
+            });
+            this.getAllData(this.currentUser.code_entreprise); 
         },
         error: (error) => {
           this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         }
+      });
+    }
+
+    
+    getAllData(code_entreprise: string) {
+      this.presenceService.getMatricule(code_entreprise, this.personne.matricule).subscribe(res => {
+        this.ELEMENT_DATA = res;
+        this.dataSource = new MatTableDataSource<ApointementModel>(this.ELEMENT_DATA);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator; 
+        this.isLoading = false;
       });
     }
  
@@ -90,8 +98,7 @@ export class PointageTableComponent implements OnInit {
       this.presenceService
         .delete(id)
         .subscribe({
-          next: () => { 
-            window.location.reload(); 
+          next: () => {  
             this.toastr.success('Success!', 'Suppression effectuée!'); 
           },
           error: (err) => {

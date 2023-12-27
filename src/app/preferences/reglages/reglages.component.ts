@@ -174,6 +174,12 @@ export class EditReglageDialogBox implements OnInit{
     }
 
     
+    if (this.data['reglage'] == 'Total des jours à prester') {
+      this.formGroup = this.formBuilder.group({  
+        total_jours_a_prester: '',
+      });
+    }
+    
     if (this.data['reglage'] == 'Jour de l\'AN') {
       this.formGroup = this.formBuilder.group({  
         new_year: '', 
@@ -394,7 +400,14 @@ export class EditReglageDialogBox implements OnInit{
             signature: this.currentUser.matricule, 
             update_created: new Date(),
           });
-        } 
+        }
+        if (this.data['reglage'] == 'Total des jours à prester') { 
+          this.formGroup.patchValue({
+            total_jours_a_prester: this.data['valeur'],
+            signature: this.currentUser.matricule, 
+            update_created: new Date(),
+          });
+        }
         if (this.data['reglage'] == 'Jour de l\'AN') {
           this.formGroup.patchValue({
             new_year: this.data['valeur'],

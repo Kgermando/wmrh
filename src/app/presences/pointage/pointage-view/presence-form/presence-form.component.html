@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center" *ngIf="isLoading">
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
-</div> 
+</div>
 <div *ngIf="!isLoading">
     <div *ngIf="apointementItem">
         <div class="personal-info-card" *ngIf="
@@ -15,7 +15,7 @@
                     <span class="gray-color">{{ apointementItem.matricule }}</span>
                 </li>
                 <li>
-                    <span class="fw-semibold d-inline-block">Pointage: </span> 
+                    <span class="fw-semibold d-inline-block">Pointage: </span>
                     <span class="presence-form present" *ngIf="apointementItem.apointement == 'P'">Present</span>
                     <span class="presence-form absence-sans-autorisation" *ngIf="apointementItem.apointement == 'A'">Absence sans autorisation</span>
                     <span class="presence-form absence-autorisee" *ngIf="apointementItem.apointement == 'AA'">Absence autorisee</span>
