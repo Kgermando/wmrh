@@ -190,6 +190,9 @@ import { EditSupportModuleDialogBox, SupportSectionComponent } from './helps/sup
 import { SupportDocumentationComponent } from './helps/support-documentation/support-documentation.component';
 import { SuppurtAddComponent } from './helps/support/suppurt-add/suppurt-add.component';
 import { SuppurtEditComponent } from './helps/support/suppurt-edit/suppurt-edit.component';
+import { HoraireShiftOneComponent } from './horaires/horaire/horaire-shift-one/horaire-shift-one.component';
+import { HoraireShiftTwoComponent } from './horaires/horaire/horaire-shift-two/horaire-shift-two.component';
+import { HoraireShiftTreeComponent } from './horaires/horaire/horaire-shift-tree/horaire-shift-tree.component';
 
 @NgModule({
   declarations: [
@@ -376,7 +379,10 @@ import { SuppurtEditComponent } from './helps/support/suppurt-edit/suppurt-edit.
     SuppurtEditComponent,
     AddModuleSupportDialogBox,
     EditSupportModuleDialogBox,
-    PresenceHeureSuppAddDialogBox
+    PresenceHeureSuppAddDialogBox,
+    HoraireShiftOneComponent,
+    HoraireShiftTwoComponent,
+    HoraireShiftTreeComponent
   ],
   imports: [
     BrowserModule,

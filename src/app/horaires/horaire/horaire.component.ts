@@ -56,97 +56,6 @@ export class HoraireComponent implements OnInit {
       this.isLoadingView = false;
     });
   }
- 
-
-  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    // Only highligh dates inside the month view.
-    if (view === 'month') {
-      var date = cellDate.getDate();
-      var dateMonth = cellDate.getMonth();
-      var dateYear = cellDate.getFullYear();  
-      var day: any;
-      var dayMonth: any;
-      var dayYear: any; 
-
-      let dataCSS = '';
-
-      for (let index of this.horaire.date_shift_1) { 
-        date = cellDate.getDate();
-        dateMonth = cellDate.getMonth();
-        dateYear = cellDate.getFullYear(); 
-        const dy = new Date(index);
-        day = dy.getDate();
-        dayMonth = dy.getMonth();
-        dayYear = dy.getFullYear(); 
-        if (date === day && dateMonth === dayMonth && dateYear === dayYear) {
-          dataCSS = "shift_1";
-        }
-      }
-      return dataCSS;
-    }
-
-    return '';
-  }
-
-  dateClass2: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    // Only highligh dates inside the month view.
-    if (view === 'month') {
-      var date = cellDate.getDate();
-      var dateMonth = cellDate.getMonth();
-      var dateYear = cellDate.getFullYear();  
-      var day: any;
-      var dayMonth: any;
-      var dayYear: any; 
-
-      let dataCSS = '';
-
-      for (let index of this.horaire.date_shift_2) { 
-        date = cellDate.getDate();
-        dateMonth = cellDate.getMonth();
-        dateYear = cellDate.getFullYear(); 
-        const dy = new Date(index);
-        day = dy.getDate();
-        dayMonth = dy.getMonth();
-        dayYear = dy.getFullYear(); 
-        if (date === day && dateMonth === dayMonth && dateYear === dayYear) {
-          dataCSS = "shift_2";
-        }
-      }
-      return dataCSS;
-    }
-
-    return '';
-  }
-
-  dateClass3: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    // Only highligh dates inside the month view.
-    if (view === 'month') {
-      var date = cellDate.getDate();
-      var dateMonth = cellDate.getMonth();
-      var dateYear = cellDate.getFullYear();  
-      var day: any;
-      var dayMonth: any;
-      var dayYear: any; 
-
-      let dataCSS = '';
-
-      for (let index of this.horaire.date_shift_3) { 
-        date = cellDate.getDate();
-        dateMonth = cellDate.getMonth();
-        dateYear = cellDate.getFullYear(); 
-        const dy = new Date(index);
-        day = dy.getDate();
-        dayMonth = dy.getMonth();
-        dayYear = dy.getFullYear(); 
-        if (date === day && dateMonth === dayMonth && dateYear === dayYear) {
-          dataCSS = "shift_3";
-        }
-      }
-      return dataCSS;
-    }
-
-    return '';
-  } 
   
 
   edit(id: number): void { 
@@ -171,19 +80,7 @@ export class HoraireComponent implements OnInit {
     }
   }
 
-  openEditDialog(enterAnimationDuration: string, exitAnimationDuration: string, 
-      personnel_shift: any, shift: number, time: any): void {
-    this.dialog.open(HoraireInfoDialogBox, {
-      width: '600px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-      data: {
-        personnel_shift: personnel_shift,
-        shift: shift,
-        time: time
-      }
-    }); 
-  }
+ 
 }
 
 

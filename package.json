@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build && firebase deploy",
+    "prod": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -51,6 +52,7 @@
     "ngx-mat-timepicker": "^16.0.0",
     "ngx-material-timepicker": "^13.1.1",
     "ngx-owl-carousel-o": "^16.0.0",
+    "ngx-papaparse": "^8.0.0",
     "ngx-print": "^1.3.1",
     "ngx-quill": "^22.0.0",
     "ngx-scrollbar": "^12.0.0",
