@@ -1,6 +1,7 @@
 import { PersonnelModel } from "src/app/personnels/models/personnel-model";
 
 export interface ApointementModel {
+    split(arg0: string): unknown;
     id: number;
     matricule: string;
     apointement: string;
