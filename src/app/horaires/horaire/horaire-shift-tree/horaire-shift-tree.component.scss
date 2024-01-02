@@ -1,6 +1,7 @@
 .wraps {
     height: 500px !important;
     flex-wrap: wrap;
+    overflow-x: auto;
 }
 
 .personal-info-card {

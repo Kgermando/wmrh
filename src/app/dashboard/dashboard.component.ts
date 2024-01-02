@@ -88,10 +88,11 @@ export class DashboardComponent {
     var date = new Date();
     var tomorrow = new Date(date);
     tomorrow.setDate(date.getDate()+1);
-    // tomorrow.toLocaleDateString();
+
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
     this.dateRange = this._formBuilder.group({ 
-      start: new FormControl(new Date('2023-09-01')),
+      start: new FormControl(firstDay),
       end: new FormControl(tomorrow),
       categorie: new FormControl('All')
     });
@@ -100,7 +101,7 @@ export class DashboardComponent {
       next: (user) => {
         this.currentUser = user;
 
-        this.start_date = formatDate(new Date('2023-09-01'), 'yyyy-MM-dd', 'en-US');
+        this.start_date = formatDate(firstDay, 'yyyy-MM-dd', 'en-US');
           
         this.end_date = formatDate(tomorrow, 'yyyy-MM-dd', 'en-US');
 
@@ -126,15 +127,15 @@ export class DashboardComponent {
 
       if(body.categorie === 'All') {
         this.isSelectCategory = 'All'; 
-        this.getTotalEmployE(this.start_date, this.end_date);
+        this.getTotalEmployE();
 
       } else if (body.categorie === 'Employés') {
         this.isSelectCategory = 'Employés';
-        this.getTotalEmployE(this.start_date, this.end_date);
+        this.getTotalEmployE();
 
       } else if(body.categorie === 'Finances') {
         this.isSelectCategory = 'Finances';
-        this.getTotalFinance(this.start_date, this.end_date); 
+        this.getTotalFinance(this.start_date, this.end_date);
 
       } else if(body.categorie === 'Presences') {
         this.isSelectCategory = 'Presences';
@@ -146,7 +147,7 @@ export class DashboardComponent {
     }
  
 
-    getTotalEmployE(start_date: string, end_date: string) {
+    getTotalEmployE() {
       // this.dashAllService.totalEnmployesAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
       //   res =>  {
       //       this.totalEmployeAllList = res;
@@ -154,14 +155,14 @@ export class DashboardComponent {
       //   }
       // ); 
 
-      this.dashAllService.totalEnmployeFemmeAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+      this.dashAllService.totalEnmployeFemmeAll(this.currentUser.code_entreprise).subscribe(
         res =>  {
           this.totalEmployeFemmeAllList = res;
           this.totalEmployeFemmeAllList.map((item: any) => this.totalEmployeFemmeAll = parseFloat(item.total));
         }
       );
 
-      this.dashAllService.totalEnmployeHommeAll(this.currentUser.code_entreprise, start_date, end_date).subscribe(
+      this.dashAllService.totalEnmployeHommeAll(this.currentUser.code_entreprise).subscribe(
         res =>  {
           this.totalEmployeHommeAllList = res;
             this.totalEmployeHommeAllList.map((item: any) => this.totalEmployeHommeAll = parseFloat(item.total));

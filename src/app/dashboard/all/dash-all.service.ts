@@ -9,14 +9,14 @@ import { environment } from 'src/environments/environment';
 export class DashAllService extends ApiService {
   endpoint: string = `${environment.apiURL}/dash-all`;
  
-  totalEnmployesAll(code_entreprise: string, start_date: string, end_date: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/total-enmployes-all/${code_entreprise}/${start_date}/${end_date}`);
+  totalEnmployesAll(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/total-enmployes-all/${code_entreprise}`);
   }
-  totalEnmployeFemmeAll(code_entreprise: string, start_date: string, end_date: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/total-enmployes-femme-all/${code_entreprise}/${start_date}/${end_date}`);
+  totalEnmployeFemmeAll(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/total-enmployes-femme-all/${code_entreprise}`);
   } 
-  totalEnmployeHommeAll(code_entreprise: string, start_date: string, end_date: string): Observable<any> {
-    return this.http.get(`${this.endpoint}/total-enmployes-homme-all/${code_entreprise}/${start_date}/${end_date}`);
+  totalEnmployeHommeAll(code_entreprise: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/total-enmployes-homme-all/${code_entreprise}`);
   }
  
    
