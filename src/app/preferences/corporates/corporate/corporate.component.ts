@@ -9,8 +9,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { CorporateModel } from '../models/corporate.model';
 import { CorporateService } from '../corporate.service';
 import { ReglageService } from '../../reglages/reglage.service';
-import { PreferenceModel } from '../../reglages/models/reglage-model';
-import { CorporateReglageService } from '../../corporate-reglage/corporate-reglage.service';
+import { PreferenceModel } from '../../reglages/models/reglage-model'; 
 
 @Component({
   selector: 'app-corporate',

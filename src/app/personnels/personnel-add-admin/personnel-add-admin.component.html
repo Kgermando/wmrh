@@ -1,10 +1,7 @@
 
 <mat-card class="create-project-card tagus-card mb-25">
     <mat-card-header>
-        <div *ngIf="corporate">
-            <h6 class="mb-0">{{corporate.corporate_name}}</h6>
-            <h4 class="mb-0">Nouvel employé</h4>
-        </div>
+        <h4 class="mb-0">Nouvel employé | Admin</h4>
     </mat-card-header>
     <mat-card-content>
         <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -111,8 +108,33 @@
                         </mat-form-field>
                     </div> 
                 </div> 
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="tagus-form-group">
+                        <label class="d-block mb-12 fw-semibold gray-color">Corporates</label>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select corporate</mat-label>
+                            <i class="ri-list-check"></i>
+                            <mat-select [compareWith]="compareFnCorporate" (selectionChange)="onChange($event)" formControlName="corporates">
+                                <mat-option *ngFor="let corporate of corporateList" [value]="corporate">{{corporate.corporate_name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> 
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="tagus-form-group">
+                        <label class="d-block mb-12 fw-semibold gray-color">Acreditation corporates</label>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select acreditation pour les corporates</mat-label>
+                            <i class="ri-list-check"></i>
+                            <mat-select [compareWith]="compareFnCorporate" formControlName="corporate_view" multiple>
+                                <mat-option *ngFor="let corporate of corporateList" [value]="corporate.corporate_name">{{corporate.corporate_name}}</mat-option>
+                            </mat-select> 
+                        </mat-form-field>
+                    </div> 
+                </div>
             </div>
-            
+           
+
             <div class="d-flex justify-content-center" *ngIf="isLoading">
                 <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
             </div>

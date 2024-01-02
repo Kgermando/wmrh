@@ -52,6 +52,9 @@ export class FonctionComponent implements OnInit {
       next: (user) => {
         this.currentUser = user; 
         this.route.params.subscribe(routeParams => { 
+          this.fonctionService.refreshDataList$.subscribe(() => {
+            this.loadData(routeParams['id']);
+          })
           this.loadData(routeParams['id']);
         });
       },
@@ -66,8 +69,10 @@ export class FonctionComponent implements OnInit {
     this.isLoadingCorporate = true;
     this.corporateService.get(Number(id)).subscribe(res => {
       this.corporate = res;
-      this.fonctionList = this.corporate.fonctions;
-      this.isLoadingCorporate = false;
+      this.fonctionService.findGetAll(this.corporate.id).subscribe((v) => {
+        this.fonctionList = v;
+        this.isLoadingCorporate = false;
+      });
     });
   }
 
@@ -89,7 +94,7 @@ export class FonctionComponent implements OnInit {
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!');
-            window.location.reload();
+            // window.location.reload();
           },
           error: (err) => {
             this.isLoading = false;

@@ -8,6 +8,10 @@ import { Observable } from 'rxjs';
 })
 export class PersonnelService extends ApiService {
   endpoint: string = `${environment.apiURL}/personnels`;
+ 
+  getPersennelByCorporate(id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-personnel-corporate/${id}`);
+  }
 
   getMatricule(matricule: any): Observable<any> {
     return this.http.get(`${this.endpoint}/get-matricule/${matricule}`);

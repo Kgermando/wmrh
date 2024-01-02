@@ -16,14 +16,14 @@
             </button>
     </mat-card-header>
     <mat-card-content>
-        <form class="search-box position-relative">
+        <div class="search-box position-relative">
             <input type="text" class="input-search d-block" 
                 placeholder="Search here.."
-                (keyup)="applyFilter($event)">
+                [(ngModel)]="searchText">
             <button type="submit"><i class="ri-search-line"></i></button>
-        </form>
-        <ul class="file-manager-sidebar ps-0 mb-0"> 
-            <li *ngFor="let item of horaireFilterList; index as i">
+        </div>
+        <ul class="file-manager-sidebar ps-0 mb-0" *ngIf="(horaireList | filter: searchText).length > 0; else noResults"> 
+            <li *ngFor="let item of horaireList | filter: searchText; index as i">
                 <a [routerLink]="['/layouts/presences', corporate.id, 'horaires', item.id, 'calendar']"
                     class="fw-semibold position-relative" 
                     routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -33,5 +33,8 @@
                 </a>
             </li>
         </ul>
+        <ng-template #noResults>
+            <p>Aucun resultat "{{searchText}}".</p>
+        </ng-template>
     </mat-card-content>
 </mat-card>

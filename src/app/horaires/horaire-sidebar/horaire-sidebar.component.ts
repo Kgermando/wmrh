@@ -7,8 +7,9 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HoraireService } from '../horaire.service';
+import { CorporateService } from 'src/app/preferences/corporates/corporate.service';
 
 @Component({
   selector: 'app-horaire-sidebar',
@@ -16,38 +17,39 @@ import { HoraireService } from '../horaire.service';
   styleUrls: ['./horaire-sidebar.component.scss']
 })
 export class HoraireSidebarComponent implements OnInit {
-  @Input('corporate') corporate: CorporateModel;
-  @Input('horaireList') horaireList: HoraireModel[] = [];
+  @Input() corporate: CorporateModel;
 
-  horaireFilterList: HoraireModel[] = [];
+  isLoading = false;
 
-  currentUser: PersonnelModel | any;
+  horaireList: HoraireModel[] = [];
+  searchText: string;
 
   constructor(
     public themeService: CustomizerSettingsService,
-    private router: Router,
-      private authService: AuthService,
+    private route: ActivatedRoute,
+    private corporateService: CorporateService,
+      private horaireService: HoraireService,
     public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
-    this.authService.user().subscribe({
-      next: (user) => {
-        this.currentUser = user; 
-        this.horaireFilterList = [...this.horaireList]; 
-      },
-      error: (error) => {
-        this.router.navigate(['/auth/login']);
-        console.log(error);
-      }
-    }); 
-    
+    this.route.params.subscribe(routeParams => {  
+      this.horaireService.refreshDataList$.subscribe(() => {
+        this.loadData(routeParams['id']);
+      });
+      this.loadData(routeParams['id']);
+    });
   }
 
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value; 
-    this.horaireFilterList = [...this.horaireList.filter(horaire => horaire.name_horaire.includes(filterValue.trim().toLowerCase()))];
+  public loadData(id: any): void {
+    this.isLoading = true;
+    this.corporateService.get(Number(id)).subscribe(res => {
+      this.corporate = res;
+      this.horaireService.getAllHoraireByCorporate(this.corporate.id).subscribe(horaires => {
+        this.horaireList = horaires; 
+        this.isLoading = false;
+      });
+    });
   }
 
   openAddEventDialog(enterAnimationDuration: string, exitAnimationDuration: string, corporate: any): void {
@@ -135,9 +137,7 @@ export class HoraireAddDialogBox implements OnInit {
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!');
-            window.location.reload();
-            // this.close();
-            // this.router.navigate(['/layouts/presences', this.data.corporate.id, 'horaires', res.is, 'calendar']);
+            this.close();
           },
           error: (err) => {
             this.isLoading = false;
@@ -153,7 +153,7 @@ export class HoraireAddDialogBox implements OnInit {
   }
 
   close(){
-      this.dialogRef.close(true);
+    this.dialogRef.close(true);
   } 
 
   capitalizeText(text: string): string {

@@ -470,9 +470,9 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="tagus-form-group">
-                                <label class="d-block mb-12 fw-semibold gray-color">Acreditation Entreprise</label>
+                                <label class="d-block mb-12 fw-semibold gray-color">Acreditation corporate</label>
                                 <mat-form-field appearance="fill">
-                                    <mat-label>Select acreditation entreprise</mat-label>
+                                    <mat-label>Select acreditation corporate</mat-label>
                                     <i class="ri-list-check"></i>
                                     <mat-select [compareWith]="compareFnCorporate" formControlName="corporate_view" multiple>
                                         <mat-option *ngFor="let corporate of corporateList" [value]="corporate.corporate_name">{{corporate.corporate_name}}</mat-option>

@@ -1,9 +1,8 @@
-
-
-.date_horaire_List {
-    height: 50% !important;
+.wraps {
+    height: 500px !important;
+    flex-wrap: wrap;
+    overflow-x: auto;
 }
-
 
 .personal-info-card {
     p {
@@ -11,14 +10,14 @@
     }
     .list {
         list-style-type: none;
-        margin-top: 10px;
+        margin-top: 20px;
 
         li {
             font-size: 14px;
             border-bottom: 1px solid #F7FAFF;
             padding: {
-                top: 5px;
-                bottom: 5px;
+                top: 11px;
+                bottom: 11px;
             };
             span {
                 &:nth-child(1) {
@@ -50,13 +49,13 @@
             font-size: 13.5px;
         }
         .list {
-            margin-top: 5px;
+            margin-top: 15px;
     
             li {
                 font-size: 13.5px;
                 padding: {
-                    top: 5;
-                    bottom: 5;
+                    top: 10px;
+                    bottom: 10px;
                 };
                 span {
                     &:nth-child(1) {
@@ -79,8 +78,8 @@
             li {
                 font-size: var(--fontSize);
                 padding: {
-                    top: 5px;
-                    bottom: 5px;
+                    top: 15px;
+                    bottom: 15px;
                 };
                 span {
                     &:nth-child(1) {
@@ -92,5 +91,3 @@
     }
 
 }
-
- 

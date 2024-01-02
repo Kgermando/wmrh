@@ -51,6 +51,9 @@ export class DepartementsComponent implements OnInit {
       next: (user) => {
         this.currentUser = user; 
         this.route.params.subscribe(routeParams => { 
+          this.departementService.refreshDataList$.subscribe(() => {
+            this.loadData(routeParams['id']);
+          })
           this.loadData(routeParams['id']);
         });
       },
@@ -67,8 +70,10 @@ export class DepartementsComponent implements OnInit {
     this.isLoadingCorporate = true;
     this.corporateService.get(Number(id)).subscribe(res => {
       this.corporate = res;
-      this.departmentList = this.corporate.departements;
-      this.isLoadingCorporate = false;
+      this.departementService.findGetAll(this.corporate.id).subscribe((v) => {
+        this.departmentList = v;
+        this.isLoadingCorporate = false;
+      });
     });
   }
 
@@ -91,7 +96,7 @@ export class DepartementsComponent implements OnInit {
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!'); 
-            window.location.reload();
+            // window.location.reload();
           },
           error: (err) => {
             this.isLoading = false;

@@ -38,12 +38,20 @@ export class SidebarComponent {
         Auth.userEmitter.subscribe(
             user => {
               this.currentUser = user;
-              this.corporateService.allGetNavigation(this.currentUser.code_entreprise).subscribe(res => {
-                this.corporateList = res; 
-                this.loading = false;
-              });
+              this.corporateService.refreshDataList$.subscribe(() => {
+                this.allGetNavigation(this.currentUser.code_entreprise);
+              })
+              this.allGetNavigation(this.currentUser.code_entreprise); 
+              console.log('code_entreprise', this.currentUser.code_entreprise)
             }
         );
+    }
+
+    allGetNavigation(code_entreprise: string) {
+        this.corporateService.allGetNavigation(code_entreprise).subscribe(res => {
+            this.corporateList = res;
+            this.loading = false;
+        });
     }
 
     toggle() {

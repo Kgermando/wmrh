@@ -5,16 +5,15 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { HoraireService } from '../horaire.service';
 import { ToastrService } from 'ngx-toastr';
-import { PersonnelService } from 'src/app/personnels/personnel.service';
-import { formatDate } from '@angular/common';
+import { PersonnelService } from 'src/app/personnels/personnel.service'; 
 import { HoraireModel } from '../models/horaire.model';
 
 @Component({
-  selector: 'app-horaire-add',
-  templateUrl: './horaire-add.component.html',
-  styleUrls: ['./horaire-add.component.scss']
+  selector: 'app-horaire-edit',
+  templateUrl: './horaire-edit.component.html',
+  styleUrls: ['./horaire-edit.component.scss']
 })
-export class HoraireAddComponent implements OnInit {
+export class HoraireEditComponent implements OnInit {
   isLoading: boolean = false; 
   currentUser: PersonnelModel | any; 
   horaire: HoraireModel;
@@ -49,11 +48,7 @@ export class HoraireAddComponent implements OnInit {
     private horairervice: HoraireService, 
     private toastr: ToastrService) {}
 
-
-    // """"""""""""""""""""""""""""""""""""""""""""""""
-    // Ne pas oublier Ajouter 'DESC' dans l'api de l'horaire
-    // """"""""""""""""""""""""""""""""""""""""""""""""""""""
-
+ 
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['horaire_id']; 
@@ -273,6 +268,7 @@ export class HoraireAddComponent implements OnInit {
       console.log(error);
     }
   }
+  
   onSubmit3() {
     try {
       this.isLoading = true;

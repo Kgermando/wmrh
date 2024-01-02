@@ -58,36 +58,26 @@ export class PersonnelListComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => { 
+      this.personnelService.refreshDataList$.subscribe(() => {
+        this.loadData(routeParams['id']);
+      })
       this.loadData(routeParams['id']);
-    });  
-      
-  }
-
+    });
+  } 
 
   public loadData(id: any): void {
     this.isLoading = true;
     this.corporateService.get(Number(id)).subscribe(res => {
-      this.corporate = res;
-      this.ELEMENT_DATA = this.corporate.personnels;
-      this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.isLoading = false;
+      this.corporate = res; 
+      this.personnelService.getPersennelByCorporate(this.corporate.id).subscribe((personnels) => {
+        this.ELEMENT_DATA = personnels;
+        this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.isLoading = false;
+      });
     });
-  }
-
-  // public loadDadta(id: any) {
-  //   this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-  //     this.ELEMENT_DATA = res; 
-  //     this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-  //     this.dataSource.sort = this.sort;
-  //     this.dataSource.paginator = this.paginator;
-
-  //     this.entrepriseService.getCodeEntreprise(this.currentUser.code_entreprise).subscribe(e => {
-  //       this.entreprise = e;
-  //     });
-  // });
-  // }
+  } 
  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -203,7 +193,7 @@ export class PersonnelUploadCSVDialogBox {
       }
     });
   } 
-
+ 
 
   close(){
       this.dialogRef.close(true);

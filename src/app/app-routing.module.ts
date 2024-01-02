@@ -101,7 +101,6 @@ import { MesBulletinsComponent } from './salaires/mes-bulletins/mes-bulletins.co
 import { AbonnementAdminViewComponent } from './admin/abonnement-admin/abonnement-admin-view/abonnement-admin-view.component';
 import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/profil-presences-view/profil-presences-view.component';
 import { HorairesComponent } from './horaires/horaires.component';
-import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.component';
 import { IndemnitesComponent } from './salaires/indemnites/indemnites.component';
 import { CorbeilComponent } from './corbeil/corbeil.component';
 import { CorbeilViewComponent } from './corbeil/corbeil-view/corbeil-view.component';
@@ -112,6 +111,8 @@ import { CorporateViewComponent } from './preferences/corporates/corporate-view/
 import { HoraireComponent } from './horaires/horaire/horaire.component';
 import { IndemniteEditComponent } from './salaires/indemnites/indemnite-edit/indemnite-edit.component';
 import { IndemniteViewComponent } from './salaires/indemnites/indemnite-view/indemnite-view.component';
+import { HoraireEditComponent } from './horaires/horaire-edit/horaire-edit.component';
+import { PersonnelAddAdminComponent } from './personnels/personnel-add-admin/personnel-add-admin.component';
  
 
 const routes: Routes = [
@@ -125,10 +126,11 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [dashboardGuard] },
     { path: 'profile', component: ProfileComponent },
     { path: 'reset-password', component: ResetPasswordComponent, canActivate: [dashboardGuard]},
-    { path: 'personnels/:id/personnel-list', component: PersonnelListComponent, canActivate: [personnelsGuard] },
-    { path: 'personnels/:id/personnel-add', component: PersonnelAddComponent, canActivate: [personnelsGuard] },
-    { path: 'personnels/:id/personnel-edit', component: PersonnelEditComponent, canActivate: [personnelsGuard] },
-    { path: 'personnels/:id/personnel-view', component: PersonnelViewComponent , canActivate: [personnelsGuard]},
+    { path: 'personnels/:id/personnel-list', component: PersonnelListComponent, canActivate: [personnelsGuard]},
+    { path: 'personnels/:id/personnel-add', component: PersonnelAddComponent, canActivate: [personnelsGuard]},
+    { path: 'personnels/:id/personnel-edit', component: PersonnelEditComponent, canActivate: [personnelsGuard]},
+    { path: 'personnels/:id/personnel-view', component: PersonnelViewComponent, canActivate: [personnelsGuard]},
+    { path: 'personnels/personnel-add/admin', component: PersonnelAddAdminComponent, canActivate: [personnelsGuard]},
     { path: 'personnels/syndicats', component: SyndicatsComponent, canActivate: [syndicatGuard] },
     { path: 'personnels/syndicats/:id/view', component: SyndicatViewComponent, canActivate: [syndicatGuard] },
     { path: 'personnels/hors-usages', component: CorbeilComponent, canActivate: [personnelsGuard] },
@@ -154,9 +156,9 @@ const routes: Routes = [
     { path: 'presences/:id/heures-supp', component: HeuresSuppComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/heures-supp/:id/detail', component: HeureSuppDetailComponent, canActivate: [heureSuppGuard] },
     { path: 'presences/pointage-profil/:matricule/detail', component: ProfilPresencesViewComponent }, // C'est le lien du profil, donc pas de guard
-    { path: 'presences/:id/horaires', component: HorairesComponent, children: [
+    { path: 'presences/:id/horaires', component: HorairesComponent, children: [ 
       { path: ':horaire_id/calendar', component: HoraireComponent},
-      { path: ':horaire_id/horaire-edit', component: HoraireAddComponent},
+      { path: ':horaire_id/horaire-edit', component: HoraireEditComponent },
     ], canActivate: [horaireGuard]},
     { path: 'recrutements/postes', component: PostesComponent, canActivate: [postesGuard] },
     { path: 'recrutements/postes/poste-add', component: PosteAddComponent, canActivate: [postesGuard] },

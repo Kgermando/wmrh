@@ -53,9 +53,12 @@ export class SiteLocationComponent implements OnInit{
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user; 
-        this.route.params.subscribe(routeParams => { 
+        this.route.params.subscribe(routeParams => {  
+          this.siteLocationService.refreshDataList$.subscribe(() => {
+            this.loadData(routeParams['id']);
+          });
           this.loadData(routeParams['id']);
-        });
+        }); 
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -70,8 +73,10 @@ export class SiteLocationComponent implements OnInit{
     this.isLoadingCorporate = true;
     this.corporateService.get(Number(id)).subscribe(res => {
       this.corporate = res;
-      this.siteLocationList = this.corporate.site_locations;
-      this.isLoadingCorporate = false;
+      this.siteLocationService.findGetAll(this.corporate.id).subscribe((v) => {
+        this.siteLocationList = v;
+        this.isLoadingCorporate = false;
+      });
     });
   }
 
@@ -96,7 +101,7 @@ export class SiteLocationComponent implements OnInit{
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!');
-            window.location.reload();
+            // window.location.reload();
           },
           error: (err) => {
             this.isLoading = false;

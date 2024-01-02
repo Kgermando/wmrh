@@ -173,8 +173,7 @@ import { ProfilPerformanceComponent } from './auth/profile/profil-performance/pr
 import { ProfilAvancesSalaireComponent } from './auth/profile/profil-avances-salaire/profil-avances-salaire.component';
 import { ProfilPresencesViewComponent } from './auth/profile/profil-presences/profil-presences-view/profil-presences-view.component';
 import { ClasseurFilterDispComponent } from './salaires/classeur-filter-disp/classeur-filter-disp.component';
-import { HorairesComponent } from './horaires/horaires.component'; 
-import { HoraireAddComponent } from './horaires/horaire-add/horaire-add.component'; 
+import { HorairesComponent } from './horaires/horaires.component';
 import { HoraireViewComponent } from './horaires/horaire-view/horaire-view.component';
 import { IndemnitesComponent } from './salaires/indemnites/indemnites.component'; 
 import { CorbeilComponent } from './corbeil/corbeil.component';
@@ -188,8 +187,14 @@ import { HoraireAddDialogBox, HoraireSidebarComponent } from './horaires/horaire
 import { IndemniteEditComponent } from './salaires/indemnites/indemnite-edit/indemnite-edit.component';
 import { IndemniteViewComponent } from './salaires/indemnites/indemnite-view/indemnite-view.component';
 import { EditIndemniteDialogBox, IdemniteContentComponent } from './salaires/indemnites/idemnite-content/idemnite-content.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { HoraireEditComponent } from './horaires/horaire-edit/horaire-edit.component';
+import { ShiftOneComponent } from './horaires/horaire/shift-one/shift-one.component';
+import { ShiftTreeComponent } from './horaires/horaire/shift-tree/shift-tree.component';
+import { ShiftTwoComponent } from './horaires/horaire/shift-two/shift-two.component';
+import { PersonnelAddAdminComponent } from './personnels/personnel-add-admin/personnel-add-admin.component';
 
-
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -350,8 +355,7 @@ import { EditIndemniteDialogBox, IdemniteContentComponent } from './salaires/ind
     ProfilPerformanceComponent,
     ProfilAvancesSalaireComponent,
     ProfilPresencesViewComponent, 
-    ClasseurFilterDispComponent, 
-    HoraireAddComponent, 
+    ClasseurFilterDispComponent,
     HorairesComponent, 
     HoraireViewComponent, 
     IndemnitesComponent,
@@ -372,7 +376,13 @@ import { EditIndemniteDialogBox, IdemniteContentComponent } from './salaires/ind
     IndemniteEditComponent,
     IndemniteViewComponent,
     IdemniteContentComponent,
-    EditIndemniteDialogBox
+    EditIndemniteDialogBox,
+    FilterPipe,
+    HoraireEditComponent,
+    ShiftOneComponent,
+    ShiftTreeComponent,
+    ShiftTwoComponent,
+    PersonnelAddAdminComponent,
   ],
   imports: [
     BrowserModule,

@@ -97,21 +97,24 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     var date = new Date();
+    const yesteday = new Date(date);
     var tomorrow = new Date(date);
-    tomorrow.setDate(date.getDate()+1);
-    // tomorrow.toLocaleDateString();
+
+    yesteday.setDate(date.getDate()-29)
+    tomorrow.setDate(date.getDate()+1); 
+
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
         this.corporateService.allGetNavigation(this.currentUser.code_entreprise).subscribe(value => {
           this.corporateList = value;
-          console.log('corporate', this.corporateList);
           this.corporate = value[0];
           if (this.start_date == undefined && this.end_date == undefined) {
-            this.start_date = formatDate(new Date('2023-08-01'), 'yyyy-MM-dd', 'en-US');
+            this.start_date = formatDate(firstDay, 'yyyy-MM-dd', 'en-US');
             this.end_date = formatDate(tomorrow, 'yyyy-MM-dd', 'en-US');
-            this.getTotalEmployE(this.corporate, this.start_date, this.end_date);
-            // console.log('date + 1', this.end_date);
+            this.getTotalEmployE(this.corporate); 
           } 
         });
       },
@@ -123,7 +126,7 @@ export class DashboardComponent {
 
     this.dateRange = this._formBuilder.group({
       corporate: new FormControl(this.corporate),
-      start: new FormControl(new Date('2023-08-01')),
+      start: new FormControl(firstDay),
       end: new FormControl(tomorrow),
       categorie: new FormControl('All')
     });
@@ -145,10 +148,10 @@ export class DashboardComponent {
 
       if(body.categorie === 'All') {
         this.isSelectCategory = 'All'; 
-        this.getTotalEmployE(this.corporate, this.start_date, this.end_date);
+        this.getTotalEmployE(this.corporate);
       } else if (body.categorie === 'Employés') {
         this.isSelectCategory = 'Employés';
-        this.getTotalEmployE(this.corporate, this.start_date, this.end_date); 
+        this.getTotalEmployE(this.corporate); 
       } else if(body.categorie === 'Finances') {
         this.isSelectCategory = 'Finances';
         this.getTotalFinance(this.corporate, this.start_date, this.end_date);  
@@ -161,22 +164,22 @@ export class DashboardComponent {
     }
  
 
-    getTotalEmployE(corporate: CorporateModel, start_date: string, end_date: string) {
-      this.dashAllService.totalEnmployesAll(this.currentUser.code_entreprise, corporate.id, start_date, end_date).subscribe(
+    getTotalEmployE(corporate: CorporateModel) {
+      this.dashAllService.totalEnmployesAll(this.currentUser.code_entreprise, corporate.id).subscribe(
         res =>  {
             this.totalEmployeAllList = res;
             this.totalEmployeAllList.map((item: any) => this.totalEmployeAll = parseFloat(item.total));
         }
       ); 
 
-      this.dashAllService.totalEnmployeFemmeAll(this.currentUser.code_entreprise, corporate.id, start_date, end_date).subscribe(
+      this.dashAllService.totalEnmployeFemmeAll(this.currentUser.code_entreprise, corporate.id).subscribe(
         res =>  {
           this.totalEmployeFemmeAllList = res;
           this.totalEmployeFemmeAllList.map((item: any) => this.totalEmployeFemmeAll = parseFloat(item.total));
         }
       );
 
-      this.dashAllService.totalEnmployeHommeAll(this.currentUser.code_entreprise, corporate.id, start_date, end_date).subscribe(
+      this.dashAllService.totalEnmployeHommeAll(this.currentUser.code_entreprise, corporate.id).subscribe(
         res =>  {
           this.totalEmployeHommeAllList = res;
             this.totalEmployeHommeAllList.map((item: any) => this.totalEmployeHommeAll = parseFloat(item.total));

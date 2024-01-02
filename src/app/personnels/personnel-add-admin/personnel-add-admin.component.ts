@@ -8,18 +8,20 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoriepersonnelDataList } from 'src/app/shared/tools/categorie_personnel'; 
 import { CorporateService } from 'src/app/preferences/corporates/corporate.service';
 import { CorporateModel } from 'src/app/preferences/corporates/models/corporate.model';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
-  selector: 'app-personnel-add',
-  templateUrl: './personnel-add.component.html',
-  styleUrls: ['./personnel-add.component.scss']
+  selector: 'app-personnel-add-admin',
+  templateUrl: './personnel-add-admin.component.html',
+  styleUrls: ['./personnel-add-admin.component.scss']
 })
-export class PersonnelAddComponent implements OnInit {
+export class PersonnelAddAdminComponent implements OnInit {
   isLoading: boolean = false; 
   formGroup!: FormGroup;
 
   currentUser: PersonnelModel | any; 
 
+  corporateList: CorporateModel[] = [];
   corporate: CorporateModel;
  
   sexeList: string[] = [
@@ -43,11 +45,9 @@ export class PersonnelAddComponent implements OnInit {
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user; 
-        this.route.params.subscribe(routeParams => {  
-          this.corporateService.get(Number(routeParams['id'])).subscribe(res => {
-            this.corporate = res;
-          });
-        });
+        this.corporateService.allGetNavigation(this.currentUser.code_entreprise).subscribe(res => {
+          this.corporateList = res;
+      });
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -65,9 +65,15 @@ export class PersonnelAddComponent implements OnInit {
       adresse: ['', Validators.required],
       matricule: ['', Validators.required],  
       category: ['', Validators.required], 
+      corporates: ['', Validators.required], 
+      corporate_view: ['', Validators.required],
     });
   }
 
+  public onChange(event: MatSelectChange) {
+    this.corporate = event.value; 
+    console.log('corporate', this.corporate);
+  }
 
   onSubmit() {
     try {
@@ -75,7 +81,7 @@ export class PersonnelAddComponent implements OnInit {
         this.isLoading = true;
         var codeEntreprise = this.corporate.code_corporate;
         var mat = this.formGroup.value.matricule;
-        var identifiant = `${mat}-${codeEntreprise}`;
+        var identifiant = `${mat}-${codeEntreprise}`; 
         var body = {
           nom: this.capitalizeText(this.formGroup.value.nom),
           postnom: this.capitalizeText(this.formGroup.value.postnom),
@@ -87,12 +93,13 @@ export class PersonnelAddComponent implements OnInit {
           matricule: identifiant.toLowerCase(),  
           category: this.formGroup.value.category,
           statut_paie: 'En attente',
+          corporate_view: this.formGroup.value.corporate_view,
           signature: this.currentUser.matricule, 
           created: new Date(),
           update_created: new Date(),
           corporates: this.corporate.id,
           entreprise: this.corporate.corporate_name,
-          code_entreprise: this.corporate.code_corporate
+          code_entreprise: this.corporate.code_corporate // Use corporate because is Admin is submited
         };
         this.personnelService.create(body).subscribe({
           next: () => {
@@ -119,4 +126,7 @@ export class PersonnelAddComponent implements OnInit {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 
+  compareFnCorporate(c1: CorporateModel, c2: CorporateModel): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
 }

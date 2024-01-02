@@ -51,6 +51,9 @@ export class ServicesComponent implements OnInit {
       next: (user) => {
         this.currentUser = user; 
         this.route.params.subscribe(routeParams => { 
+          this.serviceService.refreshDataList$.subscribe(() => {
+            this.loadData(routeParams['id']);
+          })
           this.loadData(routeParams['id']);
         });
       },
@@ -65,8 +68,10 @@ export class ServicesComponent implements OnInit {
     this.isLoadingCorporate = true;
     this.corporateService.get(Number(id)).subscribe(res => {
       this.corporate = res;
-      this.serviceList = this.corporate.services;
-      this.isLoadingCorporate = false;
+      this.serviceService.findGetAll(this.corporate.id).subscribe((v) => {
+        this.serviceList = v;
+        this.isLoadingCorporate = false;
+      });
     });
   }
 
@@ -89,7 +94,7 @@ export class ServicesComponent implements OnInit {
             this.isLoading = false;
             this.formGroup.reset();
             this.toastr.success('Success!', 'Ajouté avec succès!'); 
-            window.location.reload();
+            // window.location.reload();
           },
           error: (err) => {
             this.isLoading = false;
