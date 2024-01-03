@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { IndeminteModel } from '../models/indemnite.model';
+import { IndemniteModel } from '../models/indemnite.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IdemniteContentService } from '../idemnite-content.service';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,7 @@ import { PersonnelModel } from 'src/app/personnels/models/personnel-model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { IndemniteContentModel } from '../models/indemnite-content.model';
 
 @Component({
   selector: 'app-idemnite-content',
@@ -14,13 +15,14 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./idemnite-content.component.scss']
 })
 export class IdemniteContentComponent implements OnInit {
-  @Input('indemnite') indemnite: IndeminteModel;
+  @Input('indemnite') indemnite: IndemniteModel;
   @Input('currentUser') currentUser: PersonnelModel;
 
   formContentGroup: FormGroup;
 
   isLoadingContent = false;
  
+  idemniteContentList: IndemniteContentModel[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -54,8 +56,8 @@ export class IdemniteContentComponent implements OnInit {
           next: () => {
             this.isLoadingContent = false;
             this.formContentGroup.reset();
-            window.location.reload();
-            // this.toastr.success('Ajouter avec succès!', 'Success!'); 
+            // this.indemnite.content ;
+            // window.location.reload(); 
           },
           error: (err) => {
             this.isLoadingContent = false;
@@ -84,14 +86,10 @@ export class IdemniteContentComponent implements OnInit {
     }
   }
 
-
-
   capitalizeText(text: string): string {
     return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
   }
 }
-
-
 
 
 @Component({
@@ -152,7 +150,8 @@ export class EditIndemniteDialogBox implements OnInit{
         next: () => {
           this.isLoadingContent = false;
           this.toastr.success('Modification effectuée!', 'Success!');
-          window.location.reload(); 
+          this.close();
+          // window.location.reload();
         },
         error: err => {
           console.log(err);

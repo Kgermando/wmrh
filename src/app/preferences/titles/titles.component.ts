@@ -120,8 +120,7 @@ export class TitlesComponent implements OnInit{
         .delete(id)
         .subscribe({
           next: () => {
-            this.toastr.info('Success!', 'Supprimé avec succès!');
-            window.location.reload();
+            this.toastr.info('Success!', 'Supprimé avec succès!'); 
           },
           error: err => {
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
@@ -204,8 +203,8 @@ export class EditTitleDialogBox implements OnInit{
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.toastr.success('Modification enregistré!', 'Success!');
-          window.location.reload(); 
+          this.toastr.success('Modification enregistré!', 'Success!'); 
+          this.close();
         },
         error: err => {
           console.log(err);

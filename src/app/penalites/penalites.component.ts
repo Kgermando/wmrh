@@ -8,8 +8,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr'; 
-import { AuthService } from 'src/app/auth/auth.service';
-import { PersonnelService } from 'src/app/personnels/personnel.service'; 
+import { AuthService } from 'src/app/auth/auth.service'; 
 import { PersonnelModel } from 'src/app/personnels/models/personnel-model'; 
 import { CustomizerSettingsService } from 'src/app/customizer-settings/customizer-settings.service';
 import { PenaliteModel } from './models/penalite-model';
@@ -42,7 +41,8 @@ export class PenalitesComponent implements OnInit {
       public themeService: CustomizerSettingsService,
       private router: Router, 
       private route: ActivatedRoute,
-      private corporateService: CorporateService,  
+      private corporateService: CorporateService,
+      private penaliteService: PenaliteService,
       public dialog: MatDialog,
   ) {
   } 
@@ -55,41 +55,25 @@ export class PenalitesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator; 
 
   ngOnInit() { 
-        this.isLoading = true;
-        this.route.params.subscribe(routeParams => { 
-          this.loadData(routeParams['id']);
-        });
-        // this.authService.user().subscribe({
-        //     next: (user) => {
-        //         this.currentUser = user;
-        //         this.penaliteService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-        //           this.ELEMENT_DATA = res; 
-        //           this.dataSource = new MatTableDataSource<PenaliteModel>(this.ELEMENT_DATA);
-        //           this.dataSource.sort = this.sort;
-        //           this.dataSource.paginator = this.paginator;
-        //         });
-        //         this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-        //           this.preference = res;
-        //         });
-        //       this.isLoading = false;  
-        //     },
-        //     error: (error) => {
-        //       this.isLoading = false;
-        //       this.router.navigate(['/auth/login']);
-        //       console.log(error);
-        //     }
-        // });
-    }
+    this.route.params.subscribe(routeParams => { 
+      this.penaliteService.refreshDataList$.subscribe(() => {
+        this.loadData(routeParams['id']);
+      })
+      this.loadData(routeParams['id']);
+    });
+  }
 
     public loadData(id: any): void {
       this.isLoading = true;
-      this.corporateService.get(Number(id)).subscribe(res => {
+      this.corporateService.getOne(Number(id)).subscribe(res => {
         this.corporate = res;
-        this.ELEMENT_DATA = this.corporate.penalites;  
-        this.dataSource = new MatTableDataSource<PenaliteModel>(this.ELEMENT_DATA);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.isLoading = false;
+        this.penaliteService.getAllByCorporate(this.corporate.id).subscribe((penalites) => {
+          this.ELEMENT_DATA = penalites;  
+          this.dataSource = new MatTableDataSource<PenaliteModel>(this.ELEMENT_DATA);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.isLoading = false;
+        });
       });
     }
 

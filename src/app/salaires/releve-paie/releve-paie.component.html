@@ -99,7 +99,11 @@
                 </table> 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <table class="table"> 
+
+                <div class="d-flex justify-content-center" *ngIf="isLoad">
+                    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-5">Patientez-svp...</p>
+                </div>
+                <table class="table" *ngIf="!isLoad"> 
                     <tbody> 
                         <tr>
                             <td class="text-start">
@@ -199,7 +203,10 @@
                 <th class="fw-semibold gray-color">Banque</th>
             </tr>
         </thead>
-        <tbody>
+        <div class="d-flex justify-content-center" *ngIf="isLoad">
+            <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-5">Patientez-svp...</p>
+        </div> 
+        <tbody *ngIf="!isLoad">
             <tr *ngFor="let item of releveList; index as i">
                 <td class="gray-color fw-semibold">
                     {{ i + 1 }}

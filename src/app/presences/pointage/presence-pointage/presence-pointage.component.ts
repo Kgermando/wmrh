@@ -11,7 +11,8 @@ import { PresenceService } from 'src/app/presences/presence.service';
   styleUrls: ['./presence-pointage.component.scss']
 })
 export class PresencePointageComponent implements OnInit{
-  @Input('item') item: PersonnelModel;
+  @Input() item: PersonnelModel;
+  @Input() code_entreprise: string;
 
   presenceList: ApointementModel[] = [];
   presenceFilterDate: ApointementModel[] = [];
@@ -34,7 +35,8 @@ export class PresencePointageComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.presenceService.getLastItem(this.item.code_entreprise, this.item.matricule).subscribe(
+    console.log('code_entreprise', this.code_entreprise);
+    this.presenceService.getLastItem(this.code_entreprise, this.item.matricule).subscribe(
       res => {
         this.presenceList = res; 
         this.presence = this.presenceList[0];

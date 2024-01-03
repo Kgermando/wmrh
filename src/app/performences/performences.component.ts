@@ -11,6 +11,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';  
 import { CorporateModel } from '../preferences/corporates/models/corporate.model';
 import { CorporateService } from '../preferences/corporates/corporate.service';
+import { PersonnelService } from '../personnels/personnel.service';
 
 @Component({
   selector: 'app-performences',
@@ -37,7 +38,8 @@ export class PerformencesComponent implements OnInit {
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService, 
       private route: ActivatedRoute,
-      private corporateService: CorporateService,   
+      private corporateService: CorporateService,
+      private personnelService: PersonnelService,   
       public dialog: MatDialog,
   ) {} 
 
@@ -49,40 +51,26 @@ export class PerformencesComponent implements OnInit {
 
   ngOnInit() { 
     this.route.params.subscribe(routeParams => { 
+      this.personnelService.refreshDataList$.subscribe(() => {
+        this.loadData(routeParams['id']);
+      })
       this.loadData(routeParams['id']);
-    }); 
-
-        // this.isLoading = true;
-        // this.authService.user().subscribe({
-        //     next: (user) => {
-        //         this.currentUser = user;
-        //         this.personnelService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-        //           this.ELEMENT_DATA = res; 
-        //           this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-        //           this.dataSource.sort = this.sort;
-        //           this.dataSource.paginator = this.paginator; 
-        //       });
-        //         this.isLoading = false;
-        //     },
-        //     error: (error) => {
-        //       this.isLoading = false;
-        //       this.router.navigate(['/auth/login']);
-        //       console.log(error);
-        //     }
-        //   });  
-    }
-
+    });
+  }
+ 
     public loadData(id: any): void {
       this.isLoading = true;
-      this.corporateService.get(Number(id)).subscribe(res => {
-        this.corporate = res;
-        this.ELEMENT_DATA = this.corporate.personnels;  
-        this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.isLoading = false;
+      this.corporateService.getOne(Number(id)).subscribe(res => {
+        this.corporate = res; 
+        this.personnelService.getPersennelByCorporate(this.corporate.id).subscribe((personnels) => {
+          this.ELEMENT_DATA = personnels;
+          this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.isLoading = false;
+        });
       });
-    }
+    } 
 
  
   applyFilter(event: Event) {

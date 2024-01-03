@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service'; 
 import { ReglageService } from 'src/app/preferences/reglages/reglage.service';
 import { IndemniteService } from '../indemnite.service';
-import { IndeminteModel } from '../models/indemnite.model';
+import { IndemniteModel } from '../models/indemnite.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 export class IndemniteViewComponent implements OnInit {
   isLoading = false;
 
-  indemnite: IndeminteModel;
+  indemnite: IndemniteModel;
   
   preference: PreferenceModel;
 
@@ -40,6 +40,7 @@ export class IndemniteViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    this.isLoading = true;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -66,6 +67,7 @@ export class IndemniteViewComponent implements OnInit {
               }
             }
           });
+          this.isLoading = false;
         });
       },
       error: (error) => {

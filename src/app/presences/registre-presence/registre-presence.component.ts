@@ -268,7 +268,7 @@ export class RegistrePresenceComponent implements OnInit {
   templateUrl: './presence-upload-csv.html',
 })
 export class PresenceUploadCSVDialogBox {
-  isLoading = false; 
+  isLoading = false;
 
   constructor( 
       public dialogRef: MatDialogRef<PresenceUploadCSVDialogBox>, 
@@ -276,6 +276,7 @@ export class PresenceUploadCSVDialogBox {
       private presenceService: PresenceService,
   ) {}
 
+  
 
   upload(event: Event) {
     this.isLoading = true;

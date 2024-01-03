@@ -7,29 +7,26 @@
             <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                 <mat-card class="mb-25 tagus-card"> 
                     <mat-card-header> 
-                        <h4 class="mb-0 text-center">
-                            <input class="form-control" 
-                                type="text"
-                                aria-label="Sizing example input" 
-                                aria-describedby="inputGroup-sizing-sm"
-                                formControlName="intitule">
-                        </h4>
-                        <div> 
-                            <button mat-icon-button color="primary" 
+                        <input class="form-control" style="width: 300px !important;"
+                            type="text"
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-lg"
+                            formControlName="intitule">
+                        <div>
+                            <a mat-icon-button color="primary" 
                                     (click)="openDialog()">
                                 <mat-icon>calculate</mat-icon>
-                            </button>
-                            <button mat-icon-button class="tagus" (click)="openPDF()" matTooltip="Imprimer ce document">
+                            </a>
+                            <a mat-icon-button class="tagus" (click)="openPDF()" matTooltip="Imprimer ce document">
                                 <mat-icon>print</mat-icon>
-                            </button>
-                            <button mat-icon-button color="warn" 
+                            </a>
+                            <a mat-icon-button color="warn" 
                                 (click)="delete(indemnite.id)" matTooltip="Supprimer cette fiche d'indemnité">
                                 <mat-icon>delete</mat-icon>
-                            </button> 
+                            </a> 
                         </div>
                     </mat-card-header>
                     <mat-card-content class="example-buttons">
-                        
                         <div class="d-flex flex-nowrap mb-25 align-items-center justify-content-space-between">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <table class="table"> 
@@ -138,18 +135,17 @@
                         <mat-divider></mat-divider>
                         <ul class="list ps-0 mb-0 mt-25">
                             <li class="fontSize">
-                                COMPOSER ICI LA FICHE D'INDEMNITE
+                                COMPOSER LA FICHE...
                             </li>
-                        </ul>  
-
-                        <table class="table mb-25" *ngIf="indemnite.content">
+                        </ul>
+                        <table class="table mb-25">
                             <tbody>
-                                <tr *ngFor="let item of indemnite.content">
+                                <tr *ngFor="let item of idemniteContentList">
                                     <td class="text-start">
                                         {{item.nom}}:
                                     </td>
                                     <td class="gray-color text-end mr-5">
-                                        {{item.montant}} {{ monnaie }}
+                                        {{item.montant | numberFormat:'fr-FR'}} {{ monnaie }}
                                         <a mat-icon-button color="accent" (click)="openEditDialog('300ms', '100ms', item.id)" 
                                           matTooltip="Modifier">
                                             <mat-icon>edit</mat-icon>
@@ -160,7 +156,7 @@
                                     </td>
                                 </tr> 
                             </tbody>
-                        </table>
+                        </table> 
                         <app-idemnite-content [indemnite]="indemnite" [currentUser]="currentUser"></app-idemnite-content>
                         <ul class="list ps-0 mb-0 mt-25"> 
                             <li class="fw-semibold net_a_payer d-flex align-items-center justify-content-space-between">
@@ -192,4 +188,3 @@
     
     </div>
 </div>
-

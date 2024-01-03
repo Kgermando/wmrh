@@ -12,5 +12,8 @@ export class CorporateService extends ApiService {
   allGetNavigation(code_entreprise: string): Observable<any> {
     return this.http.get(`${this.endpoint}/get-all-navigation/${code_entreprise}`);
   }
- 
+
+  getOne(id: number): Observable<any> {
+    return this.http.get(`${this.endpoint}/get-one/${id}`);
+  }
 }

@@ -112,6 +112,7 @@ export class PerformenceAddDialogBox implements OnInit {
 
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authService.user().subscribe({
       next: (user) => {
         this.currentUser = user;
@@ -209,7 +210,7 @@ export class PerformenceAddDialogBox implements OnInit {
   }
 
   close(){
-      this.dialogRef.close(true);
+    this.dialogRef.close(true);
   } 
 
 }

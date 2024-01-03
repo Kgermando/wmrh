@@ -104,8 +104,7 @@ export class FichePaieComponent implements OnInit {
     }
 
 
-    ngOnInit(): void {
-      this.isLoading = true;
+    ngOnInit(): void { 
       this.formGroup = this._formBuilder.group({
         alloc_logement: ['', Validators.required],
         alloc_transport: ['', Validators.required],
@@ -129,6 +128,7 @@ export class FichePaieComponent implements OnInit {
         statut: this.isPublie ? 'Disponible' : 'Traitement',  
       });
 
+      this.isLoading = true;
       this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user;
@@ -193,13 +193,10 @@ export class FichePaieComponent implements OnInit {
                 code_entreprise: this.currentUser.code_entreprise
               });
             });
-
             
-
             this.onChanges();
-           
-          });
-          this.isLoading = false;
+            this.isLoading = false;
+          }); 
         },
         error: (error) => {
           this.isLoading = false;

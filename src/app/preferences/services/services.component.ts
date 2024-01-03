@@ -68,6 +68,7 @@ export class ServicesComponent implements OnInit {
     this.isLoadingCorporate = true;
     this.corporateService.get(Number(id)).subscribe(res => {
       this.corporate = res;
+      console.log('personnels', this.corporate.personnels)
       this.serviceService.findGetAll(this.corporate.id).subscribe((v) => {
         this.serviceList = v;
         this.isLoadingCorporate = false;
@@ -116,8 +117,7 @@ export class ServicesComponent implements OnInit {
         .delete(id)
         .subscribe({
           next: () => {
-            this.toastr.info('Success!', 'Supprimé avec succès!');
-            window.location.reload();
+            this.toastr.info('Success!', 'Supprimé avec succès!'); 
           },
           error: err => {
             this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
@@ -202,8 +202,8 @@ export class EditServiceDialogBox implements OnInit{
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.toastr.success('Modification enregistré!', 'Success!');
-          window.location.reload(); 
+          this.toastr.success('Modification enregistré!', 'Success!'); 
+          this.close();
         },
         error: err => {
           console.log(err);

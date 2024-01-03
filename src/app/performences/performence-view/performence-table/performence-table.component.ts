@@ -45,6 +45,7 @@ export class PerformenceTableComponent implements OnInit{
     private authService: AuthService,
     private toastr: ToastrService,
     private personnelService: PersonnelService,
+    private performenceService: PerformenceService,
     public dialog: MatDialog
 ) {}
 
@@ -73,9 +74,7 @@ export class PerformenceTableComponent implements OnInit{
 toggleTheme() {
   this.themeService.toggleTheme();
 }
-
-
-
+ 
 
 applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -107,7 +106,7 @@ applyFilter(event: Event) {
 
   delete(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) {
-      this.personnelService
+      this.performenceService
         .delete(id)
         .subscribe({
           next: () => {

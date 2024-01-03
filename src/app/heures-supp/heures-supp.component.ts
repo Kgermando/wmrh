@@ -42,6 +42,7 @@ export class HeuresSuppComponent implements OnInit {
       private router: Router, 
       private route: ActivatedRoute,
       private corporateService: CorporateService,
+      private heureSuppService: HeureSuppService,
       public dialog: MatDialog,
   ) {} 
   toggleTheme() {
@@ -51,37 +52,24 @@ export class HeuresSuppComponent implements OnInit {
 
   ngOnInit() { 
     this.route.params.subscribe(routeParams => { 
+      this.heureSuppService.refreshDataList$.subscribe(() => {
+        this.loadData(routeParams['id']);
+      })
       this.loadData(routeParams['id']);
-    }); 
-    // this.isLoading = true;
-    // this.authService.user().subscribe({
-    //     next: (user) => {
-    //         this.currentUser = user;
-    //         this.heureSuppService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-    //           this.ELEMENT_DATA = res; 
-    //           this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
-    //           this.dataSource.sort = this.sort;
-    //           this.dataSource.paginator = this.paginator; 
-    //       }); 
-    //       this.isLoading = false;
-    //     },
-    //     error: (error) => {
-    //       this.isLoading = false;
-    //       this.router.navigate(['/auth/login']);
-    //       console.log(error);
-    //     }
-    //   });
-    }
+    });
+  }
 
   public loadData(id: any): void {
     this.isLoading = true;
-    this.corporateService.get(Number(id)).subscribe(res => {
+    this.corporateService.getOne(Number(id)).subscribe(res => {
       this.corporate = res;
-      this.ELEMENT_DATA = this.corporate.heures_supp; 
-      this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator; 
-      this.isLoading = false;
+      this.heureSuppService.getAllByCorporate(this.corporate.id).subscribe((heures_supp) => {
+        this.ELEMENT_DATA = heures_supp; 
+        this.dataSource = new MatTableDataSource<HeureSuppModel>(this.ELEMENT_DATA);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator; 
+        this.isLoading = false;
+      });
     });
   }
  

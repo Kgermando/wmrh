@@ -1,13 +1,12 @@
-
-
 <div class="d-flex justify-content-center" *ngIf="isLoadingCorporate">
     <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
 </div>
+
 <div
     class="row justify-content-center"
     [class.component-dark-theme]="themeService.isDark()" 
     *ngIf="!isLoadingCorporate"
-> 
+>
     <div class="col-lg-5 col-xl-4 col-md-12">
         <mat-card class="mb-25 tacking-box tagus-card">
             <mat-card-header class="border-bottom">
@@ -74,25 +73,40 @@
                                     </a>
                                 </td>
                                 <td class="gray-color">{{item.signature}}</td>
-                                <td class="gray-color" *ngIf="corporate.personnels.length == 0">
+                                <td class="gray-color"*ngIf="item.personnels">
                                     <button mat-icon-button color="primary" 
                                     (click)="openEditDialog('300ms', '100ms', item.id)"
-                                    *ngIf="currentUser.permission === 'U' || 
+                                            *ngIf="currentUser.permission === 'U' || 
                                                 currentUser.permission === 'RU' ||
                                                 currentUser.permission === 'CRU' ||
                                                 currentUser.permission === 'RUD' ||
-                                                currentUser.permission === 'CRUD'" matTooltip="Modifier ce document">
+                                                currentUser.permission === 'CRUD'" 
+                                                matTooltip="Modifier">
                                         <mat-icon>edit</mat-icon>
                                     </button>
-                                    <button mat-icon-button color="accent"
-                                        (click)="delete(item.id)"
-                                        *ngIf="currentUser.permission === 'D' || 
-                                        currentUser.permission === 'RD' ||
-                                        currentUser.permission === 'RUD' || 
-                                        currentUser.permission === 'CRUD'" matTooltip="Supprimer ce document">
+                                </td> 
+                                <td class="gray-color"*ngIf="!item.personnels">
+                                    <button mat-icon-button color="primary" 
+                                        (click)="openEditDialog('300ms', '100ms', item.id)"
+                                            *ngIf="currentUser.permission === 'U' || 
+                                                currentUser.permission === 'RU' ||
+                                                currentUser.permission === 'CRU' ||
+                                                currentUser.permission === 'RUD' ||
+                                                currentUser.permission === 'CRUD'" 
+                                                matTooltip="Modifier">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="accent" 
+                                            (click)="delete(item.id)"
+                                            *ngIf="currentUser.permission === 'D' || 
+                                            currentUser.permission === 'RD' ||
+                                            currentUser.permission === 'RUD' || 
+                                            currentUser.permission === 'CRUD'"
+                                            matTooltip="Supprimer ce document"
+                                        >
                                         <mat-icon>delete</mat-icon>
                                     </button>
-                                </td>
+                                </td> 
                             </tr> 
                         </tbody>
                     </table>

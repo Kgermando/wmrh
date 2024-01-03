@@ -2,7 +2,7 @@ import { PersonnelModel } from "src/app/personnels/models/personnel-model";
 import { CorporateModel } from "src/app/preferences/corporates/models/corporate.model";
 import { IndemniteContentModel } from "./indemnite-content.model";
 
-export interface IndeminteModel {
+export interface IndemniteModel {
     id: number;
     corporate: CorporateModel;
     personnel: PersonnelModel;

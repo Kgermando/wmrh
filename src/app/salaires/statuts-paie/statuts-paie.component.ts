@@ -33,6 +33,7 @@ export class StatutsPaieComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator; 
 
   isLoading = false;
+  isLoad = false;
   currentUser: PersonnelModel | any;
 
   classerList: any[] = [];
@@ -87,16 +88,18 @@ export class StatutsPaieComponent implements OnInit {
 
 
   onChangeCorporate(event: any) {
+    this.isLoad = true;
     this.corporate = event.value; 
     this.salaireService.classer(this.currentUser.code_entreprise, this.corporate.id).subscribe(classer => {
       this.classerList = classer;
-      this.isLoading = false;
+      this.isLoad = false;
     });
 
     console.log('corporate', this.corporate);
   }
 
   onChangeClasser(event: any) {
+    this.isLoad = true;
     var month = event.value.month;
     var year = event.value.year;
     this.salaireService.statutPaie(
@@ -106,6 +109,7 @@ export class StatutsPaieComponent implements OnInit {
         this.dataSource = new MatTableDataSource<ReleveSalaireModel>(this.ELEMENT_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator; 
+        this.isLoad = false;
       }
     ); 
     // this.onFilter(); 

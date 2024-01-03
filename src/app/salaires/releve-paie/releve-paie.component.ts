@@ -22,6 +22,7 @@ export class RelevePaieComponent implements OnInit {
   releveList: ReleveSalaireModel[] = [];
 
   isLoading = false;
+  isLoad = false;
   currentUser: PersonnelModel | any;
 
   corporateList: CorporateModel[] = []; 
@@ -89,18 +90,16 @@ export class RelevePaieComponent implements OnInit {
   }
 
   onChangeCorporate(event: any) {
+    this.isLoad = true;
     this.corporate = event.value; 
     this.salaireService.classerDisponible(this.currentUser.code_entreprise, this.corporate.id).subscribe(classer => {
       this.classerList = classer;
-      this.isLoading = false;
+      this.isLoad = false;
     });
-
-    console.log('corporate', this.corporate);
-
-    console.log('classerList', this.classerList);
   }
 
   onChangeClasser(event: any) {
+    this.isLoad = true;
     var month = event.value.month;
     var year = event.value.year; 
     this.salaireService.relevePaie(this.currentUser.code_entreprise, this.corporate.code_corporate, month, year).subscribe(res => {
@@ -155,6 +154,7 @@ export class RelevePaieComponent implements OnInit {
         }
       ); 
     });
+    this.isLoad = false;
   } 
  
 

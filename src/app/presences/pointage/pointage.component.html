@@ -13,26 +13,7 @@
                 Site: {{ currentUser.site_locations.site_location }}
             </p> -->
         </div>
-        <div class=""> 
-            <div class="d-md-flex align-items-center justify-content-end"> 
-                <mat-form-field style="height: 80px;" appearance="fill">
-                    <mat-label>Entreprise</mat-label>
-                    <mat-select (selectionChange)="onChange($event)">
-                        <mat-option *ngFor="let corporate of corporateList" [value]="corporate">
-                            {{corporate.corporate_name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <div class="box"></div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Site de travail</mat-label>
-                    <mat-select (selectionChange)="onChangeSiteLocation($event)">
-                        <mat-option *ngFor="let siteLocation of siteLocationList" [value]="siteLocation">
-                            {{siteLocation.site_location}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
+        <div class="">  
             <div class="flex-wrap d-flex align-items-center justify-content-end">
                 
                 <a routerLink="/layouts/presences/registre-presences">
@@ -98,7 +79,8 @@
                                 <span class="d-block muted-color">{{ item.prenom }} {{ item.nom }}</span>
                             </div>
                         </div>
-                        <app-presence-pointage [item]="item"></app-presence-pointage>
+                        <app-presence-pointage [item]="item" [code_entreprise]="this.currentUser.code_entreprise">
+                        </app-presence-pointage>
                     </div>
                 </a>
             </div>

@@ -43,7 +43,7 @@ export class HoraireSidebarComponent implements OnInit {
 
   public loadData(id: any): void {
     this.isLoading = true;
-    this.corporateService.get(Number(id)).subscribe(res => {
+    this.corporateService.getOne(Number(id)).subscribe(res => {
       this.corporate = res;
       this.horaireService.getAllHoraireByCorporate(this.corporate.id).subscribe(horaires => {
         this.horaireList = horaires; 
@@ -55,7 +55,6 @@ export class HoraireSidebarComponent implements OnInit {
   openAddEventDialog(enterAnimationDuration: string, exitAnimationDuration: string, corporate: any): void {
     this.dialog.open(HoraireAddDialogBox, {
       width: '600px',
-      height: '100%',
       enterAnimationDuration,
       exitAnimationDuration,
       data: {

@@ -63,43 +63,26 @@ export class PrimesComponent implements OnInit {
 
   ngOnInit() { 
     this.route.params.subscribe(routeParams => { 
+      this.primeService.refreshDataList$.subscribe(() => {
+        this.loadData(routeParams['id']);
+      })
       this.loadData(routeParams['id']);
-    }); 
-        // this.isLoading = true;
-        // this.authService.user().subscribe({
-        //   next: (user) => {
-        //       this.currentUser = user;
-        //       this.primeService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-        //         this.ELEMENT_DATA = res; 
-        //         this.dataSource = new MatTableDataSource<PrimeModel>(this.ELEMENT_DATA);
-        //         this.dataSource.sort = this.sort;
-        //         this.dataSource.paginator = this.paginator; 
-        //     });
-        //       this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-        //         this.preference = res; 
-        //       });
-        //     this.isLoading = false;
-        //   },
-        //   error: (error) => {
-        //     this.isLoading = false;
-        //     this.router.navigate(['/auth/login']);
-        //     console.log(error);
-        //   }
-        // }); 
-        
-    }
+    });
+  }
 
-    public loadData(id: any): void {
-      this.isLoading = true;
-      this.corporateService.get(Number(id)).subscribe(res => {
-        this.corporate = res;
-        this.ELEMENT_DATA = this.corporate.primes;  
+  public loadData(id: any): void {
+    this.isLoading = true;
+    this.corporateService.getOne(Number(id)).subscribe(res => {
+      this.corporate = res;
+      this.primeService.getAllByCorporate(this.corporate.id).subscribe((primes) => {
+        this.ELEMENT_DATA = primes;  
         this.dataSource = new MatTableDataSource<PrimeModel>(this.ELEMENT_DATA);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.isLoading = false;
       });
-    }
+    });
+  }
  
   applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;

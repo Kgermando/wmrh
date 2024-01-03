@@ -150,7 +150,7 @@ const routes: Routes = [
     { path: 'preferences/corporates', component: CorporateComponent, canActivate: [entrepriseGuard]},
     { path: 'preferences/corporates/:id/detail', component: CorporateViewComponent, canActivate: [entrepriseGuard]},
 
-    { path: 'presences/pointage', component: PointageComponent, canActivate: [pointagesGuard] },
+    { path: 'presences/:id/pointage', component: PointageComponent, canActivate: [pointagesGuard] },
     { path: 'presences/pointage/:matricule', component: PointageViewComponent, canActivate: [pointagesGuard] },
     { path: 'presences/registre-presences', component: RegistrePresenceComponent, canActivate: [registrePresenceGuard] }, 
     { path: 'presences/:id/heures-supp', component: HeuresSuppComponent, canActivate: [heureSuppGuard] },

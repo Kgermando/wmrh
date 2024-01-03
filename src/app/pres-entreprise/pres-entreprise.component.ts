@@ -47,6 +47,7 @@ export class PresEntrepriseComponent implements OnInit {
       private router: Router, 
       private route: ActivatedRoute,
       private corporateService: CorporateService,
+      private presEntrepriseService: PresEntrepriseService,
       public dialog: MatDialog,
   ) {}
 
@@ -56,42 +57,24 @@ export class PresEntrepriseComponent implements OnInit {
 
   ngOnInit() { 
     this.route.params.subscribe(routeParams => { 
+      this.presEntrepriseService.refreshDataList$.subscribe(() => {
+        this.loadData(routeParams['id']);
+      })
       this.loadData(routeParams['id']);
-    }); 
-        // this.isLoading = true;
-        // this.authService.user().subscribe({
-        //     next: (user) => {
-        //         this.currentUser = user;
-        //         this.presEntrepriseService.getAll(this.currentUser.code_entreprise).subscribe(res => {
-        //           this.ELEMENT_DATA = res; 
-        //           this.dataSource = new MatTableDataSource<PresEntrepriseModel>(this.ELEMENT_DATA);
-        //           this.dataSource.sort = this.sort;
-        //           this.dataSource.paginator = this.paginator; 
-        //       });
-        //       this.reglageService.preference(this.currentUser.code_entreprise).subscribe(res => {
-        //         this.preference = res; 
-        //       });
-        //       this.isLoading = false;
-        //     },
-        //     error: (error) => {
-        //       this.isLoading = false;
-        //       this.router.navigate(['/auth/login']);
-        //       console.log(error);
-        //     }
-        //   }); 
-        
-    }
+    });
+  }
 
     public loadData(id: any): void {
       this.isLoading = true;
-      this.corporateService.get(Number(id)).subscribe(res => {
+      this.corporateService.getOne(Number(id)).subscribe(res => {
         this.corporate = res;
-        console.log('corporate', this.corporate)
-        this.ELEMENT_DATA = this.corporate.pres_entreprises;  
-        this.dataSource = new MatTableDataSource<PresEntrepriseModel>(this.ELEMENT_DATA);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.isLoading = false;
+        this.presEntrepriseService.getAllByCorporate(this.corporate.id).subscribe((pres_entreprises) => {
+          this.ELEMENT_DATA = pres_entreprises;  
+          this.dataSource = new MatTableDataSource<PresEntrepriseModel>(this.ELEMENT_DATA);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.isLoading = false;
+        }); 
       });
     }
 

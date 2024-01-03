@@ -30,11 +30,11 @@
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/salaires/indemnites/traitement',element.id, 'indemnite-paie']" 
                                 *ngIf="element.statut == 'Traitement'">
-                                {{element.personnel.matricule.toUpperCase()}}
+                                {{element.matricule.toUpperCase()}}
                         </a>
                         <a [routerLink]="['/layouts/salaires/indemnites/disponible',element.id, 'indemnite-paie']" 
                                                     *ngIf="element.statut == 'Disponible'">
-                            {{element.personnel.matricule.toUpperCase()}}
+                            {{element.matricule.toUpperCase()}}
                         </a> 
                     </td>
                 </ng-container>
@@ -43,11 +43,11 @@
                     <td mat-cell *matCellDef="let element">
                         <a [routerLink]="['/layouts/salaires/indemnites/traitement',element.id, 'indemnite-paie']"
                                 *ngIf="element.statut == 'Traitement'">
-                                {{element.personnel.nom}} {{element.personnel.postnom}} {{element.personnel.prenom}}
+                                {{element.nom}} {{element.postnom}} {{element.prenom}}
                         </a>
                         <a [routerLink]="['/layouts/salaires/indemnites/disponible',element.id, 'indemnite-paie']" 
                                                     *ngIf="element.statut == 'Disponible'">
-                            {{element.personnel.nom}} {{element.personnel.postnom}} {{element.personnel.prenom}}
+                            {{element.nom}} {{element.postnom}} {{element.prenom}}
                         </a>
                     </td>
                 </ng-container>

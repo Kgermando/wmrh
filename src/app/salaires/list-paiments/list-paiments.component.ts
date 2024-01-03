@@ -52,46 +52,39 @@ export class ListPaimentsComponent implements OnInit {
 
 
   ngOnInit(): void {
-   
     this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user;
-          this.route.params.subscribe(routeParams => {
+          this.route.params.subscribe(routeParams => { 
+            this.personnelService.refreshDataList$.subscribe(() => {
+              this.loadData(routeParams['id'], this.currentUser.code_entreprise);
+            });
             this.loadData(routeParams['id'], this.currentUser.code_entreprise);
-          }); 
-      
-          // this.personnelService.resetStatutPaieAll(this.currentUser.code_entreprise).subscribe(() => {
-          //   this.personnelService.getAll(this.currentUser.code_entreprise)
-          //   .subscribe(res => {
-          //       this.personnelFilter = res;
-          //       this.ELEMENT_DATA = this.personnelFilter.filter(v => 
-          //           parseFloat(v.salaire_base) > 0 && v.statut_paie == 'En attente');
-          //       this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-          //       this.dataSource.sort = this.sort;
-          //       this.dataSource.paginator = this.paginator;  
-          //       this.isLoading = false;
-          //   });
-          // });
+          });
         },
         error: (error) => {
           this.isLoading = false;
           this.router.navigate(['/auth/login']);
           console.log(error);
         } 
-      }); 
+      }
+    ); 
   }
 
   public loadData(id: any, code_entreprise: string): void {
     this.isLoading = true;
-    this.corporateService.get(Number(id)).subscribe(res => {
+    this.corporateService.getOne(Number(id)).subscribe(res => {
       this.corporate = res;
       this.personnelService.resetStatutPaieAll(code_entreprise, this.corporate.id).subscribe(() => {
-        this.personnelFilter = this.corporate.personnels; 
-        this.ELEMENT_DATA = this.personnelFilter.filter(v => parseFloat(v.salaire_base) > 0 && v.statut_paie === 'En attente');
-        this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator; 
-        this.isLoading = false;
+        this.personnelService.getPersennelByCorporate(this.corporate.id).subscribe((personnels) => {
+          this.personnelFilter = personnels; 
+          console.log('personnelFilter', this.personnelFilter)
+          this.ELEMENT_DATA = this.personnelFilter.filter(v => parseFloat(v.salaire_base) > 0 && v.statut_paie === 'En attente');
+          this.dataSource = new MatTableDataSource<PersonnelModel>(this.ELEMENT_DATA);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator; 
+          this.isLoading = false;
+        });
       });
     });
   }
