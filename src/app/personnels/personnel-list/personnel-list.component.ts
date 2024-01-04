@@ -35,6 +35,9 @@ export class PersonnelListComponent implements OnInit {
 
 
   isLoading = false;
+
+  isLoadModel = false;
+
   currentUser: PersonnelModel | any;
   corporate: CorporateModel;
   
@@ -45,6 +48,8 @@ export class PersonnelListComponent implements OnInit {
       private _liveAnnouncer: LiveAnnouncer,
       public themeService: CustomizerSettingsService,
       private route: ActivatedRoute,
+      private authService: AuthService,
+    private router: Router,
       private corporateService: CorporateService,
       private personnelService: PersonnelService, 
       public dialog: MatDialog,
@@ -58,12 +63,22 @@ export class PersonnelListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.route.params.subscribe(routeParams => { 
-      this.personnelService.refreshDataList$.subscribe(() => {
-        this.loadData(routeParams['id']);
-      })
-      this.loadData(routeParams['id']);
+    this.authService.user().subscribe({
+      next: (user) => {
+        this.currentUser = user; 
+        this.route.params.subscribe(routeParams => { 
+          this.personnelService.refreshDataList$.subscribe(() => {
+            this.loadData(routeParams['id']);
+          })
+          this.loadData(routeParams['id']);
+        });
+      },
+      error: (error) => {
+        this.router.navigate(['/auth/login']);
+        console.log(error);
+      }
     });
+   
   } 
 
   public loadData(id: any): void {
@@ -112,27 +127,28 @@ export class PersonnelListComponent implements OnInit {
     }); 
   }
 
-  downloadModelReport() {
+  downloadModelReport() { 
     try {
-      this.isLoading = true;
+      this.isLoadModel = true; 
       this.personnelService.downloadModelReport(this.currentUser.code_entreprise).subscribe({
       next: (res) => {
-        this.isLoading = false; 
         const downloadUrl = window.URL.createObjectURL(res);
         const link = document.createElement('a');
         link.href = downloadUrl;
         link.download = `Votre_model_employes.xlsx`;
         link.click(); 
-        this.toastr.info('Extraction effectuée!', 'Info!'); 
+        this.toastr.info('Extraction effectuée!', 'Info!');
+        this.isLoadModel = false;
       },
       error: (err) => {
-        this.isLoading = false;
+        this.isLoadModel = false;
         this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
-        console.log(err); 
+        console.log(err);
       }
     });
     } catch (error) {
-      
+      this.isLoadModel = false;
+      this.toastr.error('Une erreur s\'est produite!', 'Oupss!');
     }
   }
 
@@ -195,7 +211,8 @@ export class PersonnelUploadCSVDialogBox implements OnInit {
         header: true, 
         delimiter: ';',
         dynamicTyping: true,
-        skipEmptyLines: true, 
+        encoding: 'utf-8',
+        skipEmptyLines: true,
         step: (row) => {
           this.personnel = row.data;
           var codeEntreprise = this.personnel.corporates.code_corporate;
@@ -288,7 +305,7 @@ export class PersonnelExportXLSXDialogBox implements OnInit {
   ngOnInit(): void {
     this.authService.user().subscribe({
       next: (user) => {
-          this.currentUser = user; 
+        this.currentUser = user;
       },
       error: (error) => {
         this.router.navigate(['/auth/login']);
@@ -297,10 +314,9 @@ export class PersonnelExportXLSXDialogBox implements OnInit {
     }); 
   }
 
-  
 
   onSubmit() {
-    this.isLoading = true; 
+    this.isLoading = true;
     var dateNow = new Date();
     var dateNowFormat = formatDate(dateNow, 'dd-MM-yyyy_HH:mm', 'en-US');
     var start_date = formatDate(this.dateRange.value.start, 'yyyy-MM-dd', 'en-US');

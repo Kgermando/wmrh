@@ -5,14 +5,17 @@
 
 <mat-card class="mb-25 tagus-card" 
 [class.component-dark-theme]="themeService.isDark()"
-*ngIf="!isLoading">
+*ngIf="!isLoading && corporate">
     <mat-card-header>
-        <div *ngIf="corporate">
+        <div>
             <h6 class="mb-0">{{corporate.corporate_name}}</h6>
             <h4 class="mb-0">Liste des Employés</h4>
             <span>TOTAL: {{ELEMENT_DATA.length}} / {{corporate.nbre_employe}}</span>
         </div>
-        <div>
+        <div class="d-flex justify-content-center" *ngIf="isLoadModel">
+            <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+        </div> 
+        <div *ngIf="!isLoadModel">
             <button mat-flat-button class="default-btn tagus m-0 margin"  
                 [routerLink]="['/layouts/personnels', corporate.id, 'personnel-add']">
                 <i class="ri-add-fill"></i> Ajouter un employé
@@ -23,15 +26,15 @@
             </button>
             <mat-menu #iconMenu="matMenu" class="dotMenu monthMenu" xPosition="before">
                 <button mat-menu-item type="button" (click)="downloadModelReport()"
-                class="bg-transparent border-none position-relative"> 
+                class="bg-transparent border-none position-relative" matTooltip="Model report"> 
                     <i class="ri-file-download-line"></i> Modèle
                 </button>
-                <button mat-menu-item type="button"
+                <button mat-menu-item type="button" matTooltip="Upload file"
                     class="bg-transparent border-none position-relative" 
                     (click)="openEditDialog('300ms', '100ms')">
                     <i class="ri-upload-2-line"></i> Importer
                 </button>
-                <button mat-menu-item type="button" 
+                <button mat-menu-item type="button"  matTooltip="Export report"
                 class="bg-transparent border-none position-relative"
                 (click)="openExportDialog('300ms', '100ms')">
                     <i class="ri-printer-line"></i>
