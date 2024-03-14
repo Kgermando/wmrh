@@ -36,7 +36,7 @@ export class ReglagesComponent implements OnInit {
       this.authService.user().subscribe({
         next: (user) => {
           this.currentUser = user; 
-          this.reglageService.refreshData$.subscribe(() => {
+          this.reglageService.refreshDataReglage$.subscribe(() => {
             this.getData(this.currentUser.code_entreprise);
           });
           this.getData(this.currentUser.code_entreprise);
@@ -51,7 +51,7 @@ export class ReglagesComponent implements OnInit {
       });  
     }
 
-    private getData(code_entreprise: string) {
+    getData(code_entreprise: string) {
       this.reglageService.preference(code_entreprise).subscribe(res => {
         this.preference = res; 
       });
