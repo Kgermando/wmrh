@@ -1,0 +1,69 @@
+<div class="d-flex justify-content-center" *ngIf="isLoad">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+</div>
+
+<div *ngIf="!isLoading && poste">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-8 col-md-12">
+            <mat-card class="mb-25 create-project-card create tagus-card"> 
+                <mat-card-header class="border-bottom">  
+                    <div>
+                        <div class="d-flex justify-content-start align-items-center ">
+                            <img src="../../../../assets/img/logo-icon.png" alt="">
+                            <h4 class="mb-0">Candidature</h4>
+                        </div>
+                        <h4 class="mt-10">{{ poste.search_profil }}</h4>
+                    </div>
+                </mat-card-header>
+                <mat-card-content>
+                    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                        <div class="row"> 
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <label class="d-block mb-12 fw-semibold gray-color">Nom complet </label>
+                                <mat-form-field appearance="fill">
+                                    <i class="ri-edit-2-line"></i>
+                                    <mat-label>Full name</mat-label>
+                                    <input matInput type="text" id="full_name" formControlName="full_name" required>
+                                    <mat-error *ngIf="formGroup.controls['full_name'].hasError('required')">
+                                        Ce champs est obligatoire
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <label class="d-block mb-12 fw-semibold gray-color">Sexe </label>
+                                <mat-form-field appearance="fill">
+                                    <i class="ri-group-line"></i>
+                                    <mat-label>Select sexe</mat-label>
+                                    <mat-select formControlName="sexe">
+                                        <mat-option *ngFor="let sexe of sexeList" [value]="sexe">{{sexe}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="formGroup.controls['sexe'].hasError('required')">
+                                        Ce champs est obligatoire
+                                    </mat-error>
+                                </mat-form-field>
+                            </div> 
+                            <div class="col-12">
+                                <label class="d-block mb-12 fw-semibold gray-color">Attacher le CV scanner</label>
+                                <div class="input-group">
+                                  <input formControlName="scan_url" hidden class="form-control" name="scan_url">
+                                  <app-upload (uploadedUrl)="formGroup.patchValue({'scan_url': $event})"></app-upload> 
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="d-flex justify-content-center" *ngIf="isLoading">
+                            <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+                        </div>
+                        <div *ngIf="!isLoading">
+                            <div *ngIf="currentUser">
+                                <button mat-button type="submit" class="default-btn mt-25">
+                                    Soumettre
+                                </button>
+                            </div> 
+                        </div>
+                       
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div> 
+    </div>
+</div>

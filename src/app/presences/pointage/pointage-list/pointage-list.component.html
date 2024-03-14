@@ -1,0 +1,25 @@
+
+
+<div class="reports-table table-responsive mb-25">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="fw-semibold gray-color">Employé</th> 
+                <th class="fw-semibold gray-color" *ngFor="let date of dayList">{{ date | date: 'dd' }}</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of RegisterMonthList; index as i;">
+                <td class="gray-color fw-semibold">
+                    <a [routerLink]="['/layouts/presences/pointage', item.matricule]" 
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            {{ item.prenom }} {{ item.nom }}
+                    </a>
+                </td>
+                <td class="gray-color">
+                    <app-presence-pointage [matricule]="item.matricule"></app-presence-pointage> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

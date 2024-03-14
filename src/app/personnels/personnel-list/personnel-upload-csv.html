@@ -1,0 +1,37 @@
+
+<div class="create-dialog-box scrollable-dialog"> 
+    <div class="title d-flex align-items-center justify-content-space-between">
+        <h4 class="mb-0">Importation du fichier .CSV</h4>
+        <button class="close-btn bg-transparent p-0 border-none" (click)="close()"><i class="flaticon-close"></i></button>
+    </div>
+    <div class="d-flex justify-content-center p-25" *ngIf="isLoading">
+        <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+    </div>
+    <form>
+        <div class="row" *ngIf="!isLoading && pourcent < 100">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="tagus-form-group">
+                    <input type="file" class="upload" (change)="upload($event)" accept=".csv">
+                </div>
+            </div>
+        </div>
+        <div class="text-center mb-25">
+            <div *ngIf="pourcent" class="progress">
+                <div
+                  class="progress-bar progress-bar-info progress-bar-striped" 
+                  style="color: whitesmoke;"
+                  role="progressbar"
+                  attr.aria-valuenow="{{ pourcent }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  [ngStyle]="{ width: pourcent + '%', 'background-color': pourcent == 100 ? 'green' : 'blue' }"
+                >
+                  {{ pourcent }} %
+                </div>
+            </div>
+        </div> 
+        <div class="text-end mt-25" *ngIf="pourcent == 100">
+            <button type="button" class="gray" (click)="close()"><i class="ri-close-fill"></i> Fermer</button> 
+        </div>
+    </form> 
+</div>

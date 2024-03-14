@@ -1,0 +1,29 @@
+
+
+<!-- Payer ce mois N+1 -->
+<div *ngIf="preference.pris_en_compte_mois_plus_1">
+    <span class="badge text-soft-danger" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
+        {{ element.montant | numberFormat:'fr-FR' }} {{ element.monnaie }} <sup>+1</sup>
+    </span>
+    
+    <span class="badge text-soft-danger" *ngIf="!isMoisSuivantValid && isValid">
+        {{ element.montant | numberFormat:'fr-FR' }} {{ element.monnaie }}
+    </span>
+    
+    <span *ngIf="isMoisPrecedentValid && !isValid">
+       <del>{{ element.montant | numberFormat:'fr-FR' }} {{ element.monnaie }}</del> 
+    </span>
+</div>
+
+<!-- Payer le mois actuel -->
+<div *ngIf="!preference.pris_en_compte_mois_plus_1">
+    <span class="badge text-soft-danger" *ngIf="!isMoisPrecedent">
+        {{ element.montant | numberFormat:'fr-FR' }} {{ element.monnaie }}  
+    </span>
+    <span *ngIf="isMoisPrecedent">
+        <del>{{ element.montant | numberFormat:'fr-FR' }} {{ element.monnaie }}</del> 
+    </span>
+</div>
+ 
+
+

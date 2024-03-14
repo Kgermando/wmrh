@@ -1,0 +1,9 @@
+
+<div fxLayout="row" fxLayoutGap="25px" fxLayout.xs="column" fxLayoutGap.xs="0" fxLayout.sm="column" fxLayoutGap.sm="0">
+    <div fxFlex="23%" fxFlex.xl="20%" fxFlex.xs="100%" fxFlex.sm="100%" class="col">
+        <app-horaire-sidebar [horaireList]="horaireList"></app-horaire-sidebar>
+    </div>
+    <div fxFlex="77%" fxFlex.xl="80%" fxFlex.xs="100%" fxFlex.sm="100%" class="col">
+        <router-outlet></router-outlet>
+    </div>
+</div>

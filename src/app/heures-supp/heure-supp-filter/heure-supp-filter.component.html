@@ -1,0 +1,28 @@
+
+<!-- Payer ce mois N+1 -->
+<div *ngIf="preference.pris_en_compte_mois_plus_1">
+    <span class="badge text-soft-info" *ngIf="isMoisSuivantValid || isMoisSuivantANValid">
+        {{ element.nbr_heures }} H <sup>+1</sup>
+    </span>
+    
+    <span class="badge text-soft-info" *ngIf="!isMoisSuivantValid && isValid">
+        {{ element.nbr_heures }} H
+    </span>
+    
+    <span *ngIf="isMoisPrecedentValid && !isValid">
+       <del>{{ element.nbr_heures }} H</del> 
+    </span>
+</div>
+
+
+<!-- Payer le mois actuel -->
+<div *ngIf="!preference.pris_en_compte_mois_plus_1">
+    <span class="badge text-soft-info" *ngIf="!isMoisPrecedent">
+        {{ element.nbr_heures }} H
+    </span>
+    <span *ngIf="isMoisPrecedent">
+        <del> {{ element.nbr_heures }} H</del> 
+    </span>
+</div>
+
+

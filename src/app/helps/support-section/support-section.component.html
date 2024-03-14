@@ -1,0 +1,43 @@
+
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+</div>
+
+<div *ngIf="!isLoading && supportModule"> 
+    
+    <mat-card class="mb-25 pricing-box tagus-card" [class.component-dark-theme]="themeService.isDark()">
+        <mat-card-header class="border-bottom">
+            <h4 class="mb-0"><span class="gray-color fw-medium">Parcourir les rubriques du module</span> “{{ supportModule.module }}”</h4>
+            <div>
+                <button mat-icon-button color="primary" 
+                    (click)="add(supportModule.id)"
+                    matTooltip="Add documentation"
+                    class="mat-icon">
+                        <mat-icon>add_circle</mat-icon>
+                </button> 
+                <button mat-icon-button color="accent" 
+                    (click)="openEditDialog('300ms', '100ms', supportModule.id)"
+                        matTooltip="Modifier ce module"
+                        class="mat-icon">
+                        <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" 
+                        (click)="delete(supportModule.id)" 
+                        matTooltip="Supprimer ce module"
+                        class="mat-icon">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <ul class="ps-0 search-list mb-0 mt-0 list-unstyled">
+                <li class="border-radius" *ngFor="let item of supportSectionList">
+                    <a [routerLink]="['/layouts/helps/support', item.id, 'documentation']">
+                        <span class="fw-semibold d-block fs-16">{{ item.section }} </span>
+                    </a>  
+                </li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+</div>
+

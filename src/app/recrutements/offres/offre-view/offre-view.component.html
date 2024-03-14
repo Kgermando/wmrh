@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+    <mat-spinner color="warn" [diameter]="30"></mat-spinner> <p class="ml-2"> Patientez-svp...</p>
+</div>
+<div *ngIf="!isLoading && offre">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-8 col-md-12">
+            <mat-card class="mb-25 personal-info-card tagus-card" [class.component-dark-theme]="themeService.isDark()">
+                <mat-card-header class="border-bottom">
+                    <div class="d-flex justify-content-start align-items-center ">
+                        <img src="../../../../assets/img/logo-icon.png" alt="">
+                        <h4 class="mb-10">Recrutements</h4> 
+                    </div>
+                    <div>
+                        <button mat-flat-button class="default-btn tagus"
+                            [routerLink]="['/recrutements/offres', encryptedId, 'candidature-add']">
+                           <i class="ri-add-fill"></i> Postuler
+                       </button>
+                    </div>
+                </mat-card-header>
+                <mat-card-content>
+                    <ul class="list ps-0 mb-25">
+                        <li>
+                            <span class="fw-semibold d-inline-block">Statut: </span> 
+                            <span class="badge text-soft-success" *ngIf="offre.statut === 'Disponible'">Disponible</span>
+                            <span class="badge text-soft-danger" *ngIf="offre.statut === 'Cloturé'">Cloturé</span>
+                        </li>
+                        <li> 
+                            <span class="fw-semibold d-inline-block">Profil recherché: </span>
+                            <span class="gray-color">{{ offre.search_profil }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Type de contrat: </span>
+                            <span class="gray-color">{{ offre.type_contrat }}</span>
+                        </li> 
+                        <li>
+                            <span class="fw-semibold d-inline-block">Ajoutée le: </span>
+                            <span class="gray-color">{{ offre.created | date: 'dd/MM/yyyy  HH:mm:ss' }}</span>
+                        </li>
+                        <li>
+                            <span class="fw-semibold d-inline-block">Echéance: </span>
+                            <span class="gray-color">{{ offre.echeance | date: 'dd/MM/yyyy' }}</span>
+                        </li> 
+                    </ul>  
+
+                    <div [innerHTML]="offre.resume"></div>
+
+                </mat-card-content>
+            </mat-card> 
+ 
+        </div>
+         
+    </div>
+</div>
