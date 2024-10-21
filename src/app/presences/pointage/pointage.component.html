@@ -10,7 +10,8 @@
         <div>
             <h4 class="mb-0">Pointage</h4>
             <p class="position-relative" *ngIf="currentUser.site_locations">
-                Site: {{ currentUser.site_locations.site_location }}
+               <span *ngIf="currentUser.site_locations.site_location != 'All'"> Site: {{ currentUser.site_locations.site_location }} </span>
+               <span *ngIf="currentUser.site_locations.site_location == 'All'"> Accès total aux sites de travail </span>
             </p>
         </div>
         

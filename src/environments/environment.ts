@@ -10,4 +10,3 @@ export const environment = {
   privateKey: "EowHD96TortofOIEv_Idh2vidxh52GNSpnE-PYipqD0"
 };
 
-
