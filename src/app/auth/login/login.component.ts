@@ -53,7 +53,7 @@ export class LoginComponent {
             let user: PersonnelModel = res; 
             let roleList = JSON.stringify(user.roles);
             localStorage.removeItem('roles');
-            localStorage.setItem('roles', roleList); 
+            localStorage.setItem('roles', roleList);
             if (user.statut_personnel) {
               if (user.roles[0] === 'Dashboard') { 
                 this.router.navigate(['/layouts/dashboard']);  

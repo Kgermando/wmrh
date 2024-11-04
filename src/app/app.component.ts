@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'; 
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent{
+export class AppComponent {
   title = 'wmrh';
   // updateAvailable = false;
 
@@ -23,7 +23,7 @@ export class AppComponent{
   //     console.log('versionUpdates', event);
   //   });
   // }
- 
+
   // ngOnInit(): void {
   //   this.notifactionService.subscribeToNotifications();
   //   this.notifactionService.subscribeMessage();
